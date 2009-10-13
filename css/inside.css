@@ -1,0 +1,315 @@
+@import 'reset.css';
+
+/**********
+ * Banner *
+ **********/
+
+#header-image {
+    background-image:url('http://studentersamfundet.no/bilder/bannere/bannerindex-760.jpg');
+    height:120px;
+    margin:0;
+    padding:0;
+    text-indent:-9000px;
+}
+#header-image-wide {
+    background: url(http://studentersamfundet.no/bilder/bannere/bannerindex-1000.jpg);
+    height:150px;
+    margin:0;
+    padding:0;
+    text-indent:-9000px;
+}
+
+/***********************
+ * Overordnet struktur *
+ ***********************/
+
+.dns #content {
+    float:left;
+    width:604px;
+    margin:0 20px;
+    position:relative;
+    left:170px;
+}
+
+.dns .sidebar {
+    border:0 none;
+    padding-top:10px;
+    margin:0 !important;
+}
+
+.dns #left.sidebar {
+    float:left;
+    width:170px;
+    background:#ffffff;
+
+    position:relative;
+    left:-644px;
+}
+
+.dns #right.sidebar {
+    float:right;
+    width:186px;
+}
+
+.dns .content.sok #left.sidebar {
+	display:none;
+}
+ 
+#footer {
+    width:1000px;
+    border-top:1px solid #cccccc;
+    margin: 20px 0;
+    float:left;
+    clear:both;
+}
+
+.sidebar .column-element {
+    margin-bottom: 20px;
+    text-align:center;
+}
+
+/************************
+ * Underordnet struktur *
+ ************************/
+
+.forsidesak {
+    margin-bottom: 10px;
+    border-bottom: 1px solid #ccc;
+    overflow: hidden;
+}
+
+.forsidesak img {
+    float:right;
+}
+
+.sidebar #aapningstider td {
+    text-align:left;
+}
+
+/* Sok */
+
+#cse-search-results iframe {
+	width:604px;
+}
+
+/*************
+ * Typografi *
+ *************/
+
+/* Skrifttyper */
+
+p,td {
+    font-family: Verdana, Helvetica, Geneva, Arial, sans-serif;
+}
+
+/* Størrelser og slikt */
+
+.sidebar {
+    font-size: 0.7em;
+}
+
+h1, h1 a, .overskrift, .overskrift a {
+    font-size:22px;
+    font-weight:normal;
+    line-height:1.5em;
+}
+
+h2 {
+    font-size: 1.4em;
+}
+
+h2.jobb {
+    letter-spacing: 2px;
+    background: #EFE3B9;
+}
+
+h3, .mellomskrift {
+    color: #000033;
+    font-size: 16px;
+    font-weight: bold;
+    margin:0;
+}
+
+p,td {
+    color:#303030;
+    font-size:13px;
+    line-height:1.7em;
+}
+
+/* Avstander */
+
+p,td,ul {
+    margin-bottom: 1.3em;
+}
+
+li {
+    margin-left:20px;
+}
+
+/*************
+ * Annet/Rot *
+ *************/
+
+body {
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    line-height: normal;
+    background-color: #FFFFFF;
+    margin: 0px;
+}
+
+img {
+    border: none;
+}
+
+label {
+    font-weight: bold;
+}
+
+#meny-top a {
+    text-transform: uppercase;
+    color: #FFF;
+    font-size: 16px;
+}
+
+#meny-top a:hover {
+    color: #C32;
+    text-decoration: none;
+}
+
+#meny-top td {
+    text-align: center;
+    width: 150px;
+}
+
+tr#meny-top {
+    background: #616161;
+    color: #FFF;
+}
+
+div#meny-bunn {
+    background: #dddddd;
+    height: 22px;
+}
+
+#meny-bunn a {
+    font-weight: normal;
+    color: black;
+    margin: 0 3px;
+}
+
+th {
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 14px;
+}
+
+a {
+    text-decoration: none;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+a:link,
+a:active,
+a:visited {
+    color: #777;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+strong {
+    font-weight: bold;
+}
+
+.infoboks {
+    font-style: italic;
+    color:#999;
+}
+
+.meny_left {
+    float: left;
+    width: 150px;
+    height: auto;
+}
+
+.infobold {
+    font-style: italic;
+    font-weight: bold;
+    color: #000033;
+}
+
+.test {
+    float: right;
+    clear: both;
+}
+
+div.feed {
+    background: #fff8e0;
+    width: 136px;
+    border: 1px solid #EFE3B9;
+    margin: 0 0 10px 0;
+    text-align: left;
+}
+
+div.feed div {
+    padding: 2px;
+}
+
+.feed h3 {
+    font-size: 15px;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    letter-spacing: 1px;
+    background: #EFE3B9;
+}
+
+div.knapp {
+    margin-top: 10px;
+    height: 16px;
+}
+
+div.knapp a {
+    border: 1px solid black;
+    background: #EFE3B9;
+    padding: 1px 2px;
+}
+
+html body div.knapp a.rss {
+    border: none;
+    background: #FFF;
+}
+
+a#rss {
+    text-align: right;
+}
+
+tr.rss {
+    text-align: right;
+}
+
+/*
+td.column-element {
+border-bottom: 1px solid #FFF8E0;
+padding: 5px 0px;
+}
+ */
+
+.nyhetsbilder {
+    float: right;
+    margin: 0 5px 5px 10px;
+    border: 1px solid #DED2A8;
+}
+
+.nyhetsbilde {
+    margin-bottom: 15px;
+}
+
+.nyhetsbilde span {
+    display: block;
+    font-style: italic;
+    padding: 1px 3px;
+    max-width: 200px;
+}
