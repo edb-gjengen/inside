@@ -1,0 +1,526 @@
+/* =general
+*********************************************************************/
+
+html, body { 
+  margin: 0;
+  padding: 5px;
+  line-height: 1.5em;
+  font-family: arial, sans-serif;
+}
+
+img { 
+
+}
+
+p { 
+  margin: 0 0 5px 0;
+  padding: 0;
+}
+
+em { 
+  font-style: italic;
+}
+
+strong, p.strong { 
+  font-weight: bolder;
+}
+
+img { 
+  border: none;
+}
+
+/* =links
+*********************************************************************/
+
+a { 
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+  color: #00D;
+}
+
+a:hover { 
+  text-decoration: underline;
+}
+
+a:visited { 
+  color: #00D;
+}
+
+th a { 
+  color: #000;
+}
+
+th a:visited { 
+  color: #000;
+}
+
+.optionsMenu a, a.button  { 
+  border: 1px solid #CCC;
+  background: #DDD;
+  padding: 1px 5px;
+  margin: 3px 0;
+  letter-spacing: 1px;
+  color: #000;
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+a.read { 
+  font-weight: normal;
+}
+
+a.unread { 
+  font-weight: bold;
+}
+
+a.skip-nav { 
+}
+
+/* =lists
+*********************************************************************/
+
+ul { 
+
+}
+
+li { 
+
+}
+
+ul.linker, .linker li { 
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* =forms
+*********************************************************************/
+
+form { 
+  margin: 0;
+  padding: 0;
+}
+
+textarea, input { 
+  font-family: arial, sans-serif;
+  line-height: 1.2em;
+  font-size: 1em;
+}
+
+.readonly { 
+  background: inherit;
+  border: none;
+}
+
+fieldset { 
+  width: 90%;
+  max-width: 600px;
+  padding: 15px;
+  border: 3px solid #CCC;
+}
+
+fieldset label { 
+  font-weight: bold;
+}
+
+legend { 
+  font-weight: bold;
+  padding: 0 5px;
+  color: black;
+}
+
+fieldset input, fieldset select, fieldset textarea { 
+  margin: 0 15px;
+}
+
+input.submit { 
+  margin: 0px;
+  width: 100px;
+}
+
+div.horizontal-form { 
+  padding: 3px;
+  margin: 5px 0;
+  background: #EEE;
+  border: 1px solid #CCC;
+  font-weight: bold;
+}
+
+.delete { 
+  text-align: right;
+  color: red;
+  font-weight: bold;
+}
+/* =tables
+*********************************************************************/
+
+table { 
+  margin: 5px 0;
+  padding: 0;
+  border: 1px solid #CCC;
+}
+
+th { 
+  padding: 0 5px;
+  text-align: center;
+  font-weight: bold;
+  letter-spacing: 2px;
+  background: #DDD;
+}
+
+tr { 
+  padding: 0px;
+  margin: 0px;
+}
+
+td { 
+  vertical-align: top;
+  padding: 0px 5px;
+  background: #EEE;
+}
+
+td.label { 
+  font-weight: bold;
+  text-align: right;
+}
+
+td.number { 
+  text-align: right;
+}
+
+td.date { 
+  white-space: nowrap;
+}
+
+table.calendar { 
+  width: 98%;
+  margin: 0 auto;
+}
+
+.calendar td { 
+  padding: 0;
+  margin: 0;
+}
+
+td.passive { 
+  background: #AAA;
+}
+
+td.weekNumber { 
+  background: #DDD;
+  text-align: center;
+  vertical-align: middle;
+  font-weight: bold;
+}
+
+.calendar td div { 
+  padding: 2px 1px;
+  margin: 1px;
+  font-size: 0.9em;
+  line-height: 1em;
+  border-bottom: 1px dotted #000;
+}
+
+td h4 { 
+  text-align: right;
+}
+
+th a { 
+  display: block;
+}
+
+table.sortable tr:hover td { 
+  background: #DDD;
+}
+
+td.unread { 
+  text-align: center;
+  font-size: 1.8em;
+  line-height: 0.1em;
+  padding: 15px 5px 0px 3px;
+}
+
+
+/* =headings
+*********************************************************************/
+
+h1, h2, h3, h4, h5, h6 { 
+  margin: 0;
+  padding: 0;
+  line-height: 1.2em;
+}
+
+h1 { 
+  font-size: 2em;
+}
+
+h2 { 
+  font-size: 1.5em;
+  text-align: center;
+}
+
+h3 { 
+  font-size:1.2em;
+}
+
+h4 { 
+  font-size: 1em;
+  font-weight: bold;
+}
+/* =header
+*********************************************************************/
+#header { 
+  background-color: #EEE;
+  border: 1px solid #CCC;
+  -moz-border-radius: 8px;
+  color: #000;
+  text-align: center;
+  letter-spacing: 3px;
+  padding: 5px;
+}
+
+#header h1 a { 
+  text-decoration: none;
+  color: #000;
+  display: block;
+}
+
+
+
+/* =navigation
+*********************************************************************/
+
+
+#nav {
+  background-color: #EEE;
+  border: 1px solid #CCC;
+  -moz-border-radius: 8px;
+  color: #000;
+  margin: 5px 0;
+  padding: 15px;
+}
+
+#navList {
+  margin: 0px;
+  padding: 0px;
+}
+
+li.menulist {
+  background: url(graphics/minus.png) no-repeat 3px 0.3em;
+  line-height: 1.2em;
+  list-style: none outside;
+  margin: 0px 0 10px;
+  padding: 2px 10px;
+  border: 1px solid black;
+}
+
+.jsenabled li.menulist { 
+  background: url(graphics/plus.png) no-repeat 3px 0.3em;
+}
+
+.jsenabled .menu, .jsenabled .submenu {
+  display: none;
+}
+
+.menu, .submenu {
+  margin: 0px;
+  padding: 0px;
+}
+
+.menu li, .submenu li {
+  background: #EEE;
+  list-style: none outside;
+  margin: 3px 5px;
+  padding: 0px 3px;
+  border: 1px dotted #AAA;
+}
+
+.menu li:hover, .submenu li:hover {
+  background: #DDD;
+}
+
+#nav li a { 
+  color: black;
+}
+
+a.switch {
+  background-color: transparent;
+  color: #000;
+  font-size: .9em;
+  line-height: 1em;
+  padding-left: 5px;
+  text-decoration: none;
+  font-weight: bold;
+  display: block;
+}
+
+a.switch:hover {
+  text-decoration: underline;
+}
+
+.menu li a, .submenu li a {
+  display: block;
+  background-color: transparent;
+  color: #000;
+  text-decoration: none;
+}
+
+.menu li a:hover, submenu li a:hover {
+  text-decoration: underline;
+}
+
+span.key {
+  text-decoration: underline;
+}
+
+#calHeader { 
+  width: 400px;
+  margin: 0 auto;
+}
+
+#previous { 
+  float: left;
+  margin: 0px;
+}
+
+#next { 
+  float: right;
+  margin: 0px;
+}
+
+#previous a, #next a { 
+  border: 1px solid #CCC;
+  font-weight: bold;
+  padding: 0 5px;
+  margin: 0px;
+  line-height: 1em;
+}
+
+/* =content
+*********************************************************************/
+#content { 
+  padding: 0px;
+  margin: 5px;
+}
+
+div.text-column { 
+  max-width: 600px;
+}
+
+* html div.text-column { 
+  width: 600px;
+}
+
+
+.concert img { 
+  float: right;
+  margin: 0px 0px 3px 3px;
+}
+
+
+p.date { 
+  font-style: italic;
+}
+
+p.date:first-letter { 
+  text-transform: uppercase;
+}
+
+
+p.intro { 
+  font-weight: bold;
+  font-style: italic;
+}
+
+div.messages, div.errors { 
+  margin: 0 0 5px 0;
+  padding: 0;
+  background: #EEE;
+  border: 1px solid #CCC;
+}
+
+div.timeData { 
+  border: 1px solid #CCC;
+  background: #EEE;
+  padding: 1px;
+}
+
+div.optionsMenu { 
+  margin: 5px 0;
+}
+
+div.comments { 
+  border-top: 2px solid #CCC;
+  
+}
+
+div.comment { 
+  border-top: 2px solid #CCC;
+  padding: 5px 0;
+  position: relative;
+}
+
+div.comment-meta { 
+  position: absolute;
+  
+}
+
+div.comment-main { 
+  margin-left: 150px;
+  min-height: 60px;
+  border-left: 2px dotted #CCC;
+  padding-left: 5px;
+}
+
+* html div.comment-main { 
+  height: 60px;
+}
+
+/* =footer
+*********************************************************************/
+#footer { 
+  clear: both;
+  text-align: center;
+  background: #EEE;
+  border: 1px solid #CCC;
+  -moz-border-radius: 8px;
+  color: #000;
+}
+
+
+
+/* =extras
+*********************************************************************/
+.domenabled ul#finder, .domenabled ul#finder li, .domenabled ul#finder ul {
+  list-style-type:none;
+  margin: 5px 0;
+  padding:0;
+  line-height: 1em;
+}
+
+.domenabled ul#finder ul.hidden {
+  display: none;
+}
+.domenabled ul#finder ul.shown {
+  margin: 3px 25px;
+  display: block;
+}
+
+.domenabled ul#finder li a {
+}
+
+.domenabled #finder a.open {
+  font-weight: bold;
+  display: block;
+  color: black;
+}
+
+.domenabled #finder a.parent {
+  color: black;
+}
+
+
+.domenabled div.disabled { 
+  display: none;
+}

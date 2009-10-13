@@ -1,0 +1,169 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+    <head>
+        <title>Class zXPath</title>
+        <style type="text/css">
+            body, p, td, li {
+                font-family: Verdana, Arial, Helvetica;
+            }
+            
+            p, td, ul.arguments li {
+                font-size: 80%;
+            }
+            
+            h1 {
+                font-size: 150%;
+            }
+            
+            h2 {
+                font-size: 140%;
+                background-color: #efefef;
+                border-bottom: 1px solid #cccccc;
+                padding: 5px;
+            }
+            
+            h3 {
+                font-size: 90%;
+                line-height: 90%;             
+            }
+            
+            h4 {
+                font-size: 80%;
+            }
+            
+            td.datatype {
+                padding: 5px 3px 5px 3px;
+                width: 5%;
+                text-align: right;
+                vertical-align: top;
+            }
+            
+            td.method,
+            td.field {
+                padding: 5px 3px 5px 3px;
+            }
+            
+            hr {
+                height: 1px;
+                color: #cccccc;
+            }
+            
+            div.page-footer {
+                border-top: 1px solid #cccccc;
+                padding: 5px;
+                text-align: right;
+                font-size: 60%;
+            }
+        </style>
+    </head>
+    <body>
+        
+<h1>Class zXPath</h1>
+        <ul>
+            <li><code>Object</code></li>
+            <ul>
+                
+    <li><code>zXPath</code></li>
+            </ul>
+        </ul>
+        <h2>Description</h2>
+        
+<p>The <code>zXPath</code> class is used to perform cross-browser XPath evaluations 
+  on DOM documents.</p>
+<p>This class equalizes the differences between Internet Explorer and Mozilla 
+  implementations (other browsers don't support JavaScript-based XPath).</p>
+        <h4>Author:</h4>
+        <p>Nicholas C. Zakas, <a href="http://www.nczonline.net/" target="_blank">http://www.nczonline.net/</a></p>
+        <h4>Version:</h4>
+        <p>1.0</p>
+        <h4>Since:</h4>
+        <p>1.0</p>
+        
+<h2>Method Summary</h2>
+        
+<table border="0" width="100%" cellpadding="0" cellspacing="0">
+  <tr> 
+    <td class="datatype"><code>static Array</code></td>
+    <td class="method"><code><a href="#selectNodes(Node,String)">selectNodes</a>(Node 
+      oRefNode, String sXPath)</code><br />
+      Returns all nodes matching the XPath expression.</td>
+  </tr>
+  <tr> 
+    <td class="datatype"><code>static Array</code></td>
+    <td class="method"><code><a href="#selectNodes(Node,String,Object)">selectNodes</a>(Node 
+      oRefNode, String sXPath, Object oXmlNs)</code><br />
+      Returns all nodes matching the XPath expression.</td>
+  </tr>
+  <tr> 
+    <td class="datatype"><code>static Node</code></td>
+    <td class="method"><code><a href="#selectSingleNode(Node,String)">selectSingleNode</a>(Node 
+      oRefNode, String sXPath)</code><br />
+      Gets the first node matching the XPath expression.</td>
+  </tr>
+  <tr> 
+    <td class="datatype"><code>static Node</code></td>
+    <td class="method"><code><a href="#selectSingleNode(Node,String,Object)">selectSingleNode</a>(Node 
+      oRefNode, String sXPath, Object oXmlNs)</code><br />
+      Gets the first node matching the XPath expression.</td>
+  </tr>
+</table>        
+        
+        
+<h2>Method Detail</h2>
+        
+        
+<h3><a name="selectNodes(Node,String)">selectNodes</a></h3>
+        
+<p><code>public static Array selectNodes(Node oRefNode, String sXPath)</code></p>
+        
+<p>Returns all nodes matching the XPath expression.</p>
+<h4>Arguments:</h4>
+<ul class="arguments">
+  <li><code>oRefNode</code> - The reference node for the XPath evaluation.</li>
+  <li><code>sXPath</code> - The XPath expression to run.</li>
+</ul>
+<h4>Returns:</h4>
+<p>An array containing all nodes that match the XPath expression (an empty array 
+  if no matches are found).</p>
+<hr noshade />
+<h3><a name="selectNodes(Node,String,Object)">selectNodes</a></h3>
+<p><code>public static Array selectNodes(Node oRefNode, String sXPath, Object 
+  oXmlNs)</code></p>
+<p>Returns all nodes matching the XPath expression.</p>
+<h4>Arguments:</h4>
+<ul class="arguments">
+  <li><code>oRefNode</code> - The reference node for the XPath evaluation.</li>
+  <li><code>sXPath</code> - The XPath expression to run.</li>
+  <li><code>oXmlNs</code> - The XML namespaces used in the XPath expression.</li>
+</ul>
+<h4>Returns:</h4>
+<p>An array containing all nodes that match the XPath expression (an empty array 
+  if no matches are found).</p>
+<hr noshade />
+<h3><a name="selectSingleNode(Node,String)">selectSingleNode</a></h3>
+<p><code>public static Node selectNodes(Node oRefNode, String sXPath)</code></p>
+<p>Returns the first node matching the XPath expression.</p>
+<h4>Arguments:</h4>
+<ul class="arguments">
+  <li><code>oRefNode</code> - The reference node for the XPath evaluation.</li>
+  <li><code>sXPath</code> - The XPath expression to run.</li>
+</ul>
+<h4>Returns:</h4>
+<p>The first node matching the XPath expression.</p>
+<hr noshade />
+<h3><a name="selectSingleNode(Node,String,Object)">selectSingleNode</a></h3>
+<p><code>public static Node selectSingleNode(Node oRefNode, String sXPath, Object 
+  oXmlNs)</code></p>
+<p>Returns the first node matching the XPath expression.</p>
+<h4>Arguments:</h4>
+<ul class="arguments">
+  <li><code>oRefNode</code> - The reference node for the XPath evaluation.</li>
+  <li><code>sXPath</code> - The XPath expression to run.</li>
+  <li><code>oXmlNs</code> - The XML namespaces used in the XPath expression.</li>
+</ul>
+<h4>Returns:</h4>
+<p>The first node matching the XPath expression.</p>
+<div class="page-footer">Class zXPath</div>
+    </body>
+</html>
