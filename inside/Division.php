@@ -8,6 +8,7 @@ class Division {
 
   var $id;
   var $name;
+  var $nicename;
   var $text;
   var $phone;
   var $email;
@@ -18,14 +19,57 @@ class Division {
   var $divisioncategory_id;
   var $divisioncategory_title;
   var $picture;
-
   var $conn;
+
 
   function Division($id = NULL, $data = NULL){
     $this->__construct($id, $data);
   }
 
   public function __construct($id = NULL, $data = NULL){
+
+    if (!function_exists('_sanitizeForUrls')) :
+    /**
+     * Sanitize username stripping out unsafe characters.
+     *
+     * If $strict is true, only alphanumeric characters (as well as _, space, ., -,
+     * @) are returned.
+     * Removes tags, octets, entities, and if strict is enabled, will remove all
+     * non-ASCII characters. After sanitizing, it passes the username, raw username
+     * (the username in the parameter), and the strict parameter as parameters for
+     * the filter.
+     *
+     * @param string $username The username to be sanitized.
+     * @param bool $strict If set limits $username to specific characters. Default false.
+     * @return string The sanitized username, after passing through filters.
+     */
+    function _sanitizeForUrls( $username, $strict = false ) {
+        //$username = wp_strip_all_tags($username);
+
+        $username = strtolower($username);
+        $username = strtr($username, "הוצזרו", "aaoaoa");
+
+        // Kill octets
+        $username = preg_replace('|%([a-fA-F0-9][a-fA-F0-9])|', '', $username);
+        $username = preg_replace('/&.+?;/', '', $username); // Kill entities
+
+        // If strict, reduce to ASCII for max portability.
+        if ( $strict )
+            $username = preg_replace('|[^a-z0-9 _.\-@]|i', '', $username);
+
+        // Consolidate contiguous whitespace
+        $username = preg_replace('|\s+|', ' ', $username);
+
+        $username = str_replace('.', '-', $username);
+        $username = preg_replace('/[^%a-z0-9 _-]/', '', $username);
+        $username = preg_replace('/\s+/', '-', $username);
+        $username = preg_replace('|-+|', '-', $username);
+        $username = trim($username, '-');
+
+        return $username;
+    }
+    endif;
+
     $this->conn = db_connect();
 
     $this->id = $id;
@@ -53,6 +97,7 @@ class Division {
     }
     //Common initializations
     $this->name                = $data['name'];
+    $this->nicename            = _sanitizeForUrls( $this->name );
     $this->text                = $data['text'];
     $this->phone               = $data['phone'];
     $this->email               = $data['email'];    
@@ -65,12 +110,13 @@ class Division {
   public function store(){
     if ($this->id == NULL){
       $sql = sprintf("INSERT INTO din_division 
-                          (id, name, text, phone, email, office, 
+                          (id, name, nicename, text, phone, email, office, 
                            user_id_contact, url, divisioncategory_id)
                       VALUES 
-                          (%s, %s, %s, %s, %s, %s, %s, %s, %s)", 
+                          (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", 
                      $this->conn->quoteSmart($this->id),
                      $this->conn->quoteSmart($this->name),
+                     $this->conn->quoteSmart(_sanitizeForUrls($this->name),true),
                      $this->conn->quoteSmart($this->text),
                      $this->conn->quoteSmart($this->phone),
                      $this->conn->quoteSmart($this->email),

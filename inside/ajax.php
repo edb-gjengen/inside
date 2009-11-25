@@ -74,7 +74,7 @@ if ($action == 'checkZip'){
 }else if ($action == 'checkUsername') {
   $username = $_REQUEST['username'];
   $conn = db_connect("forum");
-  $sql = sprintf("SELECT user_id FROM phpbb_users u "."WHERE username = '%s' ", $username);
+  $sql = sprintf("SELECT user_id FROM phpbb_users u "."WHERE username_clean = '%s' ", strtolower($username));
   $result = & $conn->query($sql);
   if ($result->numRows() == 0) {
     $status = "true";

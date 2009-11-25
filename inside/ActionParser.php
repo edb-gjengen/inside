@@ -418,13 +418,13 @@ class ActionParser {
     }
     $result = $conn->query($sql);
     if (DB :: isError($result) == true) {
-      notify('Tjenesten er midlertidig utilgjengelig, vennligst forsøk igjen senere.');
+      notify('Tjenesten er midlertidig utilgjengelig, vennligst fors&#248;k igjen senere.');
       return false;
     }
     if ($result->numRows() > 0) {
       $row = $result->fetchRow(DB_FETCHMODE_OBJECT);
       if ($row->email == '') {
-        notify('Ingen epostadresse er registrert på din bruker.');
+        notify('Ingen epostadresse er registrert p&#229; din bruker.');
         return false;
       }
       $newPassword = generatePassword();
@@ -443,7 +443,7 @@ class ActionParser {
       }
       $result = $conn->query($sql);
       if (DB :: isError($result) == true) {
-        notify('Tjenesten er midlertidig utilgjengelig, vennligst forsøk igjen senere.');
+        notify('Tjenesten er midlertidig utilgjengelig, vennligst fors&#248;k igjen senere.');
         return false;
       }
       $sendto = $row->email;
@@ -455,7 +455,7 @@ class ActionParser {
       "\nDitt brukernavn er: $row->username" .
       "\nDitt passord er: $newPassword" .
       "\n" .
-      "\nNår du logger på vil du bli bedt om å endre passord til noe som er lettere å huske. Du kan også endre brukernavnet ditt." .
+      "\nN&#229;r du logger p&#229; vil du bli bedt om &#229; endre passord til noe som er lettere &#229; huske. Du kan ogs&#229; endre brukernavnet ditt." .
       "\n" .
       "\nhttp://www.studentersamfundet.no/inside/index.php#login" .
       "\n" .
@@ -463,15 +463,15 @@ class ActionParser {
       "\nStudentersamfundet Inside";
       $headers = 'From: dns.inside@studentersamfundet.no' . "\r\n";
       if (mail($sendto, $subject, $message, $headers)) {
-        notify('Nytt brukernavn og passord er sendt til din registrerte epostadresse. Bruk skjemaet under for å logge deg inn.');
+        notify('Nytt brukernavn og passord er sendt til din registrerte epostadresse. Bruk skjemaet under for &#229; logge deg inn.');
       } else {
         notify('Det oppstod en feil under sending av epost. Vennligst kontakt' . '<a href="mailto:support@studentersamfundet.no">webansvarlig</a>.');
       }
     } else {
       if (is_numeric($userid)) {
-        notify('Kortnummeret er er ikke registrert i databasen. Vennligst registrér deg først.');
+        notify('Kortnummeret er er ikke registrert i databasen. Vennligst registr&#233;r deg f&#248;rst.');
       } else {
-        notify('Ingen bruker er registrert på epostadressen du oppgav.');
+        notify('Ingen bruker er registrert p&#229; epostadressen du oppgav.');
       }
     }
   }
@@ -480,7 +480,7 @@ class ActionParser {
     $password1 = scriptParam('password1');
     $password2 = scriptParam('password2');
     if (strlen($password1) < 4) {
-      notify('Passordet ditt må være minst fire tegn.');
+      notify('Passordet ditt m&#229; v&#230;re minst fire tegn.');
       $GLOBALS['extraScriptParams']['page'] = 'reset-password';
       return;
     } else {
@@ -500,7 +500,7 @@ class ActionParser {
           notify('Nytt passord er lagret.');
         } else {
           $GLOBALS['extraScriptParams']['page'] = 'reset-password';
-          notify('Problemer med lagring passord, vennligst prøv igjen senere. Inntil videre gjelder ditt gamle passord.');
+          notify('Problemer med lagring passord, vennligst pr&#248;v igjen senere. Inntil videre gjelder ditt gamle passord.');
         }
       }
     }
@@ -510,7 +510,7 @@ class ActionParser {
     $conn = db_connect();
     $email = trim(scriptParam('email'));
     if ($email == '') {
-      notify('Du oppga ingen epostadresse. Bruk skjemaet under for å registrere deg eller gå <a href="http://www.studentersamfundet.no/medlem/">tilbake</a> og prøv igjen.');
+      notify('Du oppga ingen epostadresse. Bruk skjemaet under for &#229; registrere deg eller g&#229; <a href="http://www.studentersamfundet.no/medlem/">tilbake</a> og pr&#248;v igjen.');
       $GLOBALS['extraScriptParams']['page'] = 'register-user';
       return false;
     }
@@ -519,7 +519,7 @@ class ActionParser {
     		WHERE email = '$email'";
     $result = $conn->query($sql);
     if (DB :: isError($result) == true) {
-      notify("Tjenesten er midlertidig utilgjengelig, vennligst forsøk igjen senere.");
+      notify("Tjenesten er midlertidig utilgjengelig, vennligst fors&#248;k igjen senere.");
       return false;
     }
     if ($result->numRows() > 0) {
@@ -532,19 +532,19 @@ class ActionParser {
       "  email = '$email'";
       $result = $conn->query($sql);
       if (DB :: isError($result) == true) {
-        notify("Tjenesten er midlertidig utilgjengelig, vennligst forsøk igjen senere.");
+        notify("Tjenesten er midlertidig utilgjengelig, vennligst fors&#248;k igjen senere.");
         return false;
       }
       $sendto = $row->email;
       $subject = "Brukernavn og passord for Studentersamfundets medlemsider";
       $message = "Hei, $row->firstname $row->lastname!\n " .
       "\n" .
-      "\nDu er registrert i Studentersamfundets medlemsdatabase. Følg linken under og logg på med følgende informasjon: " .
+      "\nDu er registrert i Studentersamfundets medlemsdatabase. F&#248;lg linken under og logg p&#229; med f&#248;lgende informasjon: " .
       "\n" .
       "\nDitt brukernavn er: $row->username" .
       "\nDitt passord er: $newPassword" .
       "\n" .
-      "\nNår du logger på vil du bli bedt om å endre passord til noe som er lettere å huske. Du kan også endre brukernavnet ditt. " .
+      "\nN&#229;r du logger p&#229; vil du bli bedt om &#229; endre passord til noe som er lettere &#229; huske. Du kan ogs&#229; endre brukernavnet ditt. " .
       "\n" .
       "\nEtter at dette er gjort vil du finne en link for registrering av fornyet medlemskap." .
       "\n" .
@@ -554,13 +554,13 @@ class ActionParser {
       "\nStudentersamfundet";
       $headers = 'From: medlemskort@studentersamfundet.no' . "\r\n";
       if (mail($sendto, $subject, $message, $headers)) {
-        notify("Din epostadresse er registrert i systemet vårt.");
-        notify("En epost er sendt til deg med brukernavn og passord. Logg på for å registrere fornyelse av medlemskap.");
+        notify("Din epostadresse er registrert i systemet v&#229;rt.");
+        notify("En epost er sendt til deg med brukernavn og passord. Logg p&#229; for &#229; registrere fornyelse av medlemskap.");
       } else {
         notify("Det oppstod en feil under sending av epost. Vennligst kontakt " . "<a href=\"mailto:support@studentersamfundet.no\">webansvarlig</a>.");
       }
     } else {
-      notify("Ingen bruker er registrert på epostadressen du oppga. Bruk skjemaet under for å registrere deg.");
+      notify("Ingen bruker er registrert p&#229; epostadressen du oppga. Bruk skjemaet under for &#229; registrere deg.");
       $GLOBALS['extraScriptParams']['page'] = 'register-user';
     }
   }
@@ -570,7 +570,7 @@ class ActionParser {
 
     $sql = sprintf("SELECT id, passwordReset FROM din_user " .
     "WHERE username = %s " .
-    "AND password = PASSWORD(%s)", $conn->quoteSmart(scriptParam('username')), $conn->quoteSmart(scriptParam('password')));
+    "AND (password = PASSWORD(%s) or password = old_password(%s))", $conn->quoteSmart(scriptParam('username')), $conn->quoteSmart(scriptParam('password')), $conn->quoteSmart(scriptParam('password')));
 
     $result = $conn->query($sql);
     if (DB :: isError($result) != true) {
@@ -589,7 +589,7 @@ class ActionParser {
   public function _logOut() {
     unset ($_SESSION['valid-user']);
     session_destroy();
-    notify("Du er nå logget ut. Logg inn på nytt eller gå videre til <a href=\"http://www.studentersamfundet.no/\">Studentersamfundets forside</a>.");
+    notify("Du er n&#229; logget ut. Logg inn p&#229; nytt eller g&#229; videre til <a href=\"http://www.studentersamfundet.no/\">Studentersamfundets forside</a>.");
   }
 
   public function _registerJob() {
@@ -817,7 +817,7 @@ class ActionParser {
     $userId = scriptParam("userid");
     if ($onlyCurrentUser == true) {
       if ($userId != getCurrentUser()) {
-        notify("Du har ikke tilgang til å endre denne brukeren.");
+        notify("Du har ikke tilgang til &#229; endre denne brukeren.");
         return false;
       }
     }
@@ -833,7 +833,7 @@ class ActionParser {
     $userId = scriptParam("userid");
     if ($onlyCurrentUser == true) {
       if ($userId != getCurrentUser()) {
-        notify("Du har ikke tilgang til å endre denne brukeren.");
+        notify("Du har ikke tilgang til &#229; endre denne brukeren.");
         return false;
       }
     }
@@ -856,7 +856,7 @@ class ActionParser {
         $GLOBALS['extraScriptParams']['page'] = "register-membership";
       }
     } else {
-      notify("Kortnummer og kortkode passer ikke sammen. Kortnummeret er det som står på kodelappen, ikke det som står på medlemskortet ditt. Vi gjør også oppmerksom på det skilles mellom store og små bokstaver.");
+      notify("Kortnummer og kortkode passer ikke sammen. Kortnummeret er det som st&#229;r p&#229; kodelappen, ikke det som st&#229;r p&#229; medlemskortet ditt. Vi gj&#248;r ogs&#229; oppmerksom p&#229; det skilles mellom store og sm&#229; bokstaver.");
       $GLOBALS['extraScriptParams']['page'] = "register-membership";
       $GLOBALS['extraScriptParams']['report-bug'] = "register-membership";
     }
@@ -892,7 +892,7 @@ class ActionParser {
     $cardno = scriptParam("cardno");
     $password = scriptParam("verificationCode");
     if ($cardno == "") {
-      notify("Du må taste inn et kortnummer.");
+      notify("Du m&#229; taste inn et kortnummer.");
       $GLOBALS['extraScriptParams']['page'] = "renew-membership";
       return false;
     }
@@ -909,7 +909,7 @@ class ActionParser {
         $GLOBALS['extraScriptParams']['page'] = "renew-membership";
       }
     } else {
-      notify("Feil aktiveringskode. Kontroller koden og forsøk igjen. Vi gjør oppmerksom på at det er forskjell på store og små bokstaver.");
+      notify("Feil aktiveringskode. Kontroller koden og fors&#248;k igjen. Vi gj&#248;r oppmerksom p&#229; at det er forskjell p&#229; store og sm&#229; bokstaver.");
       $GLOBALS['extraScriptParams']['page'] = "renew-membership";
       $GLOBALS['extraScriptParams']['report-bug'] = "renew-membership";
     }
@@ -919,7 +919,7 @@ class ActionParser {
     $order_id = scriptParam("order_id");
 		$order = new Order($order_id);
 		if ($order->user_id != getCurrentUser()) {
-			notify("Ugyldig ordrenummer. Gå tilbake og prøv igjen.");
+			notify("Ugyldig ordrenummer. G&#229; tilbake og pr&#248;v igjen.");
 			return;
 		}
 

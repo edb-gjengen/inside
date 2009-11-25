@@ -137,13 +137,13 @@ function getUseridFromPhone($phoneno) {
 
 function checkForumUsername($username, $password) {
 	$conn = db_connect("forum");
-	$sql = sprintf("SELECT user_id FROM phpbb_users u " . "WHERE username = '%s' ", $username);
+	$sql = sprintf("SELECT user_id FROM phpbb_users u " . "WHERE username_clean = '%s' ", strtolower($username));
 	$result = & $conn->query($sql);
 	if ($result->numRows() == 0) {
 		return "not-used";
 	}
 	else {
-		$sql = sprintf("SELECT user_id FROM phpbb_users u " . "WHERE username = '%s' " . "AND user_password = '%s'", $username, md5($password));
+		$sql = sprintf("SELECT user_id FROM phpbb_users u " . "WHERE username_clean = '%s' " . "AND user_password = '%s'", strtolower($username), md5($password));
 		$result = & $conn->query($sql);
 		if ($result->numRows() == 0) {
 			return "wrong-password";
@@ -421,7 +421,7 @@ function new_file($file, $dir) {
 			if ($dir == 'products') {
 			  $dir = 'images/products/';
 			}else {
-			  $dir = "../../httpdocs/bilder/$dir/";
+			  $dir = "../../public_html/bilder/$dir/";
 			}
 			$upFile = $dir.$newFile_name;
 
@@ -451,7 +451,7 @@ function rename_file($old_name, $id, $dir, $report = true) {
 	if ($dir == 'products') {
 	  $dir = 'images/products/';
 	}else {
-	  $dir = "../../httpdocs/bilder/$dir/";
+	  $dir = "../../public_html/bilder/$dir/";
 	}
 
 	$old_name = $dir.$old_name;

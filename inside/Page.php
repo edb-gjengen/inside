@@ -30,8 +30,65 @@ class Page {
   <body>
     <div id="container">
       <div id="header">
-        <h1><a href="index.php"><?php print $this->page_title; ?></a></h1>
-      </div>
+        <span class="site-title"><a href="http://studentersamfundet.no/"><?php print $this->page_title; ?></a></span>
+
+<?php /*
+This menu thing is pretty much copied and pasted from functions.php. Could we possibly include it instead? --Thomas Misund, 26. Oct 2009
+ */ ?>
+        <div id="menu">
+            <ul>
+                <li id="program-meny"><a href="http://studentersamfundet.no/prog.php">Program</a>
+                    <ul>
+                        <li><!--a href="http://studentersamfundet.no/prog.php">Alle</a></li>
+                        <li><a href="http://studentersamfundet.no/prog.php?type=konsert">Konsert</a></li>
+                        <li><a href="http://studentersamfundet.no/prog.php?type=debatt">Debatt</a></li>
+                        <li><a href="http://studentersamfundet.no/prog.php?type=film">Film</a></li>
+                        <li><a href="http://studentersamfundet.no/prog.php?type=fest">Fest</a></li>
+                        <li><a href="http://studentersamfundet.no/prog.php?type=teater">Teater</a></li>
+                        <li><a href="http://studentersamfundet.no/prog.php?type=annet">Annet</a></li>
+                        <li><a href="http://studentersamfundet.no/konsepter.php">Konsepter</a></li>
+                        <li><a href="http://studentersamfundet.no/booking.php">Booking</a--> </li>
+                    </ul>
+                </li>
+                <li id="informasjon-meny"><a href="http://studentersamfundet.no/lokaler.php">Informasjon</a>
+                    <ul>
+                        <li><!--a href="http://studentersamfundet.no/lokaler.php">Huset</a></li>
+                        <li><a href="http://studentersamfundet.no/foreninger.php">Foreninger</a></li>
+                        <li><a href="http://studentersamfundet.no/historie.php">Historie</a></li>
+                        <li><a href="http://studentersamfundet.no/jobb.php">Jobb</a></li>
+                        <li><a href="http://studentersamfundet.no/billetter.php">Billetter</a></li>
+                        <li><a href="http://studentersamfundet.no/kart.php">Kart</a--> </li>
+                    </ul>
+                </li>
+                <li id="medlem-meny"><a href="http://studentersamfundet.no/medlemmer.php">Medlem</a>
+                    <ul>
+                        <li><!--a href="https://studentersamfundet.no/inside/index.php">Medlemsider</a></li>
+                        <li><a href="http://studentersamfundet.no/fordeler.php">Fordeler</a></li>
+                        <li><a href="http://studentersamfundet.no/medlemmer.php">Bli medlem</a></li>
+                        <li><a href="http://studentersamfundet.no/aktive.php">Aktive</a></li>
+                        <li><a href="/medlem/index.php">Registrere medlemskort</a--> </li>
+                    </ul>
+                </li>
+                <li id="forum-meny"><a href="http://studentersamfundet.no/forum/index.php">Forum</a>
+                    <ul>
+                        <li><!--Ingen undermenypunkter--> </li>
+                    </ul>
+                </li>
+                <li id="inside-meny" class="current"><a href="https://studentersamfundet.no/inside">Inside</a>
+                    <ul>
+                        <li><!--Ingen undermenypunkter--> </li>
+                    </ul>
+                </li>
+                <li id="kontakt-meny"><a href="http://studentersamfundet.no/kontakt.php">Kontakt</a>
+                    <ul>
+                        <li><!--Ingen undermenypunkter--> </li>
+                    </ul>
+                </li>
+            </ul>
+        </div> <!-- #menu -->
+      </div> <!-- #header -->
+
+      <div id="content-wrap">
 <?php
     $this->_displayNavigation();  
 ?>
@@ -442,6 +499,9 @@ class Page {
   }
 ?>
       </div>
+
+    </div> <!-- #content-wrap -->
+
 <?php                                           
 
 $time_end = microtime(true);
@@ -1192,16 +1252,10 @@ Teksten under er hentet fra kunnskapsdatabasen. Du står fritt til å endre den et
 
     $fields[] = Array("label" => "tittel", "type" => "text", 
                       "attributes" => Array("name" => "name" ,"size" => 55, 
-																						"maxlength" => 80, "class" => "title"));
+	    	      "maxlength" => 50, "class" => "title"));
     $fields[] = Array("label" => "engelsk tittel", "type" => "text", 
                       "attributes" => Array("name" => "name_en" ,"size" => 55, 
-																						"maxlength" => 80, "class" => "title"));
-    $fields[] = Array("label" => "ingress", "type" => "textarea", 
-                      "attributes" => Array("name" => "intro", "cols" => 70, "rows" => 3,
-                                            "maxlength" => 255));
-    $fields[] = Array("label" => "engelsk ingress", "type" => "textarea", 
-                      "attributes" => Array("name" => "intro_en", "cols" => 70, "rows" => 3,
-                                            "maxlength" => 255));
+		      "maxlength" => 50, "class" => "title"));
     $fields[] = Array("label" => "beskrivelse", "type" => "textarea", 
                       "attributes" => Array("comment" => 
                                             "Bruk link-knappen for å legge inn linker eller epostadresser.",
@@ -1209,7 +1263,13 @@ Teksten under er hentet fra kunnskapsdatabasen. Du står fritt til å endre den et
                                             "class" => "mceEditor"));
     $fields[] = Array("label" => "engelsk beskrivelse", "type" => "textarea", 
                       "attributes" => Array("name" => "text_en", "cols" => 70, "rows" => 15,
-                                            "class" => "mceEditor"));
+                      "class" => "mceEditor"));
+    $fields[] = Array("label" => "sammendrag", "type" => "textarea", 
+                      "attributes" => Array("name" => "intro", "cols" => 70, "rows" => 3,
+                                            "maxlength" => 250));
+    $fields[] = Array("label" => "engelsk sammendrag", "type" => "textarea", 
+                      "attributes" => Array("name" => "intro_en", "cols" => 70, "rows" => 3,
+                                            "maxlength" => 250));
     $fields[] = Array("label" => "dato og tid", "type" => "datetime", 
                       "attributes" => Array("name" => "time"));
     $fields[] = Array("label" => "arrangør", "type" => "select", 
@@ -1227,8 +1287,8 @@ Teksten under er hentet fra kunnskapsdatabasen. Du står fritt til å endre den et
                                             "én link per linje. Linker kan også inkluderes direkte i teksten over.",
                                             "name" => "links", "cols" => 70, "rows" => 3));
     $fields[]  =Array("label" => "bilde", "type" => "file",
-                      "attributes" => Array("comment" => "Arrangementer under STUDiO bør ha bilder på minst 600*300px. Disse vil automatisk bli klippet til formatet 2:1 ved visning på studioweb.no.", 
-																						"name" => "userfile", "size" => 55));
+                      "attributes" => Array("comment" => "Vi blir glade hvis du bruker litt store bilder. 1024 piksler på den lengste kanten er kjempefint.", 
+		                            "name" => "userfile", "size" => 55));
     $fields[] = Array("label" => "billettservice-link", "type" => "text",
                       "attributes" => Array("name" => "ticketLink" ,"size" => 50, "maxlength" => 255));
     $fields[] = Array("label" => "facebook-link", "type" => "text",
@@ -1247,11 +1307,8 @@ Teksten under er hentet fra kunnskapsdatabasen. Du står fritt til å endre den et
                                             "Kommentarer er til internt bruk, og vil ikke vises på hovedsidene.",
                                             "name" => "comment", "cols" => 70, "rows" => 3));
     
-    print("<h3>NYHET: Nå kan dere registrere engelsk utgave av tittel, ingress og tekst!</h3>");
-    print("<p>STUDiO 2007 kommer til å ha nettsider på både norsk og engelsk. Det er derfor viktig at alle arrangementer i denne perioden også har tekst på engelsk!</p>");
-    print("<p>På sikt vil også studentersamfundet.no foreligge på flere språk.</p>");
-    print("<h3>Nytt format på bilder</h3>");
-    print("<p>STUDiO 2007 vil også bruke et annet format på bilder (2:1), alle bilder som lastes opp bør derfor være minst 600*300px, og med det viktigste innholdet vertikalt sentrert.</p>");
+    print("<h3>HUSK: Fyll ut både tittel, sammendrag og tekst!</h3>");
+    print("<p>Studentersamfundet.no vil snarlig legge om alle sine visningsmaler. I de nye malene vil det være viktig å ha fylt ut alle disse 3 feltene.</p>");
     $form = new Form($title, $enctype, $method, $action, $fields);
     $form->display();
   }
@@ -1278,19 +1335,11 @@ Teksten under er hentet fra kunnskapsdatabasen. Du står fritt til å endre den et
     $fields[] = Array("label" => "concertid", "type" => "hidden",
                             "attributes" => Array("name" => "concertid", "value" => "$concertId"));
     $fields[] = Array("label" => "tittel", "type" => "text", 
-                      "attributes" => Array("name" => "name" ,"size" => 55, "maxlength" => 80,
+                      "attributes" => Array("name" => "name" ,"size" => 55, "maxlength" => 50,
                                             "class" => "title", "value" => $concert->name));
     $fields[] = Array("label" => "engelsk tittel", "type" => "text", 
-                      "attributes" => Array("name" => "name_en" ,"size" => 55, "maxlength" => 80,
+                      "attributes" => Array("name" => "name_en" ,"size" => 55, "maxlength" => 50,
                                             "class" => "title", "value" => $concert->name_en));
-    $fields[] = Array("label" => "ingress", "type" => "textarea", 
-                      "attributes" => Array("name" => "intro", "cols" => 70, "rows" => 3,
-                                            "maxlength" => 255,
-                                            "value" => $concert->intro));
-    $fields[] = Array("label" => "engelsk ingress", "type" => "textarea", 
-                      "attributes" => Array("name" => "intro_en", "cols" => 70, "rows" => 3,
-                                            "maxlength" => 255,
-                                            "value" => $concert->intro_en));
     $fields[] = Array("label" => "beskrivelse", "type" => "textarea", 
                       "attributes" => Array("comment" => 
                                             "Bruk link-knappen for å legge inn linker eller epostadresser.<br />",
@@ -1301,6 +1350,14 @@ Teksten under er hentet fra kunnskapsdatabasen. Du står fritt til å endre den et
                       "attributes" => Array("name" => "text_en", "cols" => 70, "rows" => 15,
                                             "class" => "mceEditor",
                                             "value" => stripSlashes($concert->text_en)));
+    $fields[] = Array("label" => "sammendrag", "type" => "textarea", 
+                      "attributes" => Array("name" => "intro", "cols" => 70, "rows" => 3,
+                                            "maxlength" => 250,
+                                            "value" => $concert->intro));
+    $fields[] = Array("label" => "engelsk sammendrag", "type" => "textarea", 
+                      "attributes" => Array("name" => "intro_en", "cols" => 70, "rows" => 3,
+                                            "maxlength" => 255,
+                                            "value" => $concert->intro_en));
     $fields[] = Array("label" => "dato og tid", "type" => "datetime", 
                       "attributes" => Array("name" => "time",
                                             "value" => $concert->time));
@@ -1320,9 +1377,8 @@ Teksten under er hentet fra kunnskapsdatabasen. Du står fritt til å endre den et
                       "attributes" => Array("name" => "priceConcession" ,"size" => 4, "maxlength" => 5,
                                             "value" => $concert->priceConcession));
     $fields[]  =Array("label" => "bilde", "type" => "file",
-                      "attributes" => Array("comment" => "Arrangementer under STUDiO bør ha bilder på minst 600*300px. Disse vil automatisk bli klippet til formatet 2:1 ved visning på studioweb.no.",
-																						"name" => "userfile", "size" => 55));
-                                            
+                      "attributes" => Array("comment" => "Vi blir glade hvis du bruker litt store bilder. 1024 piksler på den lengste kanten er kjempefint.",
+                      "name" => "userfile", "size" => 55));                                            
     $fields[] = Array("label" => "linker", "type" => "textarea",
                       "attributes" => Array("comment" => 
                                             "én link per linje. Linker kan også inkluderes direkte i teksten over.",
@@ -1356,8 +1412,8 @@ Teksten under er hentet fra kunnskapsdatabasen. Du står fritt til å endre den et
                             "attributes" => Array("name" => "viewWeekprogram",
                                                   "value" => $concert->viewWeekprogram));
 
-    print("<h2>Nå kan dere registrere engelsk utgave av tittel, ingress og tekst!</h2>");
-    print("<p>På sikt vil studentersamfundet.no foreligge på flere språk.</p>");
+    print("<h2>Ingress blir sammendrag</h2>");
+    print("<p>Ingresser utgår fra visningsmalene. I stedet kan dere nå lagre sammendrag av artiklene, som vil vises på sider med flere artikler eller arrangementer.</p>");
     
     $form = new Form($title, $enctype, $method, $action, $fields);
     $form->display();
@@ -1769,12 +1825,12 @@ Teksten under er hentet fra kunnskapsdatabasen. Du står fritt til å endre den et
     $fields  = Array();
     
     $fields[] = Array("label" => "title", "type" => "text", 
-                           "attributes" => Array("name" => "title", "class" => "title", "size" => 50, "maxlength" => 60));
-    $fields[] = Array("label" => "ingress", "type" => "textarea", 
-                           "attributes" => Array("name" => "intro", "cols" => 70, "rows" => 3, "maxlength" => 255));
+                           "attributes" => Array("name" => "title", "class" => "title", "size" => 50, "maxlength" => 50));
     $fields[] = Array("label" => "tekst", "type" => "textarea", 
                            "attributes" => Array("name" => "text", "cols" => 70, "rows" => 10,
                            "class" => "mceEditor"));
+    $fields[] = Array("label" => "sammendrag", "type" => "textarea", 
+                           "attributes" => Array("name" => "intro", "cols" => 70, "rows" => 3, "maxlength" => 250));
     /**
      * Hvis value ikke er gitt, blir dagens dato satt.
      * Hvor? Aner ikke!
@@ -1783,7 +1839,8 @@ Teksten under er hentet fra kunnskapsdatabasen. Du står fritt til å endre den et
     $fields[] = Array("label" => "utgår", "type" => "date", 
                            "attributes" => Array("name" => "expires", "value" => "2029-01-01"));
     $fields[]  =Array("label" => "hovedbilde", "type" => "file",
-                      "attributes" => Array("name" => "attachment1", "size" => 55));
+                      "attributes" => Array("comment" => "Vi blir glade hvis du bruker litt store bilder. 1024 piksler på den lengste kanten er kjempefint.",
+                                            "name" => "attachment1", "size" => 55));
     $fields[] = Array("label" => "billedtekst", "type" => "textarea", 
                            "attributes" => Array("name" => "caption1", "cols" => 70, "rows" => 2, "maxlength" => 120));
     $fields[]  =Array("label" => "ekstra bilde", "type" => "file",
@@ -1808,19 +1865,20 @@ Teksten under er hentet fra kunnskapsdatabasen. Du står fritt til å endre den et
     $fields[] = Array("label" => "articleid", "type" => "hidden",
                            "attributes" => Array("name" => "articleid", "value" => $articleid));
     $fields[] = Array("label" => "title", "type" => "text", 
-                           "attributes" => Array("name" => "title", "class" => "title", "size" => 50, "maxlength" => 60,
+                           "attributes" => Array("name" => "title", "class" => "title", "size" => 50, "maxlength" => 50,
                                                  "value" => $article->title));
-    $fields[] = Array("label" => "ingress", "type" => "textarea", 
-                           "attributes" => Array("name" => "intro", "cols" => 70, "rows" => 3, "maxlength" => 255,
-                                                 "value" => $article->intro));
     $fields[] = Array("label" => "tekst", "type" => "textarea", 
                            "attributes" => Array("name" => "text", "cols" => 70, "rows" => 10,
                                                  "class" => "mceEditor",
-																								 "value" => $article->text));
+    						 "value" => $article->text));
+    $fields[] = Array("label" => "sammendrag", "type" => "textarea", 
+                           "attributes" => Array("name" => "intro", "cols" => 70, "rows" => 3, "maxlength" => 250,
+                           "value" => $article->intro));
     $fields[] = Array("label" => "utgår", "type" => "date", 
                            "attributes" => Array("name" => "expires", "value" => $article->expires));
     $fields[]  =Array("label" => "hovedbilde", "type" => "file",
-                      "attributes" => Array("name" => "attachment1", "size" => 55));
+                      "attributes" => Array("comment" => "Vi blir glade hvis du bruker litt store bilder. 1024 piksler på den lengste kanten er kjempefint.",
+                                            "name" => "attachment1", "size" => 55));
     $fields[] = Array("label" => "billedtekst", "type" => "textarea", 
                            "attributes" => Array("name" => "caption1", "cols" => 70, "rows" => 2, "maxlength" => 120,
                                                  "value" => $article->caption1));

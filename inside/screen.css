@@ -13,10 +13,17 @@
 
 html, body { 
   margin: 0;
-  padding: 5px;
+  padding: 0;
   font-size: .905em;
   line-height: 1.5em;
   font-family: arial, sans-serif;
+  background:#efefef;
+}
+
+#header .site-title,#content-wrap,#footer {
+    width:1000px;
+    margin:auto;
+    display:block;
 }
 
 img { 
@@ -349,352 +356,448 @@ h4 {
 /* =header
 *********************************************************************/
 #header { 
-  background-color: #EEE;
-  border: 1px solid #CCC;
-  -moz-border-radius: 8px;
-  color: #000;
-  text-align: center;
-  letter-spacing: 3px;
-  padding: 5px;
+  background: url("http://studentersamfundet.no/img/header-210x.png") repeat-x bottom;
+  border: none;
+}
+.site-title a {
+    background: url('http://studentersamfundet.no/img/bannerindex-400.png') no-repeat -20px 0;
+    display:block;
+    height:63px;
+    text-indent:-9999px;
+    width:400px;
+    margin-top:15px;
+}
+#header {
+    height:120px;
+    overflow:hidden;
+    position:relative;
+}
+#menu {
+    position:absolute;
+    bottom:14px;
+    width:100%;
+    padding-left:40%;
+
+}
+#menu ul,#menu li {
+    list-style-type:none;
+}
+#menu li{
+    float:left;
+    margin-right:10px;
+}
+#menu li a{
+    display:block;
+    height:22px;
+    padding:5px 13px 3px;
+    text-decoration:none;
+    color: #f5f5f5;
+}
+#menu ul ul {
+    bottom:-45px;
+    left:0;
+    position:absolute;
+    margin:0;
+    width:100%;
+    border-top:4px solid;
+}
+#menu ul ul li a {
+    padding-top:1px;
+    color:#444444;
 }
 
-#header h1 a { 
-  text-decoration: none;
-  color: #000;
-  display: block;
+#menu > ul > li {
+    -moz-border-radius-topleft:8px;
+    -moz-border-radius-topright:8px;
+    -webkit-border-top-left-radius:8px;
 }
+#menu ul ul {
+    -moz-border-radius-bottomleft:8px;
+    -moz-border-radius-bottomright:8px;
+    -webkit-border-bottom-left-radius:8px;
+}
+
+#menu li ul {
+    display:none;
+    height:41px;
+}
+#menu li.current ul {
+    display:block;
+}
+#menu li:hover ul {
+    display:block;
+    background:url('img/gradient-200x.png') repeat-x 0 -204px;
+    z-index:9;
+}
+#menu li#program-meny{
+    background:#945FB9;
+}
+#menu li#program-meny ul {
+    border-color:#945FB9;
+}
+#menu li#informasjon-meny {
+    background:#D83E00;
+}
+#menu li#informasjon-meny ul {
+    border-color:#D83E00;
+}
+#menu li#medlem-meny {
+    background:#094f71;
+}
+#menu li#medlem-meny ul {
+    border-color:#094f71;
+}
+#menu li#forum-meny {
+    background:#187105;
+}
+#menu li#forum-meny ul {
+    border-color:#187105;
+}
+#menu li#inside-meny {
+    background: #9D2F2F;
+}
+#menu li#inside-meny ul {
+    border-color: #9D2F2F;
+}
+#menu li#kontakt-meny {
+    background: #444444;
+}
+#menu li#kontakt-meny ul {
+    border-color: #444444;
+}
+
 
 
 
 /* =navigation
-*********************************************************************/
+ *********************************************************************/
 
 
 #nav {
-  float: left;
-  background-color: #EEE;
-  border: 1px solid #CCC;
-  -moz-border-radius: 8px;
-  color: #000;
-  width: 170px;
-  margin: 5px 0 15px 0;
-  padding: 15px;
+    float: left;
+    background-color: #EEE;
+    border: 1px solid #CCC;
+    -moz-border-radius: 8px;
+    color: #000;
+    width: 170px;
+    margin: 5px 0 15px 0;
+    padding: 15px;
 }
 
 #navList {
-  margin: 0px;
-  padding: 0px;
+    margin: 0px;
+    padding: 0px;
 }
 
 li.menulist {
-  background: url(graphics/minus.png) no-repeat 3px 0.3em;
-  line-height: 1.2em;
-  list-style: none outside;
-  margin: 0px 0 10px;
-  padding: 2px 10px;
-  border: 1px solid black;
+    background: url(graphics/minus.png) no-repeat 3px 0.3em;
+    line-height: 1.2em;
+    list-style: none outside;
+    margin: 0px 0 10px;
+    padding: 2px 10px;
+    border: 1px solid black;
 }
 
 .jsenabled li.menulist { 
-  background: url(graphics/plus.png) no-repeat 3px 0.3em;
+    background: url(graphics/plus.png) no-repeat 3px 0.3em;
 }
 
 .jsenabled .menu, .jsenabled .submenu {
-  display: none;
+    display: none;
 }
 
 .menu, .submenu {
-  margin: 0px;
-  padding: 0px;
+    margin: 0px;
+    padding: 0px;
 }
 
 .menu li, .submenu li {
-  background: #EEE;
-  list-style: none outside;
-  margin: 3px 5px;
-  padding: 0px 3px;
-  border: 1px dotted #CCC;
+    background: #EEE;
+    list-style: none outside;
+    margin: 3px 5px;
+    padding: 0px 3px;
+    border: 1px dotted #CCC;
 }
 
 .menu li:hover, .submenu li:hover {
-  background: #DDD;
+    background: #DDD;
 }
 
 #nav li a { 
-  color: black;
+    color: black;
 }
 
 a.switch {
-  background-color: transparent;
-  color: #000;
-  font-size: .9em;
-  line-height: 1em;
-  padding-left: 5px;
-  text-decoration: none;
-  font-weight: bold;
-  display: block;
+    background-color: transparent;
+    color: #000;
+    font-size: .9em;
+    line-height: 1em;
+    padding-left: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    display: block;
 }
 
 a.switch:hover {
-  text-decoration: underline;
+    text-decoration: underline;
 }
 
 .menu li a, .submenu li a {
-  display: block;
-  background-color: transparent;
-  color: #000;
-  text-decoration: none;
+    display: block;
+    background-color: transparent;
+    color: #000;
+    text-decoration: none;
 }
 
 .menu li a:hover, submenu li a:hover {
-  text-decoration: underline;
+    text-decoration: underline;
 }
 
 span.key {
-  text-decoration: underline;
+    text-decoration: underline;
 }
 
 #calHeader { 
-  width: 400px;
-  margin: 0 auto;
+    width: 400px;
+    margin: 0 auto;
 }
 
 #previous { 
-  float: left;
-  margin: 0px;
+    float: left;
+    margin: 0px;
 }
 
 #next { 
-  float: right;
-  margin: 0px;
+    float: right;
+    margin: 0px;
 }
 
 #previous a, #next a { 
-  border: 1px solid #CCC;
-  font-weight: bold;
-  padding: 0 5px;
-  margin: 0px;
-  line-height: 1em;
-  background: #DDD;
-  color: #000;
+    border: 1px solid #CCC;
+    font-weight: bold;
+    padding: 0 5px;
+    margin: 0px;
+    line-height: 1em;
+    background: #DDD;
+    color: #000;
 }
 
 /* =content
-*********************************************************************/
+ *********************************************************************/
 #content { 
-  padding: 0px;
-  margin: 5px 0 15px 207px;
+    padding: 0px;
+    margin: 5px 0 15px 207px;
 }
 
 div.text-column { 
-  max-width: 600px;
+    max-width: 600px;
 }
 
 * html div.text-column { 
-  width: 600px;
+    width: 600px;
 }
 
 div.article_images {
-  float: right;
-  margin: 0px 0px 3px 3px;
-  width: 200px;    
+    float: right;
+    margin: 0px 0px 3px 3px;
+    width: 200px;    
 }
 div.article_images div {
-  border: 1px dotted #ccc;
+    border: 1px dotted #ccc;
 }
 /*div.primary_image {
-  float: right;
-  margin: 0px 0px 3px 3px;
-  width: 200px;    
-  border: 1px dotted #ccc;
+float: right;
+margin: 0px 0px 3px 3px;
+width: 200px;    
+border: 1px dotted #ccc;
 }
-*/
+ */
 span.caption {
-  font-size: 11px;
-  font-style: italic;
+    font-size: 11px;
+    font-style: italic;
 }
 
 /*div.extra_image {
-  float: left;
-  margin: 0px 3px 3px 0px;        
-  width: 200px;    
-  border: 1px dotted #ccc;
+float: left;
+margin: 0px 3px 3px 0px;        
+width: 200px;    
+border: 1px dotted #ccc;
 }*/
-  
+
 p.date { 
-  font-style: italic;
+    font-style: italic;
 }
 
 p.date:first-letter { 
-  text-transform: uppercase;
+    text-transform: uppercase;
 }
 
 p.subtitle {
-  font-style: italic;
+    font-style: italic;
 }
 
 p.intro { 
-  font-weight: bold;
-  font-style: italic;
+    font-weight: bold;
+    font-style: italic;
 }
 
 div.messages, div.errors { 
-  margin: 0 0 5px 0;
-  padding: 3px;
-  background: #000;
-  color: #FFF;
-  border: 1px solid #CCC;
+    margin: 0 0 5px 0;
+    padding: 3px;
+    background: #000;
+    color: #FFF;
+    border: 1px solid #CCC;
 }
 
 div.messages ul, div.erros ul {
-  margin: 0 0 0 35px;
-  padding: 0;
-  font-weight: bold;
+    margin: 0 0 0 35px;
+    padding: 0;
+    font-weight: bold;
 }
 
 div.timeData { 
-  border: 1px solid #CCC;
-  background: #EEE;
-  padding: 1px;
+    border: 1px solid #CCC;
+    background: #EEE;
+    padding: 1px;
 }
 
 div.optionsMenu { 
-  margin: 5px 0;
+    margin: 5px 0;
 }
 
 div.product {
-	border: 1px solid black;
-	margin: 5px;
-	padding: 5px;
-	cursor: pointer;
+    border: 1px solid black;
+    margin: 5px;
+    padding: 5px;
+    cursor: pointer;
 }
 
 div.product_images {
-	float: right;
+    float: right;
 }
 
 tr.barshift-full td {
-  background: #AAA;
-  font-style: italic;  
+    background: #AAA;
+    font-style: italic;  
 }
 
 td.worker-status {
-  text-align: center;
-  font-weight: bold;
+    text-align: center;
+    font-weight: bold;
 }
 
 div.calendar-barshift {
-  border: 1px solid #CCC;  
+    border: 1px solid #CCC;  
 }
 
 div.calendar-barshift.full {
-  border: 1px solid #CCC;
-  background: #DDD;  
+    border: 1px solid #CCC;
+    background: #DDD;  
 }
 
 div.calendar-barshift h4 {
-  text-align: left;
-  white-space: nowrap;
+    text-align: left;
+    white-space: nowrap;
 }
 
 div.calendar-barshift ul {
-  margin: 0;
-  padding: 0;
-  list-style: none;
+    margin: 0;
+    padding: 0;
+    list-style: none;
 }
 
 .calendar-register-me {
-  border: 1px solid black;
-  padding: 1px;
-  width: 50%;
-  color: black;
-  margin: 0px;
-  display: block;
-  text-align: center;
-  background: #DDD;
+    border: 1px solid black;
+    padding: 1px;
+    width: 50%;
+    color: black;
+    margin: 0px;
+    display: block;
+    text-align: center;
+    background: #DDD;
 }
 
 div.calendar-barshift li {
-  white-space: nowrap;
-  margin: 0;
-  padding: 0;
+    white-space: nowrap;
+    margin: 0;
+    padding: 0;
 }
 
 div.comments { 
-  border-top: 2px solid #CCC;
-  
+    border-top: 2px solid #CCC;
+
 }
 
 div.comment { 
-  border-top: 2px solid #CCC;
-  padding: 5px 0;
-  position: relative;
+    border-top: 2px solid #CCC;
+    padding: 5px 0;
+    position: relative;
 }
 
 div.comment-meta { 
-  position: absolute;
-  
+    position: absolute;
+
 }
 
 div.comment-main { 
-  margin-left: 150px;
-  min-height: 60px;
-  border-left: 2px dotted #CCC;
-  padding-left: 5px;
+    margin-left: 150px;
+    min-height: 60px;
+    border-left: 2px dotted #CCC;
+    padding-left: 5px;
 }
 
 * html div.comment-main { 
-  height: 60px;
+    height: 60px;
 }
 
 .clear-right {
-  clear: right;  
+    clear: right;  
 }
 /* =footer
-*********************************************************************/
+ *********************************************************************/
 #footer { 
-  clear: both;
-  text-align: center;
-  background: #EEE;
-  border: 1px solid #CCC;
-  -moz-border-radius: 8px;
-  color: #000;
-  margin-top: 0px;
+    clear: both;
+    text-align: center;
+    background: #EEE;
+    border: 1px solid #CCC;
+    -moz-border-radius: 8px;
+    color: #000;
+    margin-top: 0px;
 }
 
 
 
 /* =extras
-*********************************************************************/
+ *********************************************************************/
 .domenabled ul#finder, .domenabled ul#finder li, .domenabled ul#finder ul {
-  list-style-type:none;
-  margin: 5px 0;
-  padding:0;
-  line-height: 1em;
+    list-style-type:none;
+    margin: 5px 0;
+    padding:0;
+    line-height: 1em;
 }
 
 .domenabled ul#finder ul.hidden {
-  display: none;
+    display: none;
 }
 .domenabled ul#finder ul.shown {
-  margin: 3px 25px;
-  display: block;
+    margin: 3px 25px;
+    display: block;
 }
 
 .domenabled ul#finder li a {
 }
 
 .domenabled #finder a.open {
-  font-weight: bold;
-  display: block;
-  color: black;
+    font-weight: bold;
+    display: block;
+    color: black;
 }
 
 .domenabled #finder a.parent {
-  color: black;
+    color: black;
 }
 
 
 .domenabled div.disabled { 
-  display: none;
+    display: none;
 }
