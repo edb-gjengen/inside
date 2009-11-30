@@ -1001,7 +1001,7 @@ function displayLogin() {
 	$title = "logg inn";
 	$enctype = NULL;
 	$method = "post";
-	$action = "index.php?action=log-in";
+	$action = "index.php?action=log-in&page=" . $_GET['page'];
 	$fields = Array ();
 
 	$fields[] = Array (
