@@ -45,6 +45,7 @@ Pris: <?php print $gig->priceNormal; ?>/<?php print $gig->priceConcession; ?>
 Våre samarbeidspartnere:
 Toro
 Aftenposten
+SF Norge
 
 Det Norske Studentersamfund
 www.studentersamfundet.no
