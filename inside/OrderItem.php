@@ -19,7 +19,7 @@ class OrderItem {
     $this->__construct($id, $data);
   }
 
-  public 
+  public
   function __construct($id = NULL, $data = NULL){
     $this->conn = db_connect();
 
@@ -34,21 +34,25 @@ class OrderItem {
         $data = $this->_retrieveData();
       }
     }
+
     //Common initializations
-		$this->product_id = $data['product_id'];
-		$this->quantity   = $data['quantity'];
-		$this->order_id   = $data['order_id'];
-		$this->discount   = $data['discount'];
-    $this->comment		= isset($data['comment']) ? $data['comment'] : '';
+	$this->product_id = $data['product_id'];
+	$this->quantity   = $data['quantity'];
+	$this->order_id   = $data['order_id'];
+	$this->discount   = $data['discount'];
+  	$this->comment		= isset($data['comment']) ? $data['comment'] : '';
+
+  	// only allow purchase of one membership
+  	if ($this->product_id == 1) $this->quantity = 1;
   }
 
   public function store(){
     if ($this->id == NULL){
       $this->id = getNextId("din_order_item");
-      $sql = sprintf("INSERT INTO din_order_item 
+      $sql = sprintf("INSERT INTO din_order_item
                           (id, product_id, quantity, order_id, discount, comment)
-                      VALUES 
-                          (%s, %s, %s, %s, %s, %s)", 
+                      VALUES
+                          (%s, %s, %s, %s, %s, %s)",
                      $this->conn->quoteSmart($this->id),
                      $this->conn->quoteSmart($this->product_id),
                      $this->conn->quoteSmart($this->quantity),
@@ -61,11 +65,11 @@ class OrderItem {
         //notify("Nytt ordreelement lagret.");
       }else {
         error("New order_item: " . $result->toString());
-      }  
+      }
     }
   }
-  
-  
+
+
   public function _retrieveData(){
     $sql = "SELECT *
             FROM din_order_item t
@@ -83,17 +87,17 @@ class OrderItem {
 
   public
   function setQuantity($value) {
-    $sql = "UPDATE din_order_item SET
-                quantity = $value
-            WHERE " .
-           "		id = $this->id";
-                   
+  	// only allow purchase of one membership
+  	if ($this->product_id == 1) $value = 1;
+
+    $sql = "UPDATE din_order_item SET quantity = " . $value . " WHERE id = " . $this->id;
+
     $result = $this->conn->query($sql);
     if (DB::isError($result) != true){
       //notify("Orderstatus oppdatert ($value)");
     }else {
       error("Set quantity -  order_item: " . $result->toString());
-    }  	
+    }
   }
 
   public
@@ -102,34 +106,34 @@ class OrderItem {
                 comment = '$value'
             WHERE " .
            "		id = $this->id";
-                   
+
     $result = $this->conn->query($sql);
     if (DB::isError($result) != true){
       //notify("Orderstatus oppdatert ($value)");
     }else {
       error("Set comment -  order_item: " . $result->toString());
-    }  	
+    }
   }
 
   public
-  /*static*/ 
+  /*static*/
   function delete($id){
     $conn = db_connect();
-    $sql = "DELETE FROM din_order_item 
-            WHERE id = $id 
+    $sql = "DELETE FROM din_order_item
+            WHERE id = $id
             LIMIT 1";
     $result = $conn->query($sql);
     if (DB::isError($result) != true){
       if ($conn->affectedRows() > 0){
         //notify("Varen er slettet fra handlekurven.");
       }else {
-        //notify("Ugyldig order_itemid, ingen handling utført.");        
+        //notify("Ugyldig order_itemid, ingen handling utført.");
       }
     }else {
       error($result->toString());
     }
   }
-  
+
   public function display(){
 		$product = new Product($this->product_id);
 ?>
@@ -146,17 +150,17 @@ class OrderItem {
     		  <td><strong><?php print $product->title; ?></strong><br /><?php print $product->description; ?></td><td><?php print formatPrice($this->price); ?></td>
 		    </tr>
   		</table>
-  
+
   		<p>Du vil få tilsendt medlemskort i posten i løpet av 6-12 dager.</p>
   		<p>Om du allerede har medlemskort vil du kun få tilsendt nytt oblat for inneværende år.</p>
   		<p>For spørsmål vedrørende medlemskapet eller transaksjonen kan du kontakte <a href="mailto:support@studentersamfundet.no">support@studentersamfundet.no</a>.</p>
-   
+
     </div>
-     
+
 <?php
   }
 
-  public 
+  public
   function displayList(){
    	$product = new Product($this->product_id);
    ?>
@@ -172,9 +176,9 @@ class OrderItem {
 	      <td><input type="text" name="orderitem<?php print $this->id; ?>" size="2" value="<?php print $this->quantity; ?>" /></td>
       </tr>
 <?php
-  }  
+  }
 
-  public 
+  public
   function displayShortList(){
    	$product = new Product($this->product_id);
    ?>
@@ -184,13 +188,13 @@ class OrderItem {
 	      <td><?php print $this->quantity; ?></td>
       </tr>
 <?php
-  }  
-	
+  }
+
 	public
 	function getConfirmationText() {
 		$product = new Product($this->product_id);
 		$text = $this->quantity . " " . $product->title . " á " . formatPrice($product->price) . "\n";
-		return $text; 
+		return $text;
 	}
 }
 

@@ -19,7 +19,7 @@ class Order {
     $this->__construct($id, $data);
   }
 
-  public 
+  public
   function __construct($id = NULL, $data = NULL){
     $this->conn = db_connect();
 
@@ -40,7 +40,7 @@ class Order {
 		    $this->order_status_id    = $data['order_status_id'];
 		    $this->order_status_value = $data['order_status_value'];
 		    $this->comment						= $data['comment'];
-      	
+
       }
     }
     //Common initializations
@@ -50,10 +50,10 @@ class Order {
   function store(){
     if ($this->id == NULL){
       $this->id = getNextId("din_order");
-      $sql = sprintf("INSERT INTO din_order 
+      $sql = sprintf("INSERT INTO din_order
                           (id, user_id, timestamp, comment)
-                      VALUES 
-                          (%s, %s, NOW(), %s)", 
+                      VALUES
+                          (%s, %s, NOW(), %s)",
                      $this->conn->quoteSmart($this->id),
                      $this->conn->quoteSmart($this->user_id),
                      $this->conn->quoteSmart($this->comment)
@@ -63,41 +63,58 @@ class Order {
         //notify("Ny ordre lagret.");
       }else {
         error("New order: " . $result->toString());
-      }  
+      }
     }
   }
-  
+
   public
   function setStatus($value) {
     $sql = "UPDATE din_order SET
                 order_status_id = $value
             WHERE " .
            "		id = $this->id";
-                   
+
     $result = $this->conn->query($sql);
     if (DB::isError($result) != true){
       //notify("Orderstatus oppdatert ($value)");
     }else {
       error("Set status -  order: " . $result->toString());
-    }  	
+    }
   }
 
   public
   function addOrderItem($data) {
-		$data['order_id'] = $this->id;
-		$data['discount'] = 0;
+	$data['order_id'] = $this->id;
+	$data['discount'] = 0;
+
+  	$added = false;
+
+  	// fetch items in order and check if item allready is in order
+  	$items = $this->getItems();
+	while ($row =& $items->fetchRow(DB_FETCHMODE_ASSOC)){
+		$item = new OrderItem($row['id']);
+		if ($item->product_id == $data['product_id']) {
+			// item already exists in order, update quantity
+			$item->setQuantity($item->quantity + $data[quantity]);
+			$added = true;
+		}
+	}
+
+  	// new product id for this order, add order item
+  	if (!$added) {
 		$item = new OrderItem(NULL, $data);
 		$item->store();
-		return true;
-		//$this->_updateTotalPrice();
+  	}
+
+	return true;
   }
 
-  public 
+  public
   function _updateTotalPrice(){
 
   }
-  
-  public 
+
+  public
   function _retrieveData(){
     $sql = "SELECT o.*, os.value AS order_status_value
             FROM din_order o, din_order_status os
@@ -115,21 +132,21 @@ class Order {
   }
 
   public
-  /*static*/ 
+  /*static*/
   function delete($id){
 		$order = new Order($id);
 		$order->setStatus(5);
   }
-  
+
   public
   function getItems() {
   	$sql = "SELECT oi.id " .
   				 "FROM din_order_item oi " .
   				 "WHERE oi.order_id = $this->id";
-    $result =& $this->conn->query($sql);		
+    $result =& $this->conn->query($sql);
 		return $result;
   }
-  
+
   public
   function calculateTotalAmount() {
 		$items = $this->getItems();
@@ -142,8 +159,8 @@ class Order {
     }
 		return $amount;
   }
-  
-  public 
+
+  public
   function display(){
 		$items = $this->getItems();
 ?>
@@ -152,19 +169,19 @@ class Order {
 <?php
 	  if (DB::isError($items) != true){
     	if ($items->numRows() > 0){?>
-      
+
       <form action="index.php?page=display-cart" method="post" id="update-order-<?php print $this->id; ?>">
   		<div><input type="hidden" name="action" value="update-cart" /></div>
-  
+
       <table class="sortable" id="cartcontent">
         <tr>
           <th>vare</th>
           <th>pris</th>
           <th>antall</th>
         </tr>
-<?php      
+<?php
     	}else {
-    		print("Ingen varer er registrert.");    		
+    		print("Ingen varer er registrert.");
     	}
       while ($row =& $items->fetchRow(DB_FETCHMODE_ASSOC)){
         $item = new OrderItem($row['id']);
@@ -192,11 +209,11 @@ class Order {
     }
 ?>
     </div>
-     
+
 <?php
   }
 
-  public 
+  public
   function displayShortList($edit = false){
 		$items = $this->getItems();
    ?>
@@ -204,14 +221,14 @@ class Order {
 			<h3>Handlekurv #<?php print $this->id; ?></h3>
 <?php
 	  if (DB::isError($items) != true){
-?>     
+?>
       <table class="sortable" id="cartcontent">
         <tr>
           <th>vare</th>
           <th>pris</th>
           <th>antall</th>
         </tr>
-<?php      
+<?php
       while ($row =& $items->fetchRow(DB_FETCHMODE_ASSOC)){
         $item = new OrderItem($row['id']);
         $item->displayShortList();
@@ -227,17 +244,17 @@ class Order {
 			<p>
 				<a class="button" href="index.php?page=display-cart&amp;order_id=<?php print $this->id; ?>">rediger ordre</a>
 				<a class="button" href="index.php?page=display-carts&amp;action=delete-order&amp;order_id=<?php print $this->id; ?>">slett ordre</a>
-				<a class="button" href="index.php?action=cart-checkout&amp;order_id=<?php print $this->id; ?>&amp;transaction_id_string=<?php print createTransactionId(); ?>">gå til betaling</a>			
+				<a class="button" href="index.php?action=cart-checkout&amp;order_id=<?php print $this->id; ?>&amp;transaction_id_string=<?php print createTransactionId(); ?>">gå til betaling</a>
 			</p>
       <?php }
     }else {
       error("Items: " . $result->toString());
     }
 ?>
-    </div>       
+    </div>
 <?php
   }
-  
+
   public
   function getConfirmationText() {
   	$items = $this->getItems();
@@ -248,24 +265,24 @@ class Order {
     }
   	return $text;
   }
-  
-  public 
+
+  public
   function displayConfirmation(){
 		$items = $this->getItems();
 ?>
 <?php
 	  if (DB::isError($items) != true){
     	if ($items->numRows() > 0){?>
-      
+
 	    <table class="sortable" id="cartcontent">
         <tr>
           <th>vare</th>
           <th>pris</th>
           <th>antall</th>
         </tr>
-<?php      
+<?php
     	}else {
-    		print("Ingen varer er registrert.");    		
+    		print("Ingen varer er registrert.");
     	}
 
       while ($row =& $items->fetchRow(DB_FETCHMODE_ASSOC)){
@@ -283,12 +300,12 @@ class Order {
       error("Items: " . $result->toString());
     }
   }
-  
+
 	public function performOperations() {
 		$items = $this->getItems();
 		while ($row =& $items->fetchRow(DB_FETCHMODE_ASSOC)){
 			$item = new OrderItem($row['id']);
-			
+
 			if ($item->product_id == 1) {
 				// new membership
 				$user = new User($this->user_id);
@@ -300,7 +317,7 @@ class Order {
 				} else {
 					if(!$user->renewMembershipPayex()){
 						return false;
-					}		
+					}
 				}
   			} elseif ($item->product_id == 12) {
   				// send new membercard
