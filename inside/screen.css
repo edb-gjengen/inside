@@ -355,8 +355,19 @@ h4 {
 }
 /* =header
 *********************************************************************/
+
+#menu li {
+    font-size:14px;
+}
+.aapningstider table {
+    border:none;
+}
+.aapningstider table td {
+    background:transparent;
+}
+
 #header { 
-  background: url("http://studentersamfundet.no/img/header-210x.png") repeat-x bottom;
+  background: #191919 url("http://studentersamfundet.no/img/header-210x.png") repeat-x bottom;
   border: none;
 }
 .site-title a {
@@ -367,17 +378,55 @@ h4 {
     width:400px;
     margin-top:15px;
 }
-#header {
+/*#header {
     height:120px;
     overflow:hidden;
     position:relative;
+}*/
+
+#header {
+    height:175px;
+    margin-bottom:10px;
+    overflow:hidden;
+    position:relative;
 }
+.site-title {
+    z-index:999
+}
+.site-title a {
+    background: url('http://studentersamfundet.no/img/bannerindex-400.png') no-repeat -20px 0;
+    display:block;
+    height:63px;
+    margin-top:20px;
+    text-indent:-9999px;
+    width:400px;
+}
+
+#quick-menu {
+    color:#cccccc;
+    font-size:13px;
+    left:50%;
+    margin-left:100px;
+    position:absolute;
+    text-align:right;
+    top:5px;
+    width:375px;
+}
+#quick-menu a {
+    color:#ffffff;
+}
+
 #menu {
     position:absolute;
-    bottom:14px;
+    bottom:35px;
     width:100%;
-    padding-left:40%;
-
+/*    padding-left:23%;*/
+}
+#header .site-title,
+#header #menu ul ul,
+#menu > ul {
+    width:975px;
+    margin:auto;
 }
 #menu ul,#menu li {
     list-style-type:none;
@@ -391,83 +440,105 @@ h4 {
     height:22px;
     padding:5px 13px 3px;
     text-decoration:none;
-    color: #f5f5f5;
+    color:#ffffff;
 }
-#menu ul ul {
-    bottom:-45px;
+#menu ul div {
+    bottom:-25px;
     left:0;
     position:absolute;
     margin:0;
     width:100%;
-    border-top:4px solid;
+    border-top:none;
+}
+#menu ul ul li,
+#menu ul ul li a {
+    color:#ffffff;
 }
 #menu ul ul li a {
     padding-top:1px;
-    color:#444444;
 }
 
 #menu > ul > li {
     -moz-border-radius-topleft:8px;
     -moz-border-radius-topright:8px;
     -webkit-border-top-left-radius:8px;
-}
-#menu ul ul {
-    -moz-border-radius-bottomleft:8px;
-    -moz-border-radius-bottomright:8px;
-    -webkit-border-bottom-left-radius:8px;
+    -webkit-border-top-right-radius:8px;
+    border-top-left-radius:8px;
+    border-top-right-radius:8px;
 }
 
-#menu li ul {
+#menu li div {
     display:none;
-    height:41px;
+    height:25px;
 }
-#menu li.current ul {
+#menu li.current div {
     display:block;
 }
-#menu li:hover ul {
+#menu li:hover div,
+#menu li:focus div
+{
     display:block;
-    background:url('img/gradient-200x.png') repeat-x 0 -204px;
+    background:url('http://studentersamfundet.no/img/gradient-200x.png') repeat-x 0 -204px;
     z-index:9;
 }
-#menu li#program-meny{
-    background:#945FB9;
-}
-#menu li#program-meny ul {
-    border-color:#945FB9;
-}
-#menu li#informasjon-meny {
-    background:#D83E00;
-}
-#menu li#informasjon-meny ul {
-    border-color:#D83E00;
-}
-#menu li#medlem-meny {
-    background:#094f71;
-}
-#menu li#medlem-meny ul {
-    border-color:#094f71;
-}
-#menu li#forum-meny {
-    background:#187105;
-}
-#menu li#forum-meny ul {
-    border-color:#187105;
-}
-#menu li#inside-meny {
-    background: #9D2F2F;
-}
-#menu li#inside-meny ul {
-    border-color: #9D2F2F;
-}
-#menu li#kontakt-meny {
-    background: #444444;
-}
-#menu li#kontakt-meny ul {
-    border-color: #444444;
+
+#menu li div {
+    background-image: url(http://studentersamfundet.no/img/fade-to-black.png) !important;
 }
 
+#menu > ul > li,
+#menu li div {
+    background-color:#999999;
+}
+.section-forside #menu li#forside-meny,
+#menu li#forside-meny:hover,
+#menu li#forside-meny div {
+    background:#2c69a6 url(http://studentersamfundet.no/img/gradient-white-to-transparent-x30.png) repeat-x 0 top;
+}
+.section-program #menu li#program-meny,
+#menu li#program-meny:hover,
+#menu li#program-meny div {
+    background:#b64484 url(http://studentersamfundet.no/img/gradient-white-to-transparent-x30.png) repeat-x 0 top;
+}
+.section-foreninger #menu li#foreninger-meny,
+#menu li#foreninger-meny:hover,
+#menu li#foreninger-meny div {
+    background:#23905b url(http://studentersamfundet.no/img/gradient-white-to-transparent-x30.png) repeat-x 0 top;
+}
+.section-forum #menu li#forum-meny,
+#menu li#forum-meny:hover,
+#menu li#forum-meny div {
+    background:#ba3939 url(http://studentersamfundet.no/img/gradient-white-to-transparent-x30.png) repeat-x 0 top;
+}
+.section-inside #menu li#inside-meny,
+#menu li#inside-meny:hover,
+#menu li#inside-meny div {
+    background: #6b43a2 url(http://studentersamfundet.no/img/gradient-white-to-transparent-x30.png) repeat-x 0 top;
+}
+.section-nyheter #menu li#nyheter-meny,
+#menu li#nyheter-meny:hover,
+#menu li#nyheter-meny div {
+    background: #1c8a8e url(http://studentersamfundet.no/img/gradient-white-to-transparent-x30.png) repeat-x 0 top;
+}
 
-
+#header .aapningstider {
+    color:#CCCCCC;
+    font-size:12px;
+    height:100px;
+    left:50%;
+    margin-left:300px;
+    overflow:hidden;
+    position:absolute;
+    text-align:right;
+    top:25px;
+    width:175px;
+}
+#header .aapningstider table {
+    position:absolute;
+    right:0;
+    bottom:0;
+    text-align:left;
+}
 
 /* =navigation
  *********************************************************************/
