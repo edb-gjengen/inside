@@ -69,7 +69,7 @@ function scriptParam($name) {
 	}
 	else
 		if (isset ($_POST[$name])) {
-			$val = $_POST[$name];
+			$val = mysql_real_escape_string($_POST[$name]);
 		}
 		else
 			if (isset ($_GET[$name])) {

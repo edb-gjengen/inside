@@ -7,10 +7,10 @@ print('<?xml version="1.0" encoding="ISO-8859-1"?'.'>');
    
 $conn = db_connect();
 
-$action = $_REQUEST['action'];
+$action = mysql_real_escape_string($_REQUEST['action']);
 if ($action == 'checkZip'){
 
-  $zip = $_REQUEST['zip']; 
+  $zip = mysql_real_escape_string($_REQUEST['zip']); 
   if ($zip != "") {  	
     $sql = "SELECT poststed AS postarea
            FROM din_postnummer
@@ -72,7 +72,7 @@ if ($action == 'checkZip'){
   printRemoveCatXML($type);
 
 }else if ($action == 'checkUsername') {
-  $username = $_REQUEST['username'];
+  $username = mysql_real_escape_string($_REQUEST['username']);
   $conn = db_connect("forum");
   $sql = sprintf("SELECT user_id FROM phpbb_users u "."WHERE username_clean = '%s' ", strtolower($username));
   $result = & $conn->query($sql);
