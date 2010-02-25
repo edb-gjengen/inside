@@ -98,10 +98,10 @@ class User {
                 }
             }
         } else { //ID set, existing user
-            if ($data != NULL) { 
+            if ($data != NULL) {
                 //Update existing user
                 $this->addresstype = isset ($data['addresstype']) ? "int" : "no";
-            } else { 
+            } else {
                 //Retrieve data from backend for display or other actions
                 if ($data = $this->_retrieveData()) {
                     $this->username = stripcslashes($data['username']);
@@ -227,7 +227,7 @@ class User {
         }
       }
 
-      //Logging	
+      //Logging
       $sql = sprintf("INSERT INTO din_userupdate " . "VALUES (NULL, NOW(), %s, %s, %s)", $this->conn->quoteSmart($this->id), $this->conn->quoteSmart("User registered."), $this->conn->quoteSmart((getCurrentUser() == 0) ? $this->id : getCurrentUser()));
       $result = $this->conn->query($sql);
       if (DB :: isError($result) == true) {
@@ -261,7 +261,7 @@ class User {
         return false;
       }
 
-      // Slett adressen hvis den kun består av en x. 
+      // Slett adressen hvis den kun består av en x.
       // Brukeren får da en mail med informasjon om å oppdatere adressen sin.
       if (substr($this->street, 0, 1) == 'x') {
         $link = substr($this->street, 2);
@@ -286,7 +286,7 @@ class User {
           }
           return false;
         }
-        
+
         // ugly fix ... set address manual if the user is admin
         if (isAdmin()) {
           $this->setAddressStatus($this->validAddress);
@@ -364,6 +364,17 @@ class User {
         return false;
     }
 
+  public function getId () {
+    return $this->id;
+  }
+
+  public function getLastSticker () {
+    if ($this->lastSticker > 0) {
+      return $this->lastSticker;
+    }
+    return null;
+  }
+
   public function changeUsername($username, $password) {
     switch (checkForumUsername($username, $password)) {
       case "wrong-password" :
@@ -422,7 +433,7 @@ class User {
       return $row->date;
     }
   }
-  
+
   public function getOrderId() {
     $sql = "SELECT id FROM din_order " .
     			 "WHERE user_id = $this->id " .
@@ -618,7 +629,7 @@ class User {
   }
 
   /**
-   * Bankbetaling med KID 
+   * Bankbetaling med KID
    */
   public function renewMembershipBankpayment() {
     if (false and $this->isHonorMember()) {
@@ -713,8 +724,8 @@ class User {
         if (DB :: isError($result) != true) {
             $this->_registerUpdate("Oppdatert oblat til " . $newDate);
             $this->lastSticker = $newDate;
-            notify("Oblat oppdatert.");
-            
+            notify("Oblat oppdatert til " . $this->getLastSticker() . " for " . $this->getName() . ".");
+
             // Assume that a letter is sent to the registered address.
             // We mark the address as valid, and will update it as invalid if the letter is not delivered
             $this->setAddressStatus(1);
@@ -734,8 +745,8 @@ class User {
         }
         print "</td>\n";
 
-        print "  <td><a href=\"index.php?page=display-user&amp;userid=" . 
-            $this->id . "\" title=\"mer informasjon om " . 
+        print "  <td><a href=\"index.php?page=display-user&amp;userid=" .
+            $this->id . "\" title=\"mer informasjon om " .
             $this->firstname . " " . $this->lastname . "\">" .
             $this->firstname . "</a></td>\n";
 
@@ -847,6 +858,19 @@ class User {
         }
     }
 
+    public function hasCard() {
+      if ($this->hasCard) {
+        return true;
+      }
+      return false;
+    }
+
+    public function hasCardSticker() {
+      if ($this->getLastSticker() >= date("Y", strtotime($this->expires))) {
+        return true;
+      }
+    }
+
     public function getExpiryDate() {
       if (date("Y-m-d") > date("Y-11-15")) {
         return date("Y", strtotime("+1 year")) . "-12-31";
@@ -917,7 +941,7 @@ class User {
      * 0 - not valid address
      * 1 - valid address
      * 2 - status of address unknown
-     * 
+     *
      * @param integer $value
      * @return boolean
      **/
@@ -936,7 +960,7 @@ class User {
                 switch ($value) {
                     case 1:
                         $valuetext = "gyldig"; break;
-                    case 2: 
+                    case 2:
                         $valuetext = "ukjent"; break;
                     default:
                         $valuetext = "ugyldig"; break;
@@ -1128,7 +1152,7 @@ class User {
                     "action=\"javascript: setHasCard('" . $this->id . "')\" " .
                     "method=\"post\">";
             } else {
-                print "<form action=\"javascript: updateUserExpiry('" . 
+                print "<form action=\"javascript: updateUserExpiry('" .
                     $this->id  . "')\" method=\"get\">";
             }
         } else {
@@ -1160,8 +1184,8 @@ class User {
         print "</form>";
         print "</td>\n";
 
-        print "  <td id=\"user_" . $this->id . "_laststicker\">";
-        print ($this->lastSticker == '0000') ? "" : $this->lastSticker;
+        print "<td id=\"user_" . $this->id . "_laststicker\">";
+        print $this->getLastSticker();
         print "</td>\n";
 
         print "  <td>";
@@ -1363,7 +1387,7 @@ class User {
         $sendto = $this->email;
         $linkMessage = "";
         if ($link) {
-            $linkMessage = "Brevet vi har forsøkt å sende kan du også " . 
+            $linkMessage = "Brevet vi har forsøkt å sende kan du også " .
                 "lese på nett fra denne adressen:\n$link\n\n";
         }
         $subject = "Postforsendelse er ikke kommet frem til addressen din";
@@ -1373,7 +1397,7 @@ class User {
         "om at du var ukjent på din oppgitte adresse. \n" .
         "Vi sendte brevet til følgende adresse: \"" . $this->street . ", " .
         $this->zipcode . " " . $this->postarea . "\". " .
-        "På grunn av tilbakemeldingen om at du er ukjent på adressen ". 
+        "På grunn av tilbakemeldingen om at du er ukjent på adressen ".
         "er brevet så blitt makulert av Posten, på oppdrag av oss." .
         "\n" .
         $linkMessage .

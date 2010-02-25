@@ -8,7 +8,7 @@ class Page {
   var $page;
   var $theme;
   var $section;
-  
+
   function Page(){
     $this->__construct();
   }
@@ -36,13 +36,13 @@ class Page {
             Om Studentersamfundet | <a href="http://studentersamfundet.no/kart.php">Kart</a> | <a href="http://studentersamfundet.no/kontakt.php">Kontakt</a>
         </div>
 
-        <div class="aapningstider"> 
-            <table> 
-                <tr><td>Mandag-onsdag</td><td>13-01</td></tr> 
-                <tr><td>Torsdag-fredag</td><td>13-03</td></tr> 
-                <tr><td>L&oslash;rdag</td><td>16-03</td></tr> 
-                <tr><td>Kjøkkenet</td><td>Til 19</td></tr> 
-            </table> 
+        <div class="aapningstider">
+            <table>
+                <tr><td>Mandag-onsdag</td><td>13-01</td></tr>
+                <tr><td>Torsdag-fredag</td><td>13-03</td></tr>
+                <tr><td>L&oslash;rdag</td><td>16-03</td></tr>
+                <tr><td>Kjøkkenet</td><td>Til 19</td></tr>
+            </table>
         </div>
 
 <?php /*
@@ -115,7 +115,7 @@ possibly include it instead? --Thomas Misund, 26. Oct 2009
 
       <div id="content-wrap">
 <?php
-    $this->_displayNavigation();  
+    $this->_displayNavigation();
 ?>
       <div id="content" class="clearfix">
 <?php
@@ -127,12 +127,12 @@ possibly include it instead? --Thomas Misund, 26. Oct 2009
       Messages::display();
     }
     if (isset($GLOBALS['extraScriptParams']['report-bug'])){
-      displayBugReportForm($GLOBALS['extraScriptParams']['report-bug']); 
+      displayBugReportForm($GLOBALS['extraScriptParams']['report-bug']);
     }
 
     $GLOBALS['beginHTML'] = true;
 
-                                                 
+
     if (!isset($_SESSION['valid-user'])){
       if ($this->page == 'register-user'){
         $this->_registerUser();
@@ -157,7 +157,7 @@ possibly include it instead? --Thomas Misund, 26. Oct 2009
         case "welcome":
         $this->_displayWelcome();
         break;
-        
+
         case "home":
         $this->_displayHome();
         break;
@@ -165,11 +165,11 @@ possibly include it instead? --Thomas Misund, 26. Oct 2009
         case "reset-password":
         $this->_resetPassword();
         break;
-        
+
         case "display-article":
         $this->_displayArticle();
         break;
-        
+
         case "display-articles":
         $this->_displayArticles();
         break;
@@ -177,35 +177,35 @@ possibly include it instead? --Thomas Misund, 26. Oct 2009
         case "register-article":
         $this->_registerArticle();
         break;
-        
+
         case "edit-article":
         $this->_editArticle();
         break;
-        
+
         case "display-jobs":
         $this->_displayJobs("NOW()");
         break;
-        
+
         case "display-jobs-archive":
         $this->_displayJobs("0000-00-00");
         break;
-        
+
         case "display-job":
         $this->_displayJob();
         break;
-        
+
         case "register-job":
         $this->_registerJob();
         break;
-        
+
         case "edit-job":
         $this->_editJob();
         break;
-        
+
         case "display-barshifts":
         $this->_displayBarShifts("NOW()");
         break;
-                
+
         case "display-barshifts-calendar":
         $this->_displayBarShiftsCalendar();
         break;
@@ -213,11 +213,11 @@ possibly include it instead? --Thomas Misund, 26. Oct 2009
         case "display-barshift":
         $this->_displayBarShift();
         break;
-        
+
         case "register-barshift":
         $this->_registerBarShift();
         break;
-        
+
         case "edit-barshift":
         $this->_editBarShift();
         break;
@@ -225,87 +225,87 @@ possibly include it instead? --Thomas Misund, 26. Oct 2009
         case "display-divisions":
         $this->_displayDivisions();
         break;
-        
+
         case "display-division":
         $this->_displayDivision();
         break;
-        
+
         case "register-division":
         $this->_registerDivision();
         break;
-        
+
         case "edit-division":
         $this->_editDivision();
         break;
-        
+
         case "display-positions":
         $this->_displayPositions("NOW()");
         break;
-        
+
         case "display-positions-archive":
         $this->_displayPositions("0000-00-00");
         break;
-        
+
         case "display-position":
         $this->_displayPosition();
         break;
-        
+
         case "register-position":
         $this->_registerPosition();
         break;
-        
+
         case "edit-position":
         $this->_editPosition();
         break;
-        
+
         case "display-events":
         $this->_displayEvents("NOW()");
         break;
-        
+
         case "display-events-archive":
         $this->_displayEvents("0000-00-00");
         break;
-        
+
         case "display-events-calendar":
         $this->_displayEventsCalendar();
         break;
-        
+
         case "display-event":
         $this->_displayEvent();
         break;
-        
+
         case "register-event":
         $this->_registerEvent();
         break;
-        
+
         case "edit-event":
         $this->_editEvent();
         break;
-        
+
         case "display-concerts":
         $this->_displayConcerts("NOW()");
         break;
-                
+
         case "display-concerts-calendar":
         $this->_displayConcertsCalendar();
         break;
-        
+
         case "display-concert":
         $this->_displayConcert();
         break;
-        
+
         case "register-concert":
         $this->_registerConcert();
         break;
-        
+
         case "edit-concert":
         $this->_editConcert();
         break;
-        
+
         case "edit-concertreport":
         $this->_editConcertReport();
         break;
-        
+
         case "display-all-calendar":
         $this->_displayAllCalendar();
         break;
@@ -325,49 +325,49 @@ possibly include it instead? --Thomas Misund, 26. Oct 2009
         case "display-documents":
         $this->_displayDocuments();
         break;
-        
+
         case "upload-document":
         $this->_uploadDocument();
         break;
-        
+
         case "edit-document":
         $this->_editDocument();
         break;
-        
+
         case "display-groups":
         $this->_displayGroups();
         break;
-        
+
         case "register-group":
         $this->_registerGroup();
         break;
-        
+
         case "display-group":
         case "edit-group":
         $this->_editGroup();
         break;
-        
+
         case "display-actions":
         $this->_displayActions();
         break;
-        
+
         case "register-action":
         $this->_registerAction();
         break;
-        
+
         case "display-action":
         case "edit-action":
         $this->_editAction();
         break;
-        
+
         case "display-actiongrouprelationships":
         $this->_displayActionGroupRelationships();
         break;
-        
+
         case "register-actiongrouprelationship":
         $this->_registerActionGroupRelationship();
         break;
-        
+
         case "display-division-requests":
         $this->_displayDivisionRequests();
         break;
@@ -375,39 +375,39 @@ possibly include it instead? --Thomas Misund, 26. Oct 2009
         case "display-usergrouprelationships":
         $this->_displayUserGroupRelationships();
         break;
-        
+
         case "register-usergrouprelationship":
         $this->_registerUserGroupRelationship();
         break;
-        
+
         case "display-users":
         $this->_displayUsers();
         break;
-        
+
         case "display-user-expiries":
         $this->_displayUserExpiries();
         break;
-        
+
         case "display-users-study-place":
           $this->_displayUsersStudyPlace();
           break;
-        
+
         case "register-user-ea-update":
           $this->_registerUserEAUpdate();
           break;
-        
+
         case "register-membership-bankpayment":
           $this->_registerUserMembershipBankpayment();
           break;
-        
+
         case "register-user":
         $this->_registerUser();
         break;
-        
+
         case "display-current-user":
         $this->_editUser(getCurrentUser());
         break;
-        
+
         case "display-user":
         case "edit-user":
         $this->_editUser();
@@ -416,19 +416,19 @@ possibly include it instead? --Thomas Misund, 26. Oct 2009
         case "change-username":
         $this->_changeUsername();
         break;
-        
+
         case "register-membership":
         $this->_registerMembership();
         break;
-        
+
         case "renew-membership":
         $this->_renewMembership();
         break;
-        
+
         case "register-membership-payex-confirm":
         $this->_registerMembershipPayexConfirm();
         break;
-        
+
         case "payex-form":
         $this->_payexForm();
         break;
@@ -436,23 +436,23 @@ possibly include it instead? --Thomas Misund, 26. Oct 2009
         case "register-documentcategory":
         $this->_registerDocumentCategory();
         break;
-        
+
         case "edit-documentcategory":
         $this->_editDocumentCategory();
         break;
-        
+
         case "register-eventcategory":
         $this->_registerEventCategory();
         break;
-        
+
         case "edit-eventcategory":
         $this->_editEventCategory();
         break;
-        
+
         case "register-jobcategory":
         $this->_registerJobCategory();
         break;
-        
+
         case "edit-jobcategory":
         $this->_editJobCategory();
         break;
@@ -460,12 +460,12 @@ possibly include it instead? --Thomas Misund, 26. Oct 2009
 				case "display-product":
 				$this->_displayProduct();
 				break;
-        
+
 				case "display-products":
         case "register-product":
         $this->_registerProduct();
         break;
-        
+
         case "edit-product":
         $this->_editProduct();
         break;
@@ -477,10 +477,6 @@ possibly include it instead? --Thomas Misund, 26. Oct 2009
         case "display-bugreports":
         $this->_displayBugReports();
         break;
-
-				case "buy-ticket-galla":
-				$this->_buyTicketGalla();
-				break;
 
 				case "display-webshop":
 				$this->_displayWebshop();
@@ -509,17 +505,25 @@ possibly include it instead? --Thomas Misund, 26. Oct 2009
 				case "transaction-confirmation":
 				$this->_transactionConfirmation();
 				break;
-				
+
 				case "display-sms-log":
 				$this->_displaySmsLog();
-				break;
+				  break;
+
+				case 'membership-sale':
+				  $this->_membershipSale();
+				  break;
+
+				case 'membercard-production':
+				  $this->_membercardProduction();
+				  break;
 
         default:
         $this->_displayHome();
       }
-  
+
     }else {
-      $this->_displayAccessDenied();      
+      $this->_displayAccessDenied();
     }
   }
 ?>
@@ -527,7 +531,7 @@ possibly include it instead? --Thomas Misund, 26. Oct 2009
 
     </div> <!-- #content-wrap -->
 
-<?php                                           
+<?php
 
 $time_end = microtime(true);
 $time = round(($time_end - $GLOBALS['time_start']), 4);
@@ -548,7 +552,7 @@ print("      <div id=\"footer\">Script execution: $time seconds || <a href=\"mai
 
   <head>
     <meta http-equiv="content-type" content="text/html;charset=iso-8859-1" />
-    <link rel="stylesheet" title="default" type="text/css" 
+    <link rel="stylesheet" title="default" type="text/css"
           href="<?php print $this->theme; ?>" media="screen, projection" />
     <link rel="stylesheet" type="text/css" href="handheld.css" media="handheld" />
     <link rel="stylesheet" type="text/css" href="print.css" media="print" />
@@ -589,16 +593,17 @@ print("      <div id=\"footer\">Script execution: $time seconds || <a href=\"mai
             initializeMenu("divisionsMenu", "divisionsSwitch");
             initializeMenu("documentsMenu", "documentsSwitch");
             initializeMenu("usersMenu", "usersSwitch");
+            initializeMenu("billettbodMenu", "billettbodSwitch");
             initializeMenu("accessMenu", "accessSwitch");
             initializeMenu("settingsMenu", "settingsSwitch");
             initializeMenu("samarbeidspartnereMenu", "samarbeidspartnereSwitch"); // Test av samarbeidspartnere
             initializeMenu("smsMenu", "smsSwitch");
             initializeMenu("webshopMenu", "webshopSwitch");
             initializeMenu("linksMenu", "linksSwitch");
-        		
+
         		ul2finder();
 	    			cssjs('add', document.body, 'jsenabled');
-       <?php 
+       <?php
             if ($this->page == "display-user" || $this->page == "register-user" ||
                 $this->page == "display-current-user"){
             ?>
@@ -613,9 +618,9 @@ print("      <div id=\"footer\">Script execution: $time seconds || <a href=\"mai
     </script>
     <title><?php print $this->page_title; ?></title>
   </head>
-    
 
-<?php    
+
+<?php
   }
 
   public function _displayNavigation(){
@@ -629,7 +634,7 @@ print("      <div id=\"footer\">Script execution: $time seconds || <a href=\"mai
   }
 
   public
-  function _displayHome(){ 
+  function _displayHome(){
     $user = new User(getCurrentUser());
 ?>
   <div class="text-column">
@@ -646,7 +651,7 @@ print("      <div id=\"footer\">Script execution: $time seconds || <a href=\"mai
 		<?php
 	}
 
-    
+
   if (!isActive()){?>
     	<?php
     if (!isMember()){?>
@@ -657,11 +662,11 @@ print("      <div id=\"footer\">Script execution: $time seconds || <a href=\"mai
 			<?php
     }
 		?>
-			<p><a href="index.php?page=display-current-user">Oppdatér din brukerinformasjon</a></p>		
+			<p><a href="index.php?page=display-current-user">Oppdatér din brukerinformasjon</a></p>
 	    <p><a href="index.php?page=change-username&amp;userid=<?php print(getCurrentUser()); ?>">Endre brukernavn</a></p>
-		<?php	
+		<?php
   } else {
-        
+
     if (isBoardMember() || isAdmin()){
       //Meldinger til styremedlemmer kan skrives her
     }
@@ -669,20 +674,20 @@ print("      <div id=\"footer\">Script execution: $time seconds || <a href=\"mai
       <?php if (!isMember(getCurrentUser())){?>
       <h3>Du har ikke registrert medlemskort</h3>
       <p>Om du har kjøpt medlemskap må du <a href="index.php?page=register-membership">registrere kortnummer og kode</a>.</p>
-      <?php if (checkAuth("view-register-membership-payex")) ?><p>Du kan også <a href="index.php?page=register-membership">kjøpe medlemskap med VISA-kort</a>.</p> <?php ; ?>      
+      <?php if (checkAuth("view-register-membership-payex")) ?><p>Du kan også <a href="index.php?page=register-membership">kjøpe medlemskap med VISA-kort</a>.</p> <?php ; ?>
 <?php }else if (membershipExpired(getCurrentUser())){?>
       <h3>Medlemskapet ditt er utgått!</h3>
       <p>Om du har kjøpt medlemskap i en av barene på huset må du <a href="index.php?page=renew-membership">aktivere medlemskapet ditt med aktiveringsnummer og aktiveringskode</a>!</p>
       <?php if (checkAuth("view-register-membership-payex")) ?><p>Du kan også <a href="index.php?page=register-membership">kjøpe medlemskap med VISA-kort</a>.</p> <?php ; ?>
 <?php }
 
-    
+
     ?>
     <br />
     <h3>Hva vil du gjøre?</h3>
     <ul>
       <li><a href="index.php?page=display-webshop">Besøke nettbutikken</a></li>
-    <?php 
+    <?php
     if (checkAuth('view-display-division-requests')){ ?>
       <li><a href="index.php?page=display-division-requests">Godkjenn aktivforespørseler</a></li>
     <?php } ?>
@@ -693,10 +698,10 @@ print("      <div id=\"footer\">Script execution: $time seconds || <a href=\"mai
       <li><a href="index.php?page=display-documents">Lese dokumenter</a></li>
       <li><a href="index.php?page=display-divisions">Finne kontaktinfo til en forening</a></li>
       <li><a href="index.php?page=display-current-user">Oppdatere min brukerinformasjon</a></li>
-      <li><a href="index.php?page=change-username&amp;userid=<?php print(getCurrentUser()); ?>">Endre brukernavn</a></li>          
+      <li><a href="index.php?page=change-username&amp;userid=<?php print(getCurrentUser()); ?>">Endre brukernavn</a></li>
     </ul>
 
-<?php } 
+<?php }
 
 		if (isAdmin()) {
 			?>
@@ -717,8 +722,8 @@ print("      <div id=\"footer\">Script execution: $time seconds || <a href=\"mai
     	$method  = "post";
     	$action  = "index.php?page=display-users";
     	$fields  = Array();
-    
-    	$fields[] = Array("label" => "søk etter medlem", "type" => "text", 
+
+    	$fields[] = Array("label" => "søk etter medlem", "type" => "text",
       	                "attributes" => Array("name" => "search"));
     	$form = new Form($title, $enctype, $method, $action, $fields, $id);
     	$form->display("horizontal");
@@ -727,18 +732,18 @@ print("      <div id=\"footer\">Script execution: $time seconds || <a href=\"mai
 
 
   </div>
-  
-<?php     
+
+<?php
   }
 
    public function _displayAccessDenied(){?>
-  <div class="text-column">	
+  <div class="text-column">
     <p>Du har ikke tilgang til å se denne siden. Om du tror du skulle hatt tilgang, vennligst kontakt <a href="mailto:support@studentersamfundet.no">support</a>.</p>
 
     <p>Det kan også hende at siden du forsøkte å besøke ikke er publisert ennå.</p>
   </div>
-  
-<?php     
+
+<?php
   }
 
   public function _resetPassword(){
@@ -749,9 +754,9 @@ print("      <div id=\"footer\">Script execution: $time seconds || <a href=\"mai
     $action  = "index.php?action=update-password";
     $fields  = Array();
 
-    $fields[] =Array("label" => "nytt passord", "type" => "password", 
+    $fields[] =Array("label" => "nytt passord", "type" => "password",
                      "attributes" => Array("name" => "password1"));
-    $fields[] =Array("label" => "gjenta passord", "type" => "password", 
+    $fields[] =Array("label" => "gjenta passord", "type" => "password",
                      "attributes" => Array("name" => "password2"));
     $form = new Form($title, $enctype, $method, $action, $fields);
     $form->display();
@@ -760,13 +765,13 @@ print("      <div id=\"footer\">Script execution: $time seconds || <a href=\"mai
 
   public function _displayJobs($selection = "0000-00-00"){
     $jobs = new Jobs();
-    $jobs->displayList($selection);    
+    $jobs->displayList($selection);
   }
 
   public function _displayJob(){
     $jobId = scriptParam("jobid");
     $job = new Job($jobId);
-    $job->display();    
+    $job->display();
   }
 
   public function _registerJob(){
@@ -774,15 +779,15 @@ print("      <div id=\"footer\">Script execution: $time seconds || <a href=\"mai
     if (!empty($posId)){
       $pos = new Position($posId);
     }
-    
+
     $positions = new Positions();
     $posList   = $positions->getList();
 
     $jobCat = new JobCategories();
     $categories = $jobCat->getCategories();
-    
+
     $user        = new User(getCurrentUser());
-    $contactInfo = $user->getContactInfo();    
+    $contactInfo = $user->getContactInfo();
 
     print("<p><strong>Merk:</strong> stillinger som ikke er basert på stillingsbeskrivelser vil ikke vises på /jobb-sidene.</p>");
 
@@ -797,36 +802,36 @@ print("      <div id=\"footer\">Script execution: $time seconds || <a href=\"mai
                         "attributes" => Array("name" => "positionid"));
       $fields[] = Array("label" => "eksisterende stilling?", "type" => "radio",
                         "attributes" => Array("name" => "linkedToPos", "values" => Array("job-true", "job-false"),
-                                              "labels" => Array("ja", "nei"), 
+                                              "labels" => Array("ja", "nei"),
                                               "value" => "job-false"));
-      $fields[] = Array("label" => "&rarr;", "type" => "multilist", 
+      $fields[] = Array("label" => "&rarr;", "type" => "multilist",
                         "attributes" => Array("name" => "positionList", "disabled" => true,
                                               "values" => $posList));
       $comment = NULL;
     }else {
       $fields[] = Array("label" => "positionid", "type" => "hidden",
                         "attributes" => Array("name" => "positionid", "value" => "$posId"));
-    
+
       $comment ="<h3>$pos->name i $pos->division_name</h3>\n
-Teksten under er hentet fra kunnskapsdatabasen. Du står fritt til å endre den etter eget ønske. Endringer som gjøres i kunnskapsdatabasen etter denne utlysningen er registrert vil ikke gjenspeiles her. Stillingen er imidlertid knyttet opp mot stillingsbeskrivelsen, og vil bli annosert sammen med denne også."; 
+Teksten under er hentet fra kunnskapsdatabasen. Du står fritt til å endre den etter eget ønske. Endringer som gjøres i kunnskapsdatabasen etter denne utlysningen er registrert vil ikke gjenspeiles her. Stillingen er imidlertid knyttet opp mot stillingsbeskrivelsen, og vil bli annosert sammen med denne også.";
     }
-    $fields[] = Array("label" => "tittel", "type" => "text", 
+    $fields[] = Array("label" => "tittel", "type" => "text",
                       "attributes" => Array("name" => "name" ,"size" => 50, "maxlength" => 50,
                                             "value" => (isset($pos->name)) ? $pos->name : ""));
-    $fields[] = Array("label" => "beskrivelse", "type" => "textarea", 
+    $fields[] = Array("label" => "beskrivelse", "type" => "textarea",
                       "attributes" => Array("name" => "text", "cols" => 70, "rows" => 12, "comment" => $comment,
                                             "class" => "mceEditor",
                                             "value" => (isset($pos->text)) ? $pos->text : ""));
-    $fields[] = Array("label" => "utgår", "type" => "datetime", 
+    $fields[] = Array("label" => "utgår", "type" => "datetime",
                       "attributes" => Array("name" => "expires"));
-    $fields[] = Array("label" => "kategori", "type" => "select", 
+    $fields[] = Array("label" => "kategori", "type" => "select",
                            "attributes" => Array("name" => "jobcategory_id", "values" => $categories));
-    $fields[] = Array("label" => "kontaktinfo", "type" => "textarea", 
-                      "attributes" => Array("name" => "contactInfo", 
+    $fields[] = Array("label" => "kontaktinfo", "type" => "textarea",
+                      "attributes" => Array("name" => "contactInfo",
                                             "comment" => "Epostadresser blir automatisk gjort om til linker ved visning.",
                                             "cols" => 70, "rows" => 4,
                                             "value" => $contactInfo));
-                     
+
     $form = new Form($title, $enctype, $method, $action, $fields);
     $form->display();
   }
@@ -843,20 +848,20 @@ Teksten under er hentet fra kunnskapsdatabasen. Du står fritt til å endre den et
     $action  = "index.php?action=update-job&amp;page=display-job";
     $fields  = Array(Array("label" => "jobid", "type" => "hidden",
                            "attributes" => Array("name" => "jobid", "value" => "$jobId")),
-                     Array("label" => "stilling", "type" => "text", 
+                     Array("label" => "stilling", "type" => "text",
                            "attributes" => Array("name" => "name" ,"size" => 50, "maxlength" => 50,
                                                  "value" => $job->name)),
-                     Array("label" => "beskrivelse", "type" => "textarea", 
+                     Array("label" => "beskrivelse", "type" => "textarea",
                            "attributes" => Array("name" => "text", "cols" => 70, "rows" => 15,
                                                  "class" => "mceEditor",
                                                  "value" => $job->text)),
-                     Array("label" => "utgår", "type" => "datetime", 
+                     Array("label" => "utgår", "type" => "datetime",
                            "attributes" => Array("name" => "expires",
                                                  "value" => substr($job->expires, 0, 16))),
-                     Array("label" => "kategori", "type" => "select", 
+                     Array("label" => "kategori", "type" => "select",
                            "attributes" => Array("name" => "jobcategory_id", "values" => $categories,
                                                  "currentValue" => $job->jobcategory_id)),
-                     Array("label" => "kontaktinfo", "type" => "textarea", 
+                     Array("label" => "kontaktinfo", "type" => "textarea",
                            "attributes" => Array("name" => "contactInfo", "cols" => 70, "rows" => 4,
                                                  "value" => $job->contactInfo))
                      );
@@ -866,7 +871,7 @@ Teksten under er hentet fra kunnskapsdatabasen. Du står fritt til å endre den et
 
   public function _displayBarShifts($selection = "0000-00-00"){
     $barshifts = new BarShifts();
-    $barshifts->displayList($selection);    
+    $barshifts->displayList($selection);
   }
 
   public function _displayBarshiftsCalendar(){
@@ -879,47 +884,47 @@ Teksten under er hentet fra kunnskapsdatabasen. Du står fritt til å endre den et
       $year  = date("Y");
       $month = date("m");
     }
-    $calendar->display($year, $month);    
+    $calendar->display($year, $month);
   }
 
   public function _displayBarShift(){
     $barshiftId = scriptParam("barshiftid");
     $barshift = new BarShift($barshiftId);
-    $barshift->display();    
+    $barshift->display();
   }
 
   public function _registerBarShift(){
-    
+
 		$locs = new Locations();
-		$locations = $locs->getList(); 
-    
-    
+		$locations = $locs->getList();
+
+
     $title   = "registrregistrérr barvakt";
     $enctype = NULL;
     $method  = "post";
     $action  = "index.php?action=register-barshift&amp;page=display-barshift";
     $fields  = array();
 
-    $fields[] = Array("label" => "tittel", "type" => "text", 
+    $fields[] = Array("label" => "tittel", "type" => "text",
                       "attributes" => Array("name" => "title" ,"size" => 50, "maxlength" => 255));
-    $fields[] = Array("label" => "sted", "type" => "select", 
+    $fields[] = Array("label" => "sted", "type" => "select",
                            "attributes" => Array("name" => "location_id", "values" => $locations));
-    $fields[] = Array("label" => "dato", "type" => "date", 
+    $fields[] = Array("label" => "dato", "type" => "date",
                       "attributes" => Array("name" => "date"));
-    $fields[] = Array("label" => "start", "type" => "time", 
+    $fields[] = Array("label" => "start", "type" => "time",
                       "attributes" => Array("name" => "start"));
-    $fields[] = Array("label" => "slutt", "type" => "time", 
+    $fields[] = Array("label" => "slutt", "type" => "time",
                       "attributes" => Array("name" => "end"));
-    $fields[] = Array("label" => "antall folk", "type" => "text", 
+    $fields[] = Array("label" => "antall folk", "type" => "text",
                       "attributes" => Array("name" => "num_workers" ,"size" => 3, "maxlength" => 3));
-                     
+
     $form = new Form($title, $enctype, $method, $action, $fields);
     $form->display();
   }
 
   public function _editBarShift(){
 		$locs = new Locations();
-		$locations = $locs->getList(); 
+		$locations = $locs->getList();
 
     $barshiftid = scriptParam("barshiftid");
     $barshift   = new BarShift($barshiftid);
@@ -928,25 +933,25 @@ Teksten under er hentet fra kunnskapsdatabasen. Du står fritt til å endre den et
     $method  = "post";
     $action  = "index.php?action=update-barshift&amp;page=display-barshift";
     $fields  = Array();
-    
+
     $fields[] = Array("label" => "barshiftid", "type" => "hidden",
                            "attributes" => Array("name" => "barshiftid", "value" => $barshiftid));
-    $fields[] = Array("label" => "tittel", "type" => "text", 
+    $fields[] = Array("label" => "tittel", "type" => "text",
                            "attributes" => Array("name" => "title" ,"size" => 50, "maxlength" => 255,
                                                  "value" => $barshift->title));
-    $fields[] = Array("label" => "sted", "type" => "select", 
+    $fields[] = Array("label" => "sted", "type" => "select",
                            "attributes" => Array("name" => "location_id", "values" => $locations,
                                                  "currentValue" => $barshift->location_id));
-    $fields[] = Array("label" => "dato", "type" => "date", 
+    $fields[] = Array("label" => "dato", "type" => "date",
                            "attributes" => Array("name" => "date",
                                                  "value" => $barshift->date));
-    $fields[] = Array("label" => "start", "type" => "time", 
+    $fields[] = Array("label" => "start", "type" => "time",
                            "attributes" => Array("name" => "start",
                                                  "value" => formatTime($barshift->start)));
-    $fields[] = Array("label" => "slutt", "type" => "time", 
+    $fields[] = Array("label" => "slutt", "type" => "time",
                            "attributes" => Array("name" => "end",
                                                  "value" => formatTime($barshift->end)));
-    $fields[] = Array("label" => "antall folk", "type" => "text", 
+    $fields[] = Array("label" => "antall folk", "type" => "text",
                            "attributes" => Array("name" => "num_workers" ,"size" => 3, "maxlength" => 3,
                                                  "value" => $barshift->num_workers));
     $form = new Form($title, $enctype, $method, $action, $fields);
@@ -955,14 +960,14 @@ Teksten under er hentet fra kunnskapsdatabasen. Du står fritt til å endre den et
 
   public function _displayDivisions(){
     $divisions = new Divisions();
-    $divisions->displayList();    
+    $divisions->displayList();
   }
 
   public function _displayDivision(){
     $divisionId = scriptParam("divisionid");
     $division = new Division($divisionId);
     if ($division->name != NULL){
-      $division->display();    
+      $division->display();
     }else {
       error(DIVISION . ": no division found");
     }
@@ -978,22 +983,22 @@ Teksten under er hentet fra kunnskapsdatabasen. Du står fritt til å endre den et
     $enctype = NULL;
     $method  = "post";
     $action  = "index.php?action=register-division&amp;page=display-divisions";
-    $fields  = Array(Array("label" => "foreningsnavn", "type" => "text", 
+    $fields  = Array(Array("label" => "foreningsnavn", "type" => "text",
                            "attributes" => Array("name" => "name" ,"size" => 50, "maxlength" => 50)),
-                     Array("label" => "type", "type" => "select", 
+                     Array("label" => "type", "type" => "select",
                            "attributes" => Array("name" => "divisioncategory_id", "values" => $divCats)),
-                     Array("label" => "beskrivelse", "type" => "textarea", 
+                     Array("label" => "beskrivelse", "type" => "textarea",
                            "attributes" => Array("name" => "text", "cols" => 70, "rows" => 10,
                                                  "class" => "mceEditor")),
-                     Array("label" => "telefon", "type" => "text", 
+                     Array("label" => "telefon", "type" => "text",
                            "attributes" => Array("name" => "phone", "size" => 8, "maxlength" => 8)),
-                     Array("label" => "epost", "type" => "text", 
+                     Array("label" => "epost", "type" => "text",
                            "attributes" => Array("name" => "email", "size" => 50, "maxlength" => 120)),
-                     Array("label" => "hjemmeside", "type" => "text", 
+                     Array("label" => "hjemmeside", "type" => "text",
                            "attributes" => Array("name" => "url", "size" => 50, "maxlength" => 120)),
-                     Array("label" => "kontor", "type" => "text", 
+                     Array("label" => "kontor", "type" => "text",
                            "attributes" => Array("name" => "office", "size" => 3, "maxlength" => 3)),
-                     Array("label" => "kontaktperson", "type" => "select", 
+                     Array("label" => "kontaktperson", "type" => "select",
                            "attributes" => Array("name" => "user_id_contact", "values" => $users))
                      );
     $form = new Form($title, $enctype, $method, $action, $fields);
@@ -1012,41 +1017,41 @@ Teksten under er hentet fra kunnskapsdatabasen. Du står fritt til å endre den et
     $enctype = "multipart/form-data";
     $method  = "post";
     $action  = "index.php?action=update-division&amp;page=display-division";
-    
+
     $fields  = Array();
-    
+
     $fields[] = Array("label" => "divisionid", "type" => "hidden",
                       "attributes" => Array("name" => "divisionid", "value" => "$divId"));
-   $fields[] = Array("label" => "foreningsnavn", "type" => "text", 
+   $fields[] = Array("label" => "foreningsnavn", "type" => "text",
                      "attributes" => Array("name" => "name" ,"size" => 50, "maxlength" => 50,
                                                  "value" => $div->name));
-   $fields[] = Array("label" => "type", "type" => "select", 
-                     "attributes" => Array("name" => "divisioncategory_id", "values" => $divCats, 
+   $fields[] = Array("label" => "type", "type" => "select",
+                     "attributes" => Array("name" => "divisioncategory_id", "values" => $divCats,
                                            "currentValue" => $div->divisioncategory_id));
-   
-   $fields[] = Array("label" => "beskrivelse", "type" => "textarea", 
+
+   $fields[] = Array("label" => "beskrivelse", "type" => "textarea",
                            "attributes" => Array("name" => "text", "cols" => 70, "rows" => 15,
                                                  "class" => "mceEditor",
                                                  "value" => $div->text));
-   $fields[] = Array("label" => "telefon", "type" => "text", 
+   $fields[] = Array("label" => "telefon", "type" => "text",
                            "attributes" => Array("name" => "phone", "size" => 8, "maxlength" => 8,
                                                  "value" => $div->phone));
-   $fields[] = Array("label" => "epost", "type" => "text", 
+   $fields[] = Array("label" => "epost", "type" => "text",
                            "attributes" => Array("name" => "email", "size" => 50, "maxlength" => 120,
                                                  "value" => $div->email));
-   $fields[] = Array("label" => "hjemmeside", "type" => "text", 
+   $fields[] = Array("label" => "hjemmeside", "type" => "text",
                            "attributes" => Array("name" => "url", "size" => 50, "maxlength" => 120,
                                                  "value" => $div->url));
-   $fields[] = Array("label" => "kontor", "type" => "text", 
+   $fields[] = Array("label" => "kontor", "type" => "text",
                            "attributes" => Array("name" => "office", "size" => 3, "maxlength" => 3,
                                                  "value" => $div->office));
-   $fields[] = Array("label" => "kontaktperson", "type" => "select", 
+   $fields[] = Array("label" => "kontaktperson", "type" => "select",
                      "attributes" => Array("name" => "user_id_contact", "values" => $users,
                                            "currentValue" => $div->user_id_contact));
     $fields[]  =Array("label" => "bilde", "type" => "file",
                       "attributes" => Array("name" => "userfile", "size" => 55));
 
-                                                 
+
     $form = new Form($title, $enctype, $method, $action, $fields);
     $form->display();
   }
@@ -1063,14 +1068,14 @@ Teksten under er hentet fra kunnskapsdatabasen. Du står fritt til å endre den et
     $method  = "post";
     $action  = "index.php?page=display-positions";
     $fields  = Array();
-    
-    $fields[] = Array("label" => "Vis stillingsbeskrivelser fra ", "type" => "select", 
+
+    $fields[] = Array("label" => "Vis stillingsbeskrivelser fra ", "type" => "select",
                       "attributes" => Array("name" => "divisionid", "values" => $divs,
                                             "currentValue" => $current));
 
     $form = new Form($title, $enctype, $method, $action, $fields);
     $form->display("horizontal");
-    
+
     if (!empty($current)){
       $positions = new Positions();
       $positions->displayList($current);
@@ -1080,9 +1085,9 @@ Teksten under er hentet fra kunnskapsdatabasen. Du står fritt til å endre den et
   public function _displayPosition(){
     $positionId = scriptParam("positionid");
     $position = new Position($positionId);
-    $position->display();    
+    $position->display();
   }
-  
+
   public function _displayUsersStudyPlace() {
     $users = new Users();
     $users->displayUsersStudyPlaceList();
@@ -1096,12 +1101,12 @@ Teksten under er hentet fra kunnskapsdatabasen. Du står fritt til å endre den et
     $enctype = NULL;
     $method  = "post";
     $action  = "index.php?action=register-position&amp;page=display-positions";
-    $fields  = Array(Array("label" => "stilling", "type" => "text", 
+    $fields  = Array(Array("label" => "stilling", "type" => "text",
                            "attributes" => Array("name" => "name" ,"size" => 50, "maxlength" => 50)),
-                     Array("label" => "beskrivelse", "type" => "textarea", 
+                     Array("label" => "beskrivelse", "type" => "textarea",
                            "attributes" => Array("name" => "text", "cols" => 70, "rows" => 10,
                                                  "class" => "mceEditor")),
-                     Array("label" => "foreningstilknytning", "type" => "select", 
+                     Array("label" => "foreningstilknytning", "type" => "select",
                            "attributes" => Array("name" => "division_id", "values" => $divisions))
                      );
     $form = new Form($title, $enctype, $method, $action, $fields);
@@ -1120,14 +1125,14 @@ Teksten under er hentet fra kunnskapsdatabasen. Du står fritt til å endre den et
     $action  = "index.php?action=update-position&amp;page=display-position";
     $fields  = Array(Array("label" => "positionid", "type" => "hidden",
                            "attributes" => Array("name" => "positionid", "value" => "$positionId")),
-                     Array("label" => "stilling", "type" => "text", 
+                     Array("label" => "stilling", "type" => "text",
                            "attributes" => Array("name" => "name" ,"size" => 50, "maxlength" => 50,
                                                  "value" => $position->name)),
-                     Array("label" => "beskrivelse", "type" => "textarea", 
+                     Array("label" => "beskrivelse", "type" => "textarea",
                            "attributes" => Array("name" => "text", "cols" => 70, "rows" => 10,
                                                  "class" => "mceEditor",
                                                  "value" => $position->text)),
-                     Array("label" => "foreningstilknytnig", "type" => "select", 
+                     Array("label" => "foreningstilknytnig", "type" => "select",
                            "attributes" => Array("name" => "division_id", "values" => $divisions,
                                                  "currentValue" => $position->division_id))
                      );
@@ -1137,7 +1142,7 @@ Teksten under er hentet fra kunnskapsdatabasen. Du står fritt til å endre den et
 
   public function _displayEvents($selection = "0000-00-00"){
     $events = new Events();
-    $events->displayList($selection);    
+    $events->displayList($selection);
   }
 
   public function _displayEventsCalendar(){
@@ -1150,13 +1155,13 @@ Teksten under er hentet fra kunnskapsdatabasen. Du står fritt til å endre den et
       $year  = date("Y");
       $month = date("m");
     }
-    $calendar->display($year, $month);    
+    $calendar->display($year, $month);
   }
 
   public function _displayEvent(){
     $eventId = scriptParam("eventid");
     $event = new Event($eventId);
-    $event->display();    
+    $event->display();
   }
 
   public function _registerEvent(){
@@ -1169,22 +1174,22 @@ Teksten under er hentet fra kunnskapsdatabasen. Du står fritt til å endre den et
     $enctype = NULL;
     $method  = "post";
     $action  = "index.php?action=register-event&amp;page=display-event";
-    $fields  = Array(Array("label" => "tittel", "type" => "text", 
+    $fields  = Array(Array("label" => "tittel", "type" => "text",
                            "attributes" => Array("name" => "name" ,"size" => 50, "maxlength" => 50)),
                      Array("label" => "beskrivelse", "type" => "textarea",
                            "attributes" => Array("name" => "text", "cols" => 70, "rows" => 7,
                                                                             "class" => "mceEditor",
 )),
-                     Array("label" => "dato og tid", "type" => "datetime", 
+                     Array("label" => "dato og tid", "type" => "datetime",
                            "attributes" => Array("name" => "time")),
-                     Array("label" => "sted", "type" => "text", 
+                     Array("label" => "sted", "type" => "text",
                            "attributes" => Array("name" => "location" ,"size" => 50, "maxlength" => 50)),
-                     Array("label" => "deltakere", "type" => "textarea", 
+                     Array("label" => "deltakere", "type" => "textarea",
                            "attributes" => Array("name" => "targetGroup", "cols" => 70, "rows" => 2,
                                                  "comment" => "Hvem kan/bør delta?", "maxlength" => 255)),
-                     Array("label" => "kategori", "type" => "select", 
+                     Array("label" => "kategori", "type" => "select",
                            "attributes" => Array("name" => "eventcategory_id", "values" => $categories)),
-                     Array("label" => "ansvarlig", "type" => "select", 
+                     Array("label" => "ansvarlig", "type" => "select",
                            "attributes" => Array("name" => "user_id_responsible", "values" => $users,
                            "currentValue" => getCurrentUser()))
                      );
@@ -1206,27 +1211,27 @@ Teksten under er hentet fra kunnskapsdatabasen. Du står fritt til å endre den et
     $action  = "index.php?action=update-event&amp;page=display-event";
     $fields  = Array(Array("label" => "eventid", "type" => "hidden",
                            "attributes" => Array("name" => "eventid", "value" => "$eventId")),
-                     Array("label" => "tittel", "type" => "text", 
+                     Array("label" => "tittel", "type" => "text",
                            "attributes" => Array("name" => "name" ,"size" => 50, "maxlength" => 50,
                                                  "value" => $event->name)),
-                     Array("label" => "beskrivelse", "type" => "textarea", 
+                     Array("label" => "beskrivelse", "type" => "textarea",
                            "attributes" => Array("name" => "text", "cols" => 70, "rows" => 7,
                                                  "class" => "mceEditor",
                                                  "value" => $event->text)),
-                     Array("label" => "dato og tid", "type" => "datetime", 
+                     Array("label" => "dato og tid", "type" => "datetime",
                            "attributes" => Array("name" => "time",
                                                  "value" => $event->time)),
-                     Array("label" => "sted", "type" => "text", 
+                     Array("label" => "sted", "type" => "text",
                            "attributes" => Array("name" => "location" ,"size" => 50, "maxlength" => 50,
                                                  "value" => $event->location)),
-                     Array("label" => "deltakere", "type" => "textarea", 
+                     Array("label" => "deltakere", "type" => "textarea",
                            "attributes" => Array("name" => "targetGroup", "cols" => 70, "rows" => 2,
                                                  "value" => $event->targetGroup,
                                                  "comment" => "Hvem kan/bør delta?", "maxlength" => 255)),
-                     Array("label" => "kategori", "type" => "select", 
+                     Array("label" => "kategori", "type" => "select",
                            "attributes" => Array("name" => "eventcategory_id", "values" => $categories,
                                                  "currentValue" => $event->eventcategory_id)),
-                     Array("label" => "ansvarlig", "type" => "select", 
+                     Array("label" => "ansvarlig", "type" => "select",
                            "attributes" => Array("name" => "user_id_responsible", "values" => $users,
                                                  "currentValue" => $event->user_id_responsible))
 
@@ -1237,7 +1242,7 @@ Teksten under er hentet fra kunnskapsdatabasen. Du står fritt til å endre den et
 
   public function _displayConcerts($selection = "0000-00-00"){
     $concerts = new Concerts();
-    $concerts->displayList($selection);    
+    $concerts->displayList($selection);
   }
 
   public function _displayConcertsCalendar(){
@@ -1250,13 +1255,13 @@ Teksten under er hentet fra kunnskapsdatabasen. Du står fritt til å endre den et
       $year  = date("Y");
       $month = date("m");
     }
-    $calendar->display($year, $month);    
+    $calendar->display($year, $month);
   }
 
   public function _displayConcert(){
     $concertId = scriptParam("concertid");
     $concert = new Concert($concertId);
-    $concert->display();    
+    $concert->display();
   }
 
   public function _registerConcert(){
@@ -1275,63 +1280,63 @@ Teksten under er hentet fra kunnskapsdatabasen. Du står fritt til å endre den et
     $action  = "index.php?action=register-concert&amp;page=display-concert";
     $fields  = Array();
 
-    $fields[] = Array("label" => "tittel", "type" => "text", 
-                      "attributes" => Array("name" => "name" ,"size" => 55, 
+    $fields[] = Array("label" => "tittel", "type" => "text",
+                      "attributes" => Array("name" => "name" ,"size" => 55,
 	    	      "maxlength" => 50, "class" => "title"));
-    $fields[] = Array("label" => "engelsk tittel", "type" => "text", 
-                      "attributes" => Array("name" => "name_en" ,"size" => 55, 
+    $fields[] = Array("label" => "engelsk tittel", "type" => "text",
+                      "attributes" => Array("name" => "name_en" ,"size" => 55,
 		      "maxlength" => 50, "class" => "title"));
-    $fields[] = Array("label" => "beskrivelse", "type" => "textarea", 
-                      "attributes" => Array("comment" => 
+    $fields[] = Array("label" => "beskrivelse", "type" => "textarea",
+                      "attributes" => Array("comment" =>
                                             "Bruk link-knappen for å legge inn linker eller epostadresser.",
                                             "name" => "text", "cols" => 70, "rows" => 15,
                                             "class" => "mceEditor"));
-    $fields[] = Array("label" => "engelsk beskrivelse", "type" => "textarea", 
+    $fields[] = Array("label" => "engelsk beskrivelse", "type" => "textarea",
                       "attributes" => Array("name" => "text_en", "cols" => 70, "rows" => 15,
                       "class" => "mceEditor"));
-    $fields[] = Array("label" => "sammendrag", "type" => "textarea", 
+    $fields[] = Array("label" => "sammendrag", "type" => "textarea",
                       "attributes" => Array("name" => "intro", "cols" => 70, "rows" => 3,
                                             "maxlength" => 250));
-    $fields[] = Array("label" => "engelsk sammendrag", "type" => "textarea", 
+    $fields[] = Array("label" => "engelsk sammendrag", "type" => "textarea",
                       "attributes" => Array("name" => "intro_en", "cols" => 70, "rows" => 3,
                                             "maxlength" => 250));
-    $fields[] = Array("label" => "dato og tid", "type" => "datetime", 
+    $fields[] = Array("label" => "dato og tid", "type" => "datetime",
                       "attributes" => Array("name" => "time"));
-    $fields[] = Array("label" => "arrangør", "type" => "select", 
-                      "attributes" => Array("name" => "host_id", "values" => $divs )); 
-    $fields[] = Array("label" => "sted", "type" => "select", 
+    $fields[] = Array("label" => "arrangør", "type" => "select",
+                      "attributes" => Array("name" => "host_id", "values" => $divs ));
+    $fields[] = Array("label" => "sted", "type" => "select",
                       "attributes" => Array("name" => "venue_id", "values" => $venues));
-    $fields[] = Array("label" => "type", "type" => "select", 
+    $fields[] = Array("label" => "type", "type" => "select",
                       "attributes" => Array("name" => "concertcategory_id", "values" => $categories));
-    $fields[] = Array("label" => "billettpris", "type" => "text", 
+    $fields[] = Array("label" => "billettpris", "type" => "text",
                       "attributes" => Array("name" => "priceNormal" ,"size" => 4, "maxlength" => 5));
-    $fields[] = Array("label" => "medlemspris", "type" => "text", 
+    $fields[] = Array("label" => "medlemspris", "type" => "text",
                       "attributes" => Array("name" => "priceConcession" ,"size" => 4, "maxlength" => 5));
     $fields[] = Array("label" => "linker", "type" => "textarea",
-                      "attributes" => Array("comment" => 
+                      "attributes" => Array("comment" =>
                                             "én link per linje. Linker kan også inkluderes direkte i teksten over.",
                                             "name" => "links", "cols" => 70, "rows" => 3));
     $fields[]  =Array("label" => "bilde", "type" => "file",
-                      "attributes" => Array("comment" => "Vi blir glade hvis du bruker litt store bilder. 1024 piksler på den lengste kanten er kjempefint.", 
+                      "attributes" => Array("comment" => "Vi blir glade hvis du bruker litt store bilder. 1024 piksler på den lengste kanten er kjempefint.",
 		                            "name" => "userfile", "size" => 55));
     $fields[] = Array("label" => "billettservice-link", "type" => "text",
                       "attributes" => Array("name" => "ticketLink" ,"size" => 50, "maxlength" => 255));
     $fields[] = Array("label" => "facebook-link", "type" => "text",
                       "attributes" => Array("name" => "facebookLink" ,"size" => 50, "maxlength" => 60));
-    $fields[] = Array("label" => "ekstern kontakt", "type" => "text", 
+    $fields[] = Array("label" => "ekstern kontakt", "type" => "text",
                       "attributes" => Array("name" => "user_name_ext_contact" ,"size" => 50, "maxlength" => 50,
                       											"help" => "Ekstern kontakt er en person det kan være nyttig å kontakte i forbindelse med for eksempel markedsføring. Dette kan være manager, forlag, plateselskap osv. Disse feltene kan godt stå tomme."));
-    $fields[] = Array("label" => "&rarr; telefon", "type" => "text", 
+    $fields[] = Array("label" => "&rarr; telefon", "type" => "text",
                       "attributes" => Array("name" => "user_phone_ext_contact" ,"size" => 10, "maxlength" => 12));
-    $fields[] = Array("label" => "&rarr; epost", "type" => "text", 
+    $fields[] = Array("label" => "&rarr; epost", "type" => "text",
                       "attributes" => Array("name" => "user_email_ext_contact" ,"size" => 50, "maxlength" => 120));
-    $fields[] = Array("label" => "&rarr; rolle", "type" => "text", 
+    $fields[] = Array("label" => "&rarr; rolle", "type" => "text",
                       "attributes" => Array("name" => "user_role_ext_contact" ,"size" => 50, "maxlength" => 120));
-    $fields[] = Array("label" => "kommentar", "type" => "textarea", 
-                      "attributes" => Array("comment" => 
+    $fields[] = Array("label" => "kommentar", "type" => "textarea",
+                      "attributes" => Array("comment" =>
                                             "Kommentarer er til internt bruk, og vil ikke vises på hovedsidene.",
                                             "name" => "comment", "cols" => 70, "rows" => 3));
-    
+
     print("<h3>HUSK: Fyll ut både tittel, sammendrag og tekst!</h3>");
     print("<p>Studentersamfundet.no vil snarlig legge om alle sine visningsmaler. I de nye malene vil det være viktig å ha fylt ut alle disse 3 feltene.</p>");
     $form = new Form($title, $enctype, $method, $action, $fields);
@@ -1350,7 +1355,7 @@ Teksten under er hentet fra kunnskapsdatabasen. Du står fritt til å endre den et
 
     $concertId = scriptParam("concertid");
     $concert   = new Concert($concertId);
-    
+
     $title   = "oppdatér arrangement";
     $enctype = "multipart/form-data";
     $method  = "post";
@@ -1359,53 +1364,53 @@ Teksten under er hentet fra kunnskapsdatabasen. Du står fritt til å endre den et
 
     $fields[] = Array("label" => "concertid", "type" => "hidden",
                             "attributes" => Array("name" => "concertid", "value" => "$concertId"));
-    $fields[] = Array("label" => "tittel", "type" => "text", 
+    $fields[] = Array("label" => "tittel", "type" => "text",
                       "attributes" => Array("name" => "name" ,"size" => 55, "maxlength" => 50,
                                             "class" => "title", "value" => $concert->name));
-    $fields[] = Array("label" => "engelsk tittel", "type" => "text", 
+    $fields[] = Array("label" => "engelsk tittel", "type" => "text",
                       "attributes" => Array("name" => "name_en" ,"size" => 55, "maxlength" => 50,
                                             "class" => "title", "value" => $concert->name_en));
-    $fields[] = Array("label" => "beskrivelse", "type" => "textarea", 
-                      "attributes" => Array("comment" => 
+    $fields[] = Array("label" => "beskrivelse", "type" => "textarea",
+                      "attributes" => Array("comment" =>
                                             "Bruk link-knappen for å legge inn linker eller epostadresser.<br />",
                                             "name" => "text", "cols" => 70, "rows" => 15,
                                             "class" => "mceEditor",
                                             "value" => stripSlashes($concert->text)));
-    $fields[] = Array("label" => "engelsk beskrivelse", "type" => "textarea", 
+    $fields[] = Array("label" => "engelsk beskrivelse", "type" => "textarea",
                       "attributes" => Array("name" => "text_en", "cols" => 70, "rows" => 15,
                                             "class" => "mceEditor",
                                             "value" => stripSlashes($concert->text_en)));
-    $fields[] = Array("label" => "sammendrag", "type" => "textarea", 
+    $fields[] = Array("label" => "sammendrag", "type" => "textarea",
                       "attributes" => Array("name" => "intro", "cols" => 70, "rows" => 3,
                                             "maxlength" => 250,
                                             "value" => $concert->intro));
-    $fields[] = Array("label" => "engelsk sammendrag", "type" => "textarea", 
+    $fields[] = Array("label" => "engelsk sammendrag", "type" => "textarea",
                       "attributes" => Array("name" => "intro_en", "cols" => 70, "rows" => 3,
                                             "maxlength" => 255,
                                             "value" => $concert->intro_en));
-    $fields[] = Array("label" => "dato og tid", "type" => "datetime", 
+    $fields[] = Array("label" => "dato og tid", "type" => "datetime",
                       "attributes" => Array("name" => "time",
                                             "value" => $concert->time));
-    $fields[] = Array("label" => "arrangør", "type" => "select", 
+    $fields[] = Array("label" => "arrangør", "type" => "select",
                       "attributes" => Array("name" => "host_id", "values" => $divs,
-                                            "currentValue" => $concert->host_id)); 
-    $fields[] = Array("label" => "sted", "type" => "select", 
+                                            "currentValue" => $concert->host_id));
+    $fields[] = Array("label" => "sted", "type" => "select",
                       "attributes" => Array("name" => "venue_id", "values" => $venues,
                                             "currentValue" => $concert->venue_id));
-    $fields[] = Array("label" => "type", "type" => "select", 
+    $fields[] = Array("label" => "type", "type" => "select",
                       "attributes" => Array("name" => "concertcategory_id", "values" => $categories,
                                             "currentValue" => $concert->concertcategory_id));
-    $fields[] = Array("label" => "billettpris", "type" => "text", 
+    $fields[] = Array("label" => "billettpris", "type" => "text",
                       "attributes" => Array("name" => "priceNormal" ,"size" => 4, "maxlength" => 5,
                                             "value" => $concert->priceNormal));
-    $fields[] = Array("label" => "medlemspris", "type" => "text", 
+    $fields[] = Array("label" => "medlemspris", "type" => "text",
                       "attributes" => Array("name" => "priceConcession" ,"size" => 4, "maxlength" => 5,
                                             "value" => $concert->priceConcession));
     $fields[]  =Array("label" => "bilde", "type" => "file",
                       "attributes" => Array("comment" => "Vi blir glade hvis du bruker litt store bilder. 1024 piksler på den lengste kanten er kjempefint.",
-                      "name" => "userfile", "size" => 55));                                            
+                      "name" => "userfile", "size" => 55));
     $fields[] = Array("label" => "linker", "type" => "textarea",
-                      "attributes" => Array("comment" => 
+                      "attributes" => Array("comment" =>
                                             "én link per linje. Linker kan også inkluderes direkte i teksten over.",
                                             "name" => "links", "cols" => 70, "rows" => 3,
                                             "value" => $concert->getLinks("text")));
@@ -1415,21 +1420,21 @@ Teksten under er hentet fra kunnskapsdatabasen. Du står fritt til å endre den et
     $fields[] = Array("label" => "facebook-link", "type" => "text",
                       "attributes" => Array("name" => "facebookLink" ,"size" => 50, "maxlength" => 60,
                                             "value" => $concert->facebookLink));
-    $fields[] = Array("label" => "ekstern kontakt", "type" => "text", 
+    $fields[] = Array("label" => "ekstern kontakt", "type" => "text",
                       "attributes" => Array("name" => "user_name_ext_contact" ,"size" => 50, "maxlength" => 50,
                                             "value" => $concert->user_name_ext_contact,
                       											"help" => "Ekstern kontakt er en person det kan være nyttig å kontakte i forbindelse med for eksempel markedsføring. Dette kan være manager, forlag, plateselskap osv. Disse feltene kan godt stå tomme."));
-    $fields[] = Array("label" => "&rarr; telefon", "type" => "text", 
+    $fields[] = Array("label" => "&rarr; telefon", "type" => "text",
                       "attributes" => Array("name" => "user_phone_ext_contact" ,"size" => 10, "maxlength" => 12,
                                             "value" => $concert->user_phone_ext_contact));
-    $fields[] = Array("label" => "&rarr; epost", "type" => "text", 
+    $fields[] = Array("label" => "&rarr; epost", "type" => "text",
                       "attributes" => Array("name" => "user_email_ext_contact" ,"size" => 50, "maxlength" => 120,
                                             "value" => $concert->user_email_ext_contact));
-    $fields[] = Array("label" => "&rarr; rolle", "type" => "text", 
+    $fields[] = Array("label" => "&rarr; rolle", "type" => "text",
                       "attributes" => Array("name" => "user_role_ext_contact" ,"size" => 50, "maxlength" => 120,
-                                            "value" => $concert->user_role_ext_contact));    
-    $fields[] = Array("label" => "kommentar", "type" => "textarea", 
-                      "attributes" => Array("comment" => 
+                                            "value" => $concert->user_role_ext_contact));
+    $fields[] = Array("label" => "kommentar", "type" => "textarea",
+                      "attributes" => Array("comment" =>
                                             "Kommentarer er til internt bruk, og vil ikke vises på hovedsidene.",
                                             "name" => "comment", "cols" => 70, "rows" => 3,
                                             "value" => $concert->comment));
@@ -1439,7 +1444,7 @@ Teksten under er hentet fra kunnskapsdatabasen. Du står fritt til å endre den et
 
     print("<h2>Ingress blir sammendrag</h2>");
     print("<p>Ingresser utgår fra visningsmalene. I stedet kan dere nå lagre sammendrag av artiklene, som vil vises på sider med flere artikler eller arrangementer.</p>");
-    
+
     $form = new Form($title, $enctype, $method, $action, $fields);
     $form->display();
   }
@@ -1447,36 +1452,36 @@ Teksten under er hentet fra kunnskapsdatabasen. Du står fritt til å endre den et
 	public
 	function _editConcertReport() {
 		$report = new ConcertReport(scriptParam("concertreportid"));
-		
+
 		$title   = "registrér arrangementsrapport";
     $enctype = NULL;
     $method  = "post";
     $action  = "index.php?action=update-concertreport&amp;page=display-concert&amp;concertid=$report->concert_id";
     $fields  = Array();
-      
+
     $fields[] = Array("label" => "concertreportid", "type" => "hidden",
                            "attributes" => Array("name" => "concertreportid", "value" => $report->id));
 
-  	$fields[] = Array("label" => "besøkende", "type" => "text", 
+  	$fields[] = Array("label" => "besøkende", "type" => "text",
                       "attributes" => Array("name" => "visitors","size" => 4,
-                                            "maxlength" => 4, 
+                                            "maxlength" => 4,
                                             "value" => $report->visitors));
-  	$fields[] = Array("label" => "resultat", "type" => "text", 
+  	$fields[] = Array("label" => "resultat", "type" => "text",
                       "attributes" => Array("name" => "result","size" => 7,
-                                            "maxlength" => 8, 
+                                            "maxlength" => 8,
                                             "value" => $report->result));
-	 	$fields[] = Array("label" => "markedsføring", "type" => "textarea", 
+	 	$fields[] = Array("label" => "markedsføring", "type" => "textarea",
                       "attributes" => Array("name" => "marketing_comment", "cols" => 70,
                       											"rows" => 15, "class" => "mceEditor",
                       											"value" => $report->marketing_comment));
 
-		$fields[] = Array("label" => "produksjon", "type" => "textarea", 
+		$fields[] = Array("label" => "produksjon", "type" => "textarea",
                       "attributes" => Array("name" => "production_comment", "cols" => 70,
                       											"rows" => 15, "class" => "mceEditor",
                       											"value" => $report->production_comment));
-			                          
+
     $form = new Form($title, $enctype, $method, $action, $fields);
-    $form->display();		
+    $form->display();
 	}
 
   public function _displayAllCalendar(){
@@ -1489,7 +1494,7 @@ Teksten under er hentet fra kunnskapsdatabasen. Du står fritt til å endre den et
       $year  = date("Y");
       $month = date("m");
     }
-    $calendar->display($year, $month);    
+    $calendar->display($year, $month);
   }
 
   public function _displayWeekProgram(){
@@ -1498,16 +1503,16 @@ Teksten under er hentet fra kunnskapsdatabasen. Du står fritt til å endre den et
     $method  = "post";
     $action  = "index.php?section=concerts&page=week-program&action=register-weekprogram";
     $fields  = Array();
-    
-    $fields[] = Array("label" => "år", "type" => "text", 
+
+    $fields[] = Array("label" => "år", "type" => "text",
                       "attributes" => Array("name" => "year", "size" => 4, "maxlength" => 4, "value" => date("Y") ));
 
-    $fields[] = Array("label" => "uke", "type" => "text", 
+    $fields[] = Array("label" => "uke", "type" => "text",
                       "attributes" => Array("name" => "week", "size" => 2, "maxlength" => 2, "value" => date("W") ));
 
     $form = new Form($title, $enctype, $method, $action, $fields);
     $form->display();
-      
+
     $list = new WeekPrograms();
     $list->displayList();
 
@@ -1519,15 +1524,15 @@ Teksten under er hentet fra kunnskapsdatabasen. Du står fritt til å endre den et
     $method  = "post";
     $action  = "index.php?section=concerts&page=program-selection&action=register-programselection";
     $fields  = Array();
-    
-    $fields[] = Array("label" => "fortekst", "type" => "textarea", 
+
+    $fields[] = Array("label" => "fortekst", "type" => "textarea",
                       "attributes" => Array("name" => "pretext", "cols" => 70, "rows" => 10,
                                             "class" => "mceEditor"));
-    $fields[] = Array("label" => "start", "type" => "date", 
+    $fields[] = Array("label" => "start", "type" => "date",
                       "attributes" => Array("name" => "start", "value" => date("Y-m-d") ));
-    $fields[] = Array("label" => "slutt", "type" => "date", 
+    $fields[] = Array("label" => "slutt", "type" => "date",
                       "attributes" => Array("name" => "end", "value" => date("Y-m-d") ));
-    $fields[] = Array("label" => "type", "type" => "text", 
+    $fields[] = Array("label" => "type", "type" => "text",
                       "attributes" => Array("name" => "type" ,"size" => 12, "maxlength" => 24,
                                             "value" => "Konsert", "tag" => "Skriv 'Billett' for å vise alle med billett"));
 
@@ -1548,19 +1553,19 @@ Teksten under er hentet fra kunnskapsdatabasen. Du står fritt til å endre den et
     $method  = "post";
     $action  = "index.php?section=concerts&page=program-selection&action=update-programselection";
     $fields  = Array();
-    
+
     $fields[] = Array("label" => "programselectionid", "type" => "hidden",
                             "attributes" => Array("name" => "programselectionid", "value" => $progid));
-    $fields[] = Array("label" => "fortekst", "type" => "textarea", 
+    $fields[] = Array("label" => "fortekst", "type" => "textarea",
                       "attributes" => Array("name" => "pretext", "cols" => 70, "rows" => 10,
                                             "class" => "mceEditor", "value" => $prog->pretext));
-    $fields[] = Array("label" => "start", "type" => "date", 
+    $fields[] = Array("label" => "start", "type" => "date",
                       "attributes" => Array("name" => "start", "value" => date("Y-m-d"),
                       											"value" => $prog->start));
-    $fields[] = Array("label" => "slutt", "type" => "date", 
+    $fields[] = Array("label" => "slutt", "type" => "date",
                       "attributes" => Array("name" => "end", "value" => date("Y-m-d"),
                       											"value" => $prog->end));
-    $fields[] = Array("label" => "type", "type" => "text", 
+    $fields[] = Array("label" => "type", "type" => "text",
                       "attributes" => Array("name" => "type" ,"size" => 12, "maxlength" => 24,
                                             "value" => $prog->type));
 
@@ -1580,43 +1585,43 @@ Teksten under er hentet fra kunnskapsdatabasen. Du står fritt til å endre den et
     $method  = "post";
     $action  = "index.php?section=documents&page=display-documents";
     $fields  = Array();
-    
-    $fields[] = Array("label" => "Vis dokumenter av typen ", "type" => "select", 
+
+    $fields[] = Array("label" => "Vis dokumenter av typen ", "type" => "select",
                       "attributes" => Array("name" => "documentcategoryid", "values" => $doccats,
                                             "currentValue" => $current));
 
     $form = new Form($title, $enctype, $method, $action, $fields);
     $form->display("horizontal");
-    
+
     $title   = "søk på tagger";
     $enctype = NULL;
     $method  = "post";
     $action  = "index.php?section=documents&page=display-documents";
     $fields  = Array();
-    
-    $fields[] = Array("label" => "Vis dokumenter merket ", "type" => "text", 
-                      "attributes" => Array("name" => "documenttag", 
+
+    $fields[] = Array("label" => "Vis dokumenter merket ", "type" => "text",
+                      "attributes" => Array("name" => "documenttag",
                                             "value" => $currentTag));
 
     $form = new Form($title, $enctype, $method, $action, $fields);
     $form->display("horizontal");
-    
+
     if ($current >= 0){
       $documents = new Documents();
-      $documents->displayList($current);        
+      $documents->displayList($current);
     }
     if (!empty($currentTag)){
       $documents = new Documents();
-      $documents->displayListTag($currentTag);        
+      $documents->displayListTag($currentTag);
     }
-  
+
   }
 
 
   public function _displayDocument(){
     $documentId = scriptParam("documentid");
     $document = new Document($documentId);
-    $document->display();    
+    $document->display();
   }
 
   public function _uploadDocument(){
@@ -1630,11 +1635,11 @@ Teksten under er hentet fra kunnskapsdatabasen. Du står fritt til å endre den et
     $fields  = Array();
     $fields[] = Array("label" => "dokument", "type" => "file",
                            "attributes" => Array("name" => "file", "size" => 55));
-    $fields[] = Array("label" => "kategori", "type" => "select", 
-                      "attributes" => Array("name" => "documentcategoryid", 
-                      "values" => $categories));                     
-    $fields[] = Array("label" => "tags", "type" => "text", 
-                      "attributes" => Array("name" => "tags" ,"size" => 50, "maxlength" => 255)); 
+    $fields[] = Array("label" => "kategori", "type" => "select",
+                      "attributes" => Array("name" => "documentcategoryid",
+                      "values" => $categories));
+    $fields[] = Array("label" => "tags", "type" => "text",
+                      "attributes" => Array("name" => "tags" ,"size" => 50, "maxlength" => 255));
     $form = new Form($title, $enctype, $method, $action, $fields);
     $form->display();
   }
@@ -1653,32 +1658,32 @@ Teksten under er hentet fra kunnskapsdatabasen. Du står fritt til å endre den et
 
     $fields[] = Array("label" => "documentid", "type" => "hidden",
                       "attributes" => Array("name" => "documentid", "value" => "$documentId"));
-    $fields[] = Array("label" => "tittel", "type" => "text", 
+    $fields[] = Array("label" => "tittel", "type" => "text",
                       "attributes" => Array("name" => "name" ,"size" => 50, "maxlength" => 50,
-                      "value" => get_file_basename($document->name), 
+                      "value" => get_file_basename($document->name),
                       "tag" => get_file_suffix($document->name)));
-    $fields[] = Array("label" => "kategori", "type" => "select", 
-                      "attributes" => Array("name" => "documentcategory_id", 
+    $fields[] = Array("label" => "kategori", "type" => "select",
+                      "attributes" => Array("name" => "documentcategory_id",
                       "values" => $categories,
                       "currentValue" => $document->documentcategory_id));
-    $fields[] = Array("label" => "tags", "type" => "text", 
+    $fields[] = Array("label" => "tags", "type" => "text",
                       "attributes" => Array("name" => "tags" ,"size" => 50, "maxlength" => 255,
-                      "value" => $document->tags));                  
-                      
-                     
+                      "value" => $document->tags));
+
+
     $form = new Form($title, $enctype, $method, $action, $fields);
     $form->display();
   }
 
   public function _displayGroups(){
     $groups = new Groups();
-    $groups->displayList();    
+    $groups->displayList();
   }
 
   public function _displayGroup(){
     $groupid = scriptParam("groupid");
     $group = new Group($groupid);
-    $group->display();    
+    $group->display();
   }
 
   public function _registerGroup(){
@@ -1690,19 +1695,19 @@ Teksten under er hentet fra kunnskapsdatabasen. Du står fritt til å endre den et
     $method  = "post";
     $action  = "index.php?action=register-group&amp;page=display-groups";
     $fields  = Array();
-    
-    $fields[] = Array("label" => "gruppenavn", "type" => "text", 
+
+    $fields[] = Array("label" => "gruppenavn", "type" => "text",
                            "attributes" => Array("name" => "name" ,"size" => 50, "maxlength" => 50));
-    $fields[] = Array("label" => "beskrivelse", "type" => "textarea", 
+    $fields[] = Array("label" => "beskrivelse", "type" => "textarea",
                            "attributes" => Array("name" => "text", "cols" => 70, "rows" => 3));
-    $fields[] = Array("label" => "epostliste", "type" => "text", 
+    $fields[] = Array("label" => "epostliste", "type" => "text",
                            "attributes" => Array("name" => "mailinglist" ,"size" => 50, "maxlength" => 50));
-    $fields[] = Array("label" => "forening", "type" => "select", 
-                           "attributes" => Array("name" => "division_id", 
+    $fields[] = Array("label" => "forening", "type" => "select",
+                           "attributes" => Array("name" => "division_id",
                                                         "values" => $divList, "nullPossible" => true));
     $fields[] = Array("label" => "foreningsmoderator", "type" => "radio",
                       "attributes" => Array("name" => "admin", "values" => Array(1, 0),
-                                            "labels" => Array("ja", "nei"), 
+                                            "labels" => Array("ja", "nei"),
                                             "value" => "nei",
                                             "comment" => "Foreningsmoderator kan endre og slette alle elementer som er tilknyttet foreningen."));
     $form = new Form($title, $enctype, $method, $action, $fields);
@@ -1729,31 +1734,31 @@ Teksten under er hentet fra kunnskapsdatabasen. Du står fritt til å endre den et
     $method  = "post";
     $action  = "index.php?action=update-group&amp;page=display-group";
     $fields  = Array();
-    
+
     $fields[] = Array("label" => "groupid", "type" => "hidden",
                            "attributes" => Array("name" => "groupid", "value" => "$groupid"));
-    $fields[] = Array("label" => "gruppenavn", "type" => "text", 
+    $fields[] = Array("label" => "gruppenavn", "type" => "text",
                            "attributes" => Array("name" => "name" ,"size" => 50, "maxlength" => 50,
                                                  "value" => $group->name));
-    $fields[] = Array("label" => "beskrivelse", "type" => "textarea", 
+    $fields[] = Array("label" => "beskrivelse", "type" => "textarea",
                            "attributes" => Array("name" => "text", "cols" => 70, "rows" => 7,
                                                  "value" => $group->text));
-    $fields[] = Array("label" => "epostliste", "type" => "text", 
+    $fields[] = Array("label" => "epostliste", "type" => "text",
                            "attributes" => Array("name" => "mailinglist" ,"size" => 50, "maxlength" => 50,
                                                  "value" => $group->mailinglist));
-    $fields[] = Array("label" => "forening", "type" => "select", 
+    $fields[] = Array("label" => "forening", "type" => "select",
                            "attributes" => Array("name" => "division_id", "currentValue" => $group->division_id,
                                                         "values" => $divList, "nullPossible" => true));
     $fields[] = Array("label" => "foreningsmoderator", "type" => "radio",
                            "attributes" => Array("name" => "admin", "values" => Array(1, 0),
-                                                 "labels" => Array("ja", "nei"), 
+                                                 "labels" => Array("ja", "nei"),
                                                  "value" => $group->admin,
                                                  "comment" => "Foreningsmoderator kan endre og slette alle elementer som er tilknyttet foreningen."));
     $fields[] = Array("label" => "tilgang", "type" => "checkbox-list",
-                           "attributes" => Array("name" => "actions", 
+                           "attributes" => Array("name" => "actions",
 																								 "options" => $list,
 																								 "comment" => "Viser kun handlinger som ikke gruppen får gjennom andre grupper den automatisk er medlem av."));
-                                                 
+
 
     $form = new Form($title, $enctype, $method, $action, $fields);
     $form->display();
@@ -1761,13 +1766,13 @@ Teksten under er hentet fra kunnskapsdatabasen. Du står fritt til å endre den et
 
   public function _displayActions(){
     $actions = new Actions();
-    $actions->displayList();    
+    $actions->displayList();
   }
 
   public function _displayAction(){
     $actionid = scriptParam("actionid");
     $action = new Action($actionid);
-    $action->display();    
+    $action->display();
   }
 
   public function _registerAction(){
@@ -1776,9 +1781,9 @@ Teksten under er hentet fra kunnskapsdatabasen. Du står fritt til å endre den et
     $enctype = NULL;
     $method  = "post";
     $action  = "index.php?action=register-action&amp;page=display-actions";
-    $fields  = Array(Array("label" => "handling", "type" => "text", 
+    $fields  = Array(Array("label" => "handling", "type" => "text",
                            "attributes" => Array("name" => "name" ,"size" => 50, "maxlength" => 50)),
-                     Array("label" => "beskrivelse", "type" => "textarea", 
+                     Array("label" => "beskrivelse", "type" => "textarea",
                            "attributes" => Array("name" => "text", "cols" => 70, "rows" => 3))
                      );
     $form = new Form($title, $enctype, $method, $action, $fields);
@@ -1795,10 +1800,10 @@ Teksten under er hentet fra kunnskapsdatabasen. Du står fritt til å endre den et
     $action  = "index.php?action=update-action&amp;page=display-action";
     $fields  = Array(Array("label" => "actionid", "type" => "hidden",
                            "attributes" => Array("name" => "actionid", "value" => "$actionid")),
-                     Array("label" => "handling", "type" => "text", 
+                     Array("label" => "handling", "type" => "text",
                            "attributes" => Array("name" => "name" ,"size" => 50, "maxlength" => 50,
                                                  "value" => $action1->name)),
-                     Array("label" => "beskrivelse", "type" => "textarea", 
+                     Array("label" => "beskrivelse", "type" => "textarea",
                            "attributes" => Array("name" => "text", "cols" => 70, "rows" => 7,
                                                  "value" => $action1->text))
                      );
@@ -1808,7 +1813,7 @@ Teksten under er hentet fra kunnskapsdatabasen. Du står fritt til å endre den et
 
   public function _displayActionGroupRelationships(){
     $relations = new ActionGroupRelationships();
-    $relations->displayList();    
+    $relations->displayList();
   }
 
   public function _registerActionGroupRelationship(){
@@ -1822,9 +1827,9 @@ Teksten under er hentet fra kunnskapsdatabasen. Du står fritt til å endre den et
     $enctype = NULL;
     $method  = "post";
     $action  = "index.php?action=register-actiongrouprelationship&amp;page=register-actiongrouprelationship";
-    $fields  = Array(Array("label" => "handling", "type" => "select", 
+    $fields  = Array(Array("label" => "handling", "type" => "select",
                            "attributes" => Array("name" => "actionid", "values" => $actions)),
-                     Array("label" => "gruppe", "type" => "select", 
+                     Array("label" => "gruppe", "type" => "select",
                            "attributes" => Array("name" => "groupid", "values" => $groups))
                      );
     $form = new Form($title, $enctype, $method, $action, $fields);
@@ -1833,13 +1838,13 @@ Teksten under er hentet fra kunnskapsdatabasen. Du står fritt til å endre den et
 
   public function _displayArticles(){
     $articles = new Articles();
-    $articles->displayList();    
+    $articles->displayList();
   }
 
   public function _displayArticle(){
     $articleid = scriptParam("articleid");
     $article = new Article($articleid);
-    $article->display();    
+    $article->display();
   }
 
   public function _registerArticle(){
@@ -1848,31 +1853,31 @@ Teksten under er hentet fra kunnskapsdatabasen. Du står fritt til å endre den et
     $method  = "post";
     $action  = "index.php?action=register-article&amp;page=display-article";
     $fields  = Array();
-    
-    $fields[] = Array("label" => "title", "type" => "text", 
+
+    $fields[] = Array("label" => "title", "type" => "text",
                            "attributes" => Array("name" => "title", "class" => "title", "size" => 50, "maxlength" => 50));
-    $fields[] = Array("label" => "tekst", "type" => "textarea", 
+    $fields[] = Array("label" => "tekst", "type" => "textarea",
                            "attributes" => Array("name" => "text", "cols" => 70, "rows" => 10,
                            "class" => "mceEditor"));
-    $fields[] = Array("label" => "sammendrag", "type" => "textarea", 
+    $fields[] = Array("label" => "sammendrag", "type" => "textarea",
                            "attributes" => Array("name" => "intro", "cols" => 70, "rows" => 3, "maxlength" => 250));
     /**
      * Hvis value ikke er gitt, blir dagens dato satt.
      * Hvor? Aner ikke!
      * --Thomas Misund Hansen, 2009-06-09
      */
-    $fields[] = Array("label" => "utgår", "type" => "date", 
+    $fields[] = Array("label" => "utgår", "type" => "date",
                            "attributes" => Array("name" => "expires", "value" => "2029-01-01"));
     $fields[]  =Array("label" => "hovedbilde", "type" => "file",
                       "attributes" => Array("comment" => "Vi blir glade hvis du bruker litt store bilder. 1024 piksler på den lengste kanten er kjempefint.",
                                             "name" => "attachment1", "size" => 55));
-    $fields[] = Array("label" => "billedtekst", "type" => "textarea", 
+    $fields[] = Array("label" => "billedtekst", "type" => "textarea",
                            "attributes" => Array("name" => "caption1", "cols" => 70, "rows" => 2, "maxlength" => 120));
     $fields[]  =Array("label" => "ekstra bilde", "type" => "file",
                       "attributes" => Array("name" => "attachment2", "size" => 55));
-    $fields[] = Array("label" => "billedtekst", "type" => "textarea", 
+    $fields[] = Array("label" => "billedtekst", "type" => "textarea",
                            "attributes" => Array("name" => "caption2", "cols" => 70, "rows" => 2, "maxlength" => 120));
-    
+
     $form = new Form($title, $enctype, $method, $action, $fields);
     $form->display();
   }
@@ -1886,42 +1891,42 @@ Teksten under er hentet fra kunnskapsdatabasen. Du står fritt til å endre den et
     $method  = "post";
     $action  = "index.php?action=update-article&amp;page=display-article";
     $fields  = Array();
-    
+
     $fields[] = Array("label" => "articleid", "type" => "hidden",
                            "attributes" => Array("name" => "articleid", "value" => $articleid));
-    $fields[] = Array("label" => "title", "type" => "text", 
+    $fields[] = Array("label" => "title", "type" => "text",
                            "attributes" => Array("name" => "title", "class" => "title", "size" => 50, "maxlength" => 50,
                                                  "value" => $article->title));
-    $fields[] = Array("label" => "tekst", "type" => "textarea", 
+    $fields[] = Array("label" => "tekst", "type" => "textarea",
                            "attributes" => Array("name" => "text", "cols" => 70, "rows" => 10,
                                                  "class" => "mceEditor",
     						 "value" => $article->text));
-    $fields[] = Array("label" => "sammendrag", "type" => "textarea", 
+    $fields[] = Array("label" => "sammendrag", "type" => "textarea",
                            "attributes" => Array("name" => "intro", "cols" => 70, "rows" => 3, "maxlength" => 250,
                            "value" => $article->intro));
-    $fields[] = Array("label" => "utgår", "type" => "date", 
+    $fields[] = Array("label" => "utgår", "type" => "date",
                            "attributes" => Array("name" => "expires", "value" => $article->expires));
     $fields[]  =Array("label" => "hovedbilde", "type" => "file",
                       "attributes" => Array("comment" => "Vi blir glade hvis du bruker litt store bilder. 1024 piksler på den lengste kanten er kjempefint.",
                                             "name" => "attachment1", "size" => 55));
-    $fields[] = Array("label" => "billedtekst", "type" => "textarea", 
+    $fields[] = Array("label" => "billedtekst", "type" => "textarea",
                            "attributes" => Array("name" => "caption1", "cols" => 70, "rows" => 2, "maxlength" => 120,
                                                  "value" => $article->caption1));
     $fields[]  =Array("label" => "ekstra bilde", "type" => "file",
                       "attributes" => Array("name" => "attachment2", "size" => 55));
-    $fields[] = Array("label" => "billedtekst", "type" => "textarea", 
+    $fields[] = Array("label" => "billedtekst", "type" => "textarea",
                            "attributes" => Array("name" => "caption2", "cols" => 70, "rows" => 2, "maxlength" => 120,
                                                  "value" => $article->caption2));
-    
+
     $form = new Form($title, $enctype, $method, $action, $fields);
     $form->display();
   }
-  
+
   public function _displayDivisionRequests(){
     $users = new Users();
     $users->displayDivisionRequests();
   }
-  
+
   public function _displayUsergroupRelationships(){
     $groupList  = new Groups("admin-only");
     $groups     = $groupList->getList();
@@ -1935,27 +1940,27 @@ Teksten under er hentet fra kunnskapsdatabasen. Du står fritt til å endre den et
     $current = scriptParam("groupid");
     if (empty($current)){
       $current = 2;
-    } 
+    }
 
     $limit = scriptParam("limit");
     if (empty($limit)){
       $limit = 25;
-    }    
+    }
 
     $title   = "vis gruppemedlemmer";
     $enctype = NULL;
     $method  = "post";
     $action  = "index.php?page=display-usergrouprelationships";
-    $fields  = Array(Array("label" => "vis", "type" => "select", 
+    $fields  = Array(Array("label" => "vis", "type" => "select",
                            "attributes" => Array("name" => "limit", "values" => $limits, "currentValue" => $limit)),
-                     Array("label" => "fra", "type" => "select", 
+                     Array("label" => "fra", "type" => "select",
                            "attributes" => Array("name" => "groupid", "values" => $groups, "currentValue" => $current))
                      );
     $form = new Form($title, $enctype, $method, $action, $fields);
     $form->display("horizontal");
 
     $relations = new UserGroupRelationships();
-    $relations->displayList($current, $limit);    
+    $relations->displayList($current, $limit);
   }
 
   public function _registerUserGroupRelationship(){
@@ -1968,9 +1973,9 @@ Teksten under er hentet fra kunnskapsdatabasen. Du står fritt til å endre den et
     $enctype = NULL;
     $method  = "post";
     $action  = "index.php?action=register-usergrouprelationship&amp;page=register-usergrouprelationship";
-    $fields  = Array(Array("label" => "medlem", "type" => "select", 
+    $fields  = Array(Array("label" => "medlem", "type" => "select",
                            "attributes" => Array("name" => "userid", "values" => $users)),
-                     Array("label" => "gruppe", "type" => "select", 
+                     Array("label" => "gruppe", "type" => "select",
                            "attributes" => Array("name" => "groupid", "values" => $groups))
                      );
     $form = new Form($title, $enctype, $method, $action, $fields);
@@ -1987,31 +1992,31 @@ Teksten under er hentet fra kunnskapsdatabasen. Du står fritt til å endre den et
     $method  = "post";
     $action  = "index.php?action=register-usergrouprelationship&amp;page=register-usergrouprelationship";
     $fields  = Array();
-    
-    $fields[] = Array("label" => "medlem", "type" => "select", 
+
+    $fields[] = Array("label" => "medlem", "type" => "select",
                       "attributes" => Array("name" => "userid", "values" => $users,
                        										  "currentValue" => $currentUser));
-    $fields[] = Array("label" => "gruppe", "type" => "select", 
+    $fields[] = Array("label" => "gruppe", "type" => "select",
                     	"attributes" => Array("name" => "groupid", "values" => $groups));
-                     
+
     $form = new Form($title, $enctype, $method, $action, $fields);
     $form->display();
 
     $groupList   = new Groups("admin-only");
     $groups      = $groupList->getList();
-	
+
     $title   = "masseregistrér medlemmer i ny gruppe";
     $enctype = NULL;
     $method  = "post";
     $action  = "index.php?action=register-usergrouprelationship&amp;page=register-usergrouprelationship";
     $fields  = Array();
-    
-    $fields[] = Array("label" => "kortnummer/epost", "type" => "textarea", 
+
+    $fields[] = Array("label" => "kortnummer/epost", "type" => "textarea",
                       "attributes" => Array("name" => "users", "cols" => 70, "rows" => 15,
                                             "comment" => "Tast inn kortnummer eller epost for å legge til flere brukere i samme gruppe på én gang. Én per linje."));
-    $fields[] = Array("label" => "gruppe", "type" => "select", 
+    $fields[] = Array("label" => "gruppe", "type" => "select",
                       "attributes" => Array("name" => "groupid", "values" => $groups));
-                     
+
     $form = new Form($title, $enctype, $method, $action, $fields);
     $form->display();
 
@@ -2048,15 +2053,15 @@ Teksten under er hentet fra kunnskapsdatabasen. Du står fritt til å endre den et
     $method  = "post";
     $action  = "index.php?page=display-users";
     $fields  = Array();
-    
-    $fields[] = Array("label" => "vis", "type" => "select", 
+
+    $fields[] = Array("label" => "vis", "type" => "select",
                       "attributes" => Array("name" => "limit", "values" => $limits,
                                             "currentValue" => $limit));
-    $fields[] = Array("label" => "fra", "type" => "select", 
-                      "attributes" => Array("name" => "groupid", "values" => $groups, 
+    $fields[] = Array("label" => "fra", "type" => "select",
+                      "attributes" => Array("name" => "groupid", "values" => $groups,
                                             "currentValue" => $current));
-    $fields[] = Array("label" => "postadressestatus", "type" => "select", 
-                      "attributes" => Array("name" => "validaddress", "values" => $addressStatus, 
+    $fields[] = Array("label" => "postadressestatus", "type" => "select",
+                      "attributes" => Array("name" => "validaddress", "values" => $addressStatus,
                                             "currentValue" => $addressStatusCurrent));
     $form = new Form($title, $enctype, $method, $action, $fields);
     $form->display("horizontal");
@@ -2073,8 +2078,8 @@ Teksten under er hentet fra kunnskapsdatabasen. Du står fritt til å endre den et
     $method  = "post";
     $action  = "index.php?page=display-users";
     $fields  = Array();
-    
-    $fields[] = Array("label" => "søk på navn, kortnr eller e-post", "type" => "text", 
+
+    $fields[] = Array("label" => "søk på navn, kortnr eller e-post", "type" => "text",
                       "attributes" => Array("name" => "search", "value" => $search));
     $form = new Form($title, $enctype, $method, $action, $fields, $id);
     $form->display("horizontal");
@@ -2089,7 +2094,7 @@ Teksten under er hentet fra kunnskapsdatabasen. Du står fritt til å endre den et
       $users = new Users();
       $users->displayList($group, $limit, false, $addressStatusCurrent);
     }
-        
+
   }
 
   public function _displayUserExpiries(){
@@ -2138,18 +2143,18 @@ Teksten under er hentet fra kunnskapsdatabasen. Du står fritt til å endre den et
     $method  = "post";
     $action  = "index.php?page=display-user-expiries";
     $fields  = Array();
-    
-    $fields[] = Array("label" => "", "type" => "select", 
+
+    $fields[] = Array("label" => "", "type" => "select",
                       "attributes" => Array("name" => "format", "values" => $formats,
                                             "currentValue" => $format));
-    $fields[] = Array("label" => "", "type" => "select", 
+    $fields[] = Array("label" => "", "type" => "select",
                       "attributes" => Array("name" => "limit", "values" => $limits,
                                             "currentValue" => $limit));
-    $fields[] = Array("label" => "fra", "type" => "select", 
-                      "attributes" => Array("name" => "groupid", "values" => $groups, 
+    $fields[] = Array("label" => "fra", "type" => "select",
+                      "attributes" => Array("name" => "groupid", "values" => $groups,
                                             "currentValue" => $current));
-    $fields[] = Array("label" => "med", "type" => "select", 
-                      "attributes" => Array("name" => "expiry", "values" => $expiries, 
+    $fields[] = Array("label" => "med", "type" => "select",
+                      "attributes" => Array("name" => "expiry", "values" => $expiries,
                                             "currentValue" => $curExp));
     $form = new Form($title, $enctype, $method, $action, $fields);
     $form->display("horizontal");
@@ -2166,8 +2171,8 @@ Teksten under er hentet fra kunnskapsdatabasen. Du står fritt til å endre den et
     $method  = "post";
     $action  = "index.php?page=display-user-expiries";
     $fields  = Array();
-    
-    $fields[] = Array("label" => "søk etter medlem", "type" => "text", 
+
+    $fields[] = Array("label" => "søk etter medlem", "type" => "text",
                       "attributes" => Array("name" => "search", "value" => $search));
     $form = new Form($title, $enctype, $method, $action, $fields, $id);
     $form->display("horizontal");
@@ -2184,13 +2189,13 @@ Teksten under er hentet fra kunnskapsdatabasen. Du står fritt til å endre den et
       $action  = "index.php?page=display-user-expiries";
       $fields  = Array();
 
-      $fields[] = Array("label" => "slå opp kode", "type" => "text", 
+      $fields[] = Array("label" => "slå opp kode", "type" => "text",
                        "attributes" => Array("name" => "code_search", "value" => $code_search));
       $form = new Form($title, $enctype, $method, $action, $fields, $id);
       $form->display("horizontal");
 
       if ($code_search != ""){
-        displayCode($code_search); 
+        displayCode($code_search);
       }
     }
 
@@ -2201,7 +2206,7 @@ Teksten under er hentet fra kunnskapsdatabasen. Du står fritt til å endre den et
       $users = new Users();
       $users->displayExpiryList($group, $limit, $expiry, $format);
     }
-    
+
 
   }
 
@@ -2221,11 +2226,11 @@ Teksten under er hentet fra kunnskapsdatabasen. Du står fritt til å endre den et
       $action  = "index.php?page=register-membership-bankpayment";
       $fields  = Array();
 
-      $fields[] = @Array("label" => "sett inn fil mottatt fra bank", 
-                        "type" => "textarea", 
-                        "attributes" => Array("name" => "banktext", 
-                                              "cols" => 100, 
-                                              "rows" => 20, 
+      $fields[] = @Array("label" => "sett inn fil mottatt fra bank",
+                        "type" => "textarea",
+                        "attributes" => Array("name" => "banktext",
+                                              "cols" => 100,
+                                              "rows" => 20,
                                               "value" => $_POST["banktext"]));
       $fields[] = @Array("label" => "",
                         "type" => "checkbox",
@@ -2249,26 +2254,26 @@ Teksten under er hentet fra kunnskapsdatabasen. Du står fritt til å endre den et
           return true;
         }
       }
-      
+
       $title   = "Registrere adresseoppdatering mottatt gjennom EA";
       $id      = "eaupdate";
       $enctype = NULL;
       $method = "post";
       $action  = "index.php?page=register-user-ea-update";
       $fields  = Array();
-      
-      $fields[] = @Array("label" => "sett inn CVS fil", 
-                        "type" => "textarea", 
-                        "attributes" => Array("name" => "eatext", 
-                                              "cols" => 100, 
-                                              "rows" => 20, 
+
+      $fields[] = @Array("label" => "sett inn CVS fil",
+                        "type" => "textarea",
+                        "attributes" => Array("name" => "eatext",
+                                              "cols" => 100,
+                                              "rows" => 20,
                                               "value" => $_POST["eatext"]));
       $form = new Form($title, $enctype, $method, $action, $fields, $id);
       $form->display();
 
       return true;
     }
-    
+
     return false;
   }
 
@@ -2306,75 +2311,75 @@ Teksten under er hentet fra kunnskapsdatabasen. Du står fritt til å endre den et
     }
     $fields  = Array();
 
-    $fields[] = Array("label" => "fornavn", "type" => "text", 
-                      "attributes" => Array("name" => "firstname" ,"size" => 50, "maxlength" => 50, 
+    $fields[] = Array("label" => "fornavn", "type" => "text",
+                      "attributes" => Array("name" => "firstname" ,"size" => 50, "maxlength" => 50,
                                             "value" => (isset($data['firstname'])) ? $data['firstname'] : ""));
-    $fields[] = Array("label" => "etternavn", "type" => "text", 
-                      "attributes" => Array("name" => "lastname" ,"size" => 50, "maxlength" => 50, 
+    $fields[] = Array("label" => "etternavn", "type" => "text",
+                      "attributes" => Array("name" => "lastname" ,"size" => 50, "maxlength" => 50,
                                             "value" => (isset($data['lastname'])) ? $data['lastname'] : ""));
-    $fields[] = Array("label" => "ønsket brukernavn", "type" => "text", 
-                      "attributes" => Array("name" => "username" ,"size" => 12, "maxlength" => 12, 
-                                            "onchange" => "checkUsername(this.value)",          
+    $fields[] = Array("label" => "ønsket brukernavn", "type" => "text",
+                      "attributes" => Array("name" => "username" ,"size" => 12, "maxlength" => 12,
+                                            "onchange" => "checkUsername(this.value)",
 																						"value" => (isset($data['username'])) ? $data['username'] : ""));
     $fields[] = Array("label" => "ønsket passord", "type" => "password",
                       "attributes" => Array("name" => "password1"));
     $fields[] = Array("label" => "gjenta passord", "type" => "password",
                       "attributes" => Array("name" => "password2"));
     $fields[] = Array("label" => "utenlandsk adresse?", "type" => "checkbox",
-                      "attributes" => Array("name" => "addresstype", "label" => " hak av for å registrere utenlandsk adresse",  
-                                            "checked" => (isset($data['addresstype'])) ? "checked" : "")); 
-    $fields[] = Array("label" => "gateadresse", "type" => "textarea", 
-                      "attributes" => Array("name" => "street", "cols" => 70, "rows" => 3, 
-                                            "value" => (isset($data['street'])) ? $data['street'] : "", 
+                      "attributes" => Array("name" => "addresstype", "label" => " hak av for å registrere utenlandsk adresse",
+                                            "checked" => (isset($data['addresstype'])) ? "checked" : ""));
+    $fields[] = Array("label" => "gateadresse", "type" => "textarea",
+                      "attributes" => Array("name" => "street", "cols" => 70, "rows" => 3,
+                                            "value" => (isset($data['street'])) ? $data['street'] : "",
                                             "maxlength" => 255, "nocounter" => true));
-    $fields[] = Array("label" => "postnummer", "type" => "text", 
+    $fields[] = Array("label" => "postnummer", "type" => "text",
                       "attributes" => Array("name" => "zipcode" ,"size" => 4,
-                                            "maxlength" => 4, 
-                                            "onchange" => "checkZip(this);", 
-                                            "onblur" => "checkZip(this);", 
+                                            "maxlength" => 4,
+                                            "onchange" => "checkZip(this);",
+                                            "onblur" => "checkZip(this);",
                                             "value" => (isset($data['zipcode'])) ? $data['zipcode'] : ""));
-    $fields[] = Array("label" => "poststed", "type" => "text", 
-                      "attributes" => Array("name" => "postarea", "readonly" => "readonly", 
+    $fields[] = Array("label" => "poststed", "type" => "text",
+                      "attributes" => Array("name" => "postarea", "readonly" => "readonly",
                                             "readonly" => true));
-    $fields[] = Array("label" => "by", "type" => "text", 
+    $fields[] = Array("label" => "by", "type" => "text",
                       "attributes" => Array("name" => "city" ,"size" => 50, "maxlength" => 50,
                                             "value" => (isset($data['city'])) ? $data['city'] : ""));
-    $fields[] = Array("label" => "stat", "type" => "text", 
+    $fields[] = Array("label" => "stat", "type" => "text",
                       "attributes" => Array("name" => "state" ,"size" => 50, "maxlength" => 50,
                                             "value" => (isset($data['state'])) ? $data['state'] : ""));
-    $fields[] = Array("label" => "land", "type" => "text", 
+    $fields[] = Array("label" => "land", "type" => "text",
                       "attributes" => Array("name" => "country" ,"size" => 50, "maxlength" => 50,
                                             "id" => "country",
                                             "value" => (isset($data['country'])) ? $data['country'] : ""));
-    $fields[] = Array("label" => "telefon", "type" => "text", 
+    $fields[] = Array("label" => "telefon", "type" => "text",
                       "attributes" => Array("name" => "phonenumber" ,"size" => 16, "maxlength" => 16,
                                             "value" => (isset($data['phonenumber'])) ? $data['phonenumber'] : ""));
-    $fields[] = Array("label" => "epost", "type" => "text", 
-                      "attributes" => Array("name" => "email" ,"size" => 50, "maxlength" => 120, 
+    $fields[] = Array("label" => "epost", "type" => "text",
+                      "attributes" => Array("name" => "email" ,"size" => 50, "maxlength" => 120,
                                             "value" => (isset($data['email'])) ? $data['email'] : ""));
-    $fields[] = Array("label" => "fødselsdato", "type" => "date", 
-                      "attributes" => Array("name" => "birthdate", 
+    $fields[] = Array("label" => "fødselsdato", "type" => "date",
+                      "attributes" => Array("name" => "birthdate",
                                             "value" => (isset($data['birthdate'])) ? $data['birthdate'] : "yyyy-mm-dd"));
-    $fields[] = Array("label" => "studiested", "type" => "select", 
-                      "attributes" => Array("name" => "placeOfStudy", "values" => $pos, 
+    $fields[] = Array("label" => "studiested", "type" => "select",
+                      "attributes" => Array("name" => "placeOfStudy", "values" => $pos,
                                             "currentValue" => (isset($data['placeOfStudy'])) ? $data['placeOfStudy'] : ""));
     if (!isset($_SESSION['valid-user'])) {
 	    $fields[] = Array("label" => "aktiv i en forening?", "type" => "checkbox",
       	                "attributes" => Array("name" => "active",
       	                											"label" => " hak av om du er eller vil bli aktiv i en forening på Studentersamfundet",
-          	                                  "checked" => (isset($data['active'])) ? "checked" : "")); 
-    	$fields[] = Array("label" => "forening", "type" => "select", 
-      	                "attributes" => Array("name" => "division", "values" => $divs, 
+          	                                  "checked" => (isset($data['active'])) ? "checked" : ""));
+    	$fields[] = Array("label" => "forening", "type" => "select",
+      	                "attributes" => Array("name" => "division", "values" => $divs,
         	                                    "currentValue" => (isset($data['division'])) ? $data['division'] : ""));
-                                              
+
     } else {
 	    $fields[] = Array("label" => "legg til i gruppe?", "type" => "checkbox",
-      	                "attributes" => Array("name" => "group", 
-        	                                    "label" => " hak av for å registrere bruker i en gruppe", 
-          	                                  "checked" => (isset($data['group'])) ? "checked" : "")); 
-    	$fields[] = Array("label" => "gruppe", "type" => "select", 
-      	                "attributes" => Array("name" => "group_id", "values" => $groups, 
-        	                                    "currentValue" => (isset($data['group_id'])) ? $data['group_id'] : ""));   	
+      	                "attributes" => Array("name" => "group",
+        	                                    "label" => " hak av for å registrere bruker i en gruppe",
+          	                                  "checked" => (isset($data['group'])) ? "checked" : ""));
+    	$fields[] = Array("label" => "gruppe", "type" => "select",
+      	                "attributes" => Array("name" => "group_id", "values" => $groups,
+        	                                    "currentValue" => (isset($data['group_id'])) ? $data['group_id'] : ""));
     }
     $form = new Form($title, $enctype, $method, $action, $fields, $id);
     $form->display();
@@ -2388,7 +2393,7 @@ Teksten under er hentet fra kunnskapsdatabasen. Du står fritt til å endre den et
     $addressValues = Array(Array("id" => 0, "title" => "Ugyldig"),
 						               Array("id" => 1, "title" => "Gyldig"),
 						               Array("id" => 2, "title" => "Ukjent"));
-    
+
     if ($id == NULL){
       $userId = scriptParam("userid");
       $tag = "";
@@ -2404,71 +2409,71 @@ Teksten under er hentet fra kunnskapsdatabasen. Du står fritt til å endre den et
       $readonly = true;
     }
 
-    
+
     $title   = "$user->firstname $user->lastname - brukerinformasjon";
     $enctype = NULL;
     $method  = "post";
     $action  = "index.php?action=update-".$tag."user&amp;page=display-".$tag."user";
     $fields  = Array();
-    
+
     $fields[] = Array("label" => "id", "type" => "hidden",
-                      "attributes" => Array("name" => "userid", "readonly" => true, 
+                      "attributes" => Array("name" => "userid", "readonly" => true,
                                             "size" => strlen($user->id),
                                             "value" => "$userId"));
     $fields[] = Array("label" => "kortnummer", "type" => "text",
-                           "attributes" => Array("name" => "cardno", "readonly" => true, 
+                           "attributes" => Array("name" => "cardno", "readonly" => true,
                                                  "size" => strlen($user->cardno),
                                                  "value" => $user->cardno));
-    $fields[] = Array("label" => "brukernavn", "type" => "text", 
-                           "attributes" => Array("name" => "username", "readonly" => true, 
+    $fields[] = Array("label" => "brukernavn", "type" => "text",
+                           "attributes" => Array("name" => "username", "readonly" => true,
                                                  "size" => strlen($user->username),
                                                  "value" => $user->username));
-    $fields[] = Array("label" => "fornavn", "type" => "text", 
+    $fields[] = Array("label" => "fornavn", "type" => "text",
                            "attributes" => Array("name" => "firstname" ,"size" => 50, "maxlength" => 50,
                                                  "readonly" => $readonly, "value" => $user->firstname));
-    $fields[] = Array("label" => "etternavn", "type" => "text", 
+    $fields[] = Array("label" => "etternavn", "type" => "text",
                            "attributes" => Array("name" => "lastname" ,"size" => 50, "maxlength" => 50,
                                                  "readonly" => $readonly, "value" => $user->lastname));
     $fields[] = Array("label" => "utenlandsk adresse?", "type" => "checkbox",
-                      "attributes" => Array("name" => "addresstype", "label" => " hak av for å registrere utenlandsk adresse",  
-                                            "readonly" => $readonly, "checked" => $user->addresstype == "int" ? "checked" : "")); 
-    $fields[] = Array("label" => "gateadresse", "type" => "textarea", 
+                      "attributes" => Array("name" => "addresstype", "label" => " hak av for å registrere utenlandsk adresse",
+                                            "readonly" => $readonly, "checked" => $user->addresstype == "int" ? "checked" : ""));
+    $fields[] = Array("label" => "gateadresse", "type" => "textarea",
                            "attributes" => Array("name" => "street", "cols" => 70, "rows" => 3,
-                                                 "maxlength" => 255, "nocounter" => true, 
+                                                 "maxlength" => 255, "nocounter" => true,
                                                  "readonly" => $readonly, "value" => $user->street));
     $fields[] = Array("label" => "postnummer", "type" => "text",
                            "attributes" => Array("name" => "zipcode", "size" => 4, "maxlength" => 4,
-		                                             "onchange" => "checkZip(this);", 
-    		                                         "onblur" => "checkZip(this);", 
+		                                             "onchange" => "checkZip(this);",
+    		                                         "onblur" => "checkZip(this);",
                                                  "readonly" => $readonly, "value" => $user->zipcode));
-    $fields[] = Array("label" => "poststed", "type" => "text", 
-                           "attributes" => Array("name" => "postarea", "readonly" => "readonly", 
+    $fields[] = Array("label" => "poststed", "type" => "text",
+                           "attributes" => Array("name" => "postarea", "readonly" => "readonly",
                                                  "size" => strlen($user->postarea) + 1,
                                                  "readonly" => "readonly", "value" => $user->postarea));
-    $fields[] = Array("label" => "by", "type" => "text", 
+    $fields[] = Array("label" => "by", "type" => "text",
                            "attributes" => Array("name" => "city" ,"size" => 50, "maxlength" => 50,
                                                  "readonly" => $readonly, "value" => $user->city));
-    $fields[] = Array("label" => "stat", "type" => "text", 
+    $fields[] = Array("label" => "stat", "type" => "text",
                            "attributes" => Array("name" => "state" ,"size" => 50, "maxlength" => 50,
                                                  "readonly" => $readonly, "value" => $user->state));
-    $fields[] = Array("label" => "land", "type" => "text", 
+    $fields[] = Array("label" => "land", "type" => "text",
                            "attributes" => Array("name" => "country" ,"size" => 50, "maxlength" => 50,
                                                  "readonly" => $readonly, "value" => $user->country));
 
     if (isAdmin() || checkAuth("perform-update-user-hascard")) {
-      $fields[] = Array("label" => "adressestatus", 
+      $fields[] = Array("label" => "adressestatus",
                         "type" => "select",
-                        "attributes" => Array("name" => "valid_address", 
-                                              "disabled" => $readonly, 
+                        "attributes" => Array("name" => "valid_address",
+                                              "disabled" => $readonly,
                                             	"values" => $addressValues,
                                             	"currentValue" => $user->validAddress));
     }
-    
+
     if ($user->validAddress ==  0) {
       $validAddressMessage = "Postadressen er merket som ugyldig, vennligst undersøk om det er riktig adresse";
-      $fields[] = Array("label" => "adressestatus", 
+      $fields[] = Array("label" => "adressestatus",
                         "type" => "text",
-                        "attributes" => Array("name" => "addressestatus", "readonly" => true, 
+                        "attributes" => Array("name" => "addressestatus", "readonly" => true,
                                               "size" => strlen($validAddressMessage),
                                               "value" => $validAddressMessage));
     }
@@ -2476,35 +2481,35 @@ Teksten under er hentet fra kunnskapsdatabasen. Du står fritt til å endre den et
     $fields[] = Array("label" => "telefon", "type" => "text",
                            "attributes" => Array("name" => "phonenumber" ,"size" => 16, "maxlength" => 16,
                                                  "readonly" => $readonly, "value" => $user->phonenumber));
-    $fields[] = Array("label" => "epost", "type" => "text", 
+    $fields[] = Array("label" => "epost", "type" => "text",
                            "attributes" => Array("name" => "email" ,"size" => 50, "maxlength" => 120,
                                                  "readonly" => $readonly, "value" => $user->email));
-    $fields[] = Array("label" => "fødselsdato", "type" => "date", 
+    $fields[] = Array("label" => "fødselsdato", "type" => "date",
                            "attributes" => Array("name" => "birthdate",
                                                  "readonly" => $readonly, "value" => $user->birthdate));
-    $fields[] = Array("label" => "studiested", "type" => "select", 
+    $fields[] = Array("label" => "studiested", "type" => "select",
                            "attributes" => Array("name" => "placeOfStudy", "values" => $pos,
                                                  "disabled" => $readonly, "currentValue" => $user->placeOfStudy));
   if(isAdmin() || checkAuth("perform-update-user-hascard")){
-    $fields[] = Array("label" => "har medlemskort", "type" => "select", 
+    $fields[] = Array("label" => "har medlemskort", "type" => "select",
                            "attributes" => Array("name" => "hasCard", "values" => $cardValues,
                            "disabled" => $readonly, "currentValue" => $user->hasCard));
   }else {
-  $fields[] = Array("label" => "har medlemskort", "type" => "hidden", 
-                           "attributes" => Array("name" => "hasCard", 
+  $fields[] = Array("label" => "har medlemskort", "type" => "hidden",
+                           "attributes" => Array("name" => "hasCard",
                            "disabled" => $readonly, "value" => $user->hasCard));
-  	
+
   }
 
     $form = new Form($title, $enctype, $method, $action, $fields, NULL, $readonly);
     $form->display();
-    
+
 ?>
 		<span class="button" onclick="toggleDisplay('user-groups'); toggleText(this, 'vis grupper', 'skjul grupper');">vis grupper</span>
 			<div id="user-groups" style="display: none;">
 <?php
     $user->displayGroups();
-    
+
     if (checkAuth("view-register-usergrouprelationship")) {
     	$groupList   = new Groups("admin-only");
     	$groups      = $groupList->getList();
@@ -2514,13 +2519,13 @@ Teksten under er hentet fra kunnskapsdatabasen. Du står fritt til å endre den et
     	$method  = "post";
 	    $action  = "index.php?action=register-usergrouprelationship&amp;page=display-user";
   	  $fields  = Array();
-    
-    	$fields[] = Array("label" => "medlem", "type" => "hidden", 
+
+    	$fields[] = Array("label" => "medlem", "type" => "hidden",
                       	"attributes" => Array("name" => "userid",
                        											  "value" => $user->id));
-    	$fields[] = Array("label" => "registrér bruker i ny gruppe", "type" => "select", 
+    	$fields[] = Array("label" => "registrér bruker i ny gruppe", "type" => "select",
                     		"attributes" => Array("name" => "groupid", "values" => $groups));
-                     
+
 	    $form = new Form($title, $enctype, $method, $action, $fields);
     	$form->display("horizontal");
     }
@@ -2531,33 +2536,33 @@ Teksten under er hentet fra kunnskapsdatabasen. Du står fritt til å endre den et
 ?>
 		<span class="button" onclick="toggleDisplay('user-updates'); toggleText(this, 'vis endringer', 'skjul endringer');">vis endringer</span>
 		<div id="user-updates" style="display: none">
-<?php      
-      $user->displayUpdates(); 
+<?php
+      $user->displayUpdates();
       ?></div><?php
     }
     if(checkAuth("view-delete-user")){
 ?>
 		<a class="button" href="javascript: if(confirm('Slett bruker?\n\nDette kan ikke angres!')) {
 		  location='index.php?action=delete-user&amp;userid=<?php print $user->id;?>'};">slett bruker</a>
-<?php      
+<?php
     }
   }
 
   public function _changeUsername(){
     $title = "Endre brukernavn";
-    $user  = new User(getCurrentUser());    
+    $user  = new User(getCurrentUser());
 
     $enctype = NULL;
     $method  = "post";
     $action  = "index.php?action=change-username&amp;page=change-username";
     $fields  = Array();
-    
-    $fields[] = Array("label" => "id", "type" => "hidden", 
+
+    $fields[] = Array("label" => "id", "type" => "hidden",
                       "attributes" => Array("name" => "userid", "size" => 10, "maxlength" => 12,
                                             "value" => $user->id));
-    $fields[] = Array("label" => "brukernavn", "type" => "text", 
+    $fields[] = Array("label" => "brukernavn", "type" => "text",
                       "attributes" => Array("name" => "username", "size" => 12, "maxlength" => 12,
-                                            "value" => $user->username, 
+                                            "value" => $user->username,
                                             "help" => "Om brukernavnet er i bruk på forumet kreves det at du oppgir samme passord som på forumet for å verifisere at det er ditt brukernavn."));
     $fields[] = Array("label" => "passord", "type" => "password",
                       "attributes" => Array("name" => "password"));
@@ -2577,10 +2582,10 @@ Teksten under er hentet fra kunnskapsdatabasen. Du står fritt til å endre den et
     $method  = "post";
     $action  = "javascript: addCategory('document');";
     $fields  = Array();
-    
-    $fields[] = Array("label" => "dokumenttype", "type" => "text", 
+
+    $fields[] = Array("label" => "dokumenttype", "type" => "text",
                       "attributes" => Array("name" => "title", "size" => 50, "maxlength" => 50));
-    $fields[] = Array("label" => "beskrivelse", "type" => "textarea", 
+    $fields[] = Array("label" => "beskrivelse", "type" => "textarea",
                       "attributes" => Array("name" => "text", "rows" => 5, "cols" => 70));
     $form = new Form($title, $enctype, $method, $action, $fields);
     $form->display();
@@ -2588,20 +2593,20 @@ Teksten under er hentet fra kunnskapsdatabasen. Du står fritt til å endre den et
 
   public function _editDocumentCategory(){
     $title   = "oppdatér dokumenttype";
-    $documentcat = new DocumentCategory(scriptParam("documentcategoryid"));    
+    $documentcat = new DocumentCategory(scriptParam("documentcategoryid"));
 
     $enctype = NULL;
     $method  = "post";
     $action  = "index.php?action=update-documentcategory&amp;page=register-documentcategory";
     $fields  = Array();
-    
-    $fields[] = Array("label" => "id", "type" => "hidden", 
+
+    $fields[] = Array("label" => "id", "type" => "hidden",
                       "attributes" => Array("name" => "documentcategoryid", "size" => 50, "maxlength" => 25,
                                             "value" => $documentcat->id));
-    $fields[] = Array("label" => "stillingstype", "type" => "text", 
+    $fields[] = Array("label" => "stillingstype", "type" => "text",
                       "attributes" => Array("name" => "title", "size" => 50, "maxlength" => 25,
                                             "value" => $documentcat->title));
-    $fields[] = Array("label" => "beskrivelse", "type" => "textarea", 
+    $fields[] = Array("label" => "beskrivelse", "type" => "textarea",
                       "attributes" => Array("name" => "text", "rows" => 5, "cols" => 70,
                                             "value" => $documentcat->text));
     $form = new Form($title, $enctype, $method, $action, $fields);
@@ -2619,10 +2624,10 @@ Teksten under er hentet fra kunnskapsdatabasen. Du står fritt til å endre den et
     $method  = "post";
     $action  = "javascript: addCategory('event');";
     $fields  = Array();
-    
-    $fields[] = Array("label" => "aktivitetstype", "type" => "text", 
+
+    $fields[] = Array("label" => "aktivitetstype", "type" => "text",
                       "attributes" => Array("name" => "title", "size" => 50, "maxlength" => 50));
-    $fields[] = Array("label" => "beskrivelse", "type" => "textarea", 
+    $fields[] = Array("label" => "beskrivelse", "type" => "textarea",
                       "attributes" => Array("name" => "text", "rows" => 5, "cols" => 70));
     $form = new Form($title, $enctype, $method, $action, $fields);
     $form->display();
@@ -2630,20 +2635,20 @@ Teksten under er hentet fra kunnskapsdatabasen. Du står fritt til å endre den et
 
   public function _editEventCategory(){
     $title   = "oppdatér aktivitetstype";
-    $eventcat = new EventCategory(scriptParam("eventcategoryid"));    
+    $eventcat = new EventCategory(scriptParam("eventcategoryid"));
 
     $enctype = NULL;
     $method  = "post";
     $action  = "index.php?action=update-eventcategory&amp;page=register-eventcategory";
     $fields  = Array();
-    
-    $fields[] = Array("label" => "id", "type" => "hidden", 
+
+    $fields[] = Array("label" => "id", "type" => "hidden",
                       "attributes" => Array("name" => "eventcategoryid", "size" => 50, "maxlength" => 25,
                                             "value" => $eventcat->id));
-    $fields[] = Array("label" => "stillingstype", "type" => "text", 
+    $fields[] = Array("label" => "stillingstype", "type" => "text",
                       "attributes" => Array("name" => "title", "size" => 50, "maxlength" => 25,
                                             "value" => $eventcat->title));
-    $fields[] = Array("label" => "beskrivelse", "type" => "textarea", 
+    $fields[] = Array("label" => "beskrivelse", "type" => "textarea",
                       "attributes" => Array("name" => "text", "rows" => 5, "cols" => 70,
                                             "value" => $eventcat->text));
     $form = new Form($title, $enctype, $method, $action, $fields);
@@ -2661,10 +2666,10 @@ Teksten under er hentet fra kunnskapsdatabasen. Du står fritt til å endre den et
     $method  = "post";
     $action  = "javascript: addCategory('job');";
     $fields  = Array();
-    
-    $fields[] = Array("label" => "stillingstype", "type" => "text", 
+
+    $fields[] = Array("label" => "stillingstype", "type" => "text",
                       "attributes" => Array("name" => "title", "size" => 50, "maxlength" => 25));
-    $fields[] = Array("label" => "beskrivelse", "type" => "textarea", 
+    $fields[] = Array("label" => "beskrivelse", "type" => "textarea",
                       "attributes" => Array("name" => "text", "rows" => 5, "cols" => 70));
     $form = new Form($title, $enctype, $method, $action, $fields);
     $form->display();
@@ -2672,20 +2677,20 @@ Teksten under er hentet fra kunnskapsdatabasen. Du står fritt til å endre den et
 
   public function _editJobCategory(){
     $title   = "oppdatér stillingstype";
-    $jobcat = new JobCategory(scriptParam("jobcategoryid"));    
+    $jobcat = new JobCategory(scriptParam("jobcategoryid"));
 
     $enctype = NULL;
     $method  = "post";
     $action  = "index.php?action=update-jobcategory&amp;page=register-jobcategory";
     $fields  = Array();
-    
-    $fields[] = Array("label" => "id", "type" => "hidden", 
+
+    $fields[] = Array("label" => "id", "type" => "hidden",
                       "attributes" => Array("name" => "jobcategoryid", "size" => 50, "maxlength" => 25,
                                             "value" => $jobcat->id));
-    $fields[] = Array("label" => "stillingstype", "type" => "text", 
+    $fields[] = Array("label" => "stillingstype", "type" => "text",
                       "attributes" => Array("name" => "title", "size" => 50, "maxlength" => 25,
                                             "value" => $jobcat->title));
-    $fields[] = Array("label" => "beskrivelse", "type" => "textarea", 
+    $fields[] = Array("label" => "beskrivelse", "type" => "textarea",
                       "attributes" => Array("name" => "text", "rows" => 5, "cols" => 70,
                                             "value" => $jobcat->text));
     $form = new Form($title, $enctype, $method, $action, $fields);
@@ -2694,7 +2699,7 @@ Teksten under er hentet fra kunnskapsdatabasen. Du står fritt til å endre den et
 
 	private function _displayProduct() {
 	  ?>
-		<p><a class="button" href="index.php?page=display-webshop">tilbake til produkter</a></p>	  
+		<p><a class="button" href="index.php?page=display-webshop">tilbake til produkter</a></p>
 	  <?php
 	  $product = new Product(scriptParam('productid'));
 	  $product->display();
@@ -2722,19 +2727,19 @@ Teksten under er hentet fra kunnskapsdatabasen. Du står fritt til å endre den et
     $method  = "post";
     $action  = "index.php?action=register-product&amp;page=register-product";
     $fields  = Array();
-    
-    $fields[] = Array("label" => "produktnavn", "type" => "text", 
+
+    $fields[] = Array("label" => "produktnavn", "type" => "text",
                       "attributes" => Array("name" => "title", "size" => 50, "maxlength" => 255));
-    $fields[] = Array("label" => "beskrivelse", "type" => "textarea", 
+    $fields[] = Array("label" => "beskrivelse", "type" => "textarea",
                       "attributes" => Array("name" => "description", "rows" => 5, "cols" => 70));
-    $fields[] = Array("label" => "pris", "type" => "text", 
+    $fields[] = Array("label" => "pris", "type" => "text",
                       "attributes" => Array("name" => "price", "size" => 4, "maxlength" => 4));
-    $fields[] = Array("label" => "kommentarfelt", "type" => "select",  
-                      "attributes" => Array("name" => "allow_comment", 
+    $fields[] = Array("label" => "kommentarfelt", "type" => "select",
+                      "attributes" => Array("name" => "allow_comment",
                                             "values" => $comment_options,
                                             "help" => "Dette feltet angir om kunder kan legge til kommentarer ved kjøp. Bruk dette dersom man skal oppgi for eksempel størrelser."));
-    $fields[] = Array("label" => "vis i butikk", "type" => "select", 
-                      "attributes" => Array("name" => "display_in_shop", 
+    $fields[] = Array("label" => "vis i butikk", "type" => "select",
+                      "attributes" => Array("name" => "display_in_shop",
                                             "values" => $display_options,
                                             "help" => "Dette feltet angir om produktet skal vises i nettbutikken. Dette gjelder de fleste produkter. Noen produkter (for eksempel medlemskap) skal normalt ikke vises i butikken, men kun være tilgjengelig gjennom andre sider. Dette feltet kan også brukes for å midlertidig fjerne produkter fra butikken."));
     $fields[]  =Array("label" => "bilde", "type" => "file",
@@ -2745,7 +2750,7 @@ Teksten under er hentet fra kunnskapsdatabasen. Du står fritt til å endre den et
 
   public function _editProduct(){
     $title   = "oppdatér produkt";
-    $product = new Product(scriptParam("productid"));    
+    $product = new Product(scriptParam("productid"));
 		$comment_options = array(
 													array('id' => '0', 'title' => 'Ikke tillat kommentar'),
 													array('id' => '1', 'title' => 'Tillat kommentar')
@@ -2760,25 +2765,25 @@ Teksten under er hentet fra kunnskapsdatabasen. Du står fritt til å endre den et
     $method  = "post";
     $action  = "index.php?action=update-product&amp;page=register-product";
     $fields  = Array();
-    
-    $fields[] = Array("label" => "id", "type" => "hidden", 
+
+    $fields[] = Array("label" => "id", "type" => "hidden",
                       "attributes" => Array("name" => "productid", "size" => 50, "maxlength" => 25,
                                             "value" => $product->id));
-    $fields[] = Array("label" => "produktnavn", "type" => "text", 
+    $fields[] = Array("label" => "produktnavn", "type" => "text",
                       "attributes" => Array("name" => "title", "size" => 50, "maxlength" => 255,
                                             "value" => $product->title));
-    $fields[] = Array("label" => "beskrivelse", "type" => "textarea", 
+    $fields[] = Array("label" => "beskrivelse", "type" => "textarea",
                       "attributes" => Array("name" => "description", "rows" => 5, "cols" => 70,
                                             "value" => $product->description));
-    $fields[] = Array("label" => "pris", "type" => "text", 
+    $fields[] = Array("label" => "pris", "type" => "text",
                       "attributes" => Array("name" => "price", "size" => 4, "maxlength" => 4,
                                             "value" => $product->price));
-    $fields[] = Array("label" => "kommentarfelt", "type" => "select", 
-                      "attributes" => Array("name" => "allow_comment", 
+    $fields[] = Array("label" => "kommentarfelt", "type" => "select",
+                      "attributes" => Array("name" => "allow_comment",
                                             "currentValue" => $product->allow_comment, "values" => $comment_options,
                                             "help" => "Dette feltet angir om kunder kan legge til kommentarer ved kjøp. Bruk dette dersom man skal oppgi for eksempel størrelser."));
-    $fields[] = Array("label" => "vis i butikk", "type" => "select", 
-                      "attributes" => Array("name" => "display_in_shop", 
+    $fields[] = Array("label" => "vis i butikk", "type" => "select",
+                      "attributes" => Array("name" => "display_in_shop",
                                             "currentValue" => $product->display_in_shop, "values" => $display_options,
                                             "help" => "Dette feltet angir om produktet skal vises i nettbutikken. Dette gjelder de fleste produkter. Noen produkter (for eksempel medlemskap) skal normalt ikke vises i butikken, men kun være tilgjengelig gjennom andre sider. Dette feltet kan også brukes for å midlertidig fjerne produkter fra butikken."));
     $fields[]  =Array("label" => "bilde", "type" => "file",
@@ -2789,7 +2794,7 @@ Teksten under er hentet fra kunnskapsdatabasen. Du står fritt til å endre den et
     $product->displayBuyers();
   }
 
-  public 
+  public
   function _registerMembership(){
     ?>
     <h3>Har du kjøpt medlemskap i en av barene på Studentersamfundet?</h3>
@@ -2802,13 +2807,13 @@ Teksten under er hentet fra kunnskapsdatabasen. Du står fritt til å endre den et
     $method  = "post";
     $action  = "index.php?action=register-membership";
     $fields  = Array();
-    
-    $fields[] = Array("label" => "id", "type" => "hidden", 
+
+    $fields[] = Array("label" => "id", "type" => "hidden",
                       "attributes" => Array("name" => "userid", "size" => 12, "maxlength" => 10,
                                             "value" => getCurrentUser()));
-    $fields[] = Array("label" => "aktiveringsnummer", "type" => "text", 
+    $fields[] = Array("label" => "aktiveringsnummer", "type" => "text",
                       "attributes" => Array("name" => "cardno", "size" => 12, "maxlength" => 10));
-    $fields[] = Array("label" => "aktiveringspassord", "type" => "text", 
+    $fields[] = Array("label" => "aktiveringspassord", "type" => "text",
                       "attributes" => Array("name" => "verificationCode", "size" => 12, "maxlength" => 20));
     $form = new Form($title, $enctype, $method, $action, $fields);
     $form->display();
@@ -2822,7 +2827,7 @@ Teksten under er hentet fra kunnskapsdatabasen. Du står fritt til å endre den et
     }
   }
 
-  public 
+  public
   function _renewMembership(){
     $title   = "aktiver medlemskap";
 
@@ -2830,14 +2835,14 @@ Teksten under er hentet fra kunnskapsdatabasen. Du står fritt til å endre den et
     $method  = "post";
     $action  = "index.php?action=renew-membership";
     $fields  = Array();
-    
-    $fields[] = Array("label" => "id", "type" => "hidden", 
+
+    $fields[] = Array("label" => "id", "type" => "hidden",
                       "attributes" => Array("name" => "userid", "size" => 12, "maxlength" => 10,
                                             "value" => getCurrentUser()));
-    $fields[] = Array("label" => "aktiveringsnummer", "type" => "text", 
+    $fields[] = Array("label" => "aktiveringsnummer", "type" => "text",
                       "attributes" => Array("name" => "cardno", "size" => 12, "maxlength" => 10,
                                             "comment" => "Bruk aktiveringsnummeret på arket du fikk da du kjøpte medlemskapet ditt."));
-    $fields[] = Array("label" => "aktiveringskode", "type" => "text", 
+    $fields[] = Array("label" => "aktiveringskode", "type" => "text",
                       "attributes" => Array("name" => "verificationCode", "size" => 12, "maxlength" => 20));
     $form = new Form($title, $enctype, $method, $action, $fields);
     $form->display();
@@ -2849,10 +2854,10 @@ Teksten under er hentet fra kunnskapsdatabasen. Du står fritt til å endre den et
 			$product = new Product(1);
 			$product->display();
     }
-    
+
   }
 
-  public 
+  public
   function _payexForm($title = "test payex", $type = NULL, $value = NULL, $product_id = NULL){
 
     $enctype = NULL;
@@ -2862,48 +2867,48 @@ Teksten under er hentet fra kunnskapsdatabasen. Du står fritt til å endre den et
     	$product_id = 1;
     }else if ($type ="galla"){
     	$action  = "index.php?action=payex-transaction";
-    	
+
     }
-    
+
     if ($product_id != NULL){
     	$product = new Product($product_id);
     }
-    
+
     $trans_id = createTransactionId();
-    
+
     $fields  = Array();
-    
-    $fields[] = Array("label" => "id", "type" => "hidden", 
+
+    $fields[] = Array("label" => "id", "type" => "hidden",
                       "attributes" => Array("name" => "userid", "size" => 12, "maxlength" => 10,
                                             "value" => getCurrentUser()));
-    $fields[] = Array("label" => "product id", "type" => "hidden", 
+    $fields[] = Array("label" => "product id", "type" => "hidden",
                       "attributes" => Array("name" => "productid", "size" => 12, "maxlength" => 10,
                                             "value" => $product_id));
-    $fields[] = Array("label" => "trans id", "type" => "hidden", 
+    $fields[] = Array("label" => "trans id", "type" => "hidden",
                       "attributes" => Array("name" => "transactionid", "size" => 12, "maxlength" => 20,
                                             "value" => $trans_id));
-    if ($value == NULL) {  
+    if ($value == NULL) {
      	if ($product != NULL){
-    		$fields[] = Array("label" => "beløp", "type" => "text", 
-      		                "attributes" => Array("name" => "amount", "size" => 5, "maxlength" => 5, 
-																							"value" => $product->price, "readonly" => "readonly"));    	
+    		$fields[] = Array("label" => "beløp", "type" => "text",
+      		                "attributes" => Array("name" => "amount", "size" => 5, "maxlength" => 5,
+																							"value" => $product->price, "readonly" => "readonly"));
      	}else {
-	    	$fields[] = Array("label" => "beløp", "type" => "text", 
+	    	$fields[] = Array("label" => "beløp", "type" => "text",
       	                "attributes" => Array("name" => "amount", "size" => 5, "maxlength" => 5));
      	}
  	  }else {
-    	$fields[] = Array("label" => "beløp", "type" => "text", 
-      	                "attributes" => Array("name" => "amount", "size" => 5, "maxlength" => 5, 
-																							"value" => $value, "readonly" => "readonly"));    	
+    	$fields[] = Array("label" => "beløp", "type" => "text",
+      	                "attributes" => Array("name" => "amount", "size" => 5, "maxlength" => 5,
+																							"value" => $value, "readonly" => "readonly"));
     }
-    	
-    $fields[] = Array("label" => "VISA-kortnummer", "type" => "text", 
+
+    $fields[] = Array("label" => "VISA-kortnummer", "type" => "text",
                       "attributes" => Array("name" => "cardNumber", "size" => 16, "maxlength" => 16));
-    $fields[] = Array("label" => "utløpsmåned", "type" => "text", 
+    $fields[] = Array("label" => "utløpsmåned", "type" => "text",
                       "attributes" => Array("name" => "cardNumberExpireMonth", "size" => 2, "maxlength" => 2));
-    $fields[] = Array("label" => "utløpsår", "type" => "text", 
+    $fields[] = Array("label" => "utløpsår", "type" => "text",
                       "attributes" => Array("name" => "cardNumberExpireYear", "size" => 2, "maxlength" => 2));
-    $fields[] = Array("label" => "cvc", "type" => "text", 
+    $fields[] = Array("label" => "cvc", "type" => "text",
                       "attributes" => Array("name" => "cardNumberCVC", "size" => 3, "maxlength" => 3));
     $form = new Form($title, $enctype, $method, $action, $fields);
     $form->display();
@@ -2924,7 +2929,7 @@ Teksten under er hentet fra kunnskapsdatabasen. Du står fritt til å endre den et
 		$trans->displayConfirmation();
 	}
 
-  public 
+  public
   function _displayBugReports(){
     ?>
     <p>
@@ -2935,34 +2940,14 @@ Teksten under er hentet fra kunnskapsdatabasen. Du står fritt til å endre den et
     <?php
     $selection = scriptParam("selection");
     $bugs = new BugReports($selection);
-    $bugs->displayList();    
+    $bugs->displayList();
   }
 
-  public 
+  public
   function _displayBugReport(){
     $bugId = scriptParam("bugreportid");
     $bug = new BugReport($bugId);
-    $bug->display();    
-  }
-
-  public 
-  function _buyTicketGalla(){
-		?>
-		<div class="text-column">
-			<h3>Galla lørdag 30. september 2006</h3>
-			<p>Nu er det atter tid for at feire os selv. Den 2re Oktober i det Herrens aar 1813 blev Det Norske Studentersamfund stiftet av 13 studenter ved det Kongelige Frederiks Universitet, og denne vor Fødselsdag ønsker vi at skal blive høstens vakreste Eventyr...</p>
-			<p>Av denne Grund haver vi den Glede at invitere Dig, kiære Medlem, til Gallamiddag den 30te September paa vaart vakre Hus. Aftenen vil begynne kl. 18:13 med en Mottakelse i Biblioteket, hvoretter en femretters Midag, med baade taler og sang, vil blive servert i Betong. Derefter gaar turen atter til BokCaféen og Biblioteket, hvor dansen vil gaa ut i de sene Nattestimer.</p> 
-			<p>Vi haaper De vil beære Os med Deres tilstedevaerelse paa denne Gledens Dag.</p>
-			<br />
-			<h4>Praktisk om påmelding:</h4>
-			<p>Påmelding er bindene, og billetten vil ikke bli refundert.</p>
-			<p>Du kan kjøpe fler billetter på en gang. I så fall må du bruke kommentarfeltet til å skrive hvem du kjøper billett til.</p>
-			<p>Om du har spesielle behov i forbindelse med maten kan du også skrive det her.</p>
-			<?php
-			$product = new Product(2);
-			$product->display();
-			?>
-			</div><?php
+    $bug->display();
   }
 
   public function _displayWebshop(){
@@ -2980,7 +2965,7 @@ Teksten under er hentet fra kunnskapsdatabasen. Du står fritt til å endre den et
     $product->displayBuyers();
   }
 
-  public 
+  public
   function _displayCart(){
     $order_id = scriptParam("order_id");
     if (!empty($order_id)){
@@ -2990,14 +2975,14 @@ Teksten under er hentet fra kunnskapsdatabasen. Du står fritt til å endre den et
 				return;
 			}
     	$order->display();
-    }else {    	
+    }else {
     	print("<p>Ingen aktive handlekurverer registert.</p>");
     	$user = new User(getCurrentUser());
     	$user->displayOrders();
-    }    
+    }
   }
 
-  public 
+  public
   function _displayCarts(){
     $order_status = scriptParam("orderstatus");
     $order_status_list = new OrderStatuses();
@@ -3013,9 +2998,9 @@ Teksten under er hentet fra kunnskapsdatabasen. Du står fritt til å endre den et
     $method  = "post";
     $action  = "index.php?page=display-carts";
     $fields  = Array();
-    
-    $fields[] = Array("label" => "vis handlekurver med status", "type" => "select", 
-                      "attributes" => Array("name" => "orderstatus", "values" => $list, 
+
+    $fields[] = Array("label" => "vis handlekurver med status", "type" => "select",
+                      "attributes" => Array("name" => "orderstatus", "values" => $list,
                                             "currentValue" => $status));
     $form = new Form($title, $enctype, $method, $action, $fields);
     $form->display("horizontal");
@@ -3024,7 +3009,7 @@ Teksten under er hentet fra kunnskapsdatabasen. Du står fritt til å endre den et
   	$user->displayOrders($status);
   }
 
-  public 
+  public
   function _cartCheckout(){
     $order_id = scriptParam("order_id");
 		$order = new Order($order_id);
@@ -3032,39 +3017,39 @@ Teksten under er hentet fra kunnskapsdatabasen. Du står fritt til å endre den et
 			notify("Ugyldig ordrenummer. Gå tilbake og prøv igjen.");
 			return;
 		}
- 		
+
  		$order->displayShortList();
- 
+
  		$title   = "Utfør betaling";
     $enctype = NULL;
     $method  = "post";
    	$action  = "index.php?action=cart-checkout";
-    
-    
+
+
     $trans_id = createTransactionId();
 		$value = $order->calculateTotalAmount();
-    
+
     $fields  = Array();
-    
-    $fields[] = Array("label" => "id", "type" => "hidden", 
+
+    $fields[] = Array("label" => "id", "type" => "hidden",
                       "attributes" => Array("name" => "userid", "size" => 12, "maxlength" => 10,
                                             "value" => getCurrentUser()));
-    $fields[] = Array("label" => "order id", "type" => "hidden", 
+    $fields[] = Array("label" => "order id", "type" => "hidden",
                       "attributes" => Array("name" => "order_id", "size" => 12, "maxlength" => 10,
                                             "value" => $order_id));
-    $fields[] = Array("label" => "trans id", "type" => "hidden", 
+    $fields[] = Array("label" => "trans id", "type" => "hidden",
                       "attributes" => Array("name" => "transactionid", "size" => 12, "maxlength" => 20,
                                             "value" => $trans_id));
-   	$fields[] = Array("label" => "beløp", "type" => "text", 
-      	                "attributes" => Array("name" => "amount", "size" => 5, "maxlength" => 5, 
-																							"value" => $value, "readonly" => "readonly"));    	    	
-    $fields[] = Array("label" => "VISA-kortnummer", "type" => "text", 
+   	$fields[] = Array("label" => "beløp", "type" => "text",
+      	                "attributes" => Array("name" => "amount", "size" => 5, "maxlength" => 5,
+																							"value" => $value, "readonly" => "readonly"));
+    $fields[] = Array("label" => "VISA-kortnummer", "type" => "text",
                       "attributes" => Array("name" => "cardNumber", "size" => 16, "maxlength" => 16));
-    $fields[] = Array("label" => "utløpsmåned", "type" => "text", 
+    $fields[] = Array("label" => "utløpsmåned", "type" => "text",
                       "attributes" => Array("name" => "cardNumberExpireMonth", "size" => 2, "maxlength" => 2));
-    $fields[] = Array("label" => "utløpsår", "type" => "text", 
+    $fields[] = Array("label" => "utløpsår", "type" => "text",
                       "attributes" => Array("name" => "cardNumberExpireYear", "size" => 2, "maxlength" => 2));
-    $fields[] = Array("label" => "cvc", "type" => "text", 
+    $fields[] = Array("label" => "cvc", "type" => "text",
                       "attributes" => Array("name" => "cardNumberCVC", "size" => 3, "maxlength" => 3,
                       											"help" => "CVC-koden finner du på baksiden av VISA-kortet ditt, som oftest i signaturfeltet. Det er de tre siste sifrene som skal brukes."));
     $form = new Form($title, $enctype, $method, $action, $fields);
@@ -3072,19 +3057,19 @@ Teksten under er hentet fra kunnskapsdatabasen. Du står fritt til å endre den et
     ?>
     <p><img src="graphics/payex.png" alt="" style="display: inline;"/> Betalingen håndteres av <a href="http://www.payex.no/">Payex</a>.</p>
     <?php
-    
+
   }
 
-  public 
+  public
   function _displaySmsLog() {
 	  if (!isset($conn)) {
       $conn = & DB :: connect(getDSN());
 	  }
-	  
+
     if (DB :: isError($conn)) {
         error("error: " . $conn->toString());
     }
-    
+
     $sql = "SELECT * FROM din_sms_received ORDER BY date";
     $result = $conn->query($sql);
     if (DB::isError($result) == true){
@@ -3107,7 +3092,7 @@ Teksten under er hentet fra kunnskapsdatabasen. Du står fritt til å endre den et
     <th>date</th>
     <th>simulation</th>
   </tr>
-<?php      
+<?php
       while ($row =& $result->fetchRow(DB_FETCHMODE_OBJECT)){
         print "<tr>";
         print "<td class=\"number\">" . $row->smsid . "</td>";
@@ -3125,8 +3110,8 @@ Teksten under er hentet fra kunnskapsdatabasen. Du står fritt til å endre den et
     } else {
       print "<p>Ingen SMS registrert.</p>";
     }
-    
-    
+
+
     $sql = "SELECT * FROM din_sms_sent ORDER BY date";
     $result = $conn->query($sql);
     if (DB::isError($result) == true){
@@ -3151,7 +3136,7 @@ Teksten under er hentet fra kunnskapsdatabasen. Du står fritt til å endre den et
     <th>date</th>
     <th>simulation</th>
   </tr>
-<?php      
+<?php
       while ($row =& $result->fetchRow(DB_FETCHMODE_OBJECT)){
         print "<tr>";
         print "<td class=\"number\">" . $row->smsid . "</td>";
@@ -3172,6 +3157,132 @@ Teksten under er hentet fra kunnskapsdatabasen. Du står fritt til å endre den et
       print "<p>Ingen SMS registrert.</p>";
     }
   }
+
+  public function _membershipSale() {
+    $cardno = scriptParam("cardno");
+    $fornavn = ucfirst(scriptParam("fornavn"));
+    $etternavn = ucfirst(scriptParam("etternavn"));
+    $epost = scriptParam("epost");
+
+    if (!empty($cardno)) {
+      $search = $cardno;
+    } elseif (empty($fornavn) && empty($etternavn)) {
+      $search = "";
+    } else {
+      $search = trim($fornavn . " " . $etternavn);
+    }
+
+      $title   = "Søk på kortnummer, fornavn og/eller etternavn";
+      $id      = "usersearch";
+      $enctype = NULL;
+      $method  = "post";
+      $action  = "index.php?page=".$this->page;
+      $fields  = Array();
+
+    $fields[] = Array("label" => "Kortnummer", "type" => "text",
+                       "attributes" => Array("name" => "cardno", "value" => $cardno));
+    $fields[] = Array("label" => "Fornavn", "type" => "text",
+                        "attributes" => Array("name" => "fornavn", "value" => $fornavn));
+    $fields[] = Array("label" => "Etternavn", "type" => "text",
+                        "attributes" => Array("name" => "etternavn", "value" => $etternavn));
+      $form = new Form($title, $enctype, $method, $action, $fields, $id);
+      $form->display("table");
+
+    if (!empty($search)) {
+      $limit = -1;
+      $users = new Users();
+      $users->getList($search, $limit, true);
+
+      if ($users->users->numRows() > 0){
+        print "<p>Fant " . $users->users->numRows() . " forslag til medlemmer i medlemsdatabasen.</p>\n";
+
+        print "<table class=\"sortable\" id=\"userlist\">\n";
+        print "<tr>";
+        print "<th>kortnr</th>";
+        print "<th>navn</th>";
+        print "<th>medlem</th>";
+        print "<th>kort</th>";
+        print "<th>oblat</th>";
+        print "</tr>";
+        while ($row =& $users->users->fetchRow(DB_FETCHMODE_OBJECT)){
+          $user = new User($row->id);
+          print "<tr>";
+          print "<td class=\"number\" id=\"user_" . $user->getId() . "_cardno\">". $user->cardno . "</td>\n";
+          print "<td><a href=\"index.php?page=display-user&amp;userid=" . $user->id . "\">" . $user->getName() . "</a></td>";
+          print "<td class=\"is_member\">";
+          if ($user->hasExpired()) print '<img src="graphics/cross.png" alt="nei" />';
+          else print '<img src="graphics/tick.png" alt="ja" />';
+          print "</td>";
+
+          print "<td class=\"is_member\">";
+          if ($user->hasCard()) print '<img src="graphics/tick.png" alt="ja" />';
+          else print '<img src="graphics/cross.png" alt="nei" />';
+          print "</td>";
+
+          print "<td class=\"is_member\">" . $user->getLastSticker() . "</td>";
+
+          print "<td>";
+          print "<form action=\"" . $action . "\" method=\"post\">";
+          print "<input type=\"hidden\" name=\"action\" value=\"membership-sale\" />";
+          print "<input type=\"hidden\" name=\"userid\" value=\"" . $user->getId() . "\" />";
+          if ($user->hasExpired()) {
+            if (!$user->hasCard()) {
+              print "forny (produser kort)";
+            } else {
+              print "<input type=\"hidden\" name=\"subaction\" value=\"sticker-sale\" />";
+              print "<input type=\"hidden\" name=\"new-sticker-date\" value=\"" . date("Y", strtotime($user->getExpiryDate())) . "\" />";
+              print "<input type=\"submit\" value=\"selg oblat\" />";
+            }
+          } else {
+            if (!$user->hasCard()) {
+              print "produser kort";
+            } elseif (!$user->hasCardSticker()) {
+              print "<input type=\"hidden\" name=\"subaction\" value=\"give-sticker\" />";
+              print "<input type=\"hidden\" name=\"new-sticker-date\" value=\"" . date("Y", strtotime($user->getExpiryDate())) . "\" />";
+              print "<input type=\"submit\" name=\"give-sticker\" value=\"gi oblat\" />";
+            } else {
+              print "-";
+            }
+          }
+          print "</form>";
+          print "</td>";
+
+          print "<td>";
+          if ($user->hasCard()) {
+            print "produser nytt medlemskort";
+          }
+          print  "</td>";
+
+          print "</tr>";
+        }
+        print "</table>";
+      } else {
+        print "<p>Ingen tidligere medlemmer funnet innenfor valgte søk.</p>";
+      }
+
+      /*
+         $title   = "Selg medlemskap til ny bruker";
+         $id      = "usersearch";
+         $enctype = NULL;
+         $method  = "post";
+         $action  = "index.php?page=".$this->page;
+         $fields   = Array();
+         $fields[] = Array("label" => "Fornavn", "type" => "text",
+         "attributes" => Array("name" => "", "value" => $fornavn));
+         $fields[] = Array("label" => "Etternavn", "type" => "text",
+         "attributes" => Array("name" => "", "value" => $etternavn));
+         $fields[] = Array("label" => "E-post", "type" => "text",
+         "attributes" => Array("name" => "epost", "value" => $epost));
+         $form = new Form($title, $enctype, $method, $action, $fields, $id);
+         $form->display("table");
+      */
+    }
+  }
+
+  public function _membercardProduction() {
+
+  }
+
 }
 
 ?>

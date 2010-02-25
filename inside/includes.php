@@ -6,7 +6,7 @@ if (!isset($_SESSION['tinyMCE']['theme'])){
 	$_SESSION['tinyMCE']['theme'] = "simple";
 }
 ini_set('display_errors', 1);
-		
+
 $locale = Array('no_NO', 'nor_nor');
 setlocale(LC_TIME, $locale);
 
@@ -17,7 +17,7 @@ require_once "language.php";
 set_include_path("../includes");
 
 $include_path = "../includes/";
-	
+
 //PEAR-class
 require_once $include_path."DB.php";
 
@@ -90,7 +90,7 @@ require_once "WeekPrograms.php";
 if (isAdmin()){
   error_reporting(E_ALL);
 }else {
-  error_reporting(0);  
+  error_reporting(0);
 }
 
 //cookies
@@ -163,7 +163,7 @@ $sections = Array("display-barshifts" => "barshifts",
 									"display-division-requests" => "users",
 									"display-divisions" => "divisions",
 									"display-documents" => "documents",
-									"display-event" => "events",			
+									"display-event" => "events",
 									"display-events" => "events",
 									"display-events-archive" => "events",
 									"display-events-calendar" => "events",
@@ -201,7 +201,9 @@ $sections = Array("display-barshifts" => "barshifts",
 									"edit-product" => "webshop",
 									"edit-user" => "users",
 									"edit-usergrouprelationship" => "users",
-                                    "payex-form" => "users",
+									"membercard-production" => "billettbod",
+									"membership-sale" => "billettbod",
+                  "payex-form" => "users",
 									"register-action" => "access",
 									"register-actiongrouprelationship" => "access",
 									"register-article" => "webpages",
@@ -225,7 +227,7 @@ $sections = Array("display-barshifts" => "barshifts",
 									"renew-membership" => "users",
 									"reset-password" => "",
 									"upload-document" => "documents",
-									"week-program" => "concerts"	
+									"week-program" => "concerts"
 									);
 
 ?>

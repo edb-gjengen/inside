@@ -35,29 +35,29 @@ class Users {
               	"ON u.id = ugr.user_id " .
               	"AND ugr.group_id = ABS($selection) " .
               	"WHERE ugr.user_id IS NULL " .
-				$sqladdresslimit . 
+				$sqladdresslimit .
               	"ORDER BY name ASC " .
-              	"$limit";      	
+              	"$limit";
       }else {
 		$sql = "SELECT DISTINCT u.id, concat(u.firstName, ' ', u.lastName) AS name " .
 				"FROM din_user u, din_usergrouprelationship ugr " .
 				"WHERE u.id != 0 " .
 				"AND u.id = ugr.user_id " .
 				"AND ugr.group_id = $selection " .
-				$sqladdresslimit . 
+				$sqladdresslimit .
 				"ORDER BY name ASC " .
-				"$limit";				
+				"$limit";
       }
     }else {
       $selection = strtoupper($selection);
       if (is_numeric($selection)){
-        $sql = "SELECT DISTINCT u.id 
+        $sql = "SELECT DISTINCT u.id
                 FROM din_user u
                 WHERE u.cardno = $selection";
       }else {
       	// Add wildcards around and between words
       	$selection = "%" . str_replace(" ", "% %", $selection) . "%";
-      	
+
         $sql = "SELECT DISTINCT u.id
                 FROM din_user u
                 WHERE CONCAT(UPPER(u.firstName), ' ', UPPER(u.lastName)) LIKE '$selection'
@@ -68,17 +68,17 @@ class Users {
                 ORDER BY u.firstname, u.lastname ASC
                 $limit";
       }
-    }      
+    }
     $result = $this->conn->query($sql);
     if (DB::isError($result) != true){
       $this->users = $result;
     }else {
       error($result->toString());
     }
-    return $this->users;    
+    return $this->users;
   }
 
-  public 
+  public
   function displayExpiryList($selection = 2, $limit = 25, $expiry = '0000-00-00', $format = "screen"){
     switch ($expiry){
     case 'lifetime':
@@ -104,14 +104,14 @@ class Users {
       break;
     case 'all':
       $expression = '1';
-      break;    
+      break;
     }
     $sql = "SELECT u.id
             FROM din_user u, din_usergrouprelationship ugr
             WHERE $expression
             AND u.id = ugr.user_id
             AND ugr.group_id = $selection
-            LIMIT $limit"; 
+            LIMIT $limit";
     $result = $this->conn->query($sql);
     if (DB::isError($result) == true) {
       error($result->toString());
@@ -134,7 +134,7 @@ class Users {
           <th>registrert</th>
           <th>sist endret</th>
          </tr>
-<?php      
+<?php
         while ($row =& $result->fetchRow(DB_FETCHMODE_OBJECT)){
           $user = new User($row->id);
           $user->displayExpiryList($expiry);
@@ -159,12 +159,12 @@ class Users {
       }
     }
   }
-  
+
   public function displayExpiryListSearch($search){
 
       $selection = strtoupper($search);
       if (is_numeric($selection)){
-        $sql = "SELECT DISTINCT u.id 
+        $sql = "SELECT DISTINCT u.id
                 FROM din_user u
                 WHERE u.cardno = $selection " .
                "OR u.id = $selection";
@@ -195,7 +195,7 @@ class Users {
           <th>registrert</th>
           <th>sist endret</th>
         </tr>
-<?php      
+<?php
         while ($row =& $result->fetchRow(DB_FETCHMODE_OBJECT)){
           $user = new User($row->id);
           $user->displayExpiryList();
@@ -222,7 +222,7 @@ class Users {
           <th>telefon</th>
           <th>grupper</th>
         </tr>
-<?php      
+<?php
         while ($row =& $this->users->fetchRow(DB_FETCHMODE_OBJECT)){
           $user = new User($row->id);
           $user->displayList();
@@ -248,7 +248,7 @@ AND ugr.group_id = g.id
 AND u.id = $currentUser
 AND g.admin = 1
 AND g.division_id = d.id
-AND udr.division_id_request = d.id";      
+AND udr.division_id_request = d.id";
     }
     $result = $this->conn->query($sql);
     if (DB::isError($result) != true){
@@ -285,10 +285,10 @@ AND udr.division_id_request = d.id";
       print("<p>Ingen forespørseler registrert.</p>");
     }
   }
-  
+
   /**
    * Get number of users with study place affiliations
-   * 
+   *
    * @param none
    * @return mixed array
    **/
@@ -299,19 +299,19 @@ AND udr.division_id_request = d.id";
     } else {
       $sql = "SELECT s.navn AS studyPlace, COUNT(*) AS count FROM din_user u INNER JOIN studiesteder s ON u.placeOfStudy=s.id GROUP BY placeOfStudy ORDER BY studyPlace";
     }
-    
+
   	$result = $this->conn->query($sql);
     if (DB::isError($result) != true) {
       $this->usersStudyPlaceList = $result;
     } else {
       error($result->toString());
     }
-    return $this->usersStudyPlaceList;    
+    return $this->usersStudyPlaceList;
   }
-  
+
   /**
    * Get max number of users for one study place affiliations
-   * 
+   *
    * @param none
    * @return mixed array
    **/
@@ -322,7 +322,7 @@ AND udr.division_id_request = d.id";
     } else {
   	  $sql = "SELECT COUNT(*) AS count FROM din_user GROUP BY placeOfStudy ORDER BY count DESC LIMIT 1";
     }
-  	
+
   	$result = $this->conn->query($sql);
     if (DB::isError($result) != true) {
       $this->usersStudyPlaceMax = $result->fetchRow(DB_FETCHMODE_OBJECT);
@@ -332,10 +332,10 @@ AND udr.division_id_request = d.id";
     }
     return $this->usersStudyPlaceMax;
   }
-  
+
   /**
    * List number of users with study place affiliations
-   * 
+   *
    * @param none
    * @return none
    **/
@@ -345,18 +345,18 @@ AND udr.division_id_request = d.id";
     if (!isset($this->usersStudyPlaceList)) $this->getUsersStudyPlaceList($year);
 
     print "<h2>Oversikt over hvor medlemmene har registrert at de studerer</h2>\n";
-    
+
     print "<p>";
     print "<a href=\"" . $_SERVER["PHP_SELF"] . "?page=" . $_GET["page"] . "\">Vis alle</a> | ";
     print "<a href=\"" . $_SERVER["PHP_SELF"] . "?page=" . $_GET["page"] . "&year=current\">inneværende år</a>";
     print "</p>";
-    
+
     if ($year) {
       print "<p>Viser oversikt over studiestuder for alle som har betalt medlemskap i nåværende år.</p>";
     } else {
       print "<p>Viser alle medlemmer som noensinne har registrert seg.</p>";
     }
-    
+
     $n = 0;
     if ($this->usersStudyPlaceList->numRows() > 0) {
       $scalefactor = 600/($this->getMaxUsersStudyPlace($year));
@@ -365,7 +365,7 @@ AND udr.division_id_request = d.id";
       print "<th>Studiested</th>";
       print "<th colspan=\"2\">Antall</th>";
       print "</tr>\n";
-      
+
       while ($row =& $this->usersStudyPlaceList->fetchRow(DB_FETCHMODE_OBJECT)) {
         print "<tr>";
         print "<td>" . $row->studyPlace . "</td>";
@@ -403,7 +403,7 @@ AND udr.division_id_request = d.id";
         // KID betaling
         $n++;
         $payment = array();
-        $payment["date"] = mktime(0,0,0, substr($payment_line,17,2), 
+        $payment["date"] = mktime(0,0,0, substr($payment_line,17,2),
                                 substr($payment_line,15,2),
                                 substr($payment_line,19,2));
         $payment["amount"] = intval(substr($payment_line,40,7)) . "," . substr($payment_line,47,2);
@@ -443,7 +443,7 @@ AND udr.division_id_request = d.id";
 
   /**
    * Update addresses from a CSV file recieved through EA
-   * 
+   *
    * @param string eafile
    * @return boolean
    **/

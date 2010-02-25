@@ -393,6 +393,15 @@ class ActionParser {
         case 'delete-bugreport' :
           $this->_deleteBugReport();
           break;
+
+        case 'membership-sale':
+          $this->_membershipSale();
+          break;
+
+        case 'membercard-production':
+          $this->_membercardProduction();
+          break;
+
       }
 
     } else
@@ -939,9 +948,9 @@ class ActionParser {
 	    $order->performOperations();
 	    $GLOBALS['extraScriptParams']['page'] = "transaction-confirmation";
 	    $GLOBALS['extraScriptParams']['transactionid'] = $transaction_id;
-		} 
+		}
 	}
-	
+
   public function _payexTransaction() {
     $payment = new Payment(NULL, $_POST);
     if ($payment->status == "FAILURE") {
@@ -984,7 +993,7 @@ class ActionParser {
         } else {
           $item = new OrderItem($item_id);
           $item->setQuantity($qty);
-          
+
           $comment = scriptParam("ordercomment$item_id");
           $item->setComment($comment);
         }
@@ -1199,6 +1208,30 @@ class ActionParser {
 
   public function _deleteBugReport() {
     BugReport :: delete(scriptParam("bugreportid"));
+  }
+
+  public function _membershipSale() {
+    $userid = scriptParam("userid");
+
+    if (!empty($userid)) {
+      $user = new User(scriptParam("userid"));
+      $subaction = scriptParam("subaction");
+      if ($subaction == "sticker-sale") {
+        $user->_registerUpdate("Oblat solgt i billettbod");
+        $user->updateExpiry(scriptParam("new-sticker-date"));
+        $user->updateLastSticker(scriptParam("new-sticker-date"));
+      } elseif ($subaction == "give-sticker") {
+        $user->_registerUpdate("Gyldig medlemskap, oblat gitt i billettbod");
+        $user->updateLastSticker(scriptParam("new-sticker-date"));
+      }
+    } else {
+      error("Ukjent bruker-id : " . $userid);
+    }
+
+  }
+
+  public function _membercardProduction() {
+
   }
 
 }
