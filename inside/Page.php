@@ -1282,60 +1282,60 @@ Teksten under er hentet fra kunnskapsdatabasen. Du står fritt til å endre den et
 
     $fields[] = Array("label" => "tittel", "type" => "text",
                       "attributes" => Array("name" => "name" ,"size" => 55,
-	    	      "maxlength" => 50, "class" => "title"));
+	    	      "maxlength" => 50, "class" => "title", "value" => scriptParam("name")));
     $fields[] = Array("label" => "engelsk tittel", "type" => "text",
                       "attributes" => Array("name" => "name_en" ,"size" => 55,
-		      "maxlength" => 50, "class" => "title"));
+		      "maxlength" => 50, "class" => "title", "value" => scriptParam("name_en")));
     $fields[] = Array("label" => "beskrivelse", "type" => "textarea",
                       "attributes" => Array("comment" =>
                                             "Bruk link-knappen for å legge inn linker eller epostadresser.",
                                             "name" => "text", "cols" => 70, "rows" => 15,
-                                            "class" => "mceEditor"));
+                                            "class" => "mceEditor", "value" => scriptParam("text")));
     $fields[] = Array("label" => "engelsk beskrivelse", "type" => "textarea",
                       "attributes" => Array("name" => "text_en", "cols" => 70, "rows" => 15,
-                      "class" => "mceEditor"));
+                      "class" => "mceEditor", "value" => scriptParam("text_en")));
     $fields[] = Array("label" => "sammendrag", "type" => "textarea",
                       "attributes" => Array("name" => "intro", "cols" => 70, "rows" => 3,
-                                            "maxlength" => 250));
+                                            "maxlength" => 250, "value" => scriptParam("intro")));
     $fields[] = Array("label" => "engelsk sammendrag", "type" => "textarea",
                       "attributes" => Array("name" => "intro_en", "cols" => 70, "rows" => 3,
-                                            "maxlength" => 250));
+                                            "maxlength" => 250, "value" => scriptParam("intro_en")));
     $fields[] = Array("label" => "dato og tid", "type" => "datetime",
-                      "attributes" => Array("name" => "time"));
+                      "attributes" => Array("name" => "time", "value" => scriptParam("time")));
     $fields[] = Array("label" => "arrangør", "type" => "select",
-                      "attributes" => Array("name" => "host_id", "values" => $divs ));
+                      "attributes" => Array("name" => "host_id", "values" => $divs, "currentValue" => scriptParam("host_id")));
     $fields[] = Array("label" => "sted", "type" => "select",
-                      "attributes" => Array("name" => "venue_id", "values" => $venues));
+                      "attributes" => Array("name" => "venue_id", "values" => $venues, "currentValue" => scriptParam("venue_id")));
     $fields[] = Array("label" => "type", "type" => "select",
-                      "attributes" => Array("name" => "concertcategory_id", "values" => $categories));
+                      "attributes" => Array("name" => "concertcategory_id", "values" => $categories, "currentValue" => scriptParam("concertcategory_id")));
     $fields[] = Array("label" => "billettpris", "type" => "text",
-                      "attributes" => Array("name" => "priceNormal" ,"size" => 4, "maxlength" => 5));
+                      "attributes" => Array("name" => "priceNormal" ,"size" => 4, "maxlength" => 5, "value" => scriptParam("priceNormal")));
     $fields[] = Array("label" => "medlemspris", "type" => "text",
-                      "attributes" => Array("name" => "priceConcession" ,"size" => 4, "maxlength" => 5));
+                      "attributes" => Array("name" => "priceConcession" ,"size" => 4, "maxlength" => 5, "value" => scriptParam("priceConcession")));
     $fields[] = Array("label" => "linker", "type" => "textarea",
                       "attributes" => Array("comment" =>
                                             "én link per linje. Linker kan også inkluderes direkte i teksten over.",
-                                            "name" => "links", "cols" => 70, "rows" => 3));
+                                            "name" => "links", "cols" => 70, "rows" => 3, "value" => scriptParam("links")));
     $fields[]  =Array("label" => "bilde", "type" => "file",
                       "attributes" => Array("comment" => "Vi blir glade hvis du bruker litt store bilder. 1024 piksler på den lengste kanten er kjempefint.",
-		                            "name" => "userfile", "size" => 55));
+		                            "name" => "userfile", "size" => 55, "value" => scriptParam("userfile")));
     $fields[] = Array("label" => "billettservice-link", "type" => "text",
-                      "attributes" => Array("name" => "ticketLink" ,"size" => 50, "maxlength" => 255));
+                      "attributes" => Array("name" => "ticketLink" ,"size" => 50, "maxlength" => 255, "value" => scriptParam("ticketLink")));
     $fields[] = Array("label" => "facebook-link", "type" => "text",
-                      "attributes" => Array("name" => "facebookLink" ,"size" => 50, "maxlength" => 60));
+                      "attributes" => Array("name" => "facebookLink" ,"size" => 50, "maxlength" => 60, "value" => scriptParam("facebookLink")));
     $fields[] = Array("label" => "ekstern kontakt", "type" => "text",
-                      "attributes" => Array("name" => "user_name_ext_contact" ,"size" => 50, "maxlength" => 50,
+                      "attributes" => Array("name" => "user_name_ext_contact" ,"size" => 50, "maxlength" => 50, "value" => scriptParam("user_name_ext_contact"),
                       											"help" => "Ekstern kontakt er en person det kan være nyttig å kontakte i forbindelse med for eksempel markedsføring. Dette kan være manager, forlag, plateselskap osv. Disse feltene kan godt stå tomme."));
     $fields[] = Array("label" => "&rarr; telefon", "type" => "text",
-                      "attributes" => Array("name" => "user_phone_ext_contact" ,"size" => 10, "maxlength" => 12));
+                      "attributes" => Array("name" => "user_phone_ext_contact" ,"size" => 10, "maxlength" => 12, "value" => scriptParam("user_phone_ext_contact")));
     $fields[] = Array("label" => "&rarr; epost", "type" => "text",
-                      "attributes" => Array("name" => "user_email_ext_contact" ,"size" => 50, "maxlength" => 120));
+                      "attributes" => Array("name" => "user_email_ext_contact" ,"size" => 50, "maxlength" => 120, "value" => scriptParam("user_email_ext_contact")));
     $fields[] = Array("label" => "&rarr; rolle", "type" => "text",
-                      "attributes" => Array("name" => "user_role_ext_contact" ,"size" => 50, "maxlength" => 120));
+                      "attributes" => Array("name" => "user_role_ext_contact" ,"size" => 50, "maxlength" => 120, "value" => scriptParam("user_role_ext_contact")));
     $fields[] = Array("label" => "kommentar", "type" => "textarea",
                       "attributes" => Array("comment" =>
                                             "Kommentarer er til internt bruk, og vil ikke vises på hovedsidene.",
-                                            "name" => "comment", "cols" => 70, "rows" => 3));
+                                            "name" => "comment", "cols" => 70, "rows" => 3, "value" => scriptParam("comment")));
 
     print("<h3>HUSK: Fyll ut både tittel, sammendrag og tekst!</h3>");
     print("<p>Studentersamfundet.no vil snarlig legge om alle sine visningsmaler. I de nye malene vil det være viktig å ha fylt ut alle disse 3 feltene.</p>");
