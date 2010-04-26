@@ -1127,9 +1127,16 @@ class User {
     }
 
     public function displayExpiryList($expiry = NULL) {
+        //$card = $this->getMembershipCard();
+      
         print "<tr>\n";
         print "  <td class=\"number\">" . $this->id . "</td>\n";
-        print "  <td class=\"number\" id=\"user_" . $this->id . "_cardno\">". $this->cardno . "</td>\n";
+        
+        print "  <td class=\"number\" id=\"user_" . $this->id . "_cardno\">";
+        //if (!is_null($card)) print $card->getId();
+        print $this->cardno;
+        print  "</td>\n";
+        
         print "  <td><a href=\"index.php?page=display-user&amp;userid=" . $this->id . "\" title=\"mer informasjon om " . $this->firstname . " " . $this->lastname . "\">" . $this->firstname . "</a></td>\n";
         print "  <td>" . $this->lastname . "</td>\n";
 
@@ -1146,7 +1153,7 @@ class User {
         print "  </td>\n";
 
         print "  <td>";
-        if ($this->cardno != NULL) {
+        if ($this->hasCard()) {
             if ($expiry == "no-card") {
                 print "<form id=\"user_" . $this->id . "_hascard_form\" " .
                     "action=\"javascript: setHasCard('" . $this->id . "')\" " .
@@ -1160,21 +1167,21 @@ class User {
                 "action=\"javascript: grantCardNumber('" . $this->id . "')\" " . "method=\"post\">";
         }
         print "<div>";
-        if ($this->cardno != NULL) {
+        if ($this->hasCard()) {
             if ($expiry == "no-card") {
                 print "<input type=\"hidden\" name=\"action\" value=\"update-user-hascard\" />\n";
                 print "<input type=\"submit\" value=\"medlemskort er produsert\" />\n";
             } else {
-?>
-<input type="hidden" name="action" value="update-user-expiry" />
-<select name="newExpiryDate_<?php print $this->id; ?>" id="newExpiryDate_<?php print $this->id; ?>">
-<option value="0000-00-00">ugyldig utløpsår</option>
-<option value="<?php print(date("Y")); ?>">inneværende år</option>
-<option value="<?php print(date("Y", strtotime("+1 year"))); ?>">neste år</option>
-<option value="lifetime">livsvarig</option>
-</select>
-<input type="submit" value="endre" />
-<?php
+                print "<input type=\"hidden\" name=\"action\" value=\"update-user-expiry\" />\n";
+                print "<select name=\"newExpiryDate_" . $this->id . "\" id=\"newExpiryDate_" . $this->id . "\">\n";
+                print "<option value=\"0000-00-00\">" . "ugyldig utløpsår" . "</option>\n";
+                print "<option value=\"" . date("Y") . "\">" . "inneværende år (" . date("Y") . ")" . "</option>\n";
+                print "<option value=\"" . date("Y", strtotime("+1 year")) . "\">" . "neste år (" . date("Y", strtotime("+1 year")) . ")" . "</option>\n";
+                print "<option value=\"" . date("Y", strtotime("+3 year")) . "\">" . "tre år (" . date("Y", strtotime("+3 year")) . ")" . "</option>\n";
+                print "<option value=\"" . date("Y", strtotime("+5 year")) . "\">" . "fem år (" . date("Y", strtotime("+5 year")) . ")" . "</option>\n";
+                print "<option value=\"lifetime\">" . "livsvarig" . "</option>\n";
+                print "</select>\n";
+                print "<input type=\"submit\" value=\"endre\" />\n";
             }
         } else {
             print "<input type=\"hidden\" name=\"action\" value=\"grant-cardno\" />\n";
@@ -1193,10 +1200,11 @@ class User {
             $this->id . "')\" method=\"post\">";
         print "<div>";
         print "<input type=\"hidden\" name=\"action\" value=\"update-user-last-sticker\" />";
-        print "<select name=\"newStickerDate_".
-            $this->id . "\" id=\"newStickerDate_" . $this->id . "\">";
-        print "<option value=\"" . date("Y") . "\">inneværende år</option>";
-        print "<option value=\"" . date("Y", strtotime("+1 year")) . "\">neste år</option>";
+        print "<select name=\"newStickerDate_" . $this->id . "\" id=\"newStickerDate_" . $this->id . "\">";
+        print "<option value=\"" . date("Y") . "\">" . "inneværende år (" . date("Y") . ")" . "</option>\n";
+        print "<option value=\"" . date("Y", strtotime("+1 year")) . "\">" . "neste år (" . date("Y", strtotime("+1 year")) . ")" . "</option>\n";
+        print "<option value=\"" . date("Y", strtotime("+3 year")) . "\">" . "tre år (" . date("Y", strtotime("+3 year")) . ")" . "</option>\n";
+        print "<option value=\"" . date("Y", strtotime("+5 year")) . "\">" . "fem år (" . date("Y", strtotime("+5 year")) . ")" . "</option>\n";
         print "<option value=\"" . 0 . "\">ingen verdi</option>";
         print "</select>";
         print "<input type=\"submit\" value=\"endre\" />";

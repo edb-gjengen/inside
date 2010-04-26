@@ -3203,6 +3203,7 @@ Teksten under er hentet fra kunnskapsdatabasen. Du står fritt til å endre den et
         print "<th>medlem</th>";
         print "<th>kort</th>";
         print "<th>oblat</th>";
+        print "<th>oppdater til</th>";
         print "</tr>";
         while ($row =& $users->users->fetchRow(DB_FETCHMODE_OBJECT)){
           $user = new User($row->id);
@@ -3230,7 +3231,12 @@ Teksten under er hentet fra kunnskapsdatabasen. Du står fritt til å endre den et
               print "forny (produser kort)";
             } else {
               print "<input type=\"hidden\" name=\"subaction\" value=\"sticker-sale\" />";
-              print "<input type=\"hidden\" name=\"new-sticker-date\" value=\"" . date("Y", strtotime($user->getExpiryDate())) . "\" />";
+              print "<select name=\"new-sticker-date\">\n";
+              print "<option value=\"" . date("Y") . "\">" . "i år (" . date("Y") . ")" . "</option>\n";
+              print "<option value=\"" . date("Y", strtotime("+1 year")) . "\">" . "neste år (" . date("Y", strtotime("+1 year")) . ")" . "</option>\n";
+              print "<option value=\"" . date("Y", strtotime("+3 year")) . "\">" . "tre år (" . date("Y", strtotime("+3 year")) . ")" . "</option>\n";
+              print "<option value=\"" . date("Y", strtotime("+5 year")) . "\">" . "fem år (" . date("Y", strtotime("+5 year")) . ")" . "</option>\n";
+              print "</select>\n";
               print "<input type=\"submit\" value=\"selg oblat\" />";
             }
           } else {
@@ -3239,7 +3245,7 @@ Teksten under er hentet fra kunnskapsdatabasen. Du står fritt til å endre den et
             } elseif (!$user->hasCardSticker()) {
               print "<input type=\"hidden\" name=\"subaction\" value=\"give-sticker\" />";
               print "<input type=\"hidden\" name=\"new-sticker-date\" value=\"" . date("Y", strtotime($user->getExpiryDate())) . "\" />";
-              print "<input type=\"submit\" name=\"give-sticker\" value=\"gi oblat\" />";
+              print "<input type=\"submit\" name=\"give-sticker\" value=\"gi oblat (" . date("Y", strtotime($user->getExpiryDate())) . ")\" />";
             } else {
               print "-";
             }
