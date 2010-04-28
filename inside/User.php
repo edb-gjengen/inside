@@ -28,6 +28,8 @@ class User {
     var $hasCard;
     var $validAddress;
     var $lastSticker;
+    
+    var $membershipCard;
 
     var $conn;
 
@@ -1286,27 +1288,15 @@ class User {
         $subject = "Medlemskortet ditt er produsert";
         $message = "Hei, " . $this->firstname . " " . $this->lastname . "!" .
         "\n\n" .
-        "Vi har nå produsert ditt medlemskortet i Det Norske Studentersamfund, " .
-        "og det blir sendt fra oss i løpet av kort tid. \n" .
+        "Vi har nå produsert medlemskortet ditt i Det Norske Studentersamfund. " .
+        "Det ligger nå klart til avhenting i  billettluka på Studentersamfundet og kan hentes der i billettlukas åpningstid. \n" .
         "\n" .
-        "Brevet blir sendt med A-post til adressen \"" .
-        $this->street . ", " . $this->zipcode . " " . $this->postarea .
-        "\" innen to virkedager, så du burde motta medlemskortet ditt om ca. " .
-        "tre arbeidsdager fra i dag.\n" .
+        "For mer informasjon om hva som skjer på Det Norske Studentersamfund, gå inn på vår nettside: http://www.studentersamfundet.no/ .\n" .
         "\n" .
-        "Vi har en del problemer med at Posten ikke får levert sendingene våre. " .
-        "For å være sikker på å få medlemskortet ditt MÅ du ha navn på postkassen din, " .
-        "gjerne så tydelig at postbudet klarer å lese det. " .
-        "Det hjelper også Posten veldig at du er registrert på adressen, det gjøres " .
-        "ved å melde flytting hos Posten. " .
-        "Dette kan gjøres her: " .
-        "https://adresseendring.posten.no/Adresser/FormNewAdresseEndring . " .
-        "Flytting er spesielt smart hvis du bor i en oppgang med mange " .
-        "postkasser (store blokker), eller deler postkasse med mange mennesker " .
-        "(typisk kollektiv).\n" .
+        "Er det noe du lurer på kan du bare svare på denne eposten, så svarer vi så fort vi klarer.\n".
         "\n\n" .
         "Mvh\n\n" .
-        "Ledergruppen for medlemskapsordningen\n" .
+        "Medlemskapsordningen\n" .
         "medlemskap@studentersamfundet.no\n" .
         "Det Norske Studentersamfund\n\n";
 
@@ -1324,26 +1314,16 @@ class User {
         $subject = "Medlemsskapet ditt i Det Norske Studentersamfund er registrert som fornyet";
         $message = "Hei, " . $this->firstname . " " . $this->lastname . "!" .
         "\n\n" .
-        "Vi har registrert at du har fornyet medlemsskapet ditt i Det Norske Studentersamfund, " .
-        "og ny oblat til ditt medlemskort vil bli sendt fra oss i løpet av kort tid. \n" .
+        "Vi har registrert at du har fornyet medlemsskapet ditt i Det Norske Studentersamfund. " .
+        "Det ligger nå klart til avhenting i  billettluka på Studentersamfundet og kan hentes der i billettlukas åpningstid. \n" .
+        "Hvis du har mistet medlemskortet ditt kan du få ordnet nytt kort i billettluka også.\n".
         "\n" .
-        "Brevet vil bli sendt til adressen \"" .
-        $this->street . ", " . $this->zipcode . " " . $this->postarea .
-        "\". Hvis dette er feil addresse kan du gå på vår webside og endre addressen: https://www.studentersamfundet.no/inside/ .\n" .
+        "For mer informasjon om hva som skjer på Det Norske Studentersamfund, gå inn på vår nettside: http://www.studentersamfundet.no/ .\n" .
         "\n" .
-        "Vi har en del problemer med at Posten ikke får levert sendingene våre. " .
-        "For å være sikker på å få medlemskortet ditt MÅ du ha navn på postkassen din, " .
-        "gjerne så tydelig at postbudet klarer å lese det. " .
-        "Det hjelper også Posten veldig at du er registrert på adressen, det gjøres " .
-        "ved å melde flytting hos Posten. " .
-        "Dette kan gjøres her: " .
-        "https://adresseendring.posten.no/Adresser/FormNewAdresseEndring . " .
-        "Flytting er spesielt smart hvis du bor i en oppgang med mange " .
-        "postkasser (store blokker), eller deler postkasse med mange mennesker " .
-        "(typisk kollektiv).\n" .
+        "Er det noe du lurer på kan du bare svare på denne eposten, så svarer vi så fort vi klarer.\n".
         "\n\n" .
         "Mvh\n\n" .
-        "Ledergruppen for medlemskapsordningen\n" .
+        "Medlemskapsordningen\n" .
         "medlemskap@studentersamfundet.no\n" .
         "Det Norske Studentersamfund\n\n";
 
@@ -1378,7 +1358,7 @@ class User {
         "nytt medlemskort.\n" .
         "\n\n\n" .
         "Mvh\n\n" .
-        "Ledergruppen for medlemskapsordningen\n" .
+        "Medlemskapsordningen\n" .
         "medlemskap@studentersamfundet.no\n" .
         "Det Norske Studentersamfund\n\n";
 
@@ -1426,7 +1406,7 @@ class User {
         "Ditt brukernavn er \"" . $this->username . "\". \n".
         "\n\n\n" .
         "Mvh\n\n" .
-        "Ledergruppen for medlemskapsordningen\n" .
+        "Medlemskapsordningen\n" .
         "medlemskap@studentersamfundet.no\n" .
         "Det Norske Studentersamfund\n\n";
 
@@ -1465,5 +1445,24 @@ class User {
 
         return "Ukjent medlemskapsstatus";
     }
+
+  function setMembershipCard($membershipCard) {
+    if (!is_null($this->membershipCard)) {
+      return false;
+    }
+    
+    $membershipCard->setUserId($this->id);
+    $this->membershipCard = $membershipCard;
+  }
+
+  function getMembershipCard() {
+    if (is_null($this->membershipCard)) {
+      $this->membershipCard = new MembershipCard();
+      if (!$this->membershipCard->findByUserId($this->id)) {
+        $this->membershipCard = null;
+      }
+    }
+    return $this->membershipCard;
+  }
 }
 ?>
