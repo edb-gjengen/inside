@@ -861,7 +861,7 @@ class User {
     }
 
     public function hasCard() {
-      if ($this->hasCard) {
+      if ($this->hasCard != NULL) {
         return true;
       }
       return false;
