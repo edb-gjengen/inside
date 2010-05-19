@@ -860,11 +860,8 @@ class User {
         }
     }
 
-    public function hasCard() {
-      if ($this->hasCard != NULL) {
-        return true;
-      }
-      return false;
+    public function getHasCard() {
+      return $this->hasCard;
     }
 
     public function hasCardSticker() {
@@ -1141,6 +1138,17 @@ class User {
         
         print "  <td><a href=\"index.php?page=display-user&amp;userid=" . $this->id . "\" title=\"mer informasjon om " . $this->firstname . " " . $this->lastname . "\">" . $this->firstname . "</a></td>\n";
         print "  <td>" . $this->lastname . "</td>\n";
+        
+        print "  <td>";
+        if (!$this->getHasCard()) {
+            print "<form id=\"user_" . $this->id . "_hascard_form\" " . "action=\"javascript: setHasCard('" . $this->id . "')\" " . "method=\"post\">";
+            print "<input type=\"hidden\" name=\"action\" value=\"update-user-hascard\" />\n";
+            print "<input type=\"submit\" value=\"kort produsert\" />\n";
+            print "</form>";
+        } else {
+            print "kort mistet?";
+        }
+        print "  </td>\n";
 
         print "  <td id=\"user_" . $this->id . "_expires\">";
         if ($this->expires == '0000-00-00') {
@@ -1155,42 +1163,27 @@ class User {
         print "  </td>\n";
 
         print "  <td>";
-        if ($this->hasCard()) {
-            if ($expiry == "no-card") {
-                print "<form id=\"user_" . $this->id . "_hascard_form\" " .
-                    "action=\"javascript: setHasCard('" . $this->id . "')\" " .
-                    "method=\"post\">";
-            } else {
-                print "<form action=\"javascript: updateUserExpiry('" .
-                    $this->id  . "')\" method=\"get\">";
-            }
-        } else {
-            print "<form id=\"user_" . $this->id . "_cardno_form\" " .
-                "action=\"javascript: grantCardNumber('" . $this->id . "')\" " . "method=\"post\">";
-        }
         print "<div>";
-        if ($this->hasCard()) {
-            if ($expiry == "no-card") {
-                print "<input type=\"hidden\" name=\"action\" value=\"update-user-hascard\" />\n";
-                print "<input type=\"submit\" value=\"medlemskort er produsert\" />\n";
-            } else {
-                print "<input type=\"hidden\" name=\"action\" value=\"update-user-expiry\" />\n";
-                print "<select name=\"newExpiryDate_" . $this->id . "\" id=\"newExpiryDate_" . $this->id . "\">\n";
-                print "<option value=\"0000-00-00\">" . "ugyldig utløpsår" . "</option>\n";
-                print "<option value=\"" . date("Y") . "\">" . "inneværende år (" . date("Y") . ")" . "</option>\n";
-                print "<option value=\"" . date("Y", strtotime("+1 year")) . "\">" . "neste år (" . date("Y", strtotime("+1 year")) . ")" . "</option>\n";
-                print "<option value=\"" . date("Y", strtotime("+3 year")) . "\">" . "tre år (" . date("Y", strtotime("+3 year")) . ")" . "</option>\n";
-                print "<option value=\"" . date("Y", strtotime("+5 year")) . "\">" . "fem år (" . date("Y", strtotime("+5 year")) . ")" . "</option>\n";
-                print "<option value=\"lifetime\">" . "livsvarig" . "</option>\n";
-                print "</select>\n";
-                print "<input type=\"submit\" value=\"endre\" />\n";
-            }
+        if ($this->cardno != NULL) {
+            print "<form action=\"javascript: updateUserExpiry('" . $this->id . "')\" method=\"get\">";
+            print "<input type=\"hidden\" name=\"action\" value=\"update-user-expiry\" />\n";
+            print "<select name=\"newExpiryDate_" . $this->id . "\" id=\"newExpiryDate_" . $this->id . "\">\n";
+            print "<option value=\"0000-00-00\">" . "ugyldig utløpsår" . "</option>\n";
+            print "<option value=\"" . date("Y") . "\">" . "inneværende år (" . date("Y") . ")" . "</option>\n";
+            print "<option value=\"" . date("Y", strtotime("+1 year")) . "\">" . "neste år (" . date("Y", strtotime("+1 year")) . ")" . "</option>\n";
+            print "<option value=\"" . date("Y", strtotime("+3 year")) . "\">" . "tre år (" . date("Y", strtotime("+3 year")) . ")" . "</option>\n";
+            print "<option value=\"" . date("Y", strtotime("+5 year")) . "\">" . "fem år (" . date("Y", strtotime("+5 year")) . ")" . "</option>\n";
+            print "<option value=\"lifetime\">" . "livsvarig" . "</option>\n";
+            print "</select>\n";
+            print "<input type=\"submit\" value=\"endre\" />\n";
+            print "</form>";
         } else {
+            print "<form id=\"user_" . $this->id . "_cardno_form\" action=\"javascript: grantCardNumber('" . $this->id . "')\" " . "method=\"post\">";
             print "<input type=\"hidden\" name=\"action\" value=\"grant-cardno\" />\n";
             print "<input type=\"submit\" value=\"tildel medlemskortnummer\" />\n";
+            print "</form>";
         }
         print "</div>";
-        print "</form>";
         print "</td>\n";
 
         print "<td id=\"user_" . $this->id . "_laststicker\">";

@@ -127,6 +127,7 @@ class Users {
           <th>kortnr</th>
           <th>fornavn</th>
           <th>etternavn</th>
+          <th>medlemskort</th>
           <th>utløpsår</th>
           <th><?php print(($expiry == "no-card")? "mangler medlemskort" : "endre til"); ?></th>
           <th>oblat</th>
@@ -188,6 +189,7 @@ class Users {
           <th>kortnr</th>
           <th>fornavn</th>
           <th>etternavn</th>
+          <th>medlemskort</th>
           <th>utløpsår</th>
           <th>endre til</th>
           <th>oblat</th>
