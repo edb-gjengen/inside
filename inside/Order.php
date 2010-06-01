@@ -95,7 +95,7 @@ class Order {
 		$item = new OrderItem($row['id']);
 		if ($item->product_id == $data['product_id']) {
 			// item already exists in order, update quantity
-			$item->setQuantity($item->quantity + $data[quantity]);
+			$item->setQuantity($item->quantity + $data['quantity']);
 			$added = true;
 		}
 	}
