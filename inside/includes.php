@@ -63,6 +63,8 @@ require_once "JobCategory.php";
 require_once "JobCategories.php";
 require_once "Locations.php";
 require_once "Messages.php";
+require_once "MemberCard.php";
+require_once "MembershipActivationCode.php";
 require_once "Navigation.php";
 require_once "Nordea.php";
 require_once "Order.php";
@@ -79,7 +81,11 @@ require_once "Products.php";
 require_once "ProgramSelection.php";
 require_once "ProgramsSelection.php";
 require_once "Transaction.php";
-require_once "User.php";
+//if (getcurrentuser() == 2460) {
+//  require_once "User_new.php";
+//} else {
+  require_once "User.php";
+//}
 require_once "Users.php";
 require_once "UserGroupRelationship.php";
 require_once "UserGroupRelationships.php";

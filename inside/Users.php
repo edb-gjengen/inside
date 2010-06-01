@@ -96,11 +96,14 @@ class Users {
     case 'no-cardno':
       $expression = "u.cardno IS NULL";
       break;
-    case 'no-card':
-      $expression = "u.hasCard = 0 AND u.cardno IS NOT NULL";
+    case 'card-not-produced':
+      $expression = "u.cardProduced = 0 AND u.cardno IS NOT NULL";
+      break;
+    case 'card-not-delivered':
+      $expression = "u.cardProduced = 1 AND u.cardDelivered = 0 AND u.cardno IS NOT NULL";
       break;
     case 'no-sticker':
-      $expression = "u.hasCard = 1 AND u.expires > NOW() AND u.lastSticker < YEAR(u.expires)";
+      $expression = "u.cardDelivered = 1 AND u.expires > NOW() AND u.lastSticker < YEAR(u.expires)";
       break;
     case 'all':
       $expression = '1';

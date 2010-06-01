@@ -2117,7 +2117,8 @@ Teksten under er hentet fra kunnskapsdatabasen. Du står fritt til å endre den et
                       Array("id" => 'expired', "title" => "utløpt medlemskap"),
                       Array("id" => 'valid', "title" => "gyldig medlemskap"),
                       Array("id" => 'no-cardno', "title" => "ikke kjøpt medlemskap (etter H05)"),
-                      Array("id" => 'no-card', "title" => "ikke fått medlemskort"),
+                      Array("id" => 'card-not-produced', "title" => "medlemskort ikke produsert"),
+                      Array("id" => 'card-not-delivered', "title" => "kort produsert, ikke levert"),
                       Array("id" => 'no-sticker', "title" => "har kort, mangler oblat"),
                       );
 
@@ -2490,16 +2491,18 @@ Teksten under er hentet fra kunnskapsdatabasen. Du står fritt til å endre den et
     $fields[] = Array("label" => "studiested", "type" => "select",
                            "attributes" => Array("name" => "placeOfStudy", "values" => $pos,
                                                  "disabled" => $readonly, "currentValue" => $user->placeOfStudy));
-  if(isAdmin() || checkAuth("perform-update-user-hascard")){
-    $fields[] = Array("label" => "har medlemskort", "type" => "select",
-                           "attributes" => Array("name" => "hasCard", "values" => $cardValues,
-                           "disabled" => $readonly, "currentValue" => $user->hasCard));
-  }else {
-  $fields[] = Array("label" => "har medlemskort", "type" => "hidden",
-                           "attributes" => Array("name" => "hasCard",
-                           "disabled" => $readonly, "value" => $user->hasCard));
-
-  }
+    if (isAdmin() || checkAuth("perform-update-user-hascard")) {
+        $fields[] = Array("label" => "har medlemskort", "type" => "select",
+                          "attributes" => Array("name" => "cardProduced", "values" => $cardValues,
+                          "disabled" => $readonly, "currentValue" => $user->getCardProduced()));
+    } else {
+        $fields[] = Array("label" => "har medlemskort", "type" => "hidden",
+                          "attributes" => Array("name" => "cardProduced",
+                          "disabled" => $readonly, "value" => $user->getCardProduced()));
+    }
+    $fields[] = Array("label" => "har fått utlevert medlemskort", "type" => "hidden",
+                      "attributes" => Array("name" => "cardDelivered",
+                      "disabled" => $readonly, "value" => $user->getCardDelivered()));
 
     $form = new Form($title, $enctype, $method, $action, $fields, NULL, $readonly);
     $form->display();
@@ -3216,8 +3219,13 @@ Teksten under er hentet fra kunnskapsdatabasen. Du står fritt til å endre den et
           print "</td>";
 
           print "<td class=\"is_member\">";
-          if ($user->hasCard()) print '<img src="graphics/tick.png" alt="ja" />';
-          else print '<img src="graphics/cross.png" alt="nei" />';
+          if ($user->getCardDelivered()) {
+            print '<img src="graphics/tick.png" alt="ja" />';
+          } elseif ($user->getCardProduced()) { 
+            print '<img src="graphics/user_go.png" alt="ja" />';
+          } else { 
+            print '<img src="graphics/cross.png" alt="nei" />';
+          }
           print "</td>";
 
           print "<td class=\"is_member\">" . $user->getLastSticker() . "</td>";
@@ -3227,8 +3235,10 @@ Teksten under er hentet fra kunnskapsdatabasen. Du står fritt til å endre den et
           print "<input type=\"hidden\" name=\"action\" value=\"membership-sale\" />";
           print "<input type=\"hidden\" name=\"userid\" value=\"" . $user->getId() . "\" />";
           if ($user->hasExpired()) {
-            if (!$user->hasCard()) {
+            if (!$user->getCardProduced()) {
               print "forny (produser kort)";
+            } elseif (!$user->getCardDelivered()) {
+              print "lever ut kort";
             } else {
               print "<input type=\"hidden\" name=\"subaction\" value=\"sticker-sale\" />";
               print "<select name=\"new-sticker-date\">\n";
@@ -3240,8 +3250,10 @@ Teksten under er hentet fra kunnskapsdatabasen. Du står fritt til å endre den et
               print "<input type=\"submit\" value=\"selg oblat\" />";
             }
           } else {
-            if (!$user->hasCard()) {
+            if (!$user->getCardProduced()) {
               print "produser kort";
+            } elseif (!$user->getCardDelivered()) {
+              print "lever ut kort";
             } elseif (!$user->hasCardSticker()) {
               print "<input type=\"hidden\" name=\"subaction\" value=\"give-sticker\" />";
               print "<input type=\"hidden\" name=\"new-sticker-date\" value=\"" . date("Y", strtotime($user->getExpiryDate())) . "\" />";
@@ -3254,7 +3266,7 @@ Teksten under er hentet fra kunnskapsdatabasen. Du står fritt til å endre den et
           print "</td>";
 
           print "<td>";
-          if ($user->hasCard()) {
+          if ($user->getCardDelivered()) {
             print "produser nytt medlemskort";
           }
           print  "</td>";

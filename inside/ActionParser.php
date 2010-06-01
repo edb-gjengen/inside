@@ -851,68 +851,79 @@ class ActionParser {
   }
 
   public function _registerMembership() {
-    $cardno = scriptParam("cardno");
+    $id = scriptParam("cardno");
     $password = scriptParam("verificationCode");
-    if (checkPassword($cardno, $password)) {
+    
+    $msa_code = verifyActivationCode($id, $password);
+    // was the verification successful ?
+    if (!is_null($msa_code)) {
       $user = new User(scriptParam("userid"));
-      if ($user->cardno != NULL) {
-        $this->_renewMembership();
-        return;
+      if (!is_null($user->getMembercard())) {
+        // user has a card, only renew membership
+        return $this->_renewMembership();
       }
-      if ($user->registerMembership($cardno) == true) {
-        notify("Betalt medlemskap er registrert. Medlemskort vil bli produsert og sendt til din registrerte adresse.");
+      
+      if ($user->registerMembership()) {
+        // mark activation code as used
+        $msa_code->setUserId($user->getId());
+        $msa_code->setUsed(new DateTime());
+        $msa_code->store();
+        
+        notify("Betalt medlemskap er registrert. Medlemskort vil bli produsert.");
       } else {
         $GLOBALS['extraScriptParams']['page'] = "register-membership";
       }
     } else {
-      notify("Kortnummer og kortkode passer ikke sammen. Kortnummeret er det som st&#229;r p&#229; kodelappen, ikke det som st&#229;r p&#229; medlemskortet ditt. Vi gj&#248;r ogs&#229; oppmerksom p&#229; det skilles mellom store og sm&#229; bokstaver.");
+      notify("Aktiveringsnummer og kode passer ikke sammen. Kortnummeret er det som st&#229;r p&#229; kodelappen, ikke det som st&#229;r p&#229; medlemskortet ditt. Vi gj&#248;r ogs&#229; oppmerksom p&#229; det skilles mellom store og sm&#229; bokstaver.");
       $GLOBALS['extraScriptParams']['page'] = "register-membership";
       $GLOBALS['extraScriptParams']['report-bug'] = "register-membership";
     }
   }
 
   public function _registerMembershipPayex() {
-    $user = new User(scriptParam("userid"));
-    $cardno = $user->cardno;
-    $expires = $user->expires;
-    if ($cardno == NULL) {
-      if (!$user->registerMembershipPayex()) {
-        return false;
-      }
-    } else {
-      if (!$user->renewMembershipPayex()) {
-        return false;
-      }
-    }
     $payment = new Payment(NULL, $_POST);
     if ($payment->status == "FAILURE") {
       $GLOBALS['extraScriptParams']['page'] = "register-membership";
-      if ($cardno == NULL) {
-        $user->setCardno("NULL");
-      }
-      $user->setExpires($expires);
     } else {
+      $user = new User(scriptParam("userid"));
+      
+      // check if user needs a member card
+      if (is_null($user->getMemberCard())) {
+        if (!$user->registerMembershipPayex()) {
+          return false;
+        }
+      } else {
+        if (!$user->renewMembershipPayex()) {
+          return false;
+        }
+      }
+      
       $GLOBALS['extraScriptParams']['page'] = "register-payex-transaction-confirm";
       $GLOBALS['extraScriptParams']['transactionid'] = $payment->transaction_id;
     }
   }
 
   public function _renewMembership() {
-    $cardno = scriptParam("cardno");
+    $id = scriptParam("cardno");
     $password = scriptParam("verificationCode");
-    if ($cardno == "") {
-      notify("Du m&#229; taste inn et kortnummer.");
+    
+    if (empty($id)) {
+      notify("Du m&#229; taste inn et aktiveringsnummer.");
       $GLOBALS['extraScriptParams']['page'] = "renew-membership";
       return false;
     }
-    if (!validCardno($cardno)) {
-      notify("Aktiveringsnummeret er allerede registrert.");
-      $GLOBALS['extraScriptParams']['page'] = "renew-membership";
-      return false;
-    }
-    if (checkPassword($cardno, $password)) {
+    
+    $msa_code = verifyActivationCode($id, $password);
+    
+    // was the verification successful ?
+    if (!is_null($msa_code)) {
       $user = new User(scriptParam("userid"));
-      if ($user->renewMembership($cardno) == true) {
+      if ($user->renewMembership()) {
+        // mark code as used
+        $msa_code->setUsed(new DateTime());
+        $msa_code->setUserId($user->getId());
+        $msa_code->store();
+        
         notify("Fornyelse av medlemskap er registrert. Nytt oblat vil bli sendt til din registrerte adresse.");
       } else {
         $GLOBALS['extraScriptParams']['page'] = "renew-membership";
@@ -922,6 +933,22 @@ class ActionParser {
       $GLOBALS['extraScriptParams']['page'] = "renew-membership";
       $GLOBALS['extraScriptParams']['report-bug'] = "renew-membership";
     }
+  }
+  
+  protected function verifyActivationCode($id, $password) {
+    $msa_code = new MembershipActivationCode();
+    if ($msa_code->findById($id)) {
+      if (!is_null($msa_code->getUsed())) {
+        // code has been used allready, and is therefore illegal
+        return null;
+      }
+    
+      if (trim($password) == $msa_code->getCode()) {
+        // valid password, return object
+        return $msa_code;
+      }
+    }
+    return null;
   }
 
   public function _cartCheckout() {
@@ -936,20 +963,20 @@ class ActionParser {
     $payment->executeRedirect(scriptParam('transaction_id_string'), $order_id);
   }
 
-	public function _transactionReturn() {
-		$orderRef = scriptParam('orderRef');
-		$transaction_id = scriptParam('transactionid');
-		$transaction = new Transaction($transaction_id);
-		$payment = new Payment();
-		if ($payment->completeTransaction($orderRef, $transaction_id)) {
-			$order_id = $transaction->order_id;
-	    $order = new Order($order_id);
-	    $order->setStatus(4);
-	    $order->performOperations();
-	    $GLOBALS['extraScriptParams']['page'] = "transaction-confirmation";
-	    $GLOBALS['extraScriptParams']['transactionid'] = $transaction_id;
-		}
-	}
+  public function _transactionReturn() {
+    $orderRef = scriptParam('orderRef');
+    $transaction_id = scriptParam('transactionid');
+    $transaction = new Transaction($transaction_id);
+    $payment = new Payment();
+    if ($payment->completeTransaction($orderRef, $transaction_id)) {
+      $order_id = $transaction->order_id;
+      $order = new Order($order_id);
+      $order->setStatus(4);
+      $order->performOperations();
+      $GLOBALS['extraScriptParams']['page'] = "transaction-confirmation";
+      $GLOBALS['extraScriptParams']['transactionid'] = $transaction_id;
+    }
+  }
 
   public function _payexTransaction() {
     $payment = new Payment(NULL, $_POST);
@@ -1007,13 +1034,15 @@ class ActionParser {
   }
 
   public function _grantCardno() {
-    $user = new User(scriptParam("userid"));
-    $user->grantCardno();
+    //$user = new User(scriptParam("userid"));
+    //$user->grantCardno();
+    notify("Error: ActionParser::_grantCardno() is a deprecated function.");
   }
 
   public function _updateUserHasCard() {
-    $user = new User(scriptParam("userid"));
-    $user->setHasCard(1);
+    //$user = new User(scriptParam("userid"));
+    //$user->setHasCard(1);
+    notify("Error: ActionParser::_updateUserHasCard() is a deprecated function.");
   }
 
   public function _updateUserDivisionRequest() {

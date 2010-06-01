@@ -25,7 +25,8 @@ class User {
     var $expires;
     var $division_id_request;
     var $group_id;
-    var $hasCard;
+    var $cardProduced;
+    var $cardDelivered;
     var $validAddress;
     var $lastSticker;
     
@@ -101,7 +102,7 @@ class User {
             }
         } else { //ID set, existing user
             if ($data != NULL) {
-                //Update existing user
+                // Update existing user
                 $this->addresstype = isset ($data['addresstype']) ? "int" : "no";
             } else {
                 //Retrieve data from backend for display or other actions
@@ -119,7 +120,8 @@ class User {
             }
 
             $this->birthdate = $data['birthdate'];
-            $this->hasCard = $data['hasCard'];
+            $this->cardProduced = $data['cardProduced'];
+            $this->cardDelivered = $data['cardDelivered'];
             $this->validAddress = $data['valid_address'];
         }
 
@@ -254,8 +256,17 @@ class User {
 
     } else { //Update
       $this->conn->autoCommit(false);
-      $sql = sprintf("UPDATE din_user SET " . "  firstname    = %s, " . "  lastname     = %s, " . "  addresstype  = %s, " . "  email        = %s, " . "  birthdate    = %s, " . "  placeOfStudy = %s, " . "  hasCard      = %s " . "WHERE " . "  id = %s", $this->conn->quoteSmart($this->firstname), $this->conn->quoteSmart($this->lastname), $this->conn->quoteSmart($this->addresstype), $this->conn->quoteSmart($this->email == "" ? NULL : $this->email), $this->conn->quoteSmart($this->birthdate), $this->conn->quoteSmart($this->placeOfStudy), $this->conn->quoteSmart($this->hasCard), $this->conn->quoteSmart($this->id));
-
+      $sql = "UPDATE din_user SET " . 
+      	"firstname = " . $this->conn->quoteSmart($this->firstname) .
+      	", lastname = " . $this->conn->quoteSmart($this->lastname) .
+      	", addresstype = " . $this->conn->quoteSmart($this->addresstype) .
+      	", email = " . $this->conn->quoteSmart($this->email == "" ? NULL : $this->email) .
+      	", birthdate = " . $this->conn->quoteSmart($this->birthdate) .
+      	", placeOfStudy = " . $this->conn->quoteSmart($this->placeOfStudy) .
+      	", cardProduced = " . $this->conn->quoteSmart($this->cardProduced) .
+      	", cardDelivered = " . $this->conn->quoteSmart($this->cardDelivered) .
+      	" WHERE id = " . $this->conn->quoteSmart($this->id);
+      
       $result = $this->conn->query($sql);
       if (DB :: isError($result) == true) {
         error("Update user: " . $result->toString());
@@ -676,7 +687,7 @@ class User {
             return false;
         }
         $this->conn->autoCommit(false);
-        $sql = "UPDATE din_user SET " . "  hasCard = '0' " . "WHERE " . "  id = $this->id";
+        $sql = "UPDATE din_user SET cardProduced='0', cardDelivered='0' WHERE id = " . $this->id;
         $result = $this->conn->query($sql);
         if (DB :: isError($result) == true) {
             error($result->toString());
@@ -860,8 +871,48 @@ class User {
         }
     }
 
-    public function getHasCard() {
-      return $this->hasCard;
+    public function getCardProduced() {
+      return $this->cardProduced;
+    }
+
+    public function setCardProduced($produced) {
+      if ($produced) {
+        $sql = "UPDATE din_user SET cardProduced=1 WHERE id=$this->id";
+        $desc = "medlemskort produsert";
+        $this->cardProduced = 1;
+      } else {
+        $sql = "UPDATE din_user SET cardProduced=0, cardDelivered=0 WHERE id=$this->id";
+        $desc = "mangler medlemskort";
+        $this->cardProduced = 0;
+      }
+      $result = $this->conn->query($sql);
+
+      if (DB :: isError($result) != true) {
+        $this->_registerUpdate("Medlemskortstatus endret til $desc");
+        notify("Medlemskortstatus for <strong>" . $this->firstname . " " . $this->lastname . "</strong> er endret til <strong>" . $desc . "</strong>");
+      }
+    }
+
+    public function getCardDelivered() {
+      return $this->cardDelivered;
+    }
+
+    public function setCardDelivered($delivered) {
+      if ($delivered) {
+        $sql = "UPDATE din_user SET cardDelivered=1 WHERE id=$this->id";
+        $desc = "medlemskort utlevert";
+        $this->cardDelivered = 1;
+      } else {
+        $sql = "UPDATE din_user SET cardDelivered=0 WHERE id=$this->id";
+        $desc = "medlemskort ikke utlevert";
+        $this->cardDelivered = 0;
+      }
+      $result = $this->conn->query($sql);
+
+      if (DB :: isError($result) != true) {
+        $this->_registerUpdate("Medlemskortstatus endret til $desc");
+        notify("Medlemskortstatus for <strong>" . $this->firstname . " " . $this->lastname . "</strong> er endret til <strong>" . $desc . "</strong>");
+      }
     }
 
     public function hasCardSticker() {
@@ -918,20 +969,6 @@ class User {
         notify("Problemer med registrering av kortnummer.");
         return false;
       }
-    }
-
-    public function setHasCard($value) {
-        $sql = "UPDATE din_user SET hasCard = $value " .
-            "WHERE id = $this->id";
-        $result = $this->conn->query($sql);
-
-        if (DB :: isError($result) != true) {
-            $value = ($value == 0) ? "mangler medlemskort" : "har medlemskort";
-
-            $this->_registerUpdate("Medlemskortstatus endret til $value");
-            notify("Medlemskortstatus for <strong>" . $this->firstname . " " . $this->lastname . "</strong> er endret til <strong>" . $value . "</strong>");
-            User :: updateLastSticker(date("Y"));
-        }
     }
 
     /**
@@ -1140,13 +1177,28 @@ class User {
         print "  <td>" . $this->lastname . "</td>\n";
         
         print "  <td>";
-        if (!$this->getHasCard()) {
-            print "<form id=\"user_" . $this->id . "_hascard_form\" " . "action=\"javascript: setHasCard('" . $this->id . "')\" " . "method=\"post\">";
-            print "<input type=\"hidden\" name=\"action\" value=\"update-user-hascard\" />\n";
+        if ($this->cardno == null) {
+            // User hasn't ordered a card
+            print "<form id=\"user_" . $this->id . "_cardno_form\" action=\"javascript: grantCardNumber('" . $this->id . "')\" " . "method=\"post\">";
+            print "<input type=\"hidden\" name=\"action\" value=\"grant-cardno\" />\n";
+            print "<input type=\"submit\" value=\"bestill kort\" />\n";
+            print "</form>";
+        } elseif (!$this->getCardProduced()) {
+            // User's card has been produced, but has not been delivered yet
+            print "<form id=\"user_" . $this->id . "_cardproduced_form\" " . "action=\"javascript: setCardProduced('" . $this->id . "')\" " . "method=\"post\">";
+            print "<input type=\"hidden\" name=\"action\" value=\"update-user-cardproduced\" />\n";
             print "<input type=\"submit\" value=\"kort produsert\" />\n";
             print "</form>";
+        } elseif (!$this->getCardDelivered()) {
+            // User's card has been produced, but has not been delivered yet
+            print "<form id=\"user_" . $this->id . "_carddelivered_form\" " . "action=\"javascript: setCardDelivered('" . $this->id . "')\" " . "method=\"post\">";
+            print "<input type=\"hidden\" name=\"action\" value=\"update-user-carddelivered\" />\n";
+            print "<input type=\"submit\" value=\"kort er levert\" />\n";
+            print "</form>";
+
         } else {
-            print "kort mistet?";
+            // User has a membercard
+            //print "kort mistet?";
         }
         print "  </td>\n";
 
@@ -1177,11 +1229,6 @@ class User {
             print "</select>\n";
             print "<input type=\"submit\" value=\"endre\" />\n";
             print "</form>";
-        } else {
-            print "<form id=\"user_" . $this->id . "_cardno_form\" action=\"javascript: grantCardNumber('" . $this->id . "')\" " . "method=\"post\">";
-            print "<input type=\"hidden\" name=\"action\" value=\"grant-cardno\" />\n";
-            print "<input type=\"submit\" value=\"tildel medlemskortnummer\" />\n";
-            print "</form>";
         }
         print "</div>";
         print "</td>\n";
@@ -1191,20 +1238,21 @@ class User {
         print "</td>\n";
 
         print "  <td>";
-        print "<form action=\"javascript: updateLastSticker('" .
-            $this->id . "')\" method=\"post\">";
-        print "<div>";
-        print "<input type=\"hidden\" name=\"action\" value=\"update-user-last-sticker\" />";
-        print "<select name=\"newStickerDate_" . $this->id . "\" id=\"newStickerDate_" . $this->id . "\">";
-        print "<option value=\"" . date("Y") . "\">" . "inneværende år (" . date("Y") . ")" . "</option>\n";
-        print "<option value=\"" . date("Y", strtotime("+1 year")) . "\">" . "neste år (" . date("Y", strtotime("+1 year")) . ")" . "</option>\n";
-        print "<option value=\"" . date("Y", strtotime("+3 year")) . "\">" . "tre år (" . date("Y", strtotime("+3 year")) . ")" . "</option>\n";
-        print "<option value=\"" . date("Y", strtotime("+5 year")) . "\">" . "fem år (" . date("Y", strtotime("+5 year")) . ")" . "</option>\n";
-        print "<option value=\"" . 0 . "\">ingen verdi</option>";
-        print "</select>";
-        print "<input type=\"submit\" value=\"endre\" />";
-        print "</div>";
-        print "</form>";
+        if ($this->cardno != NULL) {
+            print "<form action=\"javascript: updateLastSticker('" . $this->id . "')\" method=\"post\">";
+            print "<div>";
+            print "<input type=\"hidden\" name=\"action\" value=\"update-user-last-sticker\" />";
+            print "<select name=\"newStickerDate_" . $this->id . "\" id=\"newStickerDate_" . $this->id . "\">";
+            print "<option value=\"" . date("Y") . "\">" . "inneværende år (" . date("Y") . ")" . "</option>\n";
+            print "<option value=\"" . date("Y", strtotime("+1 year")) . "\">" . "neste år (" . date("Y", strtotime("+1 year")) . ")" . "</option>\n";
+            print "<option value=\"" . date("Y", strtotime("+3 year")) . "\">" . "tre år (" . date("Y", strtotime("+3 year")) . ")" . "</option>\n";
+            print "<option value=\"" . date("Y", strtotime("+5 year")) . "\">" . "fem år (" . date("Y", strtotime("+5 year")) . ")" . "</option>\n";
+            print "<option value=\"" . 0 . "\">ingen verdi</option>";
+            print "</select>";
+            print "<input type=\"submit\" value=\"endre\" />";
+            print "</div>";
+            print "</form>";
+        }
         print "</td>\n";
 
         print "  <td>" . $this->getRegistered() . "</td>\n";
@@ -1425,14 +1473,16 @@ class User {
         elseif (strtotime($this->expires) < strtotime("now"))
             return "Du har ikke registrert gyldig medlemskap i år (medlemskapet ditt gikk ut " . date("d.m.Y", strtotime($this->expires)) . ").";
         elseif (strtotime($this->expires) > strtotime("now")) {
-            if ($this->hasCard == "1") {
+            if ($this->getCardDelivered()) {
                 if ($this->lastSticker < date("Y", strtotime($this->expires))) {
-                    return "Du har aktivert medlemskapet ditt, og det vil bli sendt oblat til å klistre på medlemskortet ditt.";
+                    return "Du har aktivert medlemskapet ditt, og du kan hente oblat til å klistre på medlemskortet ditt i bilettluka på Det Norske Studentersamfund.";
                 } else {
                     return "Du har gyldig medlemskap (gyldig til " . date("d. m. Y", strtotime($this->expires)) . ").";
                 }
-            } elseif ($this->hasCard == "0") {
-                return "Medlemskapet ditt er registrert, og medlemskortet ditt for " . date("Y", strtotime($this->expires)) . " produseres. Det tar normalt rundt to uker fra medlemskapet er registrert til du mottar ditt medlemskort.";
+            } elseif ($this->getCardProduced()) {
+                return "Medlemskapet ditt for " . date("Y", strtotime($this->expires)) . " er registrert, og medlemskortet ditt ligger klar til henting i billettluka på Det Norske Studentersamfund.";
+            } else {
+                return "Medlemskapet ditt er registrert, og medlemskortet ditt for " . date("Y", strtotime($this->expires)) . " produseres.";
             }
         }
 

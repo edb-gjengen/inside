@@ -45,12 +45,12 @@ function grantCardNumber(userid) {
   oXmlHttp.send(null);
 }
 
-function setHasCard(userid) {
-  var form = document.getElementById("user_"+userid+"_hascard_form");
+function setCardProduced(userid) {
+  var form = document.getElementById("user_"+userid+"_cardproduced_form");
   form.style.display = "none";
   
   var oXmlHttp = zXmlHttp.createRequest();
-  var sURL = "sethascard.php?userid=" + userid;
+  var sURL = "setcardproduced.php?userid=" + userid;
   oXmlHttp.open("get", sURL, true);
   oXmlHttp.onreadystatechange = function() {
     if (oXmlHttp.readyState == 4){
@@ -62,6 +62,31 @@ function setHasCard(userid) {
         document.getElementById('user_'+userid+'_laststicker').innerHTML = lastSticker;
       	
 		form.parentNode.innerHTML = "Medlemskort er produsert";
+      }else {
+        alert("An error occured: " + oXmlHttp.statusText);
+      }
+    }
+  };  
+  oXmlHttp.send(null);
+}
+
+function setCardDelivered(userid) {
+  var form = document.getElementById("user_"+userid+"_carddelivered_form");
+  form.style.display = "none";
+  
+  var oXmlHttp = zXmlHttp.createRequest();
+  var sURL = "setcarddelivered.php?userid=" + userid;
+  oXmlHttp.open("get", sURL, true);
+  oXmlHttp.onreadystatechange = function() {
+    if (oXmlHttp.readyState == 4){
+      if (oXmlHttp.status == 200) {
+      	//alert(oXmlHttp.responseXML);
+		//alert(oXmlHttp.responseText);
+		var response = oXmlHttp.responseXML.documentElement;
+		var lastSticker = response.getElementsByTagName('laststicker')[0].firstChild.data;
+        document.getElementById('user_'+userid+'_laststicker').innerHTML = lastSticker;
+      	
+		form.parentNode.innerHTML = "Medlemskort er levert";
       }else {
         alert("An error occured: " + oXmlHttp.statusText);
       }
