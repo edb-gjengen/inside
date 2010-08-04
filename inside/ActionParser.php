@@ -854,7 +854,7 @@ class ActionParser {
     $id = scriptParam("cardno");
     $password = scriptParam("verificationCode");
     
-    $msa_code = verifyActivationCode($id, $password);
+    $msa_code = $this->verifyActivationCode($id, $password);
     // was the verification successful ?
     if (!is_null($msa_code)) {
       $user = new User(scriptParam("userid"));
@@ -865,9 +865,9 @@ class ActionParser {
       
       if ($user->registerMembership()) {
         // mark activation code as used
-        $msa_code->setUserId($user->getId());
-        $msa_code->setUsed(new DateTime());
-        $msa_code->store();
+        //$msa_code->setUserId($user->getId());
+        //$msa_code->setUsed(new DateTime());
+        //$msa_code->store();
         
         notify("Betalt medlemskap er registrert. Medlemskort vil bli produsert.");
       } else {
@@ -913,16 +913,17 @@ class ActionParser {
       return false;
     }
     
-    $msa_code = verifyActivationCode($id, $password);
+    $msa_code = $this->verifyActivationCode($id, $password);
     
     // was the verification successful ?
     if (!is_null($msa_code)) {
       $user = new User(scriptParam("userid"));
-      if ($user->renewMembership()) {
+      //if ($user->renewMembership()) {
+      if ($user->renewMembership($id)) {
         // mark code as used
-        $msa_code->setUsed(new DateTime());
-        $msa_code->setUserId($user->getId());
-        $msa_code->store();
+        //$msa_code->setUsed(new DateTime());
+        //$msa_code->setUserId($user->getId());
+        //$msa_code->store();
         
         notify("Fornyelse av medlemskap er registrert. Nytt oblat vil bli sendt til din registrerte adresse.");
       } else {
@@ -936,7 +937,7 @@ class ActionParser {
   }
   
   protected function verifyActivationCode($id, $password) {
-    $msa_code = new MembershipActivationCode();
+/*    $msa_code = new MembershipActivationCode();
     if ($msa_code->findById($id)) {
       if (!is_null($msa_code->getUsed())) {
         // code has been used allready, and is therefore illegal
@@ -948,6 +949,11 @@ class ActionParser {
         return $msa_code;
       }
     }
+    */
+    if (checkPassword($id, $password)) {
+      return true;
+    }
+    
     return null;
   }
 
