@@ -3211,6 +3211,9 @@ Teksten under er hentet fra kunnskapsdatabasen. Du står fritt til å endre den et
         while ($row =& $users->users->fetchRow(DB_FETCHMODE_OBJECT)){
           $user = new User($row->id);
           print "<tr>";
+          print "<form action=\"" . $action . "\" method=\"post\">";
+          print "<input type=\"hidden\" name=\"action\" value=\"membership-sale\" />";
+          print "<input type=\"hidden\" name=\"userid\" value=\"" . $user->getId() . "\" />";
           print "<td class=\"number\" id=\"user_" . $user->getId() . "_cardno\">". $user->cardno . "</td>\n";
           print "<td><a href=\"index.php?page=display-user&amp;userid=" . $user->id . "\">" . $user->getName() . "</a></td>";
           print "<td class=\"is_member\">";
@@ -3231,9 +3234,6 @@ Teksten under er hentet fra kunnskapsdatabasen. Du står fritt til å endre den et
           print "<td class=\"is_member\">" . $user->getLastSticker() . "</td>";
 
           print "<td>";
-          print "<form action=\"" . $action . "\" method=\"post\">";
-          print "<input type=\"hidden\" name=\"action\" value=\"membership-sale\" />";
-          print "<input type=\"hidden\" name=\"userid\" value=\"" . $user->getId() . "\" />";
           if ($user->hasExpired()) {
             if (!$user->getCardProduced()) {
               print "forny (produser kort)";
@@ -3253,7 +3253,9 @@ Teksten under er hentet fra kunnskapsdatabasen. Du står fritt til å endre den et
             if (!$user->getCardProduced()) {
               print "produser kort";
             } elseif (!$user->getCardDelivered()) {
-              print "lever ut kort";
+              print "<input type=\"hidden\" name=\"subaction\" value=\"give-card\" />";
+              print "<input type=\"hidden\" name=\"new-sticker-date\" value=\"" . date("Y", strtotime($user->getExpiryDate())) . "\" />";
+              print "<input type=\"submit\" name=\"give-card\" value=\"lever ut kort (" . date("Y", strtotime($user->getExpiryDate())) . ")\" />";
             } elseif (!$user->hasCardSticker()) {
               print "<input type=\"hidden\" name=\"subaction\" value=\"give-sticker\" />";
               print "<input type=\"hidden\" name=\"new-sticker-date\" value=\"" . date("Y", strtotime($user->getExpiryDate())) . "\" />";
@@ -3262,15 +3264,16 @@ Teksten under er hentet fra kunnskapsdatabasen. Du står fritt til å endre den et
               print "-";
             }
           }
-          print "</form>";
           print "</td>";
 
           print "<td>";
           if ($user->getCardDelivered()) {
-            print "produser nytt medlemskort";
+            print "<input type=\"hidden\" name=\"subaction\" value=\"order-new-card\" />";
+            print "<input type=\"submit\" name=\"order-new-card\" value=\"bestille nytt kort\" />";
           }
           print  "</td>";
 
+          print "</form>";
           print "</tr>";
         }
         print "</table>";
