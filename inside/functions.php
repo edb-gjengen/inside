@@ -1488,6 +1488,8 @@ function send_welcome_mail($user) {
 	"\n" .
 	"\nDitt brukernavn er $user->username. Om du glemmer passordet ditt kan du få tilsendt nytt ved å besøke lenken under og taste inn din epostadresse. Her kan du også oppdatere din kontaktinformasjon og kjøpe/fornye medlemskap i Det Norske Studentersamfund" .
 	"\n" .
+	"OBS: Hvis du har kjøpt medlemskap må du gå inn å aktivere det." .
+	"\n" .
 	"\nhttps://www.studentersamfundet.no/inside/index.php" .
 	"\n" .
 	"\nmvh" .

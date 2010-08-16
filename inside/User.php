@@ -1323,7 +1323,36 @@ class User {
     }
 
     // Send mail with notification of card delivery
-    public function sendCardProducedNotifyMail () {
+    public function sendCardOrderedNotifyMail() {
+        $sendto = $this->email;
+
+        $subject = "Medlemskapet ditt er aktivert";
+        $message = "Hei, " . $this->firstname . " " . $this->lastname . "!" .
+        "\n\n" .
+        "Vi har registrert at du har aktivert medlemskapet ditt i Det Norske Studentersamfund. " .
+        "Du vil motta en e-post når medlemskortet ditt er produsert og klart til å hentes i billettluka på studentersamfundet. \n" .
+        "\n" .
+        "For mer informasjon om hva som skjer på Det Norske Studentersamfund, gå inn på vår nettside: http://www.studentersamfundet.no/ .\n" .
+        "\n" .
+        "Er det noe du lurer på kan du bare svare på denne eposten, så svarer vi så fort vi klarer.\n".
+        "\n\n" .
+        "Bli aktiv i dag!\n" .
+        "www.studentersamfundet.no/bliaktiv\n" .
+        "\n\n" .
+        "Mvh\n\n" .
+        "Medlemskapsordningen\n" .
+        "medlemskap@studentersamfundet.no\n" .
+        "Det Norske Studentersamfund\n\n";
+
+        $headers = 'From: Det Norske Studentersamfund <medlemskap@studentersamfundet.no>' . "\r\n";
+
+        if (!mail($sendto, $subject, $message, $headers)) {
+            notify("Det oppstod en feil under sending av epost. Vennligst kontakt" . "<a href=\"mailto:medlemskap@studentersamfundet.no\">webansvarlig</a>.");
+        }
+    }
+
+    // Send mail with notification of card delivery
+    public function sendCardProducedNotifyMail() {
         $sendto = $this->email;
 
         $subject = "Medlemskortet ditt er produsert";
@@ -1335,6 +1364,9 @@ class User {
         "For mer informasjon om hva som skjer på Det Norske Studentersamfund, gå inn på vår nettside: http://www.studentersamfundet.no/ .\n" .
         "\n" .
         "Er det noe du lurer på kan du bare svare på denne eposten, så svarer vi så fort vi klarer.\n".
+        "\n\n" .
+        "Bli aktiv i dag!\n" .
+        "www.studentersamfundet.no/bliaktiv\n" .
         "\n\n" .
         "Mvh\n\n" .
         "Medlemskapsordningen\n" .
@@ -1356,12 +1388,15 @@ class User {
         $message = "Hei, " . $this->firstname . " " . $this->lastname . "!" .
         "\n\n" .
         "Vi har registrert at du har fornyet medlemsskapet ditt i Det Norske Studentersamfund. " .
-        "Det ligger nå klart til avhenting i  billettluka på Studentersamfundet og kan hentes der i billettlukas åpningstid. \n" .
-        "Hvis du har mistet medlemskortet ditt kan du få ordnet nytt kort i billettluka også.\n".
+        "Medlemsoblat som viser at du har medlemskap kan hetes i billettluka på Studentersamfundet i billettlukas åpningstid. Ta med medlemskortet ditt. \n" .
+        "Hvis du har mistet medlemskortet ditt kan du få ordnet nytt kort i billettluka også, eller bestille det fra nettbutikken.\n".
         "\n" .
         "For mer informasjon om hva som skjer på Det Norske Studentersamfund, gå inn på vår nettside: http://www.studentersamfundet.no/ .\n" .
         "\n" .
         "Er det noe du lurer på kan du bare svare på denne eposten, så svarer vi så fort vi klarer.\n".
+        "\n\n" .
+        "Bli aktiv i dag!\n" .
+        "www.studentersamfundet.no/bliaktiv\n" .
         "\n\n" .
         "Mvh\n\n" .
         "Medlemskapsordningen\n" .
