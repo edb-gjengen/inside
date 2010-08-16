@@ -832,6 +832,18 @@ class ActionParser {
     }
     $user = new User($userId, $_REQUEST);
     $user->store();
+    
+    // check if membercard has been set to no 
+    if (!$user->getCardProduced()) {
+      if ($user->getLastSticker()) {
+        // unset sticker
+        $user->setCardSticker(0);
+      }
+      if ($user->getCardDelivered()) {
+        // unset card delivered
+        $user->setCardDelivered(0);
+      }
+    }
   }
 
   public function _deleteUser() {
@@ -851,24 +863,25 @@ class ActionParser {
   }
 
   public function _registerMembership() {
-    $id = scriptParam("cardno");
+    $cardno = scriptParam("cardno");
     $password = scriptParam("verificationCode");
     
-    $msa_code = $this->verifyActivationCode($id, $password);
+    $msa_code = $this->verifyActivationCode($cardno, $password);
     // was the verification successful ?
     if (!is_null($msa_code)) {
       $user = new User(scriptParam("userid"));
-      if (!is_null($user->getMembercard())) {
+      if ($user->getCardProduced()) {
         // user has a card, only renew membership
         return $this->_renewMembership();
       }
       
-      if ($user->registerMembership()) {
+      if ($user->registerMembership($cardno)) {
         // mark activation code as used
         //$msa_code->setUserId($user->getId());
         //$msa_code->setUsed(new DateTime());
         //$msa_code->store();
         
+        $user->sendCardOrderedNotifyMail();
         notify("Betalt medlemskap er registrert. Medlemskort vil bli produsert.");
       } else {
         $GLOBALS['extraScriptParams']['page'] = "register-membership";
@@ -892,10 +905,12 @@ class ActionParser {
         if (!$user->registerMembershipPayex()) {
           return false;
         }
+        $user->sendCardOrderedNotifyMail();
       } else {
         if (!$user->renewMembershipPayex()) {
           return false;
         }
+        $user->sendRenewedMembershipRegisteredNotifyMail();
       }
       
       $GLOBALS['extraScriptParams']['page'] = "register-payex-transaction-confirm";
@@ -925,7 +940,8 @@ class ActionParser {
         //$msa_code->setUserId($user->getId());
         //$msa_code->store();
         
-        notify("Fornyelse av medlemskap er registrert. Nytt oblat vil bli sendt til din registrerte adresse.");
+        $user->sendRenewedMembershipRegisteredNotifyMail();
+        notify("Fornyelse av medlemskapet ditt er registrert. Ny oblat kan hentes i billettluka på studentersamfundet.");
       } else {
         $GLOBALS['extraScriptParams']['page'] = "renew-membership";
       }
@@ -1256,9 +1272,19 @@ class ActionParser {
         $user->updateExpiry(scriptParam("new-sticker-date"));
         $user->updateLastSticker(scriptParam("new-sticker-date"));
       } elseif ($subaction == "give-sticker") {
-        $user->_registerUpdate("Gyldig medlemskap, oblat gitt i billettbod");
+        $user->_registerUpdate("Gyldig medlemskap, oblat gitt ut i billettluka");
         $user->updateLastSticker(scriptParam("new-sticker-date"));
+      } elseif ($subaction == "give-card") {
+        $user->_registerUpdate("Medlemskort utlevert i billettluka");
+        $user->setCardDelivered(true);
+        $user->updateLastSticker(scriptParam("new-sticker-date"));
+      } elseif ($subaction == "order-new-card") {
+        $user->_registerUpdate("Nytt medlemskort bestillt via billettluka");
+        $user->setCardProduced(false);
+        $user->setCardDelivered(false);
+        $user->updateLastSticker(0);
       }
+      
     } else {
       error("Ukjent bruker-id : " . $userid);
     }

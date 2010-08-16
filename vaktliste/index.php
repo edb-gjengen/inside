@@ -27,6 +27,28 @@
   require("App/Mapper/Mapper.php");
   require("App/View/ViewHelper.php");
   
+  require("App/Calendar/Calendar.php");
+  
+  require("App/Domain/Division.php");
+  require("App/Mapper/DivisionCollection.php");
+  require("App/Mapper/DivisionMapper.php");
+  
+  require("App/Domain/Group.php");
+  require("App/Mapper/GroupCollection.php");
+  require("App/Mapper/GroupMapper.php");
+  
+  require("App/Domain/Location.php");
+  require("App/Mapper/LocationCollection.php");
+  require("App/Mapper/LocationMapper.php");
+  
+  require("App/Domain/WorkShift.php");
+  require("App/Mapper/WorkShiftCollection.php");
+  require("App/Mapper/WorkShiftMapper.php");
+  
+  require("App/Domain/WorkSalaryType.php");
+  require("App/Mapper/WorkSalaryTypeCollection.php");
+  require("App/Mapper/WorkSalaryTypeMapper.php");
+  
   require("App/Domain/User.php");
   require("App/Mapper/UserCollection.php");
   require("App/Mapper/UserMapper.php");
