@@ -412,7 +412,6 @@
 		<div id="sponsors" style="text-align: center; border-top: 1px solid black;">
 			<p>Våre samarbeidspartnere:</p>
 			<a href="http://www.toro.no"><img style="margin: 12px; border: none;" src="http://www.studentersamfundet.no/bilder/sponsorer/toro.jpg" alt="Toro" /></a>
-			<a href="http://www.aftenposten.no"><img style="margin: 12px; border: none;" src="http://www.studentersamfundet.no/bilder/sponsorer/aftenposten.png" alt="Aftenposten" /></a>
 			<a href="http://www.sfnorge.no"><img style="margin: 12px; border: none;" src="http://www.studentersamfundet.no/bilder/sponsorer/sflogo.jpg" alt="SF Norge" /></a>
 		</div>
 		<div id="about" style="text-align: center; border-top: 1px solid black;">
