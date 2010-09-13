@@ -69,7 +69,7 @@ class Concert {
           rename_file($temp_name, $this->id, "program");
           $this->picture = $this->id.substr($temp_name, -4);
         } else {
-          $this->picture = $data['picture'];; 
+          $this->picture = $data['picture'];
         }
         $this->links = $data['links'];
       }else {//RETRIEVE
@@ -248,15 +248,19 @@ class Concert {
   function _validate(){
     $valid = true;
     if($this->name == '') { 
-      notify("Tittel må angis.");
+      notify("Tittel m&aring; angis.");
       $valid = false;
     }
     if($this->intro == '') { 
-      notify("Ingress må angis.");
+      notify("Ingress m&aring; angis.");
       $valid = false;
     }
     if (date("Y", strtotime($this->time)) < 2000){
-      notify("Ugyldig årstall.");
+      notify("Ugyldig &aring;rstall.");
+      $valid = false;
+    }
+    if ($this->id == NULL && isset($_FILES['userfile']) && empty($_FILES['userfile']['name'])){
+      notify("Bilde m&aring; velges");
       $valid = false;
     }
     return $valid;
