@@ -1,137 +1,571 @@
-table
-	{
-	width: 100%;
-	border-collapse: collapse;
-	background-color: white;
-	color: black;
-	font: 10pt verdana, arial;
-	margin-bottom: 25%; /* %, px, em, ex ? */
-	}
+@import 'css/reset.css';
+@import 'css/rebuild.css';
+@import 'css/wp-css';
 
-tr.subhead
-	{
-	background-color: #cccccc;
-	}
 
-th
-	{
-	padding: 0 3%;
-	}
+/**
+ * Structure
+ */
 
-th.alt
-	{
-	background-color: black;
-	color: white;
-	padding: 3% 3% 2%;
-	}
+/* Layout */
+/*#wrapper */
+#header .site-title,
+#header #menu ul ul,
+#main {
+    width:1000px;
+    margin:auto;
+    position:relative;
+}
+#main {
+    margin-top:-20px;
+}
+#content {
+    float:left;
+    margin:50px 0;
+    width:1000px;
+    background: #ffffff;
+    position:relative;
+}
 
-td
-	{
-	padding: 0 3%;
-	}
+.page-medlemmer .column,
+.home .column {
+    width:400px;
+    margin:0;
+    padding:50px;
+    float:left;
+}
 
-tr.alt
-	{
-	background-color: #eeeeee;
-	}
+.hentry,
+#program {
+    margin:0;
+    width: 518px;
+    overflow:hidden;
+    background:#ffffff;
+    margin-bottom: 30px;
+}
 
-h1
-	{
-	font: 24pt verdana, arial;
-	margin: 0;
-	}
+.single .hentry {
+    float:left;
+    width: 500px;
+    margin:50px;
+}
 
-h2
-	{
-	font: 18pt verdana, arial;
-	margin: 0;
-	}
+.page-medlemmer .hentry {
+    width:1000px;
+    margin:0;
+}
 
-h3
-	{
-	font: 12pt verdana, arial;
-	margin: 0;
-	}
+.page-medlemmer .hentry h1 {
+    margin:40px 50px 0;
+}
 
-th a
-	{
-	color: #00008b;
-	font: 8pt verdana, arial;
-	}
+#primary.sidebar,#secondary.sidebar {
+    width:300px;
+    float:left;
+    padding:30px 50px;
+}
+* html #primary {
+    left: 20px;
+    position: relative;
+}
+.program-teaser {
+    width:1000px;
+    margin:auto;
+}
+/* end layout */
 
-a
-	{
-	color: #00008b;
-	text-decoration: none;
-	}
+/* Header */
+body.dns {
+    background:#efefef;
+}
+/*body.dns */
+#header {
+    background:#191919 url('img/header-210x.png') repeat-x bottom;
+}
+#header {
+    height:155px;
+    margin-bottom:10px;
+    overflow:hidden;
+    position:relative;
+}
+.site-title {
+    z-index:999
+}
+.site-title a {
+    background: url('img/bannerindex-400.png') no-repeat -20px 0;
+    display:block;
+    height:63px;
+    margin-top:20px;
+    text-indent:-9999px;
+    width:400px;
+}
+#menu {
+    position:absolute;
+    bottom:35px;
+    width:100%;
+/*    padding-left:23%;*/
+}
+#menu > ul {
+    width:960px;
+    margin:auto;
+}
+#menu ul,#menu li {
+    list-style-type:none;
+}
+#menu li{
+    float:left;
+    margin-right:10px;
+}
+#menu li a{
+    display:block;
+    height:22px;
+    padding:5px 13px 3px;
+    text-decoration:none;
+    color: #f5f5f5;
+}
+#menu ul div {
+    bottom:-25px;
+    left:0;
+    position:absolute;
+    margin:0;
+    width:100%;
+    border-top:none;
+}
+#menu ul ul li a {
+    padding-top:1px;
+    color:#222222;
+}
 
-a:hover
-	{
-	color: #00008b;
-	text-decoration: underline;
-	}
+#menu > ul > li {
+    -moz-border-radius-topleft:8px;
+    -moz-border-radius-topright:8px;
+    -webkit-border-top-left-radius:8px;
+}
 
-div.outer
-	{
-	width: 90%;
-	margin: 15%;
-	}
+#menu li div {
+    display:none;
+    height:25px;
+}
+#menu li.current div {
+    display:block;
+}
+#menu li:hover div {
+    display:block;
+    background:url('img/gradient-200x.png') repeat-x 0 -204px;
+    z-index:9;
+}
 
-table.viewmenu td
-	{
-	background-color: #006699;
-	color: white;
-	padding: 0 5%;
-	}
+#menu li#forside-meny,
+#menu li#forside-meny div {
+    background:yellow;
+}
 
-table.viewmenu td.end
-	{
-	padding: 0;
-	}
+#menu li#program-meny,
+#menu li#program-meny div {
+    background:#945FB9;
+}
+#menu li#informasjon-meny,
+#menu li#informasjon-meny div {
+    background:#D83E00;
+}
+#menu li#medlem-meny,
+#menu li#medlem-meny div {
+    background:#094f71;
+}
+#menu li#forum-meny,
+#menu li#forum-meny div {
+    background:#187105;
+}
+#menu li#inside-meny,
+#menu li#inside-meny div {
+    background: #9D2F2F;
+}
+#menu li#kontakt-meny,
+#menu li#kontakt-meny div {
+    background: #444444;
+}
 
-table.viewmenu a
-	{
-	color: white;
-	font: 8pt verdana, arial;
-	}
+#header .aapningstider {
+font-size:12px;
+left:50%;
+margin-left:366px;
+overflow:hidden;
+position:absolute;
+top:10px;
+width:134px;
+}
 
-table.viewmenu a:hover
-	{
-	color: white;
-	font: 8pt verdana, arial;
-	}
+/* Header slutt */
 
-a.tinylink
-	{
-	color: #00008b;
-	font: 8pt verdana, arial;
-	text-decoration: underline;
-	}
+/* Hoveddel */
 
-a.link
-	{
-	color: #00008b;
-	text-decoration: underline;
-	}
+.join a {
+    background:transparent url(img/sirkel.png) repeat scroll -30px -24px;
+    color:#2D6372;
+    display:block;
+    font-family:Georgia,serif;
+    font-size:34px;
+    font-style:italic;
+    height:129px;
+    left:-40px;
+    line-height:1;
+    padding-left:30px;
+    padding-top:50px;
+    position:absolute;
+    top:-40px;
+    width:148px;
+}
 
-div.buffer
-	{
-	padding-top: 7%;
-	padding-bottom: 17%;
-	}
+.home .hentry {
+    width:100%;
+    padding:0;
+    margin:0 0 40px;
+    border:none;
+}
 
-.small
-	{
-	font: 8pt verdana, arial;
-	}
+.info h3 {
+    margin:0 0 -3px 0;
+}
 
-table td
-	{
-	padding-right: 20%;
-	}
+.info ul {
+    background:#B8E2ED none repeat scroll 0 0;
+    list-style-type:none;
+    margin:0 0 3em;
+    padding-bottom:10px;
+}
+.info ul li {
+    padding:10px;
+}
+.info ul li.alt {
+    background:transparent url(img/transparent-list-bottom.png) repeat scroll center bottom;
+    left:-10px;
+    padding:10px 20px 12px;
+    position:relative;
+    width:380px;
+}
+.single .info ul li.alt {
+    width:280px;
+}
+.info ul .term {
+    float:left;
+    font-weight:bold;
+}
+.home .info ul .term {
+    width:50px;
+}
+.home .info ul .definition {
+    padding-left:50px;
+}
+.single .info ul .term {
+    width:60px;
+}
+.single .info ul .definition {
+    padding-left:60px;
+}
 
-table td.nopad
-	{
-	padding-right: 5%;
-	}
 
+.home #nyheter img {
+    width:93px;
+    height:133px;
+    float:left;
+    margin-right:20px;
+}
+
+.hentry, .sidebar,#program {
+    margin-top:15px;
+}
+.entry-meta {
+    margin: -12px 0 12px;
+}
+.vedlegg {
+    float:right;
+    margin:0 0 3px 10px;
+    max-width:300px;
+}
+.caption {
+    color:#333333;
+    font-size:14px;
+    line-height:1;
+    margin-bottom:2em;
+    text-align:center;
+}
+#vedlegg-2 .caption {
+    margin-bottom:0.5em;
+}
+
+#campaign1, #campaign2 {
+    width:400px;
+    height:160px;
+    background:black;
+    margin: 40px 0;
+}
+
+#internal-ad-single-bottom {
+    width:500px;
+    height:150px;
+    background:black;
+    margin-bottom:30px;
+}
+
+#external-ad-single-bottom {
+    width:500px;
+    height:300px;
+    background:black;
+}
+
+/* Hoveddel slutt */
+
+/* Sidebar */
+.sidebar ul {
+    list-style-type:none;
+    margin-left:0;
+}
+.sidebar .widget {
+    margin-bottom:30px;
+}
+
+.events.widget li.event {
+     margin:0 0 40px;
+}
+
+/* Sidebar slutt */
+
+/* Footer */
+
+#footer {
+    background-color:black;
+    clear:both;
+    padding-top:20px;
+    overflow:auto;
+}
+.program {
+    margin:auto;
+    overflow:auto;
+    width:1000px;
+}
+.program-teaser .hentry {
+    float:left;
+    height:207px;
+    margin:10px;
+    padding:16px;
+    position:relative;
+    width:150px;
+}
+.program-teaser .hentry.program-1,
+.program-teaser .hentry.program-6 {
+    margin-left:0;
+}
+.program-teaser .hentry.program-5,
+.program-teaser .hentry.program-10 {
+    margin-right:0;
+}
+.program-teaser .entry-title {
+    font-size:22px;
+}
+.program-teaser .hentry img {
+    display:block;
+    margin:auto;
+    width:150px;
+    height:150px;
+    position:absolute;
+    bottom:16px;
+}
+
+#footer .credits {
+    clear:both;
+    float:right;
+    margin-right:10px;
+    font-size:14px;
+}
+
+/* Footer slutt */
+
+/**
+ * Typography
+ */
+body, input, textarea {
+    font: 14px Helvetica,Arial,sans-serif;
+    line-height:1.5em;
+    color:#333333;
+}
+th,#menu,.entry-meta,.sidebar {
+    font-family:"Helvetica neue",Helvetica,Tahoma,Verdana,Arial,sans-serif;
+}
+.info ul {
+    font-family:"Century Gothic","Avant Garde","Avant Garde Gothic",sans-serif;
+}
+
+p, ul, ol, dd, pre {
+    margin-bottom:1.5em;
+}
+pre, code {
+    font:14px Monaco, monospace;
+    line-height:1.3;
+}
+a,a:visited {
+    text-decoration:none;
+    color: #888;
+}
+a:hover {
+    text-decoration:underline;
+}
+abbr {
+    border-bottom: 1px dotted;
+}
+
+h1 {
+    font-family: Helvetica,Arial,sans-serif;
+    font-style:normal;
+    color: black;
+    color: black !important;
+}
+
+h2,h3,h4,h5,h6 {
+    font-family: Georgia, serif;
+    font-style: italic;
+}
+
+h1,h2,h3,h4,h5,h6,
+.entry-title a {
+    clear:none;
+    /*color:#b8e2ed;*/
+    color:#9dcbdb;
+    margin-bottom:0.5em;
+    text-decoration:none;
+    line-height:1;
+}
+
+.entry-title {
+    font-size: 34px;
+}
+.entry-title a:hover {
+    border-bottom: 1px solid #888;
+}
+h1 {
+    font-size:34px;
+}
+h2 {
+    font-size:25px;
+}
+h3 {
+    font-size:23px;
+}
+h4 {
+    font-size:20px;
+}
+h5 {
+    font-size:18px;
+}
+h6 {
+    font-size:16px;
+}
+.home h3 {
+    font-size:28px;
+}
+.home .entry-title,
+.home .entry-title a {
+    font-size:18px;
+    color:#d83e00;
+}
+
+.entry-meta {
+    font-size:12px;
+}
+
+#nyheter {
+    font-size:15px;
+}
+
+/*.sidebar h3 {
+margin-bottom:0.1em;
+font-size:14px;
+}*/
+.sidebar {
+    font-size:12px;
+}
+
+/* Lists */
+.entry-content ul,
+.entry-content ol {
+    padding:0;
+}
+.entry-content ul ul,
+.entry-content ol ol,
+.entry-content ul ol,
+.entry-content ol ul {
+    padding-left:20px;
+}
+.entry-content ul {
+    list-style: circle inside;
+}
+.entry-content ul ul {
+    list-style: disc inside;
+}
+.entry-content ul ul ul {
+    list-style: square inside;
+}
+.entry-content ul ul ul ul {
+    list-style: circle inside;
+}
+.entry-content ul ul ul ul ul {
+    list-style: disc inside;
+}
+.entry-content ul ul ul ul ul ul {
+    list-style: square inside;
+}
+.entry-content ol {
+    list-style: decimal inside;
+}
+.entry-content ol ol {
+    list-style: upper-roman inside;
+}
+.entry-content ol ol ol {
+    list-style: lower-roman inside;
+}
+.entry-content ol ol ol ol {
+    list-style: decimal inside;
+}
+.entry-content ol ol ol ol ol {
+    list-style: upper-roman inside;
+}
+.entry-content ol ol ol ol ol ol {
+    list-style: lower-roman inside;
+}
+
+/* Quotes */
+.entry-content blockquote {
+    margin: 1em 2em;
+    font-style:italic;
+    background:#eeeeee;
+    margin:1em 2em;
+    padding:1px 19px;
+}
+.entry-content blockquote blockquote {
+    border:1px solid #000000;
+}
+.entry-content cite {
+    font-style:italic;
+}
+
+/* Images */
+img {
+    max-width:100%;
+}
+.entry-content img {
+    margin: 0 0 10px;
+}
+.entry-content img.alignright {
+    margin: 0 0 10px 10px;
+}
+.entry-content img.alignleft {
+    margin: 0 10px 10px 0;
+}
+
+/******************************
+ * Styles for inividual pages *
+ *****************************/
+h2.jobb {
+    background:#eeeeee;
+    margin-top:0.5em;
+    padding:10px 10px 5px;
+}

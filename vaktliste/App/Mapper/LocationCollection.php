@@ -6,7 +6,7 @@
  * @version 0.1
  */
 
-class App_Mapper_Location extends App_Mapper_Collection {
+class App_Mapper_LocationCollection extends App_Mapper_Collection {
   function targetClass() {
     return "App_Domain_Location";
   }

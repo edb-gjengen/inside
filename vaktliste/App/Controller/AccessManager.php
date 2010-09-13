@@ -26,6 +26,8 @@ class App_Controller_AccessManager {
   }
   
   function getCommandAccess($cmd) {
+    // Do the user has access to the specified command ?
+    // Currently not implemented, return true if user is logged in
     if (!is_null(App_Base_SessionRegistry::getUserId())) {
       return true;
     }

@@ -18,6 +18,42 @@ Class Calendar {
     $nextYear      = $year +1 . $month;
 
     $fDate = "$year-$month-01";
+    /*switch ($this->type){
+    case 'events':
+      $events = new Events();
+      $list   = $events->getListMonth($year, $month);
+      break;
+ 
+    case 'concerts':
+      $concerts = new Concerts();
+      $list     = $concerts->getListMonth($year, $month);
+      break;
+
+    case 'all':
+      $endMonth  = date("Y-m", strtotime("+1 month", strtotime("$year-$month-01")));
+    	$sql = "SELECT id, name, DAYOFMONTH(time) AS date, 'event' AS type, time 
+      	      FROM din_event
+        	    WHERE time >= '$year-$month-01'
+          	  AND time < '$endMonth-01'
+            	UNION " .
+             "SELECT id, tittel AS name, DAYOFMONTH(tid) AS date, 'concert' AS type, tid AS time 
+      	      FROM program
+        	    WHERE tid >= '$year-$month-01'
+          	  AND tid < '$endMonth-01'
+            	ORDER BY time ASC";
+    	$conn = db_connect();
+    	$list =& $conn->query($sql);
+      break;
+
+	case 'barshifts':
+      $barshifts = new BarShifts();
+      $list      = $barshifts->getListMonth($year, $month);
+      break;
+
+    default:
+      return;
+    }
+    */
     
     $dayOfWeek = date("w", strtotime("$year-$month-01"));
     if ($dayOfWeek == "0"){

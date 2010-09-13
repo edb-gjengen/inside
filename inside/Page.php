@@ -532,22 +532,6 @@ possibly include it instead? --Thomas Misund, 26. Oct 2009
     </div> <!-- #content-wrap -->
 
 <?php
-// Print Google Analytics tracking code
-?>
-<script type="text/javascript">
-
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-52914-1']);
-  _gaq.push(['_trackPageview']);
-
-  (function() {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  })();
-
-</script>
-<?php
 
 $time_end = microtime(true);
 $time = round(($time_end - $GLOBALS['time_start']), 4);
@@ -3227,9 +3211,6 @@ Teksten under er hentet fra kunnskapsdatabasen. Du står fritt til å endre den et
         while ($row =& $users->users->fetchRow(DB_FETCHMODE_OBJECT)){
           $user = new User($row->id);
           print "<tr>";
-          print "<form action=\"" . $action . "\" method=\"post\">";
-          print "<input type=\"hidden\" name=\"action\" value=\"membership-sale\" />";
-          print "<input type=\"hidden\" name=\"userid\" value=\"" . $user->getId() . "\" />";
           print "<td class=\"number\" id=\"user_" . $user->getId() . "_cardno\">". $user->cardno . "</td>\n";
           print "<td><a href=\"index.php?page=display-user&amp;userid=" . $user->id . "\">" . $user->getName() . "</a></td>";
           print "<td class=\"is_member\">";
@@ -3250,6 +3231,9 @@ Teksten under er hentet fra kunnskapsdatabasen. Du står fritt til å endre den et
           print "<td class=\"is_member\">" . $user->getLastSticker() . "</td>";
 
           print "<td>";
+          print "<form action=\"" . $action . "\" method=\"post\">";
+          print "<input type=\"hidden\" name=\"action\" value=\"membership-sale\" />";
+          print "<input type=\"hidden\" name=\"userid\" value=\"" . $user->getId() . "\" />";
           if ($user->hasExpired()) {
             if (!$user->getCardProduced()) {
               print "forny (produser kort)";
@@ -3280,16 +3264,20 @@ Teksten under er hentet fra kunnskapsdatabasen. Du står fritt til å endre den et
               print "-";
             }
           }
+          print "</form>";
           print "</td>";
 
           print "<td>";
+          print "<form action=\"" . $action . "\" method=\"post\">";
+          print "<input type=\"hidden\" name=\"action\" value=\"membership-sale\" />";
+          print "<input type=\"hidden\" name=\"userid\" value=\"" . $user->getId() . "\" />";
           if ($user->getCardDelivered()) {
-            print "<input type=\"hidden\" name=\"subaction\" value=\"order-new-card\" />";
+            print "<input type=\"hidden\" name=\"subaction2\" value=\"order-new-card\" />";
             print "<input type=\"submit\" name=\"order-new-card\" value=\"bestille nytt kort\" />";
           }
+          print "</form>";
           print  "</td>";
 
-          print "</form>";
           print "</tr>";
         }
         print "</table>";

@@ -8,6 +8,7 @@
 
 class App_Domain_HelperFactory {
   const DIVISION = "App_Domain_Division";
+  const GROUP = "App_Domain_Group";
   const LOCATION = "App_Domain_Location";
   const USER = "App_Domain_User";
   const USER_PHONE = "App_Domain_UserPhone";
@@ -20,6 +21,8 @@ class App_Domain_HelperFactory {
     switch ($type) {
       case (self::DIVISION):
         return new App_Mapper_DivisionCollection();
+      case (self::GROUP):
+        return new App_Mapper_GroupCollection();
       case (self::LOCATION):
         return new App_Mapper_LocationCollection();
       case (self::USER):
@@ -43,6 +46,8 @@ class App_Domain_HelperFactory {
     switch ($type) {
       case (self::DIVISION):
         return new App_Mapper_DivisionMapper();
+      case (self::GROUP):
+        return new App_Mapper_GroupMapper();
       case (self::LOCATION):
         return new App_Mapper_LocationMapper();
       case (self::USER):

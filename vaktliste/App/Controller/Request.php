@@ -49,20 +49,20 @@ class App_Controller_Request {
     return $this->feedback;
   }
   
-  function getFeedbackString ($separator="\n") {
+  function getFeedbackString($separator="\n") {
     return implode($separator, $this->feedback);
   }
 
-    function setObject( $name, $object ) {
-        $this->objects[$name] = $object;
-    }
+  function setObject($name, $object) {
+      $this->objects[$name] = $object;
+  }
 
-    function getObject( $name ) {
-        if ( isset( $this->objects[$name] ) ) {
-            return $this->objects[$name];
-        }
-        return null;
+  function getObject($name) {
+    if ( isset( $this->objects[$name] ) ) {
+      return $this->objects[$name];
     }
+    return null;
+  }
   
   function setCommand (App_Command_Command $cmd) {
     return $this->command = $cmd;

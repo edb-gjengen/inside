@@ -16,7 +16,7 @@ class App_Mapper_WorkShiftMapper extends App_Mapper_Mapper {
     $this->selectStmt = self::$PDO->prepare(
       "SELECT * FROM work_shift WHERE id=?");
     $this->selectAllStmt = self::$PDO->prepare(
-      "SELECT * FROM work_shift");
+      "SELECT * FROM work_shift ORDER BY starts");
     $this->findByGroupIdStmt = self::$PDO->prepare(
       "SELECT * FROM work_shift WHERE group_id=?");
     $this->updateStmt = self::$PDO->prepare(
@@ -54,18 +54,18 @@ class App_Mapper_WorkShiftMapper extends App_Mapper_Mapper {
     $obj->setAutoAssignWorkers($array["autoassign_workers"]);
     
     // find group and create division object
-    $group_mapper = new App_Domain_GroupMapper();
+    $group_mapper = new App_Mapper_GroupMapper();
     $group = $group_mapper->find($array["group_id"]);
     $obj->setGroup($group);
     
     // find location and create location object
-    $location_mapper = new App_Domain_LocationMapper();
+    $location_mapper = new App_Mapper_LocationMapper();
     $location = $location_mapper->find($array["location_id"]);
     $obj->setLocation($location);
     
     // find salary type and create salary type object
-    $salarytype_mapper = new App_Domain_WorkSalaryTypeMapper();
-    $salarytype = $salarytype_mapper->find($array["slarytype_id"]);
+    $salarytype_mapper = new App_Mapper_WorkSalaryTypeMapper();
+    $salarytype = $salarytype_mapper->find($array["salarytype_id"]);
     $obj->setSalaryType($salarytype);
     
     return $obj;
@@ -86,7 +86,7 @@ class App_Mapper_WorkShiftMapper extends App_Mapper_Mapper {
     
     $this->insertStmt->execute();
     $id = self::$PDO->lastInsertId();
-    $this->setId($id);
+    $object->setId($id);
   }
 
   function update(App_Domain_DomainObject $object) {

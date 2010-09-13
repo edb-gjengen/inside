@@ -71,7 +71,7 @@ class App_Controller_ApplicationHelper {
     $status = App_Command_Command::statuses();
     $map->addView("default", $status, "login");
     $status = App_Command_Command::statuses("CMD_OK");
-    $map->addView("default", $status, "calendar");
+    //$map->addView("default", $status, "");
     $status = App_Command_Command::statuses("CMD_ERROR");
     $map->addView("default", $status, "error");
     
@@ -79,10 +79,23 @@ class App_Controller_ApplicationHelper {
     $status = App_Command_Command::statuses();
     $map->addView("login", $status, "login");
     $status = App_Command_Command::statuses("CMD_OK");
-    $map->addView("login", $status, "calendar");
+    $map->addForward("login", $status, "view-calendar");
     
     $map->addClassroot("logout", "Logout");
     //$map->addClassroot("logout", "Logout");
+    
+    $map->addClassroot("add-shift", "AddShift");
+    $status = App_Command_Command::statuses();
+    $map->addView("add-shift", $status, "view-shift");
+    $status = App_Command_Command::statuses("CMD_OK");
+    $map->addForward("add-shift", $status, "view-calendar");
+    
+    $map->addClassroot("view-shift", "GetShift");
+    $map->addView("view-shift", App_Command_Command::statuses(), "view-shift");
+    
+    $map->addClassroot("view-calendar", "ViewCalendar");
+    $status = App_Command_Command::statuses();
+    $map->addView("view-calendar", $status, "calendar");
     
     App_Base_ApplicationRegistry::setControllerMap($map);
     
@@ -96,9 +109,6 @@ class App_Controller_ApplicationHelper {
     App_Base_ApplicationRegistry::setPageTitle($pageTitle);
   
   }
-
-
-
   
   private function ensure ($expr, $message) {
     if (!$expr) {

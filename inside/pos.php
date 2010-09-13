@@ -8,7 +8,7 @@ header("Content-type: application/xml");
    
   $conn = db_connect();
 
-  $posId = mysql_real_escape_string($_REQUEST['positionid']); 
+  $posId = $_REQUEST['positionid']; 
 
   $sql = "SELECT name, text
           FROM din_position

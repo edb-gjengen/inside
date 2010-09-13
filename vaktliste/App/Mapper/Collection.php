@@ -15,7 +15,7 @@ abstract class App_Mapper_Collection implements Iterator {
   private $pointer;
   private $objects = array();
 
-  function __construct(array $raw = null, mapper_Mapper $mapper = null) {
+  function __construct(array $raw = null, App_Mapper_Mapper $mapper = null) {
     if (!is_null($raw) && !is_null($mapper)) {
       $this->rewind();
       $this->raw = $raw;

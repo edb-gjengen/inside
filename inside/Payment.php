@@ -73,6 +73,7 @@ class Payment {
 						$description, $returnURL) ) {
 			$orderRef = $this->payex->getOrderRef(); // get the orderRef
 			$this->payex->redirect($orderRef); // redirect the user
+			mysql_query("INSERT INTO `din_transaction_check`(`order_id`,`inserted`,`order_ref`) VALUES('$orderID', NOW(), '$orderRef')");
 		} else {
 			echo 'Initialize() failed.<br>';
 			echo 'Code: '.$this->payex->getcode().' ';
@@ -83,7 +84,7 @@ class Payment {
 	
 	public function completeTransaction($orderRef, $transaction_id) {
 		if ( $this->payex->Complete($orderRef) ) {
-			
+			#file_put_contents('tmp', var_export("\n\n" . time() . "\n\n" . $this->payex->Check($orderRef) . "\n\nTransaction:" . $this->payex->getTransactionStatus() ."\n",true) . "\n\n", FILE_APPEND);	
 				/*
 				Transaction statuses (defined in payex_defines.php):
 				0=Sale, 1=Initialize, 2=Credit, 3=Authorize, 4=Cancel, 5=Failure, 6=Capture
@@ -95,7 +96,6 @@ class Payment {
 				notify("Betalingen er ikke riktig gjennomført. Vennligst ta kontakt med support om du tror dette skyldes en feil.");
 				return false;
 			}
-			
 			$transaction = new Transaction($transaction_id);
 			$transaction->setStatus("OK");
 			notify("Betalingen er gjennomført. En kvittering er blitt sendt til din registrerte epostadresse.");
@@ -104,6 +104,7 @@ class Payment {
 	   		$this->user_email = $user->email;
 			}
 			$this->_sendConfirmationMail($transaction_id);
+			mysql_query("UPDATE `din_transaction_check` SET `order_ref2` = '$orderRef' WHERE `order_id`='{$transaction->id}' LIMIT 1");
 			return true;
 		}else {
 			notify("Betalingen er ikke riktig gjennomført. Vennligst ta kontakt med support om du tror dette skyldes en feil.");

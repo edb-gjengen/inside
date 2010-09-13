@@ -1,0 +1,406 @@
+
+
+
+1282505719
+
+array (
+  'CompleteResult' => '<?xml version="1.0" encoding="utf-8" ?><payex><header name="Payex Header v1.0"><id>e094adb6c5424befa5252d12c0b7405c</id><date>2010-08-22 19:35:18</date></header><status><code>OK</code><description>OK</description><errorCode>OK</errorCode><paramName /><thirdPartyError /></status><transactionStatus>0</transactionStatus><orderStatus>0</orderStatus><transactionRef>d3ae9d6518434e00a3c8086a265bab72</transactionRef><transactionNumber>60765680</transactionNumber><orderId>2366</orderId><productId>Handlevogn #2002</productId><paymentMethod>VISA</paymentMethod><amount>20000</amount><alreadyCompleted>False</alreadyCompleted><clientAccount>0</clientAccount><productNumber>Handlevogn #2002</productNumber><clientGsmNumber /><BankHash>f72de24c-a91f-4211-9890-6aecd84c098c</BankHash><AuthenticatedStatus>3DSecure</AuthenticatedStatus><AuthenticatedWith>Y</AuthenticatedWith><fraudData>false</fraudData></payex>',
+)
+tmp
+true
+
+
+1282510849
+
+array (
+  'CompleteResult' => '<?xml version="1.0" encoding="utf-8" ?><payex><header name="Payex Header v1.0"><id>5059ac4ca04a4937a8dcbbfee00a2c7f</id><date>2010-08-22 21:00:48</date></header><status><code>OK</code><description>OK</description><errorCode>OK</errorCode><paramName /><thirdPartyError /></status><transactionStatus>0</transactionStatus><orderStatus>0</orderStatus><transactionRef>32081b3de82f4aaf89acdf35358c7963</transactionRef><transactionNumber>60772833</transactionNumber><orderId>2367</orderId><productId>Handlevogn #2003</productId><paymentMethod>VISA</paymentMethod><amount>20000</amount><alreadyCompleted>False</alreadyCompleted><clientAccount>0</clientAccount><productNumber>Handlevogn #2003</productNumber><clientGsmNumber /><BankHash>6a66af56-1726-4ac3-83fe-d10e7cd68e6c</BankHash><AuthenticatedStatus>3DSecure</AuthenticatedStatus><AuthenticatedWith>Y</AuthenticatedWith><fraudData>false</fraudData></payex>',
+)
+tmp
+true
+
+
+1282510871
+
+array (
+  'CompleteResult' => '<?xml version="1.0" encoding="utf-8" ?><payex><header name="Payex Header v1.0"><id>eb391672a83e4deb9d24dc9e730f342e</id><date>2010-08-22 21:01:08</date></header><status><code>OK</code><description>OK</description><errorCode>OK</errorCode><paramName /><thirdPartyError /></status><transactionStatus>0</transactionStatus><orderStatus>0</orderStatus><transactionRef>32081b3de82f4aaf89acdf35358c7963</transactionRef><transactionNumber>60772833</transactionNumber><orderId>2367</orderId><productId>Handlevogn #2003</productId><paymentMethod>VISA</paymentMethod><amount>20000</amount><alreadyCompleted>True</alreadyCompleted><clientAccount>0</clientAccount><productNumber>Handlevogn #2003</productNumber><clientGsmNumber /><BankHash>6a66af56-1726-4ac3-83fe-d10e7cd68e6c</BankHash><AuthenticatedStatus>3DSecure</AuthenticatedStatus><AuthenticatedWith>Y</AuthenticatedWith><fraudData>false</fraudData></payex>',
+)
+tmp
+true
+
+
+1282550541
+
+array (
+  'CompleteResult' => '<?xml version="1.0" encoding="utf-8" ?><payex><header name="Payex Header v1.0"><id>5e6e90a77b344de499cff2cf158ac923</id><date>2010-08-23 08:02:22</date></header><status><code>OK</code><description>OK</description><errorCode>OK</errorCode><paramName /><thirdPartyError /></status><transactionStatus>0</transactionStatus><orderStatus>0</orderStatus><transactionRef>d46018b98b8e44acb529d964d692fac0</transactionRef><transactionNumber>60787685</transactionNumber><orderId>2369</orderId><productId>Handlevogn #2005</productId><paymentMethod>VISA</paymentMethod><amount>3500</amount><alreadyCompleted>False</alreadyCompleted><clientAccount>0</clientAccount><productNumber>Handlevogn #2005</productNumber><clientGsmNumber /><BankHash>e2c6be94-b9d6-4eed-b4ba-7a32dc3c6cbd</BankHash><AuthenticatedStatus>3DSecure</AuthenticatedStatus><AuthenticatedWith>Y</AuthenticatedWith><fraudData>false</fraudData></payex>',
+)
+tmp
+true
+
+
+1282573529
+
+array (
+  'CompleteResult' => '<?xml version="1.0" encoding="utf-8" ?><payex><header name="Payex Header v1.0"><id>15ea32953976409d8b78d8b6b27eb27e</id><date>2010-08-23 14:25:31</date></header><status><code>OK</code><description>OK</description><errorCode>OK</errorCode><paramName /><thirdPartyError /></status><transactionStatus>0</transactionStatus><orderStatus>0</orderStatus><transactionRef>ec2df9c96297424d85cd0d47b2f9fcbf</transactionRef><transactionNumber>60819315</transactionNumber><orderId>2370</orderId><productId>Handlevogn #2006</productId><paymentMethod>VISA</paymentMethod><amount>20000</amount><alreadyCompleted>False</alreadyCompleted><clientAccount>0</clientAccount><productNumber>Handlevogn #2006</productNumber><clientGsmNumber /><BankHash>3022deee-1692-456c-9ff3-78fd85716e5b</BankHash><AuthenticatedStatus>3DSecure</AuthenticatedStatus><AuthenticatedWith>Y</AuthenticatedWith><fraudData>false</fraudData></payex>',
+)
+tmp
+true
+
+
+1282586080
+
+array (
+  'CompleteResult' => '<?xml version="1.0" encoding="utf-8" ?><payex><header name="Payex Header v1.0"><id>d61d4c5295e64446abf7805e8c91ceed</id><date>2010-08-23 17:54:40</date></header><status><code>OK</code><description>OK</description><errorCode>OK</errorCode><paramName /><thirdPartyError /></status><transactionStatus>0</transactionStatus><orderStatus>0</orderStatus><transactionRef>7534a641ae95457dbe9a069d1725af50</transactionRef><transactionNumber>60840581</transactionNumber><orderId>2371</orderId><productId>Handlevogn #2007</productId><paymentMethod>VISA</paymentMethod><amount>20000</amount><alreadyCompleted>False</alreadyCompleted><clientAccount>0</clientAccount><productNumber>Handlevogn #2007</productNumber><clientGsmNumber /><BankHash>c2f14ad4-a4e4-43e1-b80d-d62ae09b96df</BankHash><AuthenticatedStatus>3DSecure</AuthenticatedStatus><AuthenticatedWith>Y</AuthenticatedWith><fraudData>false</fraudData></payex>',
+)
+tmp
+true
+
+
+1282648956
+
+array (
+  'CompleteResult' => '<?xml version="1.0" encoding="utf-8" ?><payex><header name="Payex Header v1.0"><id>bb5c74d22efc47a79d44bc89895eb9af</id><date>2010-08-24 11:22:36</date></header><status><code>OK</code><description>OK</description><errorCode>OK</errorCode><paramName /><thirdPartyError /></status><transactionStatus>0</transactionStatus><orderStatus>0</orderStatus><transactionRef>d46f1ca0ab2b4c26a1ddad6882d02305</transactionRef><transactionNumber>60894560</transactionNumber><orderId>2372</orderId><productId>Handlevogn #2008</productId><paymentMethod>VISA</paymentMethod><amount>20000</amount><alreadyCompleted>False</alreadyCompleted><clientAccount>0</clientAccount><productNumber>Handlevogn #2008</productNumber><clientGsmNumber /><BankHash>9c4a0b07-f679-4b8b-8611-0ea840c72f09</BankHash><AuthenticatedStatus>3DSecure</AuthenticatedStatus><AuthenticatedWith>Y</AuthenticatedWith><fraudData>false</fraudData></payex>',
+)
+tmp
+true
+
+
+1282685139
+
+array (
+  'CompleteResult' => '<?xml version="1.0" encoding="utf-8" ?><payex><header name="Payex Header v1.0"><id>74cbe5f35ba34bb2815c1a9f8dceddc7</id><date>2010-08-24 21:25:41</date></header><status><code>OK</code><description>OK</description><errorCode>OK</errorCode><paramName /><thirdPartyError /></status><transactionStatus>0</transactionStatus><orderStatus>0</orderStatus><transactionRef>f7eddf4a4f8b4f7ca079c416a1fbf969</transactionRef><transactionNumber>60947408</transactionNumber><orderId>2373</orderId><productId>Handlevogn #2009</productId><paymentMethod>VISA</paymentMethod><amount>20000</amount><alreadyCompleted>False</alreadyCompleted><clientAccount>0</clientAccount><productNumber>Handlevogn #2009</productNumber><clientGsmNumber /><BankHash>6eeea499-04e6-4954-8c75-12b94dab4b4b</BankHash><AuthenticatedStatus>3DSecure</AuthenticatedStatus><AuthenticatedWith>Y</AuthenticatedWith><fraudData>false</fraudData></payex>',
+)
+tmp
+true
+
+
+1282686581
+
+array (
+  'CompleteResult' => '<?xml version="1.0" encoding="utf-8" ?><payex><header name="Payex Header v1.0"><id>a350bc437aaa40ee9ebbe1534a613bdd</id><date>2010-08-24 21:49:43</date></header><status><code>OK</code><description>OK</description><errorCode>OK</errorCode><paramName /><thirdPartyError /></status><transactionStatus>0</transactionStatus><orderStatus>0</orderStatus><transactionRef>7823b391ec3446fda9338ab72d95a7fb</transactionRef><transactionNumber>60948286</transactionNumber><orderId>2374</orderId><productId>Handlevogn #2010</productId><paymentMethod>VISA</paymentMethod><amount>3500</amount><alreadyCompleted>False</alreadyCompleted><clientAccount>0</clientAccount><productNumber>Handlevogn #2010</productNumber><clientGsmNumber /><BankHash>98520b06-2ab1-4e4f-b36c-fcf426c141d2</BankHash><AuthenticatedStatus>3DSecure</AuthenticatedStatus><AuthenticatedWith>Y</AuthenticatedWith><fraudData>false</fraudData></payex>',
+)
+tmp
+true
+
+
+1282723867
+
+array (
+  'CompleteResult' => '<?xml version="1.0" encoding="utf-8" ?><payex><header name="Payex Header v1.0"><id>ac8d5a17f4e842f1859ca72000f8a079</id><date>2010-08-25 08:11:13</date></header><status><code>OK</code><description>OK</description><errorCode>OK</errorCode><paramName /><thirdPartyError /></status><transactionStatus>0</transactionStatus><orderStatus>0</orderStatus><transactionRef>1499c1b3b24f4a93b1a90c026dcead92</transactionRef><transactionNumber>60964440</transactionNumber><orderId>2375</orderId><productId>Handlevogn #2011</productId><paymentMethod>VISA</paymentMethod><amount>3500</amount><alreadyCompleted>False</alreadyCompleted><clientAccount>0</clientAccount><productNumber>Handlevogn #2011</productNumber><clientGsmNumber /><BankHash>b6c74b29-824c-4c23-9a9c-9579ff8a8a43</BankHash><AuthenticatedStatus>3DSecure</AuthenticatedStatus><AuthenticatedWith>Y</AuthenticatedWith><fraudData>false</fraudData></payex>',
+)
+tmp
+true
+
+
+1282727829
+
+array (
+  'CompleteResult' => '<?xml version="1.0" encoding="utf-8" ?><payex><header name="Payex Header v1.0"><id>7de3cea0e77546d7b2db172cd177d27c</id><date>2010-08-25 09:17:18</date></header><status><code>OK</code><description>OK</description><errorCode>OK</errorCode><paramName /><thirdPartyError /></status><transactionStatus>0</transactionStatus><orderStatus>0</orderStatus><transactionRef>05921260da7d4abfbe17597dc9071de4</transactionRef><transactionNumber>60969140</transactionNumber><orderId>2376</orderId><productId>Handlevogn #2012</productId><paymentMethod>VISA</paymentMethod><amount>20000</amount><alreadyCompleted>False</alreadyCompleted><clientAccount>0</clientAccount><productNumber>Handlevogn #2012</productNumber><clientGsmNumber /><BankHash>eb369acd-4e1f-4754-8102-dd546e6a6feb</BankHash><AuthenticatedStatus>3DSecure</AuthenticatedStatus><AuthenticatedWith>Y</AuthenticatedWith><fraudData>false</fraudData></payex>',
+)
+tmp
+true
+
+
+1282738005
+
+array (
+  'CompleteResult' => '<?xml version="1.0" encoding="utf-8" ?><payex><header name="Payex Header v1.0"><id>120f08aca0924528a8b0b0bc5edcbd96</id><date>2010-08-25 12:06:52</date></header><status><code>OK</code><description>OK</description><errorCode>OK</errorCode><paramName /><thirdPartyError /></status><transactionStatus>0</transactionStatus><orderStatus>0</orderStatus><transactionRef>861db9cc775c45e38c42551663f5d79c</transactionRef><transactionNumber>60984896</transactionNumber><orderId>2377</orderId><productId>Handlevogn #2013</productId><paymentMethod>VISA</paymentMethod><amount>20000</amount><alreadyCompleted>False</alreadyCompleted><clientAccount>0</clientAccount><productNumber>Handlevogn #2013</productNumber><clientGsmNumber /><BankHash>e997ba84-47c3-4859-854a-3c459e29a7da</BankHash><AuthenticatedStatus>3DSecure</AuthenticatedStatus><AuthenticatedWith>Y</AuthenticatedWith><fraudData>false</fraudData></payex>',
+)
+tmp
+true
+
+
+1282741121
+
+array (
+  'CompleteResult' => '<?xml version="1.0" encoding="utf-8" ?><payex><header name="Payex Header v1.0"><id>01e6efaf9e71412198f69a8083bcf230</id><date>2010-08-25 12:58:48</date></header><status><code>OK</code><description>OK</description><errorCode>OK</errorCode><paramName /><thirdPartyError /></status><transactionStatus>0</transactionStatus><orderStatus>0</orderStatus><transactionRef>fe07cfa6713b4f3c90e09b4cdb493131</transactionRef><transactionNumber>60989005</transactionNumber><orderId>2378</orderId><productId>Handlevogn #2014</productId><paymentMethod>VISA</paymentMethod><amount>20000</amount><alreadyCompleted>False</alreadyCompleted><clientAccount>0</clientAccount><productNumber>Handlevogn #2014</productNumber><clientGsmNumber /><BankHash>23dc2914-dfac-465a-ab6e-c696f85f24f4</BankHash><AuthenticatedStatus>3DSecure</AuthenticatedStatus><AuthenticatedWith>Y</AuthenticatedWith><fraudData>false</fraudData></payex>',
+)
+tmp
+true
+
+
+1282811261
+
+array (
+  'CompleteResult' => '<?xml version="1.0" encoding="utf-8" ?><payex><header name="Payex Header v1.0"><id>098af6566668442fa046e855b17276c9</id><date>2010-08-26 08:27:47</date></header><status><code>OK</code><description>OK</description><errorCode>OK</errorCode><paramName /><thirdPartyError /></status><transactionStatus>0</transactionStatus><orderStatus>0</orderStatus><transactionRef>70ffe0dd5a874285a65a8ebf893c358d</transactionRef><transactionNumber>61050450</transactionNumber><orderId>2381</orderId><productId>Handlevogn #2018</productId><paymentMethod>VISA</paymentMethod><amount>3500</amount><alreadyCompleted>False</alreadyCompleted><clientAccount>0</clientAccount><productNumber>Handlevogn #2018</productNumber><clientGsmNumber /><BankHash>a6f06651-0be5-4026-aae0-825bdbb82108</BankHash><AuthenticatedStatus>3DSecure</AuthenticatedStatus><AuthenticatedWith>Y</AuthenticatedWith><fraudData>false</fraudData></payex>',
+)
+tmp
+true
+
+
+1282843511
+
+array (
+  'CompleteResult' => '<?xml version="1.0" encoding="utf-8" ?><payex><header name="Payex Header v1.0"><id>2c5567978ed947d8b2f9f6553c6409b1</id><date>2010-08-26 17:25:18</date></header><status><code>OK</code><description>OK</description><errorCode>OK</errorCode><paramName /><thirdPartyError /></status><transactionStatus>0</transactionStatus><orderStatus>0</orderStatus><transactionRef>7cf90d1bbd87417f8fcedc4a2e184f83</transactionRef><transactionNumber>61092457</transactionNumber><orderId>2382</orderId><productId>Handlevogn #2019</productId><paymentMethod>VISA</paymentMethod><amount>20000</amount><alreadyCompleted>False</alreadyCompleted><clientAccount>0</clientAccount><productNumber>Handlevogn #2019</productNumber><clientGsmNumber /><BankHash>6899f446-ad7a-4402-a2a0-2b09a9c7f395</BankHash><AuthenticatedStatus>None</AuthenticatedStatus><AuthenticatedWith>N</AuthenticatedWith><fraudData>false</fraudData></payex>',
+)
+tmp
+true
+
+
+1282850785
+
+array (
+  'CompleteResult' => '<?xml version="1.0" encoding="utf-8" ?><payex><header name="Payex Header v1.0"><id>653042fdedc14c42b7bd7eabf7dfe01e</id><date>2010-08-26 19:26:30</date></header><status><code>OK</code><description>OK</description><errorCode>OK</errorCode><paramName /><thirdPartyError /></status><transactionStatus>0</transactionStatus><orderStatus>0</orderStatus><transactionRef>2e07a26fa6f24f7685658c2e43193adc</transactionRef><transactionNumber>61102870</transactionNumber><orderId>2383</orderId><productId>Handlevogn #2020</productId><paymentMethod>VISA</paymentMethod><amount>20000</amount><alreadyCompleted>False</alreadyCompleted><clientAccount>0</clientAccount><productNumber>Handlevogn #2020</productNumber><clientGsmNumber /><BankHash>afef68d3-32fb-4500-ae17-5f1b3edc00ed</BankHash><AuthenticatedStatus>3DSecure</AuthenticatedStatus><AuthenticatedWith>Y</AuthenticatedWith><fraudData>false</fraudData></payex>',
+)
+tmp
+true
+
+
+1282853724
+
+array (
+  'CompleteResult' => '<?xml version="1.0" encoding="utf-8" ?><payex><header name="Payex Header v1.0"><id>51ffa9cbafbb4fe98cafb909deece26c</id><date>2010-08-26 20:15:29</date></header><status><code>OK</code><description>OK</description><errorCode>OK</errorCode><paramName /><thirdPartyError /></status><transactionStatus>0</transactionStatus><orderStatus>0</orderStatus><transactionRef>a772cf01b0d948c4af68b2ec90030381</transactionRef><transactionNumber>61107210</transactionNumber><orderId>2384</orderId><productId>Handlevogn #2021</productId><paymentMethod>VISA</paymentMethod><amount>3500</amount><alreadyCompleted>False</alreadyCompleted><clientAccount>0</clientAccount><productNumber>Handlevogn #2021</productNumber><clientGsmNumber /><BankHash>a9dce6eb-7fa0-4fc8-bb9a-5f67eb6f104e</BankHash><AuthenticatedStatus>3DSecure</AuthenticatedStatus><AuthenticatedWith>Y</AuthenticatedWith><fraudData>false</fraudData></payex>',
+)
+tmp
+true
+
+
+1282857116
+
+array (
+  'CompleteResult' => '<?xml version="1.0" encoding="utf-8" ?><payex><header name="Payex Header v1.0"><id>42aeca023601405db1dc54f58cd50e9e</id><date>2010-08-26 21:12:05</date></header><status><code>OK</code><description>OK</description><errorCode>OK</errorCode><paramName /><thirdPartyError /></status><transactionStatus>5</transactionStatus><orderStatus>0</orderStatus><transactionRef>93b181e86a454028b660364a7d4681db</transactionRef><transactionNumber>61111788</transactionNumber><orderId>2385</orderId><productId>Handlevogn #2022</productId><paymentMethod>VISA</paymentMethod><amount>20000</amount><alreadyCompleted>False</alreadyCompleted><errorDetails><transactionErrorCode>OperationCancelledbyCustomer</transactionErrorCode><transactionErrorDescription>Accomplish3rdParty</transactionErrorDescription><transactionThirdPartyError>USER_CANCELED</transactionThirdPartyError></errorDetails><clientAccount>0</clientAccount><productNumber>Handlevogn #2022</productNumber><clientGsmNumber /><transactionFailedReason>CreditCard_Error</transactionFailedReason><BankHash>fdb400b7-ab13-4dbf-922b-cc2e29c34807</BankHash><AuthenticatedWith>N</AuthenticatedWith><fraudData>false</fraudData></payex>',
+)
+tmp
+true
+
+
+1282934047
+
+array (
+  'CompleteResult' => '<?xml version="1.0" encoding="utf-8" ?><payex><header name="Payex Header v1.0"><id>5e6d107f6cb34f6784d94aee2dfcb3df</id><date>2010-08-27 18:34:12</date></header><status><code>OK</code><description>OK</description><errorCode>OK</errorCode><paramName /><thirdPartyError /></status><transactionStatus>0</transactionStatus><orderStatus>0</orderStatus><transactionRef>55085049016649fbad8b2c9f656b7fe4</transactionRef><transactionNumber>61173917</transactionNumber><orderId>2387</orderId><productId>Handlevogn #2023</productId><paymentMethod>VISA</paymentMethod><amount>20000</amount><alreadyCompleted>False</alreadyCompleted><clientAccount>0</clientAccount><productNumber>Handlevogn #2023</productNumber><clientGsmNumber /><BankHash>9e8db6da-82f6-40d7-a6ea-b4e31923adc4</BankHash><AuthenticatedStatus>3DSecure</AuthenticatedStatus><AuthenticatedWith>Y</AuthenticatedWith><fraudData>false</fraudData></payex>',
+)
+tmp
+true
+
+
+1283020700
+
+array (
+  'CompleteResult' => '<?xml version="1.0" encoding="utf-8" ?><payex><header name="Payex Header v1.0"><id>7d005970e5ec4aec958e4ba5a0fc040b</id><date>2010-08-28 18:38:24</date></header><status><code>OK</code><description>OK</description><errorCode>OK</errorCode><paramName /><thirdPartyError /></status><transactionStatus>0</transactionStatus><orderStatus>0</orderStatus><transactionRef>df0747b89f0e4d5b913e1a7bdb60830a</transactionRef><transactionNumber>61230117</transactionNumber><orderId>2395</orderId><productId>Handlevogn #2022</productId><paymentMethod>VISA</paymentMethod><amount>20000</amount><alreadyCompleted>False</alreadyCompleted><clientAccount>0</clientAccount><productNumber>Handlevogn #2022</productNumber><clientGsmNumber /><BankHash>fdb400b7-ab13-4dbf-922b-cc2e29c34807</BankHash><AuthenticatedStatus>3DSecure</AuthenticatedStatus><AuthenticatedWith>Y</AuthenticatedWith><fraudData>false</fraudData></payex>',
+)
+tmp
+true
+
+
+1283025954
+
+array (
+  'CompleteResult' => '<?xml version="1.0" encoding="utf-8" ?><payex><header name="Payex Header v1.0"><id>a1a3c6dec393475eaac30071241158fa</id><date>2010-08-28 20:05:57</date></header><status><code>OK</code><description>OK</description><errorCode>OK</errorCode><paramName /><thirdPartyError /></status><transactionStatus>0</transactionStatus><orderStatus>0</orderStatus><transactionRef>359191c81f7945509e87b3b7dd3bae1c</transactionRef><transactionNumber>61234078</transactionNumber><orderId>2396</orderId><productId>Handlevogn #2024</productId><paymentMethod>VISA</paymentMethod><amount>20000</amount><alreadyCompleted>False</alreadyCompleted><clientAccount>0</clientAccount><productNumber>Handlevogn #2024</productNumber><clientGsmNumber /><BankHash>bfc2af58-e859-4bf7-83ce-18987986f821</BankHash><AuthenticatedStatus>3DSecure</AuthenticatedStatus><AuthenticatedWith>Y</AuthenticatedWith><fraudData>false</fraudData></payex>',
+)
+tmp
+true
+
+
+1283093789
+
+array (
+  'CompleteResult' => '<?xml version="1.0" encoding="utf-8" ?><payex><header name="Payex Header v1.0"><id>e4746b3aba0c4b79b42c831083935616</id><date>2010-08-29 14:56:31</date></header><status><code>OK</code><description>OK</description><errorCode>OK</errorCode><paramName /><thirdPartyError /></status><transactionStatus>5</transactionStatus><orderStatus>0</orderStatus><transactionRef>5a671425a02c4262a9e0205761711c96</transactionRef><transactionNumber>61275180</transactionNumber><orderId>2397</orderId><productId>Handlevogn #2029</productId><paymentMethod>VISA</paymentMethod><amount>20000</amount><alreadyCompleted>False</alreadyCompleted><errorDetails><transactionErrorCode>OperationCancelledbyCustomer</transactionErrorCode><transactionErrorDescription>Accomplish3rdParty</transactionErrorDescription><transactionThirdPartyError>USER_CANCELED</transactionThirdPartyError></errorDetails><clientAccount>0</clientAccount><productNumber>Handlevogn #2029</productNumber><clientGsmNumber /><transactionFailedReason>CreditCard_Error</transactionFailedReason><BankHash>cfab921c-ac1d-4384-b35a-e0f58dfc1b0c</BankHash><AuthenticatedWith>N</AuthenticatedWith><fraudData>false</fraudData></payex>',
+)
+tmp
+true
+
+
+1283094793
+
+array (
+  'CompleteResult' => '<?xml version="1.0" encoding="utf-8" ?><payex><header name="Payex Header v1.0"><id>8695a6799e77436b81c6dbc774331a1c</id><date>2010-08-29 15:13:16</date></header><status><code>OK</code><description>OK</description><errorCode>OK</errorCode><paramName /><thirdPartyError /></status><transactionStatus>0</transactionStatus><orderStatus>0</orderStatus><transactionRef>110de966de874459bd3009aca71c4c45</transactionRef><transactionNumber>61276520</transactionNumber><orderId>2398</orderId><productId>Handlevogn #2029</productId><paymentMethod>VISA</paymentMethod><amount>20000</amount><alreadyCompleted>False</alreadyCompleted><clientAccount>0</clientAccount><productNumber>Handlevogn #2029</productNumber><clientGsmNumber /><BankHash>cfab921c-ac1d-4384-b35a-e0f58dfc1b0c</BankHash><AuthenticatedStatus>3DSecure</AuthenticatedStatus><AuthenticatedWith>Y</AuthenticatedWith><fraudData>false</fraudData></payex>',
+)
+tmp
+true
+
+
+1283117421
+
+array (
+  'CompleteResult' => '<?xml version="1.0" encoding="utf-8" ?><payex><header name="Payex Header v1.0"><id>993852cbe06646e1ba7aa6d65f83edaf</id><date>2010-08-29 21:30:23</date></header><status><code>OK</code><description>OK</description><errorCode>OK</errorCode><paramName /><thirdPartyError /></status><transactionStatus>0</transactionStatus><orderStatus>0</orderStatus><transactionRef>1bc5196f457749c08f17f3a05e465848</transactionRef><transactionNumber>61309033</transactionNumber><orderId>2399</orderId><productId>Handlevogn #2030</productId><paymentMethod>VISA</paymentMethod><amount>20000</amount><alreadyCompleted>False</alreadyCompleted><clientAccount>0</clientAccount><productNumber>Handlevogn #2030</productNumber><clientGsmNumber /><BankHash>0b203ce0-a937-45f8-ae2b-83e54e193acc</BankHash><AuthenticatedStatus>None</AuthenticatedStatus><AuthenticatedWith>N</AuthenticatedWith><fraudData>false</fraudData></payex>',
+)
+tmp
+true
+
+
+1283153028
+
+array (
+  'CompleteResult' => '<?xml version="1.0" encoding="utf-8" ?><payex><header name="Payex Header v1.0"><id>8442d00e3ad943319741b81938b6fe94</id><date>2010-08-30 07:23:50</date></header><status><code>OK</code><description>OK</description><errorCode>OK</errorCode><paramName /><thirdPartyError /></status><transactionStatus>0</transactionStatus><orderStatus>0</orderStatus><transactionRef>1c390bdad9754c42ba483f127b5dc4c3</transactionRef><transactionNumber>61321831</transactionNumber><orderId>2400</orderId><productId>Handlevogn #2031</productId><paymentMethod>VISA</paymentMethod><amount>3500</amount><alreadyCompleted>False</alreadyCompleted><clientAccount>0</clientAccount><productNumber>Handlevogn #2031</productNumber><clientGsmNumber /><BankHash>a75352b3-de7c-4c28-ae47-f07d95b9a3a1</BankHash><AuthenticatedStatus>3DSecure</AuthenticatedStatus><AuthenticatedWith>Y</AuthenticatedWith><fraudData>false</fraudData></payex>',
+)
+tmp
+true
+
+
+1283167111
+
+array (
+  'CompleteResult' => '<?xml version="1.0" encoding="utf-8" ?><payex><header name="Payex Header v1.0"><id>74571323d258454dac69d37dd475c6d4</id><date>2010-08-30 11:18:33</date></header><status><code>OK</code><description>OK</description><errorCode>OK</errorCode><paramName /><thirdPartyError /></status><transactionStatus>0</transactionStatus><orderStatus>0</orderStatus><transactionRef>9c20e11f4c554dc9b18cbedacad511d2</transactionRef><transactionNumber>61345231</transactionNumber><orderId>2401</orderId><productId>Handlevogn #2032</productId><paymentMethod>VISA</paymentMethod><amount>3500</amount><alreadyCompleted>False</alreadyCompleted><clientAccount>0</clientAccount><productNumber>Handlevogn #2032</productNumber><clientGsmNumber /><BankHash>36b5e281-5871-48af-93e0-a8a7fd3a6813</BankHash><AuthenticatedStatus>3DSecure</AuthenticatedStatus><AuthenticatedWith>Y</AuthenticatedWith><fraudData>false</fraudData></payex>',
+)
+tmp
+true
+
+
+1283203827
+
+array (
+  'CompleteResult' => '<?xml version="1.0" encoding="utf-8" ?><payex><header name="Payex Header v1.0"><id>aca416f295a34a1da3f4520ac2abf18a</id><date>2010-08-30 21:30:27</date></header><status><code>OK</code><description>OK</description><errorCode>OK</errorCode><paramName /><thirdPartyError /></status><transactionStatus>0</transactionStatus><orderStatus>0</orderStatus><transactionRef>d0e2b3cc44dc4edfbe0f3addc2ace202</transactionRef><transactionNumber>61405709</transactionNumber><orderId>2402</orderId><productId>Handlevogn #2033</productId><paymentMethod>VISA</paymentMethod><amount>20000</amount><alreadyCompleted>False</alreadyCompleted><clientAccount>0</clientAccount><productNumber>Handlevogn #2033</productNumber><clientGsmNumber /><BankHash>94e42dc4-fff7-407d-ae24-3fad8452930a</BankHash><AuthenticatedStatus>3DSecure</AuthenticatedStatus><AuthenticatedWith>Y</AuthenticatedWith><fraudData>false</fraudData></payex>',
+)
+tmp
+true
+
+
+1283259775
+
+array (
+  'CompleteResult' => '<?xml version="1.0" encoding="utf-8" ?><payex><header name="Payex Header v1.0"><id>a0039ebc8ae5478d90009856d5ac04a7</id><date>2010-08-31 13:02:56</date></header><status><code>OK</code><description>OK</description><errorCode>OK</errorCode><paramName /><thirdPartyError /></status><transactionStatus>0</transactionStatus><orderStatus>0</orderStatus><transactionRef>a699c98f29e84864bcdb071bac7f6a66</transactionRef><transactionNumber>61456158</transactionNumber><orderId>2403</orderId><productId>Handlevogn #2035</productId><paymentMethod>VISA</paymentMethod><amount>20000</amount><alreadyCompleted>False</alreadyCompleted><clientAccount>0</clientAccount><productNumber>Handlevogn #2035</productNumber><clientGsmNumber /><BankHash>f8386f65-3ce3-4330-ac6e-2f0b7f387f4d</BankHash><AuthenticatedStatus>3DSecure</AuthenticatedStatus><AuthenticatedWith>Y</AuthenticatedWith><fraudData>false</fraudData></payex>',
+)
+tmp
+true
+
+
+1283278469
+
+array (
+  'CompleteResult' => '<?xml version="1.0" encoding="utf-8" ?><payex><header name="Payex Header v1.0"><id>e711fb50999f4899898f6f75f272a835</id><date>2010-08-31 18:14:28</date></header><status><code>OK</code><description>OK</description><errorCode>OK</errorCode><paramName /><thirdPartyError /></status><transactionStatus>0</transactionStatus><orderStatus>0</orderStatus><transactionRef>a35a9a1024bc4966aa1e24c568bf0000</transactionRef><transactionNumber>61484730</transactionNumber><orderId>2404</orderId><productId>Handlevogn #2036</productId><paymentMethod>VISA</paymentMethod><amount>20000</amount><alreadyCompleted>False</alreadyCompleted><clientAccount>0</clientAccount><productNumber>Handlevogn #2036</productNumber><clientGsmNumber /><BankHash>54c5a40d-a96f-4a52-824b-20ed0cd69a9d</BankHash><AuthenticatedStatus>3DSecure</AuthenticatedStatus><AuthenticatedWith>Y</AuthenticatedWith><fraudData>false</fraudData></payex>',
+)
+tmp
+true
+
+
+1283279270
+
+array (
+  'CompleteResult' => '<?xml version="1.0" encoding="utf-8" ?><payex><header name="Payex Header v1.0"><id>100ce69d7fcf41ce8b66e1699102b408</id><date>2010-08-31 18:27:50</date></header><status><code>OK</code><description>OK</description><errorCode>OK</errorCode><paramName /><thirdPartyError /></status><transactionStatus>0</transactionStatus><orderStatus>0</orderStatus><transactionRef>4d151e1ec8904eb9825079e33f2b7744</transactionRef><transactionNumber>61486047</transactionNumber><orderId>2405</orderId><productId>Handlevogn #2037</productId><paymentMethod>VISA</paymentMethod><amount>3500</amount><alreadyCompleted>False</alreadyCompleted><clientAccount>0</clientAccount><productNumber>Handlevogn #2037</productNumber><clientGsmNumber /><BankHash>bb6affe3-a56c-4158-aeeb-2cdb10267f76</BankHash><AuthenticatedStatus>3DSecure</AuthenticatedStatus><AuthenticatedWith>Y</AuthenticatedWith><fraudData>false</fraudData></payex>',
+)
+tmp
+true
+
+
+1283428309
+
+array (
+  'CompleteResult' => '<?xml version="1.0" encoding="utf-8" ?><payex><header name="Payex Header v1.0"><id>a357b465ea754680be4bbce35353839b</id><date>2010-09-02 11:51:53</date></header><status><code>OK</code><description>OK</description><errorCode>OK</errorCode><paramName /><thirdPartyError /></status><transactionStatus>0</transactionStatus><orderStatus>0</orderStatus><transactionRef>7f040adde7984ddaa0928b6459181f20</transactionRef><transactionNumber>61643552</transactionNumber><orderId>2408</orderId><productId>Handlevogn #2040</productId><paymentMethod>VISA</paymentMethod><amount>20000</amount><alreadyCompleted>False</alreadyCompleted><clientAccount>0</clientAccount><productNumber>Handlevogn #2040</productNumber><clientGsmNumber /><BankHash>83874db6-6775-470f-9333-a4e791dce01a</BankHash><AuthenticatedStatus>3DSecure</AuthenticatedStatus><AuthenticatedWith>Y</AuthenticatedWith><fraudData>false</fraudData></payex>',
+)
+tmp
+true
+
+
+1283460713
+
+array (
+  'CompleteResult' => '<?xml version="1.0" encoding="utf-8" ?><payex><header name="Payex Header v1.0"><id>33f73cd7d75f467b8717e31703633b65</id><date>2010-09-02 20:51:58</date></header><status><code>OK</code><description>OK</description><errorCode>OK</errorCode><paramName /><thirdPartyError /></status><transactionStatus>0</transactionStatus><orderStatus>0</orderStatus><transactionRef>f1b084d30c7f44f296b9447a2fd2c4f9</transactionRef><transactionNumber>61687075</transactionNumber><orderId>2409</orderId><productId>Handlevogn #2042</productId><paymentMethod>VISA</paymentMethod><amount>20000</amount><alreadyCompleted>False</alreadyCompleted><clientAccount>0</clientAccount><productNumber>Handlevogn #2042</productNumber><clientGsmNumber /><BankHash>e9d5c828-7ef8-4182-b6c8-67bbf68d5bb8</BankHash><AuthenticatedStatus>3DSecure</AuthenticatedStatus><AuthenticatedWith>Y</AuthenticatedWith><fraudData>false</fraudData></payex>',
+)
+tmp
+true
+
+
+1283609260
+
+array (
+  'CompleteResult' => '<?xml version="1.0" encoding="utf-8" ?><payex><header name="Payex Header v1.0"><id>2b36c602d6bf4127bd7017c7a099d549</id><date>2010-09-04 14:07:44</date></header><status><code>OK</code><description>OK</description><errorCode>OK</errorCode><paramName /><thirdPartyError /></status><transactionStatus>0</transactionStatus><orderStatus>0</orderStatus><transactionRef>b2c16494d2ea430892e31f434e14ba1c</transactionRef><transactionNumber>61804574</transactionNumber><orderId>2411</orderId><productId>Handlevogn #2044</productId><paymentMethod>VISA</paymentMethod><amount>20000</amount><alreadyCompleted>False</alreadyCompleted><clientAccount>0</clientAccount><productNumber>Handlevogn #2044</productNumber><clientGsmNumber /><BankHash>8fd040fa-def4-489a-875c-6338467b19b4</BankHash><AuthenticatedStatus>3DSecure</AuthenticatedStatus><AuthenticatedWith>Y</AuthenticatedWith><fraudData>false</fraudData></payex>',
+)
+tmp
+true
+
+
+1283766055
+
+array (
+  'CompleteResult' => '<?xml version="1.0" encoding="utf-8" ?><payex><header name="Payex Header v1.0"><id>3af5a2d27767442ba33adb8ac1f3c84b</id><date>2010-09-06 09:40:57</date></header><status><code>OK</code><description>OK</description><errorCode>OK</errorCode><paramName /><thirdPartyError /></status><transactionStatus>0</transactionStatus><orderStatus>0</orderStatus><transactionRef>34a5797f62584eddab3c9ec5a1624e48</transactionRef><transactionNumber>61907498</transactionNumber><orderId>2413</orderId><productId>Handlevogn #2046</productId><paymentMethod>VISA</paymentMethod><amount>20000</amount><alreadyCompleted>False</alreadyCompleted><clientAccount>0</clientAccount><productNumber>Handlevogn #2046</productNumber><clientGsmNumber /><BankHash>041d5df3-a4c5-4a65-905d-5f3c28e17d1b</BankHash><AuthenticatedStatus>3DSecure</AuthenticatedStatus><AuthenticatedWith>Y</AuthenticatedWith><fraudData>false</fraudData></payex>',
+)
+tmp
+true
+
+
+1283798299
+
+array (
+  'CompleteResult' => '<?xml version="1.0" encoding="utf-8" ?><payex><header name="Payex Header v1.0"><id>1ec0343876dc458ca1282911faca8389</id><date>2010-09-06 18:38:19</date></header><status><code>OK</code><description>OK</description><errorCode>OK</errorCode><paramName /><thirdPartyError /></status><transactionStatus>0</transactionStatus><orderStatus>0</orderStatus><transactionRef>fdd1407dbe064a2d8425a2103b247a12</transactionRef><transactionNumber>61960716</transactionNumber><orderId>2414</orderId><productId>Handlevogn #2047</productId><paymentMethod>VISA</paymentMethod><amount>20000</amount><alreadyCompleted>False</alreadyCompleted><clientAccount>0</clientAccount><productNumber>Handlevogn #2047</productNumber><clientGsmNumber /><BankHash>c977e9e0-46c1-4bb6-a99d-d7588d169ab6</BankHash><AuthenticatedStatus>3DSecure</AuthenticatedStatus><AuthenticatedWith>Y</AuthenticatedWith><fraudData>false</fraudData></payex>',
+)
+tmp
+true
+
+
+1283809157
+
+array (
+  'CompleteResult' => '<?xml version="1.0" encoding="utf-8" ?><payex><header name="Payex Header v1.0"><id>d2a435fddacb457ca32701a33ce795be</id><date>2010-09-06 21:39:18</date></header><status><code>OK</code><description>OK</description><errorCode>OK</errorCode><paramName /><thirdPartyError /></status><transactionStatus>0</transactionStatus><orderStatus>0</orderStatus><transactionRef>7a682ca187d8437c88fd3483567d014e</transactionRef><transactionNumber>61975518</transactionNumber><orderId>2415</orderId><productId>Handlevogn #2048</productId><paymentMethod>VISA</paymentMethod><amount>20000</amount><alreadyCompleted>False</alreadyCompleted><clientAccount>0</clientAccount><productNumber>Handlevogn #2048</productNumber><clientGsmNumber /><BankHash>712bc131-5df9-4367-a974-4d7956e893bb</BankHash><AuthenticatedStatus>None</AuthenticatedStatus><AuthenticatedWith>N</AuthenticatedWith><fraudData>false</fraudData></payex>',
+)
+tmp
+true
+
+
+1283876520
+
+array (
+  'CompleteResult' => '<?xml version="1.0" encoding="utf-8" ?><payex><header name="Payex Header v1.0"><id>f9c5be5413c342eca866e225727ca46d</id><date>2010-09-07 16:22:00</date></header><status><code>OK</code><description>OK</description><errorCode>OK</errorCode><paramName /><thirdPartyError /></status><transactionStatus>0</transactionStatus><orderStatus>0</orderStatus><transactionRef>b232458c8bb849a1879231398ba0d642</transactionRef><transactionNumber>62042444</transactionNumber><orderId>2419</orderId><productId>Handlevogn #2051</productId><paymentMethod>VISA</paymentMethod><amount>20000</amount><alreadyCompleted>False</alreadyCompleted><clientAccount>0</clientAccount><productNumber>Handlevogn #2051</productNumber><clientGsmNumber /><BankHash>3603891b-812e-4dff-95ec-01e86843df9f</BankHash><AuthenticatedStatus>3DSecure</AuthenticatedStatus><AuthenticatedWith>Y</AuthenticatedWith><fraudData>false</fraudData></payex>',
+)
+tmp
+true
+
+
+1283946296
+
+array (
+  'CompleteResult' => '<?xml version="1.0" encoding="utf-8" ?><payex><header name="Payex Header v1.0"><id>ff5a4ea5dbef433db472e9f0b903d92f</id><date>2010-09-08 11:45:03</date></header><status><code>OK</code><description>OK</description><errorCode>OK</errorCode><paramName /><thirdPartyError /></status><transactionStatus>0</transactionStatus><orderStatus>0</orderStatus><transactionRef>c44f0d4906174ee59a8c01024cc93d9e</transactionRef><transactionNumber>62104987</transactionNumber><orderId>2420</orderId><productId>Handlevogn #2052</productId><paymentMethod>VISA</paymentMethod><amount>3500</amount><alreadyCompleted>False</alreadyCompleted><clientAccount>0</clientAccount><productNumber>Handlevogn #2052</productNumber><clientGsmNumber /><BankHash>4fc830ad-8395-42ab-9d0e-d005234d9e4c</BankHash><AuthenticatedStatus>3DSecure</AuthenticatedStatus><AuthenticatedWith>Y</AuthenticatedWith><fraudData>false</fraudData></payex>',
+)
+tmp
+true
+
+
+1284033493
+
+array (
+  'CompleteResult' => '<?xml version="1.0" encoding="utf-8" ?><payex><header name="Payex Header v1.0"><id>c24ed26cc7dd4d1db9b3dea3424f259e</id><date>2010-09-09 11:58:18</date></header><status><code>OK</code><description>OK</description><errorCode>OK</errorCode><paramName /><thirdPartyError /></status><transactionStatus>0</transactionStatus><orderStatus>0</orderStatus><transactionRef>8c2a0c43dbb449298b37ef24d4773744</transactionRef><transactionNumber>62190338</transactionNumber><orderId>2421</orderId><productId>Handlevogn #2053</productId><paymentMethod>VISA</paymentMethod><amount>20000</amount><alreadyCompleted>False</alreadyCompleted><clientAccount>0</clientAccount><productNumber>Handlevogn #2053</productNumber><clientGsmNumber /><BankHash>dbe87dd5-8189-42b7-b317-5aecddd35ff3</BankHash><AuthenticatedStatus>3DSecure</AuthenticatedStatus><AuthenticatedWith>Y</AuthenticatedWith><fraudData>false</fraudData></payex>',
+)
+tmp
+true
+
+
+1284033988
+
+array (
+  'CompleteResult' => '<?xml version="1.0" encoding="utf-8" ?><payex><header name="Payex Header v1.0"><id>d100ea7dc3fd498d9fb264382b88f7a4</id><date>2010-09-09 12:06:35</date></header><status><code>OK</code><description>OK</description><errorCode>OK</errorCode><paramName /><thirdPartyError /></status><transactionStatus>0</transactionStatus><orderStatus>0</orderStatus><transactionRef>8eb9f1f45e914427af632ceb17d87f19</transactionRef><transactionNumber>62190945</transactionNumber><orderId>2422</orderId><productId>Handlevogn #2054</productId><paymentMethod>VISA</paymentMethod><amount>20000</amount><alreadyCompleted>False</alreadyCompleted><clientAccount>0</clientAccount><productNumber>Handlevogn #2054</productNumber><clientGsmNumber /><BankHash>71021cb2-f31c-4cea-952a-895ebe1d412a</BankHash><AuthenticatedStatus>3DSecure</AuthenticatedStatus><AuthenticatedWith>Y</AuthenticatedWith><fraudData>false</fraudData></payex>',
+)
+tmp
+true
+
+
+1284054550
+
+array (
+  'CompleteResult' => '<?xml version="1.0" encoding="utf-8" ?><payex><header name="Payex Header v1.0"><id>a20586f809104f1799f3b275501c3b40</id><date>2010-09-09 17:49:19</date></header><status><code>OK</code><description>OK</description><errorCode>OK</errorCode><paramName /><thirdPartyError /></status><transactionStatus>0</transactionStatus><orderStatus>0</orderStatus><transactionRef>123aa4cddab74a36a601dd8888bb668a</transactionRef><transactionNumber>62219522</transactionNumber><orderId>2423</orderId><productId>Handlevogn #2055</productId><paymentMethod>VISA</paymentMethod><amount>20000</amount><alreadyCompleted>False</alreadyCompleted><clientAccount>0</clientAccount><productNumber>Handlevogn #2055</productNumber><clientGsmNumber /><BankHash>e5088860-1cf8-4a5a-9261-1975d97a4bbb</BankHash><AuthenticatedStatus>3DSecure</AuthenticatedStatus><AuthenticatedWith>Y</AuthenticatedWith><fraudData>false</fraudData></payex>',
+)
+tmp
+true
+
+
+1284062934
+
+array (
+  'CompleteResult' => '<?xml version="1.0" encoding="utf-8" ?><payex><header name="Payex Header v1.0"><id>67f80ba8cb154580b4dc395cea66765d</id><date>2010-09-09 20:09:02</date></header><status><code>OK</code><description>OK</description><errorCode>OK</errorCode><paramName /><thirdPartyError /></status><transactionStatus>5</transactionStatus><orderStatus>0</orderStatus><transactionRef>274437709fd7441f8c89ef1a52a8796f</transactionRef><transactionNumber>62230690</transactionNumber><orderId>2424</orderId><productId>Handlevogn #2057</productId><paymentMethod>VISA</paymentMethod><amount>20000</amount><alreadyCompleted>False</alreadyCompleted><errorDetails><transactionErrorCode>PaymentRefusedByFinancialInstitution</transactionErrorCode><transactionErrorDescription>Accomplish3rdParty</transactionErrorDescription><transactionThirdPartyError>REJECTED_BY_ACQUIRER_INSUFFICIENT_FUNDS</transactionThirdPartyError></errorDetails><clientAccount>0</clientAccount><productNumber>Handlevogn #2057</productNumber><clientGsmNumber /><transactionFailedReason>CreditCard_Error</transactionFailedReason><BankHash>736dcb50-c6ed-4375-b18f-6e968991b1e2</BankHash><AuthenticatedStatus>3DSecure</AuthenticatedStatus><AuthenticatedWith>Y</AuthenticatedWith><fraudData>false</fraudData></payex>',
+)
+tmp
+true
+
+
+1284118506
+
+array (
+  'CompleteResult' => '<?xml version="1.0" encoding="utf-8" ?><payex><header name="Payex Header v1.0"><id>c5dd9b00c2884a6080733d666263e70c</id><date>2010-09-10 11:35:12</date></header><status><code>OK</code><description>OK</description><errorCode>OK</errorCode><paramName /><thirdPartyError /></status><transactionStatus>0</transactionStatus><orderStatus>0</orderStatus><transactionRef>2dcd272e05b54b57b236a399bb7521ca</transactionRef><transactionNumber>62269664</transactionNumber><orderId>2425</orderId><productId>Handlevogn #2058</productId><paymentMethod>VISA</paymentMethod><amount>20000</amount><alreadyCompleted>False</alreadyCompleted><clientAccount>0</clientAccount><productNumber>Handlevogn #2058</productNumber><clientGsmNumber /><BankHash>fd21cab2-d40a-4688-a38c-c82e68b49e9e</BankHash><AuthenticatedStatus>3DSecure</AuthenticatedStatus><AuthenticatedWith>Y</AuthenticatedWith><fraudData>false</fraudData></payex>',
+)
+tmp
+true
+
+
+1284123934
+
+array (
+  'CompleteResult' => '<?xml version="1.0" encoding="utf-8" ?><payex><header name="Payex Header v1.0"><id>28a7b71a982f444291d3e1b79074f998</id><date>2010-09-10 13:05:39</date></header><status><code>OK</code><description>OK</description><errorCode>OK</errorCode><paramName /><thirdPartyError /></status><transactionStatus>0</transactionStatus><orderStatus>0</orderStatus><transactionRef>ab508d6f7fc8449daf4ab95eff70bc06</transactionRef><transactionNumber>62279755</transactionNumber><orderId>2426</orderId><productId>Handlevogn #2059</productId><paymentMethod>VISA</paymentMethod><amount>20000</amount><alreadyCompleted>False</alreadyCompleted><clientAccount>0</clientAccount><productNumber>Handlevogn #2059</productNumber><clientGsmNumber /><BankHash>be0c0aa6-5205-44b7-8f2e-c986710e012e</BankHash><AuthenticatedStatus>3DSecure</AuthenticatedStatus><AuthenticatedWith>Y</AuthenticatedWith><fraudData>false</fraudData></payex>',
+)
+tmp
+true
+
+
+1284282203
+
+array (
+  'CompleteResult' => '<?xml version="1.0" encoding="utf-8" ?><payex><header name="Payex Header v1.0"><id>9d823c70fafa40a98d20003119b5aeff</id><date>2010-09-12 09:03:27</date></header><status><code>OK</code><description>OK</description><errorCode>OK</errorCode><paramName /><thirdPartyError /></status><transactionStatus>0</transactionStatus><orderStatus>0</orderStatus><transactionRef>edc6cb6b514f4c8482de2266ac4f55d7</transactionRef><transactionNumber>62380303</transactionNumber><orderId>2427</orderId><productId>Handlevogn #2061</productId><paymentMethod>VISA</paymentMethod><amount>20000</amount><alreadyCompleted>False</alreadyCompleted><clientAccount>0</clientAccount><productNumber>Handlevogn #2061</productNumber><clientGsmNumber /><BankHash>c3871cdf-4f0a-4b17-9eef-5a84cfd2cb62</BankHash><AuthenticatedStatus>3DSecure</AuthenticatedStatus><AuthenticatedWith>Y</AuthenticatedWith><fraudData>false</fraudData></payex>',
+)
+tmp
+true

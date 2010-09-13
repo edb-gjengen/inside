@@ -535,31 +535,35 @@ class User {
   }
 
   public function registerMembership($cardno) {
-    if ($this->cardno != NULL) {
-      notify("Du har prøvd å registrere nytt medlemskort, selv om du allerede har et registrert medlemskort. Vennligst kontakt administrator om du tror dette er en feil.");
-      return false;
-    }
-    $sql = "SELECT id " . "FROM din_user " . "WHERE cardno = $cardno";
+    // check that the activation code is valid
+    $sql = "SELECT id FROM din_user WHERE cardno=$cardno";
     $result = $this->conn->query($sql);
     if (DB :: isError($result) != true) {
       if ($result->numRows() > 0) {
         notify("Kortnummeret er allerede i bruk. Vennligst kontrollér nummeret.");
         return false;
       }
+    } else {
+      error($result->toString());
+      notify("En ukjent feil oppstod. Vennligst kontakt administrator.");
+    }
+    
+    // register cardno as used
+    $sql = "INSERT INTO din_usedcardno VALUES ($this->cardno, NOW())";
+    $result = $this->conn->query($sql);
+    
+    if ($this->cardno == null) {
+      // user doesn't have a previous card number, set his cardno to current cardno
+      $this->cardno = $cardno;
+    }
+    
+    $expires = $this->getExpiryDate();
 
-      $expires = $this->getExpiryDate();
-
-      $sql = "UPDATE din_user SET " . "  cardno = $cardno, " . "  expires = '$expires' " . "WHERE " . "  id = $this->id";
-      $result = $this->conn->query($sql);
-      if (DB :: isError($result) != true) {
-        $this->_registerUpdate("Medlemskap registrert.");
-        $sql = "INSERT INTO din_usedcardno VALUES ( " . "  $cardno, NOW())";
-        $result = $this->conn->query($sql);
-        return true;
-      } else {
-        error($result->toString());
-        notify("En ukjent feil oppstod. Vennligst kontakt administrator.");
-      }
+    $sql = "UPDATE din_user SET cardno=" . $this->cardno . ", expires = '$expires' WHERE id=" . $this->id;
+    $result = $this->conn->query($sql);
+    if (DB::isError($result) != true) {
+      $this->_registerUpdate("Medlemskap registrert.");
+      return true;
     } else {
       error($result->toString());
       notify("En ukjent feil oppstod. Vennligst kontakt administrator.");

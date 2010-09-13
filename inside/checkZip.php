@@ -7,7 +7,7 @@ header("Content-type: application/xml");
    
   $conn = db_connect();
 
-  $zip = mysql_real_escape_string($_REQUEST['zip']); 
+  $zip = $_REQUEST['zip']; 
 
   $sql = "SELECT poststed AS postarea
           FROM din_postnummer

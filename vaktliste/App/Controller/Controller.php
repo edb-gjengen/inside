@@ -22,6 +22,8 @@ class App_Controller_Controller {
     while ($cmd = $app_c->getCommand($request)) {
       $cmd->execute($request);
     }
+    // store modifications to database
+    App_Domain_ObjectWatcher::instance()->performOperations();
     $this->invokeView($app_c->getView($request));
   }
   

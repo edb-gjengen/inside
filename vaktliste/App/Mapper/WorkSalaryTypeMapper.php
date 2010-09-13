@@ -6,7 +6,7 @@
  * @version 0.1
  */
 
-class App_Mapper_WorkSalaryTyperMapper extends App_Mapper_Mapper {
+class App_Mapper_WorkSalaryTypeMapper extends App_Mapper_Mapper {
 
   function __construct() {
     // initialize database connection and common setup

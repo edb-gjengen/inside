@@ -35,7 +35,13 @@ class App_Domain_Group extends App_Domain_DomainObject {
     return $this->text;
   }
   
-  function setDivision(App_Domain_Division $division) {
+  function setDivision($division) {
+    // check if division is an instance of App_Domain_Division
+    if (!is_null($division)) {
+      if (!($division instanceof App_Domain_Division)) {
+        throw new Exception("Division must be an instance of division class or null");
+      }
+    }
     $this->division = $division;
     $this->markDirty();
   }

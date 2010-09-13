@@ -50,7 +50,7 @@ class App_Mapper_GroupMapper extends App_Mapper_Mapper {
     $obj->setMailinglist($array["mailinglist"]);
     
     // find division and create division object
-    $division_mapper = new App_Domain_DivisionMapper();
+    $division_mapper = new App_Mapper_DivisionMapper();
     $division = $division_mapper->find($array["division_id"]);
     $obj->setDivision($division);
     
