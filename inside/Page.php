@@ -143,7 +143,7 @@ possibly include it instead? --Thomas Misund, 26. Oct 2009
     }else {
     ?>
         <noscript>
-          <div class="messages">
+          <div class="messages fancybox">
             <p>Disse sidene er optimalisert for bruk med JavaScript.</p>
             <p>Det anbefales derfor at du aktiviserer JavaScript.</p>
             <p>En del funksjoner vil ikke fungere som forventet uten JavaScript, men alt innhold skal likevel være tilgjengelig.</p>
@@ -723,15 +723,15 @@ possibly include it instead? --Thomas Misund, 26. Oct 2009
 
 
 		if (isActive()) {
-	    //brukersøk
-  	  $title   = "søk etter bruker";
+  	// Brukersøk
+    	$title   = "Søk etter bruker";
     	$id      = "usersearch";
     	$enctype = NULL;
     	$method  = "post";
     	$action  = "index.php?page=display-users";
     	$fields  = Array();
 
-    	$fields[] = Array("label" => "søk etter medlem", "type" => "text",
+    	$fields[] = Array("label" => "Søk etter medlem", "type" => "text",
       	                "attributes" => Array("name" => "search"));
     	$form = new Form($title, $enctype, $method, $action, $fields, $id);
     	$form->display("horizontal");
@@ -3255,7 +3255,7 @@ Teksten under er hentet fra kunnskapsdatabasen. Du står fritt til å endre den et
               print "<option value=\"" . date("Y", strtotime("+3 year")) . "\">" . "tre år (" . date("Y", strtotime("+3 year")) . ")" . "</option>\n";
               print "<option value=\"" . date("Y", strtotime("+5 year")) . "\">" . "fem år (" . date("Y", strtotime("+5 year")) . ")" . "</option>\n";
               print "</select>\n";
-              print "<input type=\"submit\" value=\"selg oblat\" />";
+              print "<input type=\"submit\" value=\"Selg oblat\" />";
             }
           } else {
             if (!$user->getCardProduced()) {
@@ -3263,11 +3263,11 @@ Teksten under er hentet fra kunnskapsdatabasen. Du står fritt til å endre den et
             } elseif (!$user->getCardDelivered()) {
               print "<input type=\"hidden\" name=\"subaction\" value=\"give-card\" />";
               print "<input type=\"hidden\" name=\"new-sticker-date\" value=\"" . date("Y", strtotime($user->getExpiryDate())) . "\" />";
-              print "<input type=\"submit\" name=\"give-card\" value=\"lever ut kort (" . date("Y", strtotime($user->getExpiryDate())) . ")\" />";
+              print "<input type=\"submit\" name=\"give-card\" value=\"Lever ut kort (" . date("Y", strtotime($user->getExpiryDate())) . ")\" />";
             } elseif (!$user->hasCardSticker()) {
               print "<input type=\"hidden\" name=\"subaction\" value=\"give-sticker\" />";
               print "<input type=\"hidden\" name=\"new-sticker-date\" value=\"" . date("Y", strtotime($user->getExpiryDate())) . "\" />";
-              print "<input type=\"submit\" name=\"give-sticker\" value=\"gi oblat (" . date("Y", strtotime($user->getExpiryDate())) . ")\" />";
+              print "<input type=\"submit\" name=\"give-sticker\" value=\"Gi oblat (" . date("Y", strtotime($user->getExpiryDate())) . ")\" />";
             } else {
               print "-";
             }
@@ -3281,7 +3281,7 @@ Teksten under er hentet fra kunnskapsdatabasen. Du står fritt til å endre den et
           print "<input type=\"hidden\" name=\"userid\" value=\"" . $user->getId() . "\" />";
           if ($user->getCardDelivered()) {
             print "<input type=\"hidden\" name=\"subaction2\" value=\"order-new-card\" />";
-            print "<input type=\"submit\" name=\"order-new-card\" value=\"bestille nytt kort\" />";
+            print "<input type=\"submit\" name=\"order-new-card\" value=\"Bestill nytt kort\" />";
           }
           print "</form>";
           print  "</td>";

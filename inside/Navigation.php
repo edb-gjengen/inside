@@ -7,20 +7,20 @@ class Navigation {
 ?>
       <div id="nav">
 
-        <a class="skip-nav" href="#content">hopp til innhold</a>
+        <a class="skip-nav" href="#content">Hopp til innholdet</a>
         <ul id="navList">
 <?php
    if(checkAuth("view-menu-quick")){
           ?>
           <li class="menulist">
-            <a href="#" id="quickSwitch" class="switch">personlig</a>
+            <a href="#" id="quickSwitch" class="switch">Personlig</a>
             <ul id="quickMenu" class="menu">
-              <li><a href="index.php?page=display-current-user">oppdatér brukerinformasjon</a></li>
-              <li><a href="index.php?page=change-username">endre brukernavn</a></li>
+              <li><a href="index.php?page=display-current-user">Oppdatér brukerinformasjon</a></li>
+              <li><a href="index.php?page=change-username">Endre brukernavn</a></li>
             <?php if (!isMember(getCurrentUser())){?>
-              <li><a href="index.php?page=register-membership">kjøp/registrér medlemskap</a></li>
+              <li><a href="index.php?page=register-membership">Kjøp/registrér medlemskap</a></li>
 						<?php }else if (membershipExpired(getCurrentUser())){?>
-      				<li><a href="index.php?page=register-membership">aktiver medlemskap</a></li>
+      				<li><a href="index.php?page=register-membership">Aktiver medlemskap</a></li>
       			<?php } ?>
             </ul>
           </li>
@@ -29,11 +29,11 @@ class Navigation {
    if(checkAuth("view-menu-messages")){
           ?>
           <li class="menulist">
-            <a href="#" id="messagesSwitch" class="switch">meldinger</a>
+            <a href="#" id="messagesSwitch" class="switch">Meldinger</a>
             <ul id="messagesMenu" class="menu">
-              <li><a href="index.php?page=display-messages">vis meldinger</a></li>
-              <li><a href="index.php?page=display-bugreports">vis feilmeldinger</a></li>
-              <li>ny melding</li>
+              <li><a href="index.php?page=display-messages">Vis meldinger</a></li>
+              <li><a href="index.php?page=display-bugreports">Vis feilmeldinger</a></li>
+              <li>Ny melding</li>
             </ul>
           </li>
       <?php }?>
@@ -41,13 +41,13 @@ class Navigation {
    if(checkAuth("view-menu-jobs")){
           ?>
           <li class="menulist">
-            <a href="#" id="jobsSwitch" class="switch">ledige stillinger</a>
+            <a href="#" id="jobsSwitch" class="switch">Ledige stillinger</a>
             <ul id="jobsMenu" class="menu">
-              <li><a href="index.php?page=display-jobs">vis ledige</a></li>
+              <li><a href="index.php?page=display-jobs">Vis ledige</a></li>
               <?php if(isAdmin()){
-            ?><li><a href="index.php?page=register-job">registrér stilling</a></li>
+            ?><li><a href="index.php?page=register-job">Registrér stilling</a></li>
 <?php }
-?>              <li><a href="index.php?page=display-jobs-archive">arkiv</a></li>
+?>              <li><a href="index.php?page=display-jobs-archive">Arkiv</a></li>
             </ul>
           </li>
       <?php }?>
@@ -55,12 +55,12 @@ class Navigation {
    if(checkAuth("view-menu-barshifts")){
           ?>
           <li class="menulist">
-            <a href="#" id="barshiftsSwitch" class="switch">tappetårnets vaktliste</a>
+            <a href="#" id="barshiftsSwitch" class="switch">Tappetårnets vaktliste</a>
             <ul id="barshiftsMenu" class="menu">
-              <li><a href="index.php?page=display-barshifts">vis kommende</a></li>
-              <li><a href="index.php?page=display-barshifts-calendar">vis kalender</a></li>
+              <li><a href="index.php?page=display-barshifts">Vis kommende</a></li>
+              <li><a href="index.php?page=display-barshifts-calendar">Vis kalender</a></li>
               <?php if(checkAuth("view-register-barshift")){
-            ?><li><a href="index.php?page=register-barshift">registrér vakt</a></li>
+            ?><li><a href="index.php?page=register-barshift">Registrér vakt</a></li>
 <?php } ?>
            </ul>
           </li>
@@ -69,14 +69,14 @@ class Navigation {
    if(checkAuth("view-menu-events")){
           ?>
           <li class="menulist">
-            <a href="#" id="eventsSwitch" class="switch">møter/kurs/internfester</a>
+            <a href="#" id="eventsSwitch" class="switch">Møter/kurs/internfester</a>
             <ul id="eventsMenu" class="menu">
-              <li><a href="index.php?page=display-events-calendar">kalender</a></li>
-              <li><a href="index.php?page=display-events">kommende aktiviteter</a></li>
+              <li><a href="index.php?page=display-events-calendar">Kalender</a></li>
+              <li><a href="index.php?page=display-events">Kommende aktiviteter</a></li>
               <?php if(checkAuth("view-register-event")){
-            ?><li><a href="index.php?page=register-event">registrér aktivitet</a></li>
+            ?><li><a href="index.php?page=register-event">Registrér aktivitet</a></li>
 <?php }
-?>              <li><a href="index.php?page=display-all-calendar">kombolender</a></li>
+?>              <li><a href="index.php?page=display-all-calendar">Kombolender</a></li>
             </ul>
           </li>
       <?php }?>
@@ -84,16 +84,16 @@ class Navigation {
    if(checkAuth("view-menu-concerts")){
           ?>
           <li class="menulist">
-            <a href="#" id="concertsSwitch" class="switch">konserter/program</a>
+            <a href="#" id="concertsSwitch" class="switch">Konserter/program</a>
             <ul id="concertsMenu" class="menu">
-              <li><a href="index.php?page=display-concerts-calendar">kalender</a></li>
-              <li><a href="index.php?page=display-concerts">kommende program</a></li>
+              <li><a href="index.php?page=display-concerts-calendar">Kalender</a></li>
+              <li><a href="index.php?page=display-concerts">Kommende program</a></li>
               <?php if(checkAuth("view-register-concert")){
-            ?><li><a href="index.php?page=register-concert">registrér arrangement</a></li>
+            ?><li><a href="index.php?page=register-concert">Registrér arrangement</a></li>
 <?php }
 ?>          <?php if(checkAuth("view-week-program")){
-            ?><li><a href="index.php?page=week-program">ukesprogram</a></li>
-      				<li><a href="index.php?page=program-selection">programutvalg</a></li>
+            ?><li><a href="index.php?page=week-program">Ukesprogram</a></li>
+      				<li><a href="index.php?page=program-selection">Programutvalg</a></li>
       <?php }?>
             </ul>
           </li>
@@ -102,15 +102,15 @@ class Navigation {
    if(checkAuth("view-menu-divisions")){
           ?>
           <li class="menulist">
-            <a href="#" id="divisionsSwitch" class="switch">foreninger</a>
+            <a href="#" id="divisionsSwitch" class="switch">Foreninger</a>
             <ul id="divisionsMenu" class="menu">
-              <li><a href="index.php?page=display-divisions">vis foreninger</a></li>
+              <li><a href="index.php?page=display-divisions">Vis foreninger</a></li>
               <?php if(checkAuth("view-register-division")){
-            ?><li><a href="index.php?page=register-division">registrér forening</a></li>
+            ?><li><a href="index.php?page=register-division">Registrér forening</a></li>
 <?php }
-?>              <li><a href="index.php?page=display-positions">vis stillingsbeskrivelser</a></li>
+?>              <li><a href="index.php?page=display-positions">Vis stillingsbeskrivelser</a></li>
               <?php if(checkAuth("view-register-position")){
-            ?><li><a href="index.php?page=register-position">registrér stillingsbeskrivelse</a></li>
+            ?><li><a href="index.php?page=register-position">Registrér stillingsbeskrivelse</a></li>
 <?php }
 ?>          </ul>
           </li>
@@ -119,11 +119,11 @@ class Navigation {
    if(checkAuth("view-menu-documents")){
           ?>
           <li class="menulist">
-            <a href="#" id="documentsSwitch" class="switch">dokumenter</a>
+            <a href="#" id="documentsSwitch" class="switch">Dokumenter</a>
             <ul id="documentsMenu" class="menu">
-              <li><a href="index.php?page=display-documents">vis dokumenter</a></li>
+              <li><a href="index.php?page=display-documents">Vis dokumenter</a></li>
               <?php if(checkAuth("view-upload-document")){
-            ?><li><a href="index.php?page=upload-document">last opp nytt</a></li>
+            ?><li><a href="index.php?page=upload-document">Last opp nytt</a></li>
 <?php } ?>            </ul>
           </li>
       <?php }?>
@@ -131,35 +131,35 @@ class Navigation {
    if(checkAuth("view-menu-users")){
           ?>
           <li class="menulist">
-            <a href="#" id="usersSwitch" class="switch">medlemmer</a>
+            <a href="#" id="usersSwitch" class="switch">Medlemmer</a>
             <ul id="usersMenu" class="menu">
-              <li><a href="index.php?page=display-users">vis medlemmer</a></li>
+              <li><a href="index.php?page=display-users">Vis medlemmer</a></li>
               <?php if(checkAuth("view-register-user")){
-            ?><li><a href="index.php?page=register-user">registrér medlem</a></li>
+            ?><li><a href="index.php?page=register-user">Registrér medlem</a></li>
 <?php }
 ?>            <?php if(checkAuth("view-display-user-expiries")){
-            ?><li><a href="index.php?page=display-user-expiries">administrér utløpsdatoer</a></li>
+            ?><li><a href="index.php?page=display-user-expiries">Medlemskort: utløpsdatoer</a></li>
 <?php }
 ?>            <?php if(checkAuth("view-register-membership-bankpayment")){
-            ?><li><a href="index.php?page=register-membership-bankpayment">registrer bankbetalinger</a></li>
+            ?><li><a href="index.php?page=register-membership-bankpayment">Registrer bankbetalinger</a></li>
 <?php }
 ?>            <?php if(checkAuth("view-register-user-ea-update")){
-            ?><li><a href="index.php?page=register-user-ea-update">registrer EA oppdatering</a></li>
+            ?><li><a href="index.php?page=register-user-ea-update">Registrer EA oppdatering</a></li>
 <?php }
 ?>            <?php if(checkAuth("view-display-division-requests")){
-            ?><li><a href="index.php?page=display-division-requests">vis aktivforespørseler</a></li>
+            ?><li><a href="index.php?page=display-division-requests">Vis aktivforespørseler</a></li>
 <?php }
 ?>            <?php if(checkAuth("view-register-usergrouprelationship")){
-            ?><li><a href="index.php?page=register-usergrouprelationship">registrér gruppemedlemskap</a></li>
+            ?><li><a href="index.php?page=register-usergrouprelationship">Registrér gruppemedlemskap</a></li>
 <?php }
 ?>            <?php if(checkAuth("view-display-usergrouprelationships")){
-            ?><li><a href="index.php?page=display-usergrouprelationships">slett gruppemedlemskap</a></li>
+            ?><li><a href="index.php?page=display-usergrouprelationships">Slett gruppemedlemskap</a></li>
 <?php }
 ?>            <?php if(checkAuth("view-display-users-study-place")){
-            ?><li><a href="index.php?page=display-users-study-place">vis studieplass-statistikk</a></li>
+            ?><li><a href="index.php?page=display-users-study-place">Studieplass-statistikk</a></li>
 <?php }
 ?>            <?php if(checkAuth("view-payex-testpage")){
-            ?><li><a href="index.php?page=payex-form">payex testside</a></li>
+            ?><li><a href="index.php?page=payex-form">Payex testside</a></li>
 <?php }
 ?>          </ul>
           </li>
@@ -168,11 +168,11 @@ class Navigation {
       if(checkAuth("view-membership-sale")){
       ?>
           <li class="menulist">
-            <a href="#" id="billettbodSwitch" class="switch">billettbod</a>
+            <a href="#" id="billettbodSwitch" class="switch">Billettbod</a>
             <ul id="billettbodMenu" class="menu">
-              <li><a href="index.php?page=membership-sale">salg av medlemskap</a></li>
+              <li><a href="index.php?page=membership-sale">Salg av medlemskap</a></li>
               <?php if(checkAuth("view-membercard-production")){
-              ?><li><a href="index.php?page=membercard-production">administrer medlemskort</a></li>
+              ?><li><a href="index.php?page=membercard-production">Administrer medlemskort</a></li>
 <?php }
 ?>            </ul>
           </li>
@@ -181,14 +181,14 @@ class Navigation {
    if(checkAuth("view-menu-access")){
           ?>
           <li class="menulist">
-            <a href="#" id="accessSwitch" class="switch">administrering av tilgang</a>
+            <a href="#" id="accessSwitch" class="switch">Tilgang</a>
             <ul id="accessMenu" class="menu">
-              <li><a href="index.php?page=display-groups">vis grupper</a></li>
-              <li><a href="index.php?page=register-group">registrér gruppe</a></li>
-              <li><a href="index.php?page=display-actions">vis handlinger</a></li>
-              <li><a href="index.php?page=register-action">registrér handling</a></li>
-              <li><a href="index.php?page=display-actiongrouprelationships">vis forhold</a></li>
-              <li><a href="index.php?page=register-actiongrouprelationship">registrér forhold</a></li>
+              <li><a href="index.php?page=display-groups">Vis grupper</a></li>
+              <li><a href="index.php?page=register-group">Registrér gruppe</a></li>
+              <li><a href="index.php?page=display-actions">Vis handlinger</a></li>
+              <li><a href="index.php?page=register-action">Registrér handling</a></li>
+              <li><a href="index.php?page=display-actiongrouprelationships">Vis forhold</a></li>
+              <li><a href="index.php?page=register-actiongrouprelationship">Registrér forhold</a></li>
             </ul>
           </li>
           <?php }?>
@@ -197,10 +197,10 @@ class Navigation {
    if(checkAuth("view-menu-webpages")){
           ?>
           <li class="menulist">
-            <a href="#" id="webpagesSwitch" class="switch">administrér nettsider</a>
+            <a href="#" id="webpagesSwitch" class="switch">Nyheter</a>
             <ul id="webpagesMenu" class="menu">
-              <li><a href="index.php?page=display-articles">vis nyheter</a></li>
-              <li><a href="index.php?page=register-article">registrér nyhet</a></li>
+              <li><a href="index.php?page=display-articles">Vis nyheter</a></li>
+              <li><a href="index.php?page=register-article">Skriv nyhet</a></li>
             </ul>
           </li>
       <?php }?>
@@ -208,14 +208,14 @@ class Navigation {
    if(checkAuth("view-menu-settings")){
           ?>
           <li class="menulist">
-            <a href="#" id="settingsSwitch" class="switch">innstillinger</a>
+            <a href="#" id="settingsSwitch" class="switch">Innstillinger</a>
             <ul id="settingsMenu" class="menu">
-              <li><a href="index.php?action=switch-formtype&amp;section=settings">bytt skjemastil</a></li>
-              <li><a href="index.php?action=switch-tinymce-theme&amp;section=settings">bytt RT-editor</a></li>
-              <li><a href="index.php?page=register-documentcategory">dokumenttyper</a></li>
-              <li><a href="index.php?page=register-eventcategory">aktitivitetstyper</a></li>
-              <li><a href="index.php?page=register-jobcategory">stillingstyper</a></li>
-              <li><a href="index.php?page=register-product">produkter for salg</a></li>
+              <li><a href="index.php?action=switch-formtype&amp;section=settings">Bytt skjemastil</a></li>
+              <li><a href="index.php?action=switch-tinymce-theme&amp;section=settings">Bytt RT-editor</a></li>
+              <li><a href="index.php?page=register-documentcategory">Dokumenttyper</a></li>
+              <li><a href="index.php?page=register-eventcategory">Aktitivitetstyper</a></li>
+              <li><a href="index.php?page=register-jobcategory">Stillingstyper</a></li>
+              <li><a href="index.php?page=register-product">Produkter for salg</a></li>
             </ul>
           </li>
 <?php }
@@ -234,12 +234,12 @@ class Navigation {
   if(isAdmin()){
           ?>
           <li class="menulist">
-            <a href="#" id="samarbeidspartnereSwitch" class="switch">samarbeidspartnere</a>
+            <a href="#" id="samarbeidspartnereSwitch" class="switch">Samarbeidspartnere</a>
             <ul id="samarbeidspartnereMenu" class="menu">
-              <li><a href="#">rediger partnere</a></li>
-              <li><a href="#">godkjenne plasser</a></li>
-              <li><a href="#">vis oversikt</a></li>
-              <li><a href="#">rediger e-post</a></li>
+              <li><a href="#">Rediger partnere</a></li>
+              <li><a href="#">Godkjenne plasser</a></li>
+              <li><a href="#">Vis oversikt</a></li>
+              <li><a href="#">Rediger e-post</a></li>
             </ul>
           </li>
 <?php
@@ -248,12 +248,12 @@ class Navigation {
   if(checkAuth("view-menu-webshop")){
           ?>
           <li class="menulist">
-            <a href="#" id="webshopSwitch" class="switch">nettbutikk</a>
+            <a href="#" id="webshopSwitch" class="switch">Nettbutikk</a>
             <ul id="webshopMenu" class="menu">
-              <li><a href="index.php?page=display-webshop">vis produkter</a></li>
-              <li><a href="index.php?page=display-carts">vis handlekurver</a></li>
+              <li><a href="index.php?page=display-webshop">Vis produkter</a></li>
+              <li><a href="index.php?page=display-carts">Vis handlekurver</a></li>
             <?php if (checkAuth('view-display-sales')) {?>
-              <li><a href="index.php?page=display-sales">vis solgte produkter</a></li>
+              <li><a href="index.php?page=display-sales">Vis solgte produkter</a></li>
             <?php } ?>
             </ul>
           </li>
@@ -263,16 +263,16 @@ class Navigation {
   if (loggedIn()){
 ?>
           <li class="menulist">
-            <a href="#" id="linksSwitch" class="switch">andre sider</a>
+            <a href="#" id="linksSwitch" class="switch">Andre sider</a>
             <ul id="linksMenu" class="menu">
-              <li><a href="http://www.studentersamfundet.no/index.php">studentersamfundet.no</a></li>
-              <li><a href="http://www.studentersamfundet.no/forum/index.php">forum</a></li>
+              <li><a href="http://www.studentersamfundet.no/index.php">Studentersamfundet.no</a></li>
+              <li><a href="http://www.studentersamfundet.no/forum/index.php">Forum</a></li>
 <?php
     if (isActive()) {
 ?>
-              <li><a href="http://www.studentersamfundet.no/coppermine/index.php">bildegalleri</a></li>
-              <li><a href="http://www.studentersamfundet.no/info/index.php">infovræl</a></li>
-	          <li><a href="http://booking.studentersamfundet.no/">bookingsystemet</a></li>
+              <li><a href="http://www.studentersamfundet.no/coppermine/index.php">Bildegalleri</a></li>
+              <li><a href="http://www.studentersamfundet.no/info/index.php">Infovræl</a></li>
+	          <li><a href="http://booking.studentersamfundet.no/">Bookingsystemet</a></li>
 <?php
     }
 ?>
@@ -284,7 +284,7 @@ class Navigation {
         </ul>
 <?php
    if (loggedIn()){
-?><a href="index.php?action=log-out">logg ut</a>
+?><a href="index.php?action=log-out">Logg ut</a>
 <?php
    }
 ?>

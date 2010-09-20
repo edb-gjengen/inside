@@ -20,6 +20,10 @@ html, body {
   background:#efefef;
 }
 
+.section-inside #content {
+	margin-top:0;
+}
+
 #header .site-title,#content-wrap,#footer {
     width:1000px;
     margin:auto;
@@ -216,6 +220,7 @@ div.horizontal-form {
   color: white;
   font-weight: bold;
 }
+
 /* =tables
 *********************************************************************/
 
@@ -225,6 +230,17 @@ table {
   margin: 0;
   padding: 0;
   border: 1px solid #CCC;
+}
+
+#inside-content-column table {
+  width:630px;
+}
+
+#inside-content-column table td {
+	padding:3px 5px;
+}
+#inside-content-column table.calendar td {
+	padding:0;
 }
 
 th { 
@@ -280,7 +296,6 @@ tr.table-footer td {
 table.calendar { 
   display:block;
   float:left;
-  width:630px;
   /*margin: 0 50px 0 0;*/
   font-size: .85em;
 }
@@ -288,6 +303,8 @@ table.calendar {
 .calendar td { 
   padding: 0;
   margin: 0;
+  max-width: 100px;
+  overflow:auto;
 }
 
 td.passive { 
@@ -335,6 +352,11 @@ td.unread {
   padding: 15px 5px 0px 3px;
 }
 
+/* =tables
+*********************************************************************/
+#inside-content-column.info ul li.alt {
+	width:627px;
+}
 
 /* =headings
 *********************************************************************/
@@ -677,6 +699,7 @@ span.key {
 
 #content .contentElem {
     margin:auto;
+    overflow:hidden;
 }
 
 div.text-column { 
@@ -734,17 +757,22 @@ p.intro {
 }
 
 div.messages, div.errors { 
-    margin: 0 0 5px 0;
-    padding: 3px;
-    background: #000;
+    margin: 0 0 25px 0;
+    padding: 10px 0;
+    background: #6B43A2;
     color: #FFF;
     border: 1px solid #CCC;
+    font-size:20px;
 }
 
 div.messages ul, div.erros ul {
-    margin: 0 0 0 35px;
+    margin: 0;
     padding: 0;
-    font-weight: bold;
+    list-style-type:none;
+}
+
+.section-inside .messages.fancybox {
+	width:100%;
 }
 
 div.timeData { 
@@ -769,7 +797,7 @@ div.product_images {
 }
 
 tr.barshift-full td {
-    background: #AAA;
+    /*background: #AAA;*/
     font-style: italic;  
 }
 
@@ -784,12 +812,17 @@ div.calendar-barshift {
 
 div.calendar-barshift.full {
     border: 1px solid #CCC;
-    background: #DDD;  
+    background: #efefef;  
 }
 
 div.calendar-barshift h4 {
     text-align: left;
-    white-space: nowrap;
+    /*white-space: nowrap;*/
+    font-size:12px;
+    font-weight:bold;
+    display:list-item;
+    list-style-type:none;
+    max-width:100%;
 }
 
 div.calendar-barshift ul {
@@ -810,8 +843,8 @@ div.calendar-barshift ul {
 }
 
 div.calendar-barshift li {
-    white-space: nowrap;
-    margin: 0;
+    /*white-space: nowrap;*/
+    margin: 0 0 5px;
     padding: 0;
 }
 

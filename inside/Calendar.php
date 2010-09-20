@@ -179,11 +179,11 @@ Class Calendar {
 				<label class="calendar-event button" ><input type="checkbox" id="calendar-toggle-events" 
 							onclick="toggleElements('div', 'calendar-event', this);"
 							checked="checked" />
-											 interne arrangementer</label><br />
+											 Interne arrangementer</label><br />
 				<label class="calendar-concert button"><input type="checkbox" id="calendar-toggle-concerts" 
 							onclick="toggleElements('div', 'calendar-concert', this);"
 							checked="checked" />
-											 åpne arrangementer</label>
+											 Åpne arrangementer</label>
 			</div>
 			<?php
       break;
@@ -194,7 +194,7 @@ Class Calendar {
 				<label class="calendar-barshifworker button" ><input type="checkbox" id="calendar-toggle-barshiftworkers" 
 							onchange="toggleElements('ul', 'barshift-workers', this);"
 							checked="checked" />
-											 vis personell</label><br />
+											 Vis personell</label><br />
 			</div>
 			<?php
       break;

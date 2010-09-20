@@ -14,8 +14,8 @@ class Messages {
   }
 
   public function display($msg = NULL){?>
-    <div class="messages">
-    	<h3>Beskjeder</h3>
+    <div class="messages fancybox">
+    	<!-- h3>Beskjeder</h3 -->
   
       <ul>
 <?php    
