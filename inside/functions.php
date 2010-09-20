@@ -879,10 +879,10 @@ function displayOptionsMenu($id, $name, $type, $actionName = NULL, $editable = t
 function displayOptionsMenuTable($id, $name, $type, $actionName = NULL, $editable = true, $next_page = NULL) {
 	if (checkAuth($actionName)) {
 		if ($editable == true) {
-			print ("<td><a title=\"edit\" href=\"index.php?page=edit-$type&amp;" . $type . "id=$id\"><img src=\"graphics/edit.png\" alt=\"edit\" $name\" /></a></td>");
+			print ("<td class=\"edit\"><a title=\"edit\" class=\"icon-16x16\" href=\"index.php?page=edit-$type&amp;" . $type . "id=$id\"><img src=\"graphics/edit.png\" alt=\"edit\" $name\" /></a></td>");
 		}
 		if ($type == "documentcategory" || $type == "eventcategory" || $type == "jobcategory") {
-			print ("<td><a title=\"delete\" href=\"javascript:
+			print ("<td class=\"delete\"><a title=\"delete\" href=\"javascript:
 						                                   if(confirm('" . getConfirmDeleteText($name) . "')){
 						                                     deleteObject('$type', $id);}\"><img src=\"graphics/delete.png\" alt=\"" . DELETE . " $name\" /></a></td>");
 
@@ -905,7 +905,7 @@ function displayOptionsMenuTable($id, $name, $type, $actionName = NULL, $editabl
 			else {
 				$page = $next_page;
 			}
-			print ("<td><a title=\"delete\" href=\"javascript:
+			print ("<td class=\"delete\"><a title=\"delete\" href=\"javascript:
 						                                   if(confirm('" . getConfirmDeleteText($name) . "')){
 						                                   location='index.php?action=delete-$type" . $id_string . "&amp;page=$page';}\"><img src=\"graphics/delete.png\" alt=\"" . DELETE . " $name\" /></a></td>");
 		}

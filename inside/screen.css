@@ -220,7 +220,9 @@ div.horizontal-form {
 *********************************************************************/
 
 table { 
-  margin: 5px 0;
+  display: block;
+  float:left;
+  margin: 0;
   padding: 0;
   border: 1px solid #CCC;
 }
@@ -265,14 +267,21 @@ td.is_member{
   text-align: center;
 }
 
+td.edit,
+td.delete {
+	min-width:16px;
+}
+
 tr.table-footer td {
   font-weight: bold;
   text-align: center;
 }
 
 table.calendar { 
-  width: 98%;
-  margin: 0 auto;
+  display:block;
+  float:left;
+  width:630px;
+  /*margin: 0 50px 0 0;*/
   font-size: .85em;
 }
 
@@ -551,7 +560,7 @@ h4 {
     -moz-border-radius: 8px;
     color: #000;
     width: 170px;
-    margin: 5px 0 15px 0;
+    margin: 50px 25px;
     padding: 15px;
 }
 
@@ -630,7 +639,7 @@ span.key {
 
 #calHeader { 
     width: 400px;
-    margin: 0 auto;
+    margin: auto;
 }
 
 #previous { 
@@ -660,12 +669,24 @@ span.key {
     margin: 5px 0 15px 207px;
 }
 
+#content #inside-content-column {
+	width:648px;
+	margin:50px 25px;
+	float:left;
+}
+
+#content .contentElem {
+    margin:auto;
+}
+
 div.text-column { 
-    max-width: 600px;
+    margin:auto;
+    float:left;
 }
 
 * html div.text-column { 
-    width: 600px;
+    margin:auto;
+    float:left;
 }
 
 div.article_images {
@@ -871,4 +892,12 @@ div.comment-main {
 
 .domenabled div.disabled { 
     display: none;
+}
+
+/* =icons
+ *********************************************************************/
+.icon-16x16 {
+	width:16px !important;
+	height:16px;
+	border:none;
 }

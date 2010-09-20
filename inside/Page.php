@@ -98,7 +98,7 @@ possibly include it instead? --Thomas Misund, 26. Oct 2009
                         <ul>
                             <li><a href="https://www.studentersamfundet.no/inside/">Inside</a></li>
                             <li><a href="http://studentersamfundet.no/viteboka/?page_id=3">Viteboka</a></li>
-                            <li><a href="https://www.studentersamfundet.no/inside/index.php?page=display-barshifts-calendar">Tappet&aring;rnets vaktliste</a>
+                            <li><a href="https://www.studentersamfundet.no/inside/index.php?page=display-barshifts-calendar">Tappet&aring;rnets vaktliste</a></li>
                             <li><a href="http://studentersamfundet.no/aktive.php">Andre ressurser</a></li>
                         </ul>
                     </div>
@@ -114,10 +114,11 @@ possibly include it instead? --Thomas Misund, 26. Oct 2009
       </div> <!-- #header -->
 
       <div id="content-wrap">
+      <div id="content" class="clearfix">
 <?php
     $this->_displayNavigation();
 ?>
-      <div id="content" class="clearfix">
+      <div id="inside-content-column">
 <?php
 
     if ($GLOBALS['err_counter'] > 0){
@@ -457,11 +458,11 @@ possibly include it instead? --Thomas Misund, 26. Oct 2009
         $this->_editJobCategory();
         break;
 
-				case "display-product":
-				$this->_displayProduct();
-				break;
+	case "display-product":
+	$this->_displayProduct();
+	break;
 
-				case "display-products":
+	case "display-products":
         case "register-product":
         $this->_registerProduct();
         break;
@@ -478,51 +479,51 @@ possibly include it instead? --Thomas Misund, 26. Oct 2009
         $this->_displayBugReports();
         break;
 
-				case "display-webshop":
-				$this->_displayWebshop();
-				break;
+	case "display-webshop":
+	$this->_displayWebshop();
+	break;
 
-				case "display-sales":
-				$this->_displaySales();
-				break;
+	case "display-sales":
+	$this->_displaySales();
+	break;
 
-				case "display-sales-item":
-				$this->_displaySalesItem();
-				break;
+	case "display-sales-item":
+	$this->_displaySalesItem();
+	break;
 
-				case "display-cart":
-				$this->_displayCart();
-				break;
+	case "display-cart":
+	$this->_displayCart();
+	break;
 
-				case "display-carts":
-				$this->_displayCarts();
-				break;
+	case "display-carts":
+	$this->_displayCarts();
+	break;
 
-				case "cart-checkout":
-				$this->_cartCheckout();
-				break;
+	case "cart-checkout":
+	$this->_cartCheckout();
+	break;
 
-				case "transaction-confirmation":
-				$this->_transactionConfirmation();
-				break;
+	case "transaction-confirmation":
+	$this->_transactionConfirmation();
+	break;
 
-				case "display-sms-log":
-				$this->_displaySmsLog();
-				  break;
+	case "display-sms-log":
+	$this->_displaySmsLog();
+	  break;
 
-				case 'membership-sale':
-				  $this->_membershipSale();
-				  break;
+	case 'membership-sale':
+	  $this->_membershipSale();
+	  break;
 
-				case 'membercard-production':
-				  $this->_membercardProduction();
-				  break;
+	case 'membercard-production':
+	  $this->_membercardProduction();
+	  break;
 
         default:
         $this->_displayHome();
       }
 
-    }else {
+    } else {
       $this->_displayAccessDenied();
     }
   }
@@ -532,17 +533,23 @@ possibly include it instead? --Thomas Misund, 26. Oct 2009
     </div> <!-- #content-wrap -->
 
 <?php
-
-$time_end = microtime(true);
-$time = round(($time_end - $GLOBALS['time_start']), 4);
-
-print("      <div id=\"footer\">Script execution: $time seconds || <a href=\"mailto:support@studentersamfundet.no\">support</a></div>\n");
-
+	$this->_displayFooter();
 ?>
     </div>
   </body>
 </html>
     <?php
+  }
+
+  public function _displayFooter() { ?>
+
+	  </div> <!-- #inside-content-column -->
+<?php
+	  $time_end = microtime(true);
+	  $time = round(($time_end - $GLOBALS['time_start']), 4);
+
+	  print("      <div id=\"footer\">Script execution: $time seconds || <a href=\"mailto:support@studentersamfundet.no\">support</a></div>\n");
+
   }
 
   public function _displayHeader(){?>
@@ -554,12 +561,13 @@ print("      <div id=\"footer\">Script execution: $time seconds || <a href=\"mai
     <meta http-equiv="content-type" content="text/html;charset=iso-8859-1" />
     <link rel="stylesheet" title="default" type="text/css"
           href="<?php print $this->theme; ?>" media="screen, projection" />
+    <link rel="stylesheet" type="text/css" href="http://studentersamfundet.no/style.css" media="screen" />
     <link rel="stylesheet" type="text/css" href="handheld.css" media="handheld" />
     <link rel="stylesheet" type="text/css" href="print.css" media="print" />
     <link rel="shortcut icon" href="favicon.ico" />
     <script type="text/javascript" src="functions.js"></script>
     <script type="text/javascript" src="ajax.js"></script>
-	  <script type="text/javascript" src="../includes/zXml/zxml.js"></script>
+    <script type="text/javascript" src="../includes/zXml/zxml.js"></script>
     <script type="text/javascript" src="finder.js"></script>
     <script type="text/javascript" src="sorttable.js"></script>
     <script type="text/javascript" src="menuExpandable3.js"></script>
@@ -630,7 +638,7 @@ print("      <div id=\"footer\">Script execution: $time seconds || <a href=\"mai
 
   public
   function _displayWelcome(){
-    print "<p>Velkommen til Studentersamfundets Intranett.</p>\n";
+    print "<p>Velkommen til Studentersamfundets intranett.</p>\n";
   }
 
   public
