@@ -700,6 +700,7 @@ span.key {
 #content .contentElem {
     margin:auto;
     overflow:hidden;
+    clear:left;
 }
 
 div.text-column { 
@@ -834,7 +835,7 @@ div.calendar-barshift ul {
 .calendar-register-me {
     border: 1px solid black;
     padding: 1px;
-    width: 50%;
+    /*width: 50%;*/
     color: black;
     margin: 0px;
     display: block;
