@@ -1,11 +1,9 @@
 <?php
 
-$url = $_SERVER['SCRIPT_URI'];
-if(substr($url, 0, 5) != 'https')
+if(!isset($_SERVER['HTTPS']) || $_SERVER['HTTPS'] != 'on')
 {
-	$newurl = str_replace('http://','https://',$url);
-	header("Location: $newurl");
-	die;
+        header("Location: https://www.studentersamfundet.no{$_SERVER['REQUEST_URI']}");
+        die;
 }
 
 $time_start = microtime(true);
