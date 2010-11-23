@@ -128,12 +128,14 @@ class Concert {
   } 
 
   /**
-   * Stores a new concert to the database
+   * Stores a new concert to the database, or updates an existing concert.
    *
-   * Called by _updateConcert() in ActionParser.php
+   * Called by _updateConcert() in ActionParser.php.
    */
-  public function store(){       
-    if ($this->id == NULL){
+  public function store(){
+    if ($this->id == NULL) {
+      // Storing a new concert
+
       if (!$this->_validate()){
         $GLOBALS['extraScriptParams']['page'] = "register-concert";
         return false; 
@@ -190,6 +192,8 @@ class Concert {
         notify("Problemer med registrering av konsert.");
       }      
     } else {
+      // Updating an existing concert
+
       if (!$this->_validate()){
         $GLOBALS['extraScriptParams']['page'] = "edit-concert";
         return false; 
@@ -255,6 +259,7 @@ class Concert {
 	      $sql .= "UPDATE program
 		       SET vedlegg=" . $this->conn->quoteSmart($this->picture) . "
 		       WHERE id=" . $this->id;
+	      // @TODO Flush image cache for the old image, as the new one will have the same name
       }
 
       $result = $this->conn->query($sql);
