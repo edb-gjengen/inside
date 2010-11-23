@@ -38,23 +38,31 @@ class Concert {
 
   var $conn;
 
-  function Concert($id = NULL, $data = NULL){
-    $this->__construct($id, $data);
+  function Concert( $id = NULL, $data = NULL ) {
+    $this->__construct( $id, $data );
   }
 
-  public function __construct($id = NULL, $data = NULL){
+  /**
+   * Creates a Concert object.
+   *
+   * If ID is not set, the constructor will create a brand new Concert. If both
+   * the ID and data is set, the constructor will update a concert that
+   * already exists in the database. If only the ID is set, the constructor
+   * will fetch a Concert from the database and prepare it for being displayed.
+   */
+  public function __construct( $id = NULL, $data = NULL ) {
     $this->conn = db_connect("dns");
 
     $this->id = $id;
 
-    if ($id == NULL){//New concert
-      if ($data == NULL){
+    if ( $id == NULL ) { // New concert
+      if ( $data == NULL ) {
         notify("Concert: No data supplied.");     
       } else {
-        if (isset ($data['user_id_responsible'])) {
+        if ( isset ($data['user_id_responsible']) ) {
             $this->user_id_responsible   = $data['user_id_responsible'];
             
-            if ($user = new User($this->user_id_responsible)) {
+            if ( $user = new User($this->user_id_responsible) ) {
                 $this->user_name_responsible  = $user->firstname . " " . $user->lastname;
                 $this->user_phone_responsible = $user->phonenumber;
                 $this->user_email_responsible = $user->email;
@@ -62,24 +70,30 @@ class Concert {
         }
         $this->links = $data['links'];
       }
-    }else {//ID set, existing concert
-      if ($data != NULL){//UPDATE
-        if($_FILES['userfile']['error'] != 4){
+    } else { // ID set, existing concert
+      if ( $data != NULL ) { // UPDATE
+        // First, pick the image from the database
+        $this->picture = $data['picture']; // @TODO $data['picture'] doesn't seem to be set! 
+
+	var_dump($this->picture);
+
+        // If the user uploaded a new image, store it and pick this image instead
+        if( $_FILES['userfile']['error'] != 4 ) {
           $temp_name = new_file($_FILES['userfile'], "program");
           rename_file($temp_name, $this->id, "program");
-          $this->picture = $this->id.substr($temp_name, -4);
-        } else {
-          $this->picture = $data['picture'];
+	  $this->picture = $this->id.substr($temp_name, -4);
         }
+
         $this->links = $data['links'];
-      }else {//RETRIEVE
+      } else { // Retrieve
         $data = $this->_retrieveData();
         $this->venue_name = $data['venue_name'];
         $this->host_name  = $data['host_name'];
         $this->picture    = $data['picture'];
       }
     }
-    //Common initializations
+
+    // Common initializations
     $this->name               = stripslashes($data['name']);
     $this->intro              = stripslashes($data['intro']);
     $this->text               = stripslashes($data['text']);
@@ -113,8 +127,12 @@ class Concert {
     }
   } 
 
-  public
-  function store(){       
+  /**
+   * Stores a new concert to the database
+   *
+   * Called by _updateConcert() in ActionParser.php
+   */
+  public function store(){       
     if ($this->id == NULL){
       if (!$this->_validate()){
         $GLOBALS['extraScriptParams']['page'] = "register-concert";
@@ -201,10 +219,9 @@ class Concert {
                         ekst_rolle    = %s,
                         plakat_behov  = %s,
                         linker        = %s,
-                        vedlegg       = %s,
                         visUkeprogram = '%s'
                       WHERE 
-                        id = %s",
+                        id = %s;",
                      $this->conn->quoteSmart($this->name),
                      $this->conn->quoteSmart($this->name_en),
                      $this->conn->quoteSmart($this->intro),
@@ -229,10 +246,17 @@ class Concert {
                      $this->conn->quoteSmart($this->user_role_ext_contact),
                      $this->conn->quoteSmart($this->needPosters),
                      $this->conn->quoteSmart($this->links),
-                     $this->conn->quoteSmart($this->picture),
                      $this->viewWeekprogram,
                      $this->conn->quoteSmart($this->id)
-                     );
+	     );
+
+      // If there's an image in this object, update the database
+      if ( $this->vedlegg ) {
+	      $sql .= "UPDATE program
+		       SET vedlegg=" . $this->conn->quoteSmart($this->picture) . "
+		       WHERE id=" . $this->id;
+      }
+
       $result = $this->conn->query($sql);
       if (DB::isError($result) != true){
         notify("Arrangement oppdatert.");       
@@ -259,7 +283,7 @@ class Concert {
       notify("Ugyldig &aring;rstall.");
       $valid = false;
     }
-    if ($this->id == NULL && isset($_FILES['userfile']) && empty($_FILES['userfile']['name'])){
+    if ($this->id == NULL && $this->picture == NULL && isset($_FILES['userfile']) && empty($_FILES['userfile']['name'])){
       notify("Bilde m&aring; velges");
       $valid = false;
     }
@@ -430,7 +454,7 @@ class Concert {
     displayOptionsMenu($this->id, CONCERT, "concert", "view-edit-options-concert");
   
     if ($this->picture != 0){
-    print('<div class="primary_image"><img src="http://www.studentersamfundet.no/imageResize.php?pic=bilder/program/'.$this->picture.'&amp;maxwidth=200\" alt=\"pressebilde\" /></div>');
+    print('<div class="primary_image"><img src="http://www.studentersamfundet.no/imageResize.php?pic=bilder/program/'.$this->picture.'&amp;maxwidth=200\" alt="pressebilde" /></div>');
   }
 ?>    <h3><?php print $this->name; ?></h3>
     <p class="date"><?php print formatDatetime($this->time); ?>, <?php print $this->venue_name; ?></p>				 
