@@ -586,7 +586,15 @@ class ActionParser {
       if ($result->numRows() > 0) {
         $row = $result->fetchRow(DB_FETCHMODE_ASSOC);
         $_SESSION['valid-user'] = $row['id'];
-        if ($row['passwordReset'] == 1) {
+        
+	// SHA1	
+        if ($_GET['debug']){
+               echo "{SHA}" . base64_encode(pack("H", hash('sha1', $conn->quoteSmart(scriptParam('password')))));
+		
+		die("Jeg skammer meg over at dette er skrevet i vim - Sjur");
+        }
+
+	if ($row['passwordReset'] == 1) {
           $GLOBALS['extraScriptParams']['page'] = "reset-password";
         }
       } else {
