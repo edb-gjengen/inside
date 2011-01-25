@@ -61,13 +61,7 @@ while ($current = $list->fetchRow(DB_FETCHMODE_OBJECT)) {
 
 <div id="sponsors" style="margin-top: 10px; border-top: 1px solid black; text-align: center;">
 <p>Våre samarbeidspartnere:</p>
-	<a href="http://www.chess.no"><img src="http://www.studentersamfundet.no/bilder/sponsorer/chess.png" alt="Chess" /></a>
-  <a href="http://www.nextgentel.no"><img src="http://www.studentersamfundet.no/bilder/sponsorer/nextgentel.gif" alt="NextGenTel" /></a>
   <a href="http://www.toro.no"><img src="http://www.studentersamfundet.no/bilder/sponsorer/toro.jpg" alt="Toro" /></a>
-  <a href="http://www.sonyericsson.com"><img src="http://www.studentersamfundet.no/bilder/sponsorer/logo_sony.gif" alt="Sony Ericsson" /></a>
-  <a href="http://www.dagbladet.no"><img src="http://www.studentersamfundet.no/bilder/sponsorer/dagbladet.gif" alt="Dagbladet" /></a>
-  <a href="http://radio1.no"><img src="http://www.studentersamfundet.no/bilder/sponsorer/radio1.gif" alt="Radio 1" /></a>
-  <a href="http://thevoice.no"><img src="http://www.studentersamfundet.no/bilder/sponsorer/the_voice.gif" alt="The Voice TV" /></a>
 </div>
 <div id="about" style="margin-top: 10px; border-top: 1px solid black; text-align: center;">
 <p>Det Norske Studentersamfund</p>
