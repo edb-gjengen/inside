@@ -1614,13 +1614,13 @@ Teksten under er hentet fra kunnskapsdatabasen. Du står fritt til å endre den et
     $form = new Form($title, $enctype, $method, $action, $fields);
     $form->display("horizontal");
 
-    if ($current >= 0){
-      $documents = new Documents();
-      $documents->displayList($current);
-    }
     if (!empty($currentTag)){
       $documents = new Documents();
       $documents->displayListTag($currentTag);
+    }
+    else if ($current >= 0){
+      $documents = new Documents();
+      $documents->displayList($current);
     }
 
   }
