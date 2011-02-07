@@ -44,6 +44,7 @@ Pris: <?php print $gig->priceNormal; ?>/<?php print $gig->priceConcession; ?>
 
 Våre samarbeidspartnere:
 Toro
+Akademika
 
 Det Norske Studentersamfund
 www.studentersamfundet.no
