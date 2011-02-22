@@ -585,7 +585,7 @@ class ActionParser {
 private function logError($username, $error)
 {
 	$conn = db_connect();
-        $sql = sprintf("INSERT INTO `inside_auth_log`(`username`, `error`) VALUES(%s,%s)",$conn->quoteSmart(scriptParam('username')), $conn->quoteSmart($error));
+        $sql = sprintf("INSERT INTO `inside_auth_log`(`username`, `error`) VALUES(%s,%s)",$conn->quoteSmart($username), $conn->quoteSmart($error));
         $conn->query($sql);
 }
 
