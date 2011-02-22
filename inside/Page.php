@@ -1370,7 +1370,7 @@ Teksten under er hentet fra kunnskapsdatabasen. Du står fritt til å endre den et
 #    print("<p>Studentersamfundet.no vil snarlig legge om alle sine visningsmaler. I de nye malene vil det være viktig å ha fylt ut alle disse 3 feltene.</p>");
 ?>
 <div style="background-color:rgb(241,255,115); border:1px solid black; padding:5px; margin:5px;">
-Om dere lager en facebook side til arrangementet, ikke glem &aring; putte inn lenka, for ellers kan det hende KAK ogs&aring; lager en event for deg.
+Om dere lager en facebook side til arrangementet, ikke glem &aring; putte inn lenka her! Hvis du ikke gj&oslash;r det, kan det hende KAK ogs&aring; lager en event for deg og da blir det dobbelt opp som ikke er bra... Keep up the good work :D
 </div>
 <?php
 
