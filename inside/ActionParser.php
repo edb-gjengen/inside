@@ -700,13 +700,13 @@ class ActionParser {
   }
 
   public function _registerEvent() {
-    $event = new Event(NULL, $_REQUEST);
+    $event = new Event(NULL, $_POST);
     $event->store();
   }
 
   public function _updateEvent() {
     $eventId = scriptParam("eventid");
-    $event = new Event($eventId, $_REQUEST);
+    $event = new Event($eventId, $_POST);
     $event->store();
   }
 

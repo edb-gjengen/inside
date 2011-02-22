@@ -550,6 +550,27 @@ possibly include it instead? --Thomas Misund, 26. Oct 2009
 
 	  print("      <div id=\"footer\">Script execution: $time seconds || <a href=\"mailto:support@studentersamfundet.no\">support</a></div>\n");
 
+/**
+ * Google Analytics, since 2010-11-19 15:05
+ */
+?>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-52914-1']);
+  _gaq.push(['_setDomainName', '.studentersamfundet.no']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+<?php
+/* end Google Analytics */
+
   }
 
   public function _displayHeader(){?>
@@ -1415,7 +1436,7 @@ Teksten under er hentet fra kunnskapsdatabasen. Du står fritt til å endre den et
                       "attributes" => Array("name" => "priceConcession" ,"size" => 4, "maxlength" => 5,
                                             "value" => $concert->priceConcession));
     $fields[]  =Array("label" => "bilde", "type" => "file",
-                      "attributes" => Array("comment" => "Vi blir glade hvis du bruker litt store bilder. 1024 piksler på den lengste kanten er kjempefint.",
+                      "attributes" => Array("comment" => '<img src="http://www.studentersamfundet.no/imageResize.php?pic=bilder/program/'.$concert->picture.'&amp;maxwidth=200\" alt="pressebilde" />Vi blir glade hvis du bruker litt store bilder. 1024 piksler på den lengste kanten er kjempefint.',
                       "name" => "userfile", "size" => 55));
     $fields[] = Array("label" => "linker", "type" => "textarea",
                       "attributes" => Array("comment" =>
@@ -1450,8 +1471,10 @@ Teksten under er hentet fra kunnskapsdatabasen. Du står fritt til å endre den et
                             "attributes" => Array("name" => "viewWeekprogram",
                                                   "value" => $concert->viewWeekprogram));
 
+    /*
     print("<h2>Ingress blir sammendrag</h2>");
     print("<p>Ingresser utgår fra visningsmalene. I stedet kan dere nå lagre sammendrag av artiklene, som vil vises på sider med flere artikler eller arrangementer.</p>");
+     */
 
     $form = new Form($title, $enctype, $method, $action, $fields);
     $form->display();
