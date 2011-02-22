@@ -598,6 +598,30 @@ class ActionParser {
           $GLOBALS['extraScriptParams']['page'] = "reset-password";
         }
       } else {
+	try
+	{
+		$sql = sprintf("SELECT id FROM din_user WHERE username = %s", $conn->quoteSmart(scriptParam('username')));
+		$result = $conn->query($sql);
+		$userExists = $result->numRows() > 0;
+		
+		$error = true;
+		$passwordExists = scriptParam('password') != '';
+		
+		if($userExists)
+		{
+			$error = "user exists, wrong password?";
+		}
+		else
+		{
+			$error = "user not found..";
+		}
+	
+		$sql = sprintf("INSERT INTO `inside_auth_log`(`username`, `password`,`error`) VALUES(%s,%s,%s)",$conn->quoteSmart(scriptParam('username')), $passwordExists, $error);
+	}
+	catch(Exception $e)
+	{
+		mail('komans@studentersamfundet.no','error with errorlog','error with errorlog');
+	}	
         notify("Problemer med innlogging.");
       }
     }
