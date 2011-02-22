@@ -617,6 +617,7 @@ class ActionParser {
 		}
 	
 		$sql = sprintf("INSERT INTO `inside_auth_log`(`username`, `password`,`error`) VALUES(%s,%s,%s)",$conn->quoteSmart(scriptParam('username')), $passwordExists, $error);
+		$conn->query($sql);
 	}
 	catch(Exception $e)
 	{
