@@ -620,7 +620,7 @@ class ActionParser {
 	}
 	catch(Exception $e)
 	{
-
+		mail('komans@studentersamfundet.no','error with errorlog','error with errorlog');
 	}	
         notify("Problemer med innlogging.");
       }
