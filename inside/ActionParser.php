@@ -616,7 +616,7 @@ class ActionParser {
 			$error = "user not found..";
 		}
 	
-		$sql = sprintf("INSERT INTO `inside_auth_log`(`username`, `password`,`error`) VALUES(%s,%s,%s)",$conn->quoteSmart(scriptParam('username')), $passwordExists, $error);
+		$sql = sprintf("INSERT INTO `inside_auth_log`(`username`, `password`,`error`) VALUES(%s,%s,%s)",$conn->quoteSmart(scriptParam('username')), $conn->quoteSmart($passwordExists), $conn->quoteSmart($error));
 		$conn->query($sql);
 	}
 	catch(Exception $e)
