@@ -14,7 +14,11 @@ class ActionParser {
     //Actions that don't require login
     switch ($this->action) {
       case 'order-password' :
-        $this->_orderPassword();
+        $tmp = $this->_orderPassword();
+	if(!$tmp)
+		$this->logError(scriptParam('userid'), 'Tried to recover password but failed');
+	else
+		$this->logError(scriptParam('userid'), 'Retreived password, probably sent by mail');
         break;
       case 'email-lookup' :
         $this->_emailLookup();
@@ -574,6 +578,13 @@ class ActionParser {
     }
   }
 
+private function logError($username = 'lol', $error)
+{
+	$conn = db_connect();
+        $sql = sprintf("INSERT INTO `inside_auth_log`(`username`, `error`) VALUES(%s,%s)",$conn->quoteSmart(scriptParam('username')), $conn->quoteSmart($error));
+        $conn->query($sql);
+}
+
   public function _logIn() {
     $conn = db_connect();
 
@@ -604,10 +615,12 @@ class ActionParser {
 		$result = $conn->query($sql);
 		$userExists = $result->numRows() > 0;
 		
-		$error = true;
-		$passwordExists = scriptParam('password') != '';
-		
-		if($userExists)
+		$error = '';
+		if(scriptParam('password') == '')
+		{
+			$error = 'no password supplied?';
+		}
+		elseif($userExists)
 		{
 			$error = "user exists, wrong password?";
 		}
@@ -615,9 +628,8 @@ class ActionParser {
 		{
 			$error = "user not found..";
 		}
-	
-		$sql = sprintf("INSERT INTO `inside_auth_log`(`username`, `password`,`error`) VALUES(%s,%s,%s)",$conn->quoteSmart(scriptParam('username')), $conn->quoteSmart($passwordExists), $conn->quoteSmart($error));
-		$conn->query($sql);
+		
+		$this->logError(scriptParam('username'), $error);
 	}
 	catch(Exception $e)
 	{
