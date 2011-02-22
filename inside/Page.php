@@ -1367,7 +1367,13 @@ Teksten under er hentet fra kunnskapsdatabasen. Du står fritt til å endre den et
                                             "name" => "comment", "cols" => 70, "rows" => 3, "value" => scriptParam("comment")));
 
     print("<h3>HUSK: Fyll ut både tittel, sammendrag og tekst!</h3>");
-    print("<p>Studentersamfundet.no vil snarlig legge om alle sine visningsmaler. I de nye malene vil det være viktig å ha fylt ut alle disse 3 feltene.</p>");
+#    print("<p>Studentersamfundet.no vil snarlig legge om alle sine visningsmaler. I de nye malene vil det være viktig å ha fylt ut alle disse 3 feltene.</p>");
+?>
+<div style="background-color:rgb(241,255,115); border:1px solid black; padding:5px; margin:5px;">
+Om dere lager en facebook side til arrangementet, ikke glem &aring; putte inn lenka, for ellers kan det hende KAK ogs&aring; lager en event for deg.
+</div>
+<?php
+
     $form = new Form($title, $enctype, $method, $action, $fields);
     $form->display();
   }
