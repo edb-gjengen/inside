@@ -477,14 +477,18 @@ class ActionParser {
       $headers = 'From: dns.inside@studentersamfundet.no' . "\r\n";
       if (mail($sendto, $subject, $message, $headers)) {
         notify('Nytt brukernavn og passord er sendt til din registrerte epostadresse. Bruk skjemaet under for &#229; logge deg inn.');
+	return true;
       } else {
         notify('Det oppstod en feil under sending av epost. Vennligst kontakt' . '<a href="mailto:support@studentersamfundet.no">webansvarlig</a>.');
+	return false;
       }
     } else {
       if (is_numeric($userid)) {
         notify('Kortnummeret er er ikke registrert i databasen. Vennligst registr&#233;r deg f&#248;rst.');
+	return false;
       } else {
         notify('Ingen bruker er registrert p&#229; epostadressen du oppgav.');
+	return false;
       }
     }
   }
@@ -578,7 +582,7 @@ class ActionParser {
     }
   }
 
-private function logError($username = 'lol', $error)
+private function logError($username, $error)
 {
 	$conn = db_connect();
         $sql = sprintf("INSERT INTO `inside_auth_log`(`username`, `error`) VALUES(%s,%s)",$conn->quoteSmart(scriptParam('username')), $conn->quoteSmart($error));
