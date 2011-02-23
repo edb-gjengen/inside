@@ -54,6 +54,13 @@ class Users {
         $sql = "SELECT DISTINCT u.id
                 FROM din_user u
                 WHERE u.cardno = $selection";
+	if(strlen($selection) == 8)
+	{
+		$sql = "SELECT DISTINCT u.id
+                 FROM din_user u left join din_userphonenumber p on u.id = p.user_id
+                 WHERE p.number = $selection";
+
+	}
       }else {
       	// Add wildcards around and between words
       	$selection = "%" . str_replace(" ", "% %", $selection) . "%";
