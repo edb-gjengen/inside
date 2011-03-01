@@ -104,7 +104,8 @@ class Division {
     $this->office              = $data['office'];
     $this->user_id_contact     = $data['user_id_contact'];
     $this->url                 = $data['url'];    
-    $this->divisioncategory_id = $data['divisioncategory_id'];    
+    $this->divisioncategory_id = $data['divisioncategory_id'];
+    $this->updated	       = $data['updated'];
   }
 
   public function store(){

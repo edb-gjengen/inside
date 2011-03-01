@@ -1041,11 +1041,26 @@ Teksten under er hentet fra kunnskapsdatabasen. Du står fritt til å endre den et
     $users    = $userList->getList();
 
     $divId   = scriptParam("divisionid");
+
+    if(isset($_POST['isupdated']))
+{
+	$db = db_connect();
+	if(!is_numeric($divId)) die();
+	$db->query('UPDATE `din_division` SET `updated`=now() WHERE `id`=' . $divId );
+	?>
+Takk for at du oppdaterte siden!
+
+<br /><br /><a href="https://www.studentersamfundet.no/inside/index.php?page=display-division&divisionid=<?php echo $divId ?>">Til foreningsside</a>
+<?php
+return;	
+}
+
     $div     = new Division($divId);
     $title   = "endre forening eller utvalg";
     $enctype = "multipart/form-data";
     $method  = "post";
     $action  = "index.php?action=update-division&amp;page=display-division";
+
 
     $fields  = Array();
 
@@ -1083,6 +1098,26 @@ Teksten under er hentet fra kunnskapsdatabasen. Du står fritt til å endre den et
 
     $form = new Form($title, $enctype, $method, $action, $fields);
     $form->display();
+
+if($div->updated == null){
+
+echo '<p>Denne siden kan det v&aelig;re veldig lenge siden ble oppdatert. Er informasjonen bra?';
+?>
+<form method="post">
+<input name="isupdated" type="submit" value="Denne informasjonen er oppdatert og fin!" />
+</form></p>
+<?php
+
+}else if(strtotime($div->updated) + 60 * 60 * 24 * 90  < time()):
+echo '<p>Denne siden ble sist oppdatert ' . $div->updated . ', trenger den oppdatering?';
+?>
+<form method="post">
+<input name="isupdated" type="submit" value="Nei, denne informasjonen er oppdatert og fin!" />
+</form></p>
+<?php
+else:
+echo '<p>Denne siden ble sist oppdatert ' . $div->updated . '</p>';
+endif;
   }
 
   public function _displayPositions($selection = "0000-00-00"){
