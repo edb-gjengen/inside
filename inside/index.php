@@ -1,10 +1,10 @@
 <?php
 
-if(!isset($_SERVER['HTTPS']) || $_SERVER['HTTPS'] != 'on')
-{
-        header("Location: https://www.studentersamfundet.no{$_SERVER['REQUEST_URI']}");
-        die;
-}
+#if(!isset($_SERVER['HTTPS']) || $_SERVER['HTTPS'] != 'on')
+#{
+#        header("Location: https://www.studentersamfundet.no{$_SERVER['REQUEST_URI']}");
+#        die;
+#}
 
 $time_start = microtime(true);
 
