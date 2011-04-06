@@ -634,11 +634,34 @@ function checkPassword($userid, $verificationCode) {
 }
 
 function displayCode($code) {
-	print "<p>" . getCode($code) . "</p>";
+	print "<p>";
+	print "Kortnummer: $code<br />";
+	print "Kode: " . getCode($code) . "<br />";
+	if (isValidCode($code)) {
+	  print "Koden har ikke vært brukt";
+	} else {
+	  print "<font color=\"red\">Koden har allerede vært brukt</font>";
+	}
+	print "</p>";
 }
 
 function getCode($code) {
 	return substr(crypt(trim($code), 1813), 2, 6);
+}
+
+function isValidCode($code) {
+	$conn = db_connect();
+    $sql = "SELECT id FROM din_user WHERE cardno=$code";
+    $result = $conn->query($sql);
+    if (DB :: isError($result) != true) {
+      if ($result->numRows() > 0) {
+        return false;
+      }
+    } else {
+      error($result->toString());
+      notify("En ukjent feil oppstod. Vennligst kontakt administrator.");
+    }
+    return true;
 }
 
 
