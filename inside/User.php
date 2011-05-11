@@ -985,37 +985,43 @@ class User {
      * @return boolean
      **/
     public function setAddressStatus($value) {
-    // check for valid input value
-        if (is_numeric($value) && $value >= 0 && $value <=2) {
-        $sql = "UPDATE din_user SET " .
-                "valid_address = '$value' " .
-                "WHERE " .
-                "id = $this->id";
-	        $result = $this->conn->query($sql);
-
-            if (DB :: isError($result) != true) {
-                $this->validAddress = $value;
-
-                switch ($value) {
-                    case 1:
-                        $valuetext = "gyldig"; break;
-                    case 2:
-                        $valuetext = "ukjent"; break;
-                    default:
-                        $valuetext = "ugyldig"; break;
+        // only update if new status is different from old one
+        if ($this->validAddress == $value) {
+            // do nothing, old and new status is the same
+            return true;
+        } else {
+            // check for valid input value
+            if (is_numeric($value) && $value >= 0 && $value <=2) {
+            $sql = "UPDATE din_user SET " .
+                    "valid_address = '$value' " .
+                    "WHERE " .
+                    "id = $this->id";
+    	        $result = $this->conn->query($sql);
+    
+                if (DB :: isError($result) != true) {
+                    $this->validAddress = $value;
+    
+                    switch ($value) {
+                        case 1:
+                            $valuetext = "gyldig"; break;
+                        case 2:
+                            $valuetext = "ukjent"; break;
+                        default:
+                            $valuetext = "ugyldig"; break;
+                    }
+                    // store update
+                    $this->_registerUpdate("Adressestatus satt til $valuetext.");
+    
+                    // done
+                    return true;
+                } else {
+                    notify("Problemer med registreringen av adressestatus");
+                    return false;
                 }
-                // store update
-                $this->_registerUpdate("Adressestatus satt til $valuetext.");
-
-                // done
-                return true;
             } else {
-                notify("Problemer med registreringen av adressestatus");
+                notify("Ugyldig adressestatusverdi: " . $value);
                 return false;
             }
-        } else {
-            notify("Ugyldig adressestatusverdi: " . $value);
-            return false;
         }
         return false;
     }
