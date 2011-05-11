@@ -575,11 +575,11 @@ class User {
   }
 
   public function renewMembership($cardno) {
-    $expires = $this->getExpiryDate();
-    if ($expires <= $this->expires) {
+    if (!$this->hasExpired()) {
       notify("Du har allerede gyldig medlemskap for dette året.");
       return false;
     }
+    $expires = $this->getExpiryDate();
     $this->conn->autoCommit(false);
     if ($this->_registerUsedCardno($cardno) == true) {
       $sql = "UPDATE din_user SET " . "  expires = '$expires' " . "WHERE " . "  id = $this->id";
@@ -602,11 +602,11 @@ class User {
   }
 
   public function renewMembershipPayex() {
-    $expires = $this->getExpiryDate();
-    if ($expires <= $this->expires) {
+    if (!$this->hasExpired()) {
       notify("Du har allerede gyldig medlemskap for dette året.");
       return false;
     }
+    $expires = $this->getExpiryDate();
     $this->conn->autoCommit(false);
     $sql = "UPDATE din_user SET " . "  expires = '$expires' " . "WHERE " . "  id = $this->id";
     $result = $this->conn->query($sql);
@@ -626,11 +626,11 @@ class User {
   }
 
   public function renewMembershipEurobate() {
-    $expires = $this->getExpiryDate();
-    if ($expires <= $this->expires) {
+    if (!$this->hasExpired()) {
       // har allerede gyldig medlemskap
       return false;
     }
+    $expires = $this->getExpiryDate();
     $this->conn->autoCommit(false);
     $sql = "UPDATE din_user SET " . "  expires = '$expires' " . "WHERE " . "  id = $this->id";
     $result = $this->conn->query($sql);
@@ -685,8 +685,7 @@ class User {
 
   /* Order new membercard if old one is lost */
   public function renewMembercardPayex() {
-        $expires = $this->getExpiryDate();
-        if ($expires > $this->expires) {
+        if ($this->hasExpired()) {
             notify("Du har ikke gyldig medlemskap for dette året.");
             return false;
         }
