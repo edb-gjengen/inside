@@ -575,11 +575,11 @@ class User {
   }
 
   public function renewMembership($cardno) {
-    $expires = $this->getExpiryDate();
-    if ($expires <= $this->expires) {
+    if (!$this->hasExpired()) {
       notify("Du har allerede gyldig medlemskap for dette året.");
       return false;
     }
+    $expires = $this->getExpiryDate();
     $this->conn->autoCommit(false);
     if ($this->_registerUsedCardno($cardno) == true) {
       $sql = "UPDATE din_user SET " . "  expires = '$expires' " . "WHERE " . "  id = $this->id";
@@ -602,11 +602,11 @@ class User {
   }
 
   public function renewMembershipPayex() {
-    $expires = $this->getExpiryDate();
-    if ($expires <= $this->expires) {
+    if (!$this->hasExpired()) {
       notify("Du har allerede gyldig medlemskap for dette året.");
       return false;
     }
+    $expires = $this->getExpiryDate();
     $this->conn->autoCommit(false);
     $sql = "UPDATE din_user SET " . "  expires = '$expires' " . "WHERE " . "  id = $this->id";
     $result = $this->conn->query($sql);
@@ -626,11 +626,11 @@ class User {
   }
 
   public function renewMembershipEurobate() {
-    $expires = $this->getExpiryDate();
-    if ($expires <= $this->expires) {
+    if (!$this->hasExpired()) {
       // har allerede gyldig medlemskap
       return false;
     }
+    $expires = $this->getExpiryDate();
     $this->conn->autoCommit(false);
     $sql = "UPDATE din_user SET " . "  expires = '$expires' " . "WHERE " . "  id = $this->id";
     $result = $this->conn->query($sql);
@@ -685,8 +685,7 @@ class User {
 
   /* Order new membercard if old one is lost */
   public function renewMembercardPayex() {
-        $expires = $this->getExpiryDate();
-        if ($expires > $this->expires) {
+        if ($this->hasExpired()) {
             notify("Du har ikke gyldig medlemskap for dette året.");
             return false;
         }
@@ -986,37 +985,43 @@ class User {
      * @return boolean
      **/
     public function setAddressStatus($value) {
-    // check for valid input value
-        if (is_numeric($value) && $value >= 0 && $value <=2) {
-        $sql = "UPDATE din_user SET " .
-                "valid_address = '$value' " .
-                "WHERE " .
-                "id = $this->id";
-	        $result = $this->conn->query($sql);
-
-            if (DB :: isError($result) != true) {
-                $this->validAddress = $value;
-
-                switch ($value) {
-                    case 1:
-                        $valuetext = "gyldig"; break;
-                    case 2:
-                        $valuetext = "ukjent"; break;
-                    default:
-                        $valuetext = "ugyldig"; break;
+        // only update if new status is different from old one
+        if ($this->validAddress == $value) {
+            // do nothing, old and new status is the same
+            return true;
+        } else {
+            // check for valid input value
+            if (is_numeric($value) && $value >= 0 && $value <=2) {
+            $sql = "UPDATE din_user SET " .
+                    "valid_address = '$value' " .
+                    "WHERE " .
+                    "id = $this->id";
+    	        $result = $this->conn->query($sql);
+    
+                if (DB :: isError($result) != true) {
+                    $this->validAddress = $value;
+    
+                    switch ($value) {
+                        case 1:
+                            $valuetext = "gyldig"; break;
+                        case 2:
+                            $valuetext = "ukjent"; break;
+                        default:
+                            $valuetext = "ugyldig"; break;
+                    }
+                    // store update
+                    $this->_registerUpdate("Adressestatus satt til $valuetext.");
+    
+                    // done
+                    return true;
+                } else {
+                    notify("Problemer med registreringen av adressestatus");
+                    return false;
                 }
-                // store update
-                $this->_registerUpdate("Adressestatus satt til $valuetext.");
-
-                // done
-                return true;
             } else {
-                notify("Problemer med registreringen av adressestatus");
+                notify("Ugyldig adressestatusverdi: " . $value);
                 return false;
             }
-        } else {
-            notify("Ugyldig adressestatusverdi: " . $value);
-            return false;
         }
         return false;
     }

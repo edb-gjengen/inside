@@ -3344,7 +3344,7 @@ Om dere lager en facebook side til arrangementet, ikke glem &aring; putte inn le
           print "<input type=\"hidden\" name=\"action\" value=\"membership-sale\" />";
           print "<input type=\"hidden\" name=\"userid\" value=\"" . $user->getId() . "\" />";
           if ($user->getCardDelivered()) {
-            print "<input type=\"hidden\" name=\"subaction2\" value=\"order-new-card\" />";
+            print "<input type=\"hidden\" name=\"subaction\" value=\"order-new-card\" />";
             print "<input type=\"submit\" name=\"order-new-card\" value=\"Bestill nytt kort\" />";
           }
           print "</form>";
