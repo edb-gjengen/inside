@@ -764,6 +764,7 @@ private function logError($username, $error)
   }
 
   public function _deleteEvent() {
+	die('<html><body>Sletting av eventer er midlertidig avskrudd. Ta kontakt med komans@studentersamfundet.no eller edb@studentersamfundet.no for &aring; f&aring; slettet ting.</body></html>');
     Event :: delete(scriptParam("eventid"));
   }
 
