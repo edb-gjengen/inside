@@ -1554,4 +1554,12 @@ function strip_nl($string) {
 	$string = str_replace("\r", "", $string);
 	return $string;
 }
+
+
+function getStickerPeriod($time)
+{
+	$start = date('Y', strtotime($time));
+	return $start . '/' . (substr($start,2,2) + 1);
+}
+
 ?>

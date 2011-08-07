@@ -3315,9 +3315,9 @@ Om dere lager en facebook side til arrangementet, ikke glem &aring; putte inn le
               print "<input type=\"hidden\" name=\"subaction\" value=\"sticker-sale\" />";
               print "<select name=\"new-sticker-date\">\n";
               print "<option value=\"" . date("Y") . "\">" . "i år (" . date("Y") . ")" . "</option>\n";
-              print "<option value=\"" . date("Y", strtotime("+1 year")) . "\">" . "neste år (" . date("Y", strtotime("+1 year")) . ")" . "</option>\n";
-              print "<option value=\"" . date("Y", strtotime("+3 year")) . "\">" . "tre år (" . date("Y", strtotime("+3 year")) . ")" . "</option>\n";
-              print "<option value=\"" . date("Y", strtotime("+5 year")) . "\">" . "fem år (" . date("Y", strtotime("+5 year")) . ")" . "</option>\n";
+              print "<option value=\"" . date("Y", strtotime("+1 year")) . "\">" . "neste år (" . getStickerPeriod("+1 year") . ")" . "</option>\n";
+              print "<option value=\"" . date("Y", strtotime("+3 year")) . "\">" . "tre år (" . getStickerPeriod("+3 year") . ")" . "</option>\n";
+              print "<option value=\"" . date("Y", strtotime("+5 year")) . "\">" . "fem år (" . getStickerPeriod("+5 year") . ")" . "</option>\n";
               print "</select>\n";
               print "<input type=\"submit\" value=\"Selg oblat\" />";
             }
@@ -3326,12 +3326,12 @@ Om dere lager en facebook side til arrangementet, ikke glem &aring; putte inn le
               print "produser kort";
             } elseif (!$user->getCardDelivered()) {
               print "<input type=\"hidden\" name=\"subaction\" value=\"give-card\" />";
-              print "<input type=\"hidden\" name=\"new-sticker-date\" value=\"" . date("Y", strtotime($user->getExpiryDate())) . "\" />";
-              print "<input type=\"submit\" name=\"give-card\" value=\"Lever ut kort (" . date("Y", strtotime($user->getExpiryDate())) . ")\" />";
+              print "<input type=\"hidden\" name=\"new-sticker-date\" value=\"" . $user->getNewStickerDate() . "\" />";
+              print "<input type=\"submit\" name=\"give-card\" value=\"Lever ut kort (" . $user->getNewStickerDate() . ")\" />";
             } elseif (!$user->hasCardSticker()) {
               print "<input type=\"hidden\" name=\"subaction\" value=\"give-sticker\" />";
-              print "<input type=\"hidden\" name=\"new-sticker-date\" value=\"" . date("Y", strtotime($user->getExpiryDate())) . "\" />";
-              print "<input type=\"submit\" name=\"give-sticker\" value=\"Gi oblat (" . date("Y", strtotime($user->getExpiryDate())) . ")\" />";
+              print "<input type=\"hidden\" name=\"new-sticker-date\" value=\"" . $user->getNewStickerDate() . "\" />";
+              print "<input type=\"submit\" name=\"give-sticker\" value=\"Gi oblat (" . $user->getNewStickerDate() . ")\" />";
             } else {
               print "-";
             }
