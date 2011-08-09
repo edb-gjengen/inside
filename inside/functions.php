@@ -1561,7 +1561,10 @@ function getStickerPeriod($time)
 	$start = date('Y', strtotime($time));
 	return $start . '/' . (substr($start,2,2) + 1);
 }
+
 // Migration (nikolark)
+
+/* Returns true if the current logged in user have the migrated flag. */
 function is_migrated() {
     $conn = db_connect();
     $uid = getCurrentUser();
