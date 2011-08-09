@@ -719,10 +719,16 @@ class User {
   }
 
   public function updateExpiry($newDate) {
+  	if(preg_match('#^\d{4}/\d{2}$#', $newDate))
+  	{
+  		$newDate = substr($newDate,0,2) . substr($newDate,5,2);
+  	}
+  
     if ($newDate == 'lifetime') {
       $sql = "UPDATE din_user SET expires = NULL WHERE id = $this->id LIMIT 1";
     } else {
-      $sql = "UPDATE din_user SET expires = '$newDate-12-31' WHERE id = $this->id LIMIT 1";
+    	$expires = $this->getExpiryDate($newDate);
+      $sql = "UPDATE din_user SET expires = '$expires' WHERE id = $this->id LIMIT 1";
     }
     $conn = db_connect();
     $result = $this->conn->query($sql);
@@ -923,12 +929,26 @@ class User {
         return true;
       }
     }
+    
+	public function getNewStickerDate()
+	{
+		$year = substr($this->getExpiryDate(),0,4);
+		return $year . '/' . (substr($year,2,2) + 1);
+	}
 
-    public function getExpiryDate() {
-      if (date("Y-m-d") > date("Y-11-15")) {
-        return date("Y", strtotime("+1 year")) . "-12-31";
-      } else {
-        return date("Y") . "-12-31";
+    public function getExpiryDate($year = null) {
+      if($year)
+      {
+      	return $year . '07-01';
+      }
+      
+      if (date("m-d") > "07-01" )
+      {
+      	return date("Y", strtotime("+1 year")) . '-08-01';
+      }
+      else
+      {
+      	return date("Y") . '-08-01';
       }
     }
 
@@ -1230,10 +1250,10 @@ class User {
             print "<input type=\"hidden\" name=\"action\" value=\"update-user-expiry\" />\n";
             print "<select name=\"newExpiryDate_" . $this->id . "\" id=\"newExpiryDate_" . $this->id . "\">\n";
             print "<option value=\"0000-00-00\">" . "ugyldig utløpsår" . "</option>\n";
-            print "<option value=\"" . date("Y") . "\">" . "inneværende år (" . date("Y") . ")" . "</option>\n";
-            print "<option value=\"" . date("Y", strtotime("+1 year")) . "\">" . "neste år (" . date("Y", strtotime("+1 year")) . ")" . "</option>\n";
-            print "<option value=\"" . date("Y", strtotime("+3 year")) . "\">" . "tre år (" . date("Y", strtotime("+3 year")) . ")" . "</option>\n";
-            print "<option value=\"" . date("Y", strtotime("+5 year")) . "\">" . "fem år (" . date("Y", strtotime("+5 year")) . ")" . "</option>\n";
+            print "<option value=\"" . getStickerPeriod("now") . "\">" . "inneværende år (" . getStickerPeriod("now") . ")" . "</option>\n";
+            print "<option value=\"" . getStickerPeriod("+1 year") . "\">" . "neste år (" . getStickerPeriod("+1 year") . ")" . "</option>\n";
+            print "<option value=\"" . getStickerPeriod("+3 year") . "\">" . "tre år (" . getStickerPeriod("+3 year") . ")" . "</option>\n";
+            print "<option value=\"" . getStickerPeriod("+5 year") . "\">" . "fem år (" . getStickerPeriod("+5 year") . ")" . "</option>\n";
             print "<option value=\"lifetime\">" . "livsvarig" . "</option>\n";
             print "</select>\n";
             print "<input type=\"submit\" value=\"endre\" />\n";
@@ -1252,10 +1272,10 @@ class User {
             print "<div>";
             print "<input type=\"hidden\" name=\"action\" value=\"update-user-last-sticker\" />";
             print "<select name=\"newStickerDate_" . $this->id . "\" id=\"newStickerDate_" . $this->id . "\">";
-            print "<option value=\"" . date("Y") . "\">" . "inneværende år (" . date("Y") . ")" . "</option>\n";
-            print "<option value=\"" . date("Y", strtotime("+1 year")) . "\">" . "neste år (" . date("Y", strtotime("+1 year")) . ")" . "</option>\n";
-            print "<option value=\"" . date("Y", strtotime("+3 year")) . "\">" . "tre år (" . date("Y", strtotime("+3 year")) . ")" . "</option>\n";
-            print "<option value=\"" . date("Y", strtotime("+5 year")) . "\">" . "fem år (" . date("Y", strtotime("+5 year")) . ")" . "</option>\n";
+            print "<option value=\"" . getStickerPeriod("now") . "\">" . "inneværende år (" . getStickerPeriod("now") . ")" . "</option>\n";
+            print "<option value=\"" . getStickerPeriod("+1 year") . "\">" . "neste år (" . getStickerPeriod("+1 year") . ")" . "</option>\n";
+            print "<option value=\"" . getStickerPeriod("+3 year") . "\">" . "tre år (" . getStickerPeriod("+3 year") . ")" . "</option>\n";
+            print "<option value=\"" . getStickerPeriod("+5 year") . "\">" . "fem år (" . getStickerPeriod("+5 year") . ")" . "</option>\n";
             print "<option value=\"" . 0 . "\">ingen verdi</option>";
             print "</select>";
             print "<input type=\"submit\" value=\"endre\" />";

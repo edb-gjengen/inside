@@ -1554,4 +1554,26 @@ function strip_nl($string) {
 	$string = str_replace("\r", "", $string);
 	return $string;
 }
+
+
+function getStickerPeriod($time)
+{
+	$start = date('Y', strtotime($time));
+	return $start . '/' . (substr($start,2,2) + 1);
+}
+// Migration (nikolark)
+function is_migrated() {
+    $conn = db_connect();
+    $uid = getCurrentUser();
+
+    $sql = sprintf("SELECT migrated FROM din_user WHERE id=%s AND migrated IS NOT NULL", $uid);
+    $result = $conn->query($sql);
+
+    if (DB :: isError($result) == true) {
+        error("is_migrated: " . $result->toString());
+        return false;
+    }
+    return $result->numRows() > 0;
+}
+
 ?>

@@ -645,6 +645,14 @@ possibly include it instead? --Thomas Misund, 26. Oct 2009
             menuExpandCurrentSection("<?php print($this->section."Menu"); ?>");
         }
     </script>
+    <!-- Migration (nikolark) -->
+		<link type="text/css" href="./migration/css/smoothness/jquery-ui-1.8.14.custom.css" rel="stylesheet" />	
+        <link type="text/css" href="./migration/css/nikolark.css" rel="stylesheet" />
+		<script type="text/javascript" src="./migration/js/jquery-1.5.1.min.js"></script>
+		<script type="text/javascript" src="./migration/js/jquery-ui-1.8.14.custom.min.js"></script>
+		<script type="text/javascript" src="./migration/js/jquery.validate.min.js"></script>
+		<script type="text/javascript" src="./migration/js/custom_validators.js"></script>
+		<script type="text/javascript" src="./migration/js/byebye_inside.js"></script>
     <title><?php print $this->page_title; ?></title>
   </head>
 
@@ -757,9 +765,32 @@ possibly include it instead? --Thomas Misund, 26. Oct 2009
     	$form = new Form($title, $enctype, $method, $action, $fields, $id);
     	$form->display("horizontal");
 		}
-?>
-
-
+    // Migrering til LDAP (nikolark)
+        if( !is_migrated() ) {
+            ?>
+                <div id="infomodal">
+                <div class="ui-widget"> 
+                <div class="ui-state-highlight ui-corner-all" style="margin-top: 20px; padding: 0 .7em;"> 
+                  <p><span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span> 
+                  <strong>DNS oppdaterer EDB-systemet!</strong><br />Vi (EDB) har ryddet opp på kottet i Slemdalsveien 15 og har funnet internsystemet <span style="font-style:italic;">Inside</span> modent for søppeldynga.</p>
+                </div> 
+                </div>
+                Vi ber derfor alle medlemmer <span style="font-weight:bold;">bekrefte sitt brukernavn og passord</span> slik at vi kan pensjonere dette systemet og tilby nye og bedre tjenester. Dette medfører at noen av dere må bytte brukernavn (de med spesialtegn, mellomrom og lignende).
+                <h3>Hvorfor?</h3>
+                <ul>
+                <li><span style="font-weight:bold;">Medlem:</span> For å få tilgang til trådløst nettverk.</li>
+                <li><span style="font-weight:bold;">Aktiv:</span> For å få tilgang til maskiner.</li>
+                </ul>
+                </div>
+                <script type="text/javascript">
+                /* open the migrate dialog */
+                $( document ).ready( function() {
+                    $("#infomodal").dialog('open');
+                });
+                </script>
+            <?php
+        }
+        ?>
   </div>
 
 <?php
@@ -3315,9 +3346,9 @@ Om dere lager en facebook side til arrangementet, ikke glem &aring; putte inn le
               print "<input type=\"hidden\" name=\"subaction\" value=\"sticker-sale\" />";
               print "<select name=\"new-sticker-date\">\n";
               print "<option value=\"" . date("Y") . "\">" . "i år (" . date("Y") . ")" . "</option>\n";
-              print "<option value=\"" . date("Y", strtotime("+1 year")) . "\">" . "neste år (" . date("Y", strtotime("+1 year")) . ")" . "</option>\n";
-              print "<option value=\"" . date("Y", strtotime("+3 year")) . "\">" . "tre år (" . date("Y", strtotime("+3 year")) . ")" . "</option>\n";
-              print "<option value=\"" . date("Y", strtotime("+5 year")) . "\">" . "fem år (" . date("Y", strtotime("+5 year")) . ")" . "</option>\n";
+              print "<option value=\"" . date("Y", strtotime("+1 year")) . "\">" . "neste år (" . getStickerPeriod("+1 year") . ")" . "</option>\n";
+              print "<option value=\"" . date("Y", strtotime("+3 year")) . "\">" . "tre år (" . getStickerPeriod("+3 year") . ")" . "</option>\n";
+              print "<option value=\"" . date("Y", strtotime("+5 year")) . "\">" . "fem år (" . getStickerPeriod("+5 year") . ")" . "</option>\n";
               print "</select>\n";
               print "<input type=\"submit\" value=\"Selg oblat\" />";
             }
@@ -3326,12 +3357,12 @@ Om dere lager en facebook side til arrangementet, ikke glem &aring; putte inn le
               print "produser kort";
             } elseif (!$user->getCardDelivered()) {
               print "<input type=\"hidden\" name=\"subaction\" value=\"give-card\" />";
-              print "<input type=\"hidden\" name=\"new-sticker-date\" value=\"" . date("Y", strtotime($user->getExpiryDate())) . "\" />";
-              print "<input type=\"submit\" name=\"give-card\" value=\"Lever ut kort (" . date("Y", strtotime($user->getExpiryDate())) . ")\" />";
+              print "<input type=\"hidden\" name=\"new-sticker-date\" value=\"" . $user->getNewStickerDate() . "\" />";
+              print "<input type=\"submit\" name=\"give-card\" value=\"Lever ut kort (" . $user->getNewStickerDate() . ")\" />";
             } elseif (!$user->hasCardSticker()) {
               print "<input type=\"hidden\" name=\"subaction\" value=\"give-sticker\" />";
-              print "<input type=\"hidden\" name=\"new-sticker-date\" value=\"" . date("Y", strtotime($user->getExpiryDate())) . "\" />";
-              print "<input type=\"submit\" name=\"give-sticker\" value=\"Gi oblat (" . date("Y", strtotime($user->getExpiryDate())) . ")\" />";
+              print "<input type=\"hidden\" name=\"new-sticker-date\" value=\"" . $user->getNewStickerDate() . "\" />";
+              print "<input type=\"submit\" name=\"give-sticker\" value=\"Gi oblat (" . $user->getNewStickerDate() . ")\" />";
             } else {
               print "-";
             }
