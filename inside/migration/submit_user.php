@@ -12,8 +12,8 @@ $errors = Array();
 if( strlen($_POST['username']) < 3 && strlen($_POST['username']) > 15 ) {
     $result['errors']['username'][] = "Please enter a value between 3 and 15 characters long.";
 }
-if( !preg_match("/[a-z]/i", $_POST['username']) ) {
-    $result['errors']['username'][] = "Please enter only letters (english alphabet).";
+if( !preg_match("/[a-z]/", $_POST['username']) ) {
+    $result['errors']['username'][] = "Please enter only lowercase letters (english alphabet).";
 }
 if( file_get_contents("./user_exists.php") == "false" ) {
     $result['errors']['username'][] = "Username is taken.";
