@@ -3,9 +3,9 @@ function init_validation() {
         rules: {
             username: {
                 required: true,
-                rangelength: [3, 15],
+                rangelength: [3, 12],
                 lettersonly: true,
-                remote: "./migration/user_exists.php",
+                remote: "./migration/username_available.php",
             },
             password: {
                 required: true,
@@ -16,6 +16,11 @@ function init_validation() {
                 minlength: 8,
                 equalTo: "#id_password",
             },
+        },
+        messages: {
+            username: {
+                remote: 'Username is taken.',
+            }
         },
         submitHandler: function(form) {
             var form_username = $("#id_username").val();
@@ -46,7 +51,7 @@ function init_validation() {
                         /* Output the errors (will never happend). */
                         var output = '<div style="padding: 0 .7em;" class="ui-state-error ui-corner-all">';
                         for(var error in result.errors) {
-                            output += '<p><span style="float: left; margin-right: .3em;" class="ui-icon ui-icon-alert"></span><strong>'+ error +':</strong> ' + result.errors[error][0] + '</p>';
+                            output += '<p><span style="float: left; margin-right: .3em;" class="ui-icon ui-icon-alert"></span><strong>'+ error +':</strong> ' + result.errors[error] + '</p>';
                         }
                         output += '</div>';
                         $("#infomodal").prepend(output);

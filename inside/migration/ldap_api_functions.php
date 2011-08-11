@@ -39,4 +39,10 @@ function ldap_add_user($username, $firstname, $lastname, $email, $password, $gro
     $result = var_export(file_get_contents("http://brukerinfo.neuf.no/addNewUser.php?" . implode("&", $arr)), true);
     return $result;
 }
+function _log($str) { 
+    $time = date("[Y-m-d H:i:s.u]"); 
+    file_put_contents("migration.log", $time . 
+    $str . "\n", FILE_APPEND); 
+} 
+
 ?>

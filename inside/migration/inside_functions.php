@@ -17,13 +17,12 @@ function update_user($username, $password) {
     $uid = getCurrentUser();
 
     /* Update the current user's username and password */
-    $sql = sprintf("UPDATE din_user SET user='%s', password=PASSWORD('%s') WHERE id=%s LIMIT 1",
+    $sql = sprintf("UPDATE din_user SET username='%s', password=PASSWORD('%s') WHERE id=%s LIMIT 1",
                 mysql_real_escape_string($username),
                 mysql_real_escape_string($password),
                 $uid);
-    //$result = $conn->query($sql);
-    return true;
-    //return ! DB :: isError($result) and $ldap_updated;
+    $result = $conn->query($sql);
+    return ! DB :: isError($result);
 }
 function user_exists($username) {
     $conn = db_connect();
@@ -76,8 +75,12 @@ function find_groups() {
     if(DB :: isError($result)) {
         return false;
     }
+    $arr = array();
+    foreach($result as $column => $group) {
+        $arr[] = $group['posix_group'];
+    }
 
-    return $result;
+    return $arr;
 }
 function enc_password($password, $key) {
     $iv_size = mcrypt_get_iv_size(MCRYPT_RIJNDAEL_256, MCRYPT_MODE_ECB);

@@ -9,14 +9,14 @@ if( !( isset($_POST['username']) || isset($_POST['password']) || isset($_POST['p
 /* Server side field validation */
 $errors = Array();
 /* Validate username */
-if( strlen($_POST['username']) < 3 && strlen($_POST['username']) > 15 ) {
-    $result['errors']['username'][] = "Please enter a value between 3 and 15 characters long.";
+if( strlen($_POST['username']) < 3 && strlen($_POST['username']) > 12 ) {
+    $result['errors']['username'][] = "Please enter a username between 3 and 12 characters long.";
 }
 if( !preg_match("/[a-z]/", $_POST['username']) ) {
     $result['errors']['username'][] = "Please enter only lowercase letters (english alphabet).";
 }
-if( file_get_contents("./user_exists.php") == "false" ) {
-    $result['errors']['username'][] = "Username is taken.";
+if( file_get_contents("./username_available.php") == "false" ) {
+    $result['errors']['username'][] = "Username taken.";
 }
 /* Validate password */
 if( strlen($_POST['password']) < 8 ) {
@@ -38,11 +38,11 @@ if ( !isset($result) ) {
         /* migrated? */
         $migrated = ldap_add_user($_POST['username'], $user->firstname, $user->lastname, $user->email, $_POST['password'], $groups);
         /* Note: Assume success every time, but log result of migrated anyway. */
-        /* TODO nikolark log $migrated. */
+        _log($migrated);
         set_migrated();
-        echo json_encode( Array('result' => 'success', 'groups' => $groups);
+        echo json_encode( Array('result' => 'success', 'groups' => $groups) );
     } else {
-        echo json_encode( Array('result' => 'error', 'errors' => Array('database' => 'User not update.')) );
+        echo json_encode( Array('result' => 'error', 'errors' => Array('database' => 'User not migrated.')) );
     }
 }
 else {

@@ -1,0 +1,20 @@
+[2011-08-11 18:11:21.000000]'Added cn=olivaqtest,ou=Groups,dc=neuf,dc=no
+Added uid=olivaqtest,ou=People,dc=neuf,dc=no
+Created home directory
+Added cn=olivaqtest,ou=auto.home,ou=Automount,dc=neuf,dc=no
+Created users kerberos credentials
+Could not add olivaqtest to cn=Array,ou=Groups,dc=neuf,dc=no
+Could not add olivaqtest to cn=Array,ou=Groups,dc=neuf,dc=no
+'
+[2011-08-11 18:37:45.000000]UPDATE din_user SET user='olivaqtesting', password=PASSWORD('hemmelig') WHERE id=1 LIMIT 1
+[2011-08-11 18:38:23.000000]UPDATE din_user SET user='olivaqtesting', password=PASSWORD('hemmelig') WHERE id=1 LIMIT 1
+[2011-08-11 18:38:23.000000][db_error: message="DB Error: no such field" code=-19 mode=return level=notice prefix="" info="UPDATE din_user SET user='olivaqtesting', password=PASSWORD('hemmelig') WHERE id=1 LIMIT 1 [nativecode=1054 ** Unknown column 'user' in 'field list']"]
+[2011-08-11 18:39:48.000000]UPDATE din_user SET username='olivaqtesting', password=PASSWORD('hemmelig') WHERE id=1 LIMIT 1
+[2011-08-11 18:47:48.000000]'Added cn=olivaqtestin,ou=Groups,dc=neuf,dc=no
+Added uid=olivaqtestin,ou=People,dc=neuf,dc=no
+Created home directory
+Added cn=olivaqtestin,ou=auto.home,ou=Automount,dc=neuf,dc=no
+Created users kerberos credentials
+Added olivaqtestin to cn=dns-alle,ou=Groups,dc=neuf,dc=no
+Added olivaqtestin to cn=dns-administrator,ou=Groups,dc=neuf,dc=no
+'
