@@ -688,7 +688,44 @@ possibly include it instead? --Thomas Misund, 26. Oct 2009
 		<?php
 	}
 
-
+ if(time() < 1315612799):
+    ?>
+    <style type="text/css">
+    #lol
+    {
+    	margin:10px 0px;
+    }
+    
+    	#lol:after
+    	{
+    		content:".";
+    		clear:both;
+    		height:0px;
+    		display:block;
+    		visibility:hidden;
+    	}
+    	
+    	#lol .half
+    	{
+    		width:45%;
+    		float:left;
+    		
+    	}
+    </style>
+   <div id="lol">
+   <div class="half">
+    <h3>Ny i DNS?</h3>
+   
+    <p>Har du lyst til å være med å vår egen lille fadderhelg 9.-11. september? Bli kjent med Det Norske Studentersamfund og vi som holder til der! Se <a href="http://studentersamfundet.no/nyidns.php">ny i dns!</a></p>
+ </div>
+ <div class="half">
+ 	<h3>Bli aktiv!</h3>
+ 	<p>Syns du noe av det vi holder på med er spennende? Lyst til å booke band eller lære å mikse drinker? Bli med oss som aktiv i en av de mange foreningene på huset, du får garantert minner for livet og nye venner!<br /> Se <a href="http://studentersamfundet.no/bliaktiv.php">bli aktiv!</a></p>
+ 
+ </div>
+ </div>
+ 
+ <?php endif;
   if (!isActive()){?>
     	<?php
     if (!isMember()){?>
@@ -765,7 +802,7 @@ possibly include it instead? --Thomas Misund, 26. Oct 2009
     	$form = new Form($title, $enctype, $method, $action, $fields, $id);
     	$form->display("horizontal");
 		}
-    // Migrering til LDAP (nikolark)
+    // Migration LDAP (nikolark)
         if( !is_migrated() ) {
             ?>
                 <div id="infomodal">
@@ -784,9 +821,10 @@ possibly include it instead? --Thomas Misund, 26. Oct 2009
                 </div>
                 <script type="text/javascript">
                 /* open the migrate dialog */
-                $( document ).ready( function() {
-                    $("#infomodal").dialog('open');
-                });
+		// TODO: uncomment this.
+                //$( document ).ready( function() {
+                //  $("#infomodal").dialog('open');
+                //});
                 </script>
             <?php
         }
@@ -2397,7 +2435,8 @@ Om dere lager en facebook side til arrangementet, ikke glem &aring; putte inn le
     $data      = $_POST; //Error during register, old values needed to avoid retyping
 
 		if (!isset($_SESSION['valid-user'])){?>
-		<p>Ved å registrere deg kan du aktivere eller kjøpe medlemskap.</p>
+		<h2>Bli medlem!</h2>
+		<p>Her kan du registrere deg for så å kjøpe medlemskap! Om du allerede har en konto kan du logge inn på <a href="/inside">Inside</a></p>
 		<p>Alle feltene må fylles ut.</p>
 
 		<?php
@@ -2468,13 +2507,13 @@ Om dere lager en facebook side til arrangementet, ikke glem &aring; putte inn le
                       "attributes" => Array("name" => "placeOfStudy", "values" => $pos,
                                             "currentValue" => (isset($data['placeOfStudy'])) ? $data['placeOfStudy'] : ""));
     if (!isset($_SESSION['valid-user'])) {
-	    $fields[] = Array("label" => "aktiv i en forening?", "type" => "checkbox",
+	    /*$fields[] = Array("label" => "aktiv i en forening?", "type" => "checkbox",
       	                "attributes" => Array("name" => "active",
       	                											"label" => " hak av om du er eller vil bli aktiv i en forening på Studentersamfundet",
           	                                  "checked" => (isset($data['active'])) ? "checked" : ""));
     	$fields[] = Array("label" => "forening", "type" => "select",
       	                "attributes" => Array("name" => "division", "values" => $divs,
-        	                                    "currentValue" => (isset($data['division'])) ? $data['division'] : ""));
+        	                                    "currentValue" => (isset($data['division'])) ? $data['division'] : ""));*/
 
     } else {
 	    $fields[] = Array("label" => "legg til i gruppe?", "type" => "checkbox",
@@ -2923,6 +2962,46 @@ Om dere lager en facebook side til arrangementet, ikke glem &aring; putte inn le
                       "attributes" => Array("name" => "verificationCode", "size" => 12, "maxlength" => 20));
     $form = new Form($title, $enctype, $method, $action, $fields);
     $form->display();
+    
+    
+    if(time() < 1315612799):
+    ?>
+    <style type="text/css">
+    #lol
+    {
+    	margin:10px 0px;
+    }
+    
+    	#lol:after
+    	{
+    		content:".";
+    		clear:both;
+    		height:0px;
+    		display:block;
+    		visibility:hidden;
+    	}
+    	
+    	#lol .half
+    	{
+    		width:45%;
+    		float:left;
+    		
+    	}
+    </style>
+   <div id="lol">
+   <div class="half">
+    <h3>Ny i DNS?</h3>
+   
+    <p>Har du lyst til å være med å vår egen lille fadderhelg 9.-11. september? Bli kjent med Det Norske Studentersamfund og vi som holder til der! Se <a href="http://studentersamfundet.no/nyidns.php">ny i dns!</a></p>
+ </div>
+ <div class="half">
+ 	<h3>Bli aktiv!</h3>
+ 	<p>Syns du noe av det vi holder på med er spennende? Lyst til å booke band eller lære å mikse drinker? Bli med oss som aktiv i en av de mange foreningene på huset, du får garantert minner for livet og nye venner! Se <a href="http://studentersamfundet.no/bliaktiv.php">bli aktiv!</a></p>
+ 
+ </div>
+ </div>
+ 
+ <?php endif;
     if (checkAuth("view-register-membership-payex")) {
     	?>
     	<br />
@@ -3345,7 +3424,7 @@ Om dere lager en facebook side til arrangementet, ikke glem &aring; putte inn le
             } else {
               print "<input type=\"hidden\" name=\"subaction\" value=\"sticker-sale\" />";
               print "<select name=\"new-sticker-date\">\n";
-              print "<option value=\"" . date("Y") . "\">" . "i år (" . date("Y") . ")" . "</option>\n";
+              print "<option value=\"" . date("Y") . "\">" . "i år (" . getStickerPeriod('today') . ")" . "</option>\n";
               print "<option value=\"" . date("Y", strtotime("+1 year")) . "\">" . "neste år (" . getStickerPeriod("+1 year") . ")" . "</option>\n";
               print "<option value=\"" . date("Y", strtotime("+3 year")) . "\">" . "tre år (" . getStickerPeriod("+3 year") . ")" . "</option>\n";
               print "<option value=\"" . date("Y", strtotime("+5 year")) . "\">" . "fem år (" . getStickerPeriod("+5 year") . ")" . "</option>\n";

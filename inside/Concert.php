@@ -75,7 +75,6 @@ class Concert {
         // First, pick the image from the database
         $this->picture = $data['picture']; // @TODO $data['picture'] doesn't seem to be set! 
 
-	var_dump($this->picture);
 
         // If the user uploaded a new image, store it and pick this image instead
         if( $_FILES['userfile']['error'] != 4 ) {
