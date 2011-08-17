@@ -18,3 +18,15 @@ Created users kerberos credentials
 Added olivaqtestin to cn=dns-alle,ou=Groups,dc=neuf,dc=no
 Added olivaqtestin to cn=dns-administrator,ou=Groups,dc=neuf,dc=no
 '
+[2011-08-11 20:32:00.000000]'API_KEY is invalid.'
+[2011-08-11 20:37:05.000000]'API_KEY is invalid.'
+[2011-08-11 20:40:20.000000]'Added cn=chrisoa,ou=Groups,dc=neuf,dc=no
+Added uid=chrisoa,ou=People,dc=neuf,dc=no
+Created home directory
+Added cn=chrisoa,ou=auto.home,ou=Automount,dc=neuf,dc=no
+Created users kerberos credentials
+Added chrisoa to cn=dns-alle,ou=Groups,dc=neuf,dc=no
+Added chrisoa to cn=dns-aktiv,ou=Groups,dc=neuf,dc=no
+Added chrisoa to cn=dns-administrator,ou=Groups,dc=neuf,dc=no
+Added chrisoa to cn=dns-kak,ou=Groups,dc=neuf,dc=no
+'

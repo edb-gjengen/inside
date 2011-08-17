@@ -1,5 +1,6 @@
 <?php
 require_once("inside_functions.php");
+require_once('config.php');
 /* This file is an example on how you might push users from inside to ldap/radius.
  *  * Basically, fill an array with the required attributes, get the API_KEY and the encryption key
  *   * and send it to the file addNewUser.php under brukerinfo.neuf.no.
@@ -7,8 +8,8 @@ require_once("inside_functions.php");
 
 function ldap_add_user($username, $firstname, $lastname, $email, $password, $groups) {
     /* REQUIRED FOR THE SERVER-SIDE */
-    $API_KEY = $_SERVER['API_KEY1'];
-    $ENC_KEY = $_SERVER['ENC_KEY'];
+    $ENC_KEY = ENC_KEY;
+    $API_KEY = API_KEY;
     /* END REQUIRED */
 
     $b64_enc_password = enc_password($password, $ENC_KEY);

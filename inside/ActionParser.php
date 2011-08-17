@@ -1003,20 +1003,6 @@ private function logError($username, $error)
   }
   
   protected function verifyActivationCode($id, $password) {
-/*    $msa_code = new MembershipActivationCode();
-    if ($msa_code->findById($id)) {
-      if (!is_null($msa_code->getUsed())) {
-        // code has been used allready, and is therefore illegal
-        return null;
-      }
-    
-      if (trim($password) == $msa_code->getCode()) {
-        // valid password, return object
-        return $msa_code;
-      }
-    }
-    */
-    return true;
     if (checkPassword($id, $password)) {
       return true;
     }
