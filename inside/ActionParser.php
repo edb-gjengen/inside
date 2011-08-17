@@ -1,4 +1,5 @@
 <?php
+require_once("migration/inside_functions.php");
 class ActionParser {
   var $action;
 
@@ -854,16 +855,10 @@ private function logError($username, $error)
     $user = new User(NULL, $_REQUEST);
     if ($user->id != -1) {
       if ($user->store()) {
-        if (isset ($_REQUEST['nordea'])) {
-          $lead = Array (
-            "firstname" => $user->firstname,
-            "lastname" => $user->lastname,
-            "email" => $user->email,
-            "phonenumber" => $user->phonenumber
-          );
-          $nordea = new Nordea(NULL, $lead);
-          $nordea->store();
-        }
+        /* Push the user to LDAP (nikolark) */
+        $migrated = ldap_add_user($user->username, $user->firstname, $user->lastname, $user->email, $user->password, find_groups());
+        _log($migrated);
+        set_migrated();
 
         return true;
       }

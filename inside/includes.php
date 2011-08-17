@@ -66,7 +66,6 @@ require_once "Messages.php";
 require_once "MemberCard.php";
 require_once "MembershipActivationCode.php";
 require_once "Navigation.php";
-require_once "Nordea.php";
 require_once "Order.php";
 //require_once "Orders.php";
 require_once "OrderStatuses.php";

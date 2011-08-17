@@ -56,26 +56,34 @@ class User {
                 $this->id = -1;
                 return false;
             } else {
-                $this->username = stripcslashes($data['username']);
-                if (strlen($data['password1']) < 4) {
-                    notify("Passordet må være minst 4 tegn.");
+                if (strlen(stripcslashes($data['username'])) < 3 || strlen(stripcslashes($data['username'])) > 12 ) {
+                    notify("Brukernavnet må være mellom 3 og 12 tegn.");
                     $this->id = -1;
                     return false;
-                } else {
-                    if ($data['password1'] != $data['password2']) {
-                        notify("Passordene var ikke like.");
-                        $this->id = -1;
-                        return false;
-                    } else {
-                        $this->password = $data['password1'];
-                        if (!isAdmin()) {
-                            switch (checkForumUsername($data['username'], $this->password)) {
-                                case "wrong-password" :
-                                    notify("Brukernavnet er allerede i bruk på forumet. " . "Om du selv har dette brukernavnet må du oppgi " . "riktig passord.");
-                                    $this->id = -1;
-                                    return false;
-                            }
-                        }
+                }
+                if(preg_match('/^[a-z]*$/', strtolower(stripcslashes($data['username'])))) {
+                    notify("Brukernavnet kan kun inneholde små bokstaver.");
+                    $this->id = -1;
+                    return false;
+                }
+                $this->username = strtolower(stripcslashes($data['username']));
+                if (strlen($data['password1']) < 8) {
+                    notify("Passordet må være minst 8 tegn.");
+                    $this->id = -1;
+                    return false;
+                }
+                if ($data['password1'] != $data['password2']) {
+                    notify("Passordene var ikke like.");
+                    $this->id = -1;
+                    return false;
+                }
+                $this->password = $data['password1'];
+                if (!isAdmin()) {
+                    switch (checkForumUsername($data['username'], $this->password)) {
+                        case "wrong-password" :
+                            notify("Brukernavnet er allerede i bruk på forumet. " . "Om du selv har dette brukernavnet må du oppgi " . "riktig passord.");
+                            $this->id = -1;
+                            return false;
                     }
                 }
 
