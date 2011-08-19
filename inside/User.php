@@ -78,13 +78,12 @@ class User {
                     return false;
                 }
                 $this->password = $data['password1'];
-                if (!isAdmin()) {
-                    switch (checkForumUsername($data['username'], $this->password)) {
-                        case "wrong-password" :
-                            notify("Brukernavnet er allerede i bruk på forumet. " . "Om du selv har dette brukernavnet må du oppgi " . "riktig passord.");
-                            $this->id = -1;
-                            return false;
-                    }
+
+                /* Does the username chosen exist in the forum allready? */
+                if (!isAdmin() && checkForumUsername($data['username'], $this->password) == "wrong-password") {
+                    notify("Brukernavnet er allerede i bruk på forumet. Om du selv har dette brukernavnet må du oppgi riktig passord.");
+                    $this->id = -1;
+                    return false;
                 }
 
                 $this->addresstype = isset ($data['addresstype']) ? "int" : "no";

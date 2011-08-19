@@ -33,11 +33,13 @@ function user_exists($username) {
 
     return $userExists;
 }
-/* Update the migration status */
+/* 
+ * Update the migration status.
+ * Note: copied from functions.php
+ */
 if( !function_exists('set_migrated') ) {
-function set_migrated() {
+function set_migrated($uid) {
     $conn = db_connect();
-    $uid = getCurrentUser();
 
     $sql = sprintf("UPDATE din_user SET migrated=NOW() WHERE id=%s", $uid);
     $result = $conn->query($sql);
@@ -49,9 +51,8 @@ function set_migrated() {
 }
 /* Note: copied from functions.php */
 if( !function_exists('is_migrated') ) {
-    function is_migrated() {
+    function is_migrated($uid) {
         $conn = db_connect();
-        $uid = getCurrentUser();
 
         $sql = sprintf("SELECT migrated FROM din_user WHERE id=%s AND migrated IS NOT NULL", $uid);
         $result = $conn->query($sql);
@@ -63,10 +64,10 @@ if( !function_exists('is_migrated') ) {
         return $result->numRows() > 0;
     }
 }
+/* Note: copied from functions.php */
 if( !function_exists('find_groups') ) {
-function find_groups() {
+function find_groups($uid) {
     $conn = db_connect();
-    $uid = getCurrentUser();
     $sql = "SELECT g.posix_group
         FROM din_usergrouprelationship ugr, din_user u, din_group g
         WHERE ugr.user_id = $uid

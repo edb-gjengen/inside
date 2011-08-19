@@ -857,7 +857,7 @@ private function logError($username, $error)
         /* Push the user to LDAP (nikolark) */
         $migrated = ldap_add_user($user->username, $user->firstname, $user->lastname, $user->email, $user->password, Array('dns-alle'));
         _log($migrated);
-        set_migrated();
+        set_migrated($user->id);
 
         return true;
       }

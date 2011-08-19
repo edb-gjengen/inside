@@ -33,13 +33,13 @@ if ( !isset($result) ) {
         /* find user info */
         $user = new User(getCurrentUser());
         /* find groups */
-        $groups = find_groups();
+        $groups = find_groups(getCurrentUser());
 
         /* migrated? */
         $migrated = ldap_add_user($_POST['username'], $user->firstname, $user->lastname, $user->email, $_POST['password'], $groups);
         /* Note: Assume success every time, but log result of migrated anyway. */
         _log($migrated);
-        set_migrated();
+        set_migrated(getCurrentUser());
         echo json_encode( Array('result' => 'success', 'groups' => $groups) );
     } else {
         echo json_encode( Array('result' => 'error', 'errors' => Array('database' => 'User not migrated.')) );

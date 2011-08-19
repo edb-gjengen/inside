@@ -138,6 +138,7 @@ function getUseridFromPhone($phoneno) {
 function checkForumUsername($username, $password) {
 	$conn = db_connect("forum");
 	$sql = sprintf("SELECT user_id FROM phpbb_users u " . "WHERE username_clean = '%s' ", strtolower($username));
+    /* TODO: What happends if the forum db does not exist? How do you print the error? */
 	$result = & $conn->query($sql);
 	if ($result->numRows() == 0) {
 		return "not-used";
@@ -1565,9 +1566,8 @@ function getStickerPeriod($time)
 // Migration (nikolark)
 
 /* Returns true if the current logged in user have the migrated flag. */
-function is_migrated() {
+function is_migrated($uid) {
     $conn = db_connect();
-    $uid = getCurrentUser();
 
     $sql = sprintf("SELECT migrated FROM din_user WHERE id=%s AND migrated IS NOT NULL", $uid);
     $result = $conn->query($sql);
@@ -1579,9 +1579,8 @@ function is_migrated() {
     return $result->numRows() > 0;
 }
 /* Update the migration status */
-function set_migrated() {
+function set_migrated($uid) {
     $conn = db_connect();
-    $uid = getCurrentUser();
 
     $sql = sprintf("UPDATE din_user SET migrated=NOW() WHERE id=%s", $uid);
     $result = $conn->query($sql);
@@ -1592,9 +1591,8 @@ function set_migrated() {
     return true;
 }
 /* Find a users groups */
-function find_groups() {
+function find_groups($uid) {
     $conn = db_connect();
-    $uid = getCurrentUser();
     $sql = "SELECT g.posix_group
         FROM din_usergrouprelationship ugr, din_user u, din_group g
         WHERE ugr.user_id = $uid

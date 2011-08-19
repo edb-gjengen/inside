@@ -803,7 +803,7 @@ possibly include it instead? --Thomas Misund, 26. Oct 2009
     	$form->display("horizontal");
 		}
     // Migration LDAP (nikolark)
-        if( !is_migrated() ) {
+        if( !is_migrated(getCurrentUser()) ) {
             ?>
                 <div id="infomodal">
                 <div class="ui-widget"> 
