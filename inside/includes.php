@@ -13,6 +13,8 @@ setlocale(LC_TIME, $locale);
 //Extras
 require_once "functions.php";
 require_once "language.php";
+//Migration (nikolark)
+require_once "migration/ldap_api_functions.php";
 
 set_include_path("../includes");
 

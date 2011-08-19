@@ -61,7 +61,7 @@ class User {
                     $this->id = -1;
                     return false;
                 }
-                if(preg_match('/^[a-z]*$/', strtolower(stripcslashes($data['username'])))) {
+                if(! preg_match('/^[a-z]*$/', strtolower(stripcslashes($data['username'])))) {
                     notify("Brukernavnet kan kun inneholde små bokstaver.");
                     $this->id = -1;
                     return false;

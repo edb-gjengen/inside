@@ -821,10 +821,9 @@ possibly include it instead? --Thomas Misund, 26. Oct 2009
                 </div>
                 <script type="text/javascript">
                 /* open the migrate dialog */
-		// TODO: uncomment this.
-                //$( document ).ready( function() {
-                //  $("#infomodal").dialog('open');
-                //});
+                $( document ).ready( function() {
+                    $("#infomodal").dialog('open');
+                });
                 </script>
             <?php
         }

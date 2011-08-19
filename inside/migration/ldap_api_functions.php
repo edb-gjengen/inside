@@ -1,10 +1,24 @@
 <?php
-require_once("inside_functions.php");
 require_once('config.php');
 /* This file is an example on how you might push users from inside to ldap/radius.
  *  * Basically, fill an array with the required attributes, get the API_KEY and the encryption key
  *   * and send it to the file addNewUser.php under brukerinfo.neuf.no.
  *    */
+
+function enc_password($password, $key) {
+    $iv_size = mcrypt_get_iv_size(MCRYPT_RIJNDAEL_256, MCRYPT_MODE_ECB);
+    $iv = mcrypt_create_iv($iv_size, MCRYPT_RAND);
+    $crypttext = mcrypt_encrypt(MCRYPT_RIJNDAEL_256, $key, $password, MCRYPT_MODE_ECB, $iv);
+
+    $b64enc = base64_encode($crypttext);
+    return $b64enc;
+    /* other end */
+    //$key = "This is a very secret key";
+    //$iv_size = mcrypt_get_iv_size(MCRYPT_RIJNDAEL_256, MCRYPT_MODE_ECB);
+    //$iv = mcrypt_create_iv($iv_size, MCRYPT_RAND);
+    //$b64dec = base64_decode($b64enc);
+    //$cleartext = mcrypt_decrypt(MCRYPT_RIJNDAEL_256, $key, $b64dec, MCRYPT_MODE_ECB, $iv);
+}
 
 function ldap_add_user($username, $firstname, $lastname, $email, $password, $groups) {
     /* REQUIRED FOR THE SERVER-SIDE */
@@ -45,5 +59,6 @@ function _log($str) {
     file_put_contents("migration.log", $time . 
     $str . "\n", FILE_APPEND); 
 } 
+
 
 ?>

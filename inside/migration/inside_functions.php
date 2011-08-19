@@ -34,6 +34,7 @@ function user_exists($username) {
     return $userExists;
 }
 /* Update the migration status */
+if( !function_exists('set_migrated') ) {
 function set_migrated() {
     $conn = db_connect();
     $uid = getCurrentUser();
@@ -44,6 +45,7 @@ function set_migrated() {
     if (DB :: isError($result)) {
         return false;
     }
+}
 }
 /* Note: copied from functions.php */
 if( !function_exists('is_migrated') ) {
@@ -61,6 +63,7 @@ if( !function_exists('is_migrated') ) {
         return $result->numRows() > 0;
     }
 }
+if( !function_exists('find_groups') ) {
 function find_groups() {
     $conn = db_connect();
     $uid = getCurrentUser();
@@ -82,17 +85,4 @@ function find_groups() {
 
     return $arr;
 }
-function enc_password($password, $key) {
-    $iv_size = mcrypt_get_iv_size(MCRYPT_RIJNDAEL_256, MCRYPT_MODE_ECB);
-    $iv = mcrypt_create_iv($iv_size, MCRYPT_RAND);
-    $crypttext = mcrypt_encrypt(MCRYPT_RIJNDAEL_256, $key, $password, MCRYPT_MODE_ECB, $iv);
-
-    $b64enc = base64_encode($crypttext);
-    return $b64enc;
-    /* other end */
-    //$key = "This is a very secret key";
-    //$iv_size = mcrypt_get_iv_size(MCRYPT_RIJNDAEL_256, MCRYPT_MODE_ECB);
-    //$iv = mcrypt_create_iv($iv_size, MCRYPT_RAND);
-    //$b64dec = base64_decode($b64enc);
-    //$cleartext = mcrypt_decrypt(MCRYPT_RIJNDAEL_256, $key, $b64dec, MCRYPT_MODE_ECB, $iv);
 }

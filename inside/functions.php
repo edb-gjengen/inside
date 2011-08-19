@@ -1578,5 +1578,41 @@ function is_migrated() {
     }
     return $result->numRows() > 0;
 }
+/* Update the migration status */
+function set_migrated() {
+    $conn = db_connect();
+    $uid = getCurrentUser();
+
+    $sql = sprintf("UPDATE din_user SET migrated=NOW() WHERE id=%s", $uid);
+    $result = $conn->query($sql);
+
+    if (DB :: isError($result)) {
+        return false;
+    }
+    return true;
+}
+/* Find a users groups */
+function find_groups() {
+    $conn = db_connect();
+    $uid = getCurrentUser();
+    $sql = "SELECT g.posix_group
+        FROM din_usergrouprelationship ugr, din_user u, din_group g
+        WHERE ugr.user_id = $uid
+        AND ugr.user_id = u.id
+        AND ugr.group_id = g.id";
+    $conn->setFetchMode(DB_FETCHMODE_ASSOC);
+    $result = $conn->getAll($sql);
+
+    if(DB :: isError($result)) {
+        return false;
+    }
+    $arr = array();
+    foreach($result as $column => $group) {
+        $arr[] = $group['posix_group'];
+    }
+
+    return $arr;
+}
+
 
 ?>

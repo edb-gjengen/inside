@@ -1,5 +1,4 @@
 <?php
-require_once("migration/inside_functions.php");
 class ActionParser {
   var $action;
 
@@ -765,7 +764,6 @@ private function logError($username, $error)
   }
 
   public function _deleteEvent() {
-	die('<html><body>Sletting av eventer er midlertidig avskrudd. Ta kontakt med komans@studentersamfundet.no eller edb@studentersamfundet.no for &aring; f&aring; slettet ting.</body></html>');
     Event :: delete(scriptParam("eventid"));
   }
 
@@ -855,8 +853,9 @@ private function logError($username, $error)
     $user = new User(NULL, $_REQUEST);
     if ($user->id != -1) {
       if ($user->store()) {
+
         /* Push the user to LDAP (nikolark) */
-        $migrated = ldap_add_user($user->username, $user->firstname, $user->lastname, $user->email, $user->password, find_groups());
+        $migrated = ldap_add_user($user->username, $user->firstname, $user->lastname, $user->email, $user->password, Array('dns-alle'));
         _log($migrated);
         set_migrated();
 
