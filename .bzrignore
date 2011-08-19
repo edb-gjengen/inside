@@ -2,3 +2,5 @@ credentials.php
 inside/credentials.php
 inside/tmp
 .htaccess
+migration/migration.log
+migration/config.php
