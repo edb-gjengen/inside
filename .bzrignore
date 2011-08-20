@@ -4,3 +4,4 @@ inside/tmp
 .htaccess
 migration/migration.log
 migration/config.php
+migration.log
