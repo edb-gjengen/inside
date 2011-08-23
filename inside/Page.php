@@ -38,12 +38,40 @@ class Page {
 
         <div class="aapningstider">
             <table>
-                <tr><td>Mandag-onsdag</td><td>13-01</td></tr>
-                <tr><td>Torsdag-fredag</td><td>13-03</td></tr>
-                <tr><td>L&oslash;rdag</td><td>16-03</td></tr>
-                <tr><td>Kjøkkenet</td><td>Til 19</td></tr>
-            </table>
-        </div>
+                <tr>
+                    <td>Mandag - onsdag</td>
+                    <td style="text-align:right;">13.00 - 01.00</td>
+                </tr>
+                <tr>
+                        <td>Torsdag - fredag</td>
+                        <td style="text-align:right;">- 03.00</td>
+                </tr>
+                <tr>
+                        <td>Lørdag</td>
+                        <td style="text-align:right;">15.00 - 03.00</td>
+                </tr>
+                <tr>
+                        <td>Kj&oslash;kkenet</td>
+                        <td style="text-align:right;">- 19.00</td>
+                </tr>
+                <tr id="bokkafeen_tider"><td><a href="http://studentersamfundet.no/foreninger.php?id=3">BokCaféen</a> <span style="color:#888888; font-style:italic;">i dag        </span></td>
+                    <td style="text-align:right;"><?php
+
+    $tider = array('Stengt',
+        '19.00 - 00.00',
+        '19.00 - 00.00',
+        '19.00 - 00.00',
+        '19.00 - 03.00',
+        '19.00 - 03.00',
+        '20.00 - 03.00');
+
+    $day = date('w');
+    echo '<a href="http://studentersamfundet.no/foreninger.php?id=3">';
+    echo $tider[$day];
+    echo '</a>';
+?></td></tr>
+                </table>
+            </div>
 
 <?php /*
 This menu thing is pretty much copied and pasted from functions.php in the studentersamfundet-web project. Could we
