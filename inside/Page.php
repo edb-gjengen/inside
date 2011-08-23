@@ -33,7 +33,8 @@ class Page {
         <span class="site-title"><a href="http://studentersamfundet.no/"><?php print $this->page_title; ?></a></span>
 
         <div id="quick-menu">
-            Om Studentersamfundet | <a href="http://studentersamfundet.no/kart.php">Kart</a> | <a href="http://studentersamfundet.no/kontakt.php">Kontakt</a>
+            Om Studentersamfundet | <a href="http://studentersamfundet.no/kart.php">Kart</a> | <a href="http://studentersamfundet.no/kontakt.php">Kontakt</a><a href="/english.php" style="margin-right:-30px;margin-left:5px;"><img src="english.png" style="border:0px;" alt="english" title="english" /></a>
+
         </div>
 
         <div class="aapningstider">
