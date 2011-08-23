@@ -626,6 +626,15 @@ function checkAuth($actionName = NULL) {
 }
 
 function checkPassword($userid, $verificationCode) {
+	  $sperret = array('37403'=>"Betaling via kort ble ikke belastet, vennligst kontakt billettluka på Chateau Neuf eller medlemskap@studentersamfundet.no\n\n",
+    				 '100505'=>"SMS ble feilbelastet, hadde medlemskap\n\n");
+    if(@$sperret[$userid])
+    {
+    	$msg = "Denne koden er sperret: {$sperret[$userid]}<br /><br />";
+    	notify($msg);
+    	return false;
+    }
+
 	if (trim($verificationCode) == substr(crypt(trim($userid), 1813), 2, 6)) {
 		return true;
 	}
