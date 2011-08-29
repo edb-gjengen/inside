@@ -16,7 +16,6 @@ class Navigation {
             <a href="#" id="quickSwitch" class="switch">Personlig</a>
             <ul id="quickMenu" class="menu">
               <li><a href="index.php?page=display-current-user">Oppdatér brukerinformasjon</a></li>
-              <li><a href="index.php?page=change-username">Endre brukernavn</a></li>
             <?php if (!isMember(getCurrentUser())){?>
               <li><a href="index.php?page=register-membership">Kjøp/registrér medlemskap</a></li>
 						<?php }else if (membershipExpired(getCurrentUser())){?>
