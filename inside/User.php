@@ -79,13 +79,6 @@ class User {
                 }
                 $this->password = $data['password1'];
 
-                /* Does the username chosen exist in the forum allready? */
-                if (!isAdmin() && checkForumUsername($data['username'], $this->password) == "wrong-password") {
-                    notify("Brukernavnet er allerede i bruk på forumet. Om du selv har dette brukernavnet må du oppgi riktig passord.");
-                    $this->id = -1;
-                    return false;
-                }
-
                 $this->addresstype = isset ($data['addresstype']) ? "int" : "no";
 
                 if (isDate($data['birthdate'])) {
@@ -396,31 +389,24 @@ class User {
   }
 
   public function changeUsername($username, $password) {
-    switch (checkForumUsername($username, $password)) {
-      case "wrong-password" :
-        notify("Brukernavnet er allerede i bruk på forumet. " . "Om du selv har dette brukernavnet må du oppgi " . "riktig passord.");
-        return false;
+      $sql = "UPDATE din_user SET " . "  username = '$username' " . "WHERE " . "  id = $this->id";
+      $result = $this->conn->query($sql);
 
-      case "not-used" :
-      case "auth-ok" :
-        $sql = "UPDATE din_user SET " . "  username = '$username' " . "WHERE " . "  id = $this->id";
-        $result = $this->conn->query($sql);
-        if (DB :: isError($result) == true) {
+      if (DB :: isError($result) == true) {
           if ($result->getCode() == -5) {
-            $err = $this->_findConstraintViolation();
-            error("Change username: $err already registered.");
-            notify("Brukernavnet er opptatt.");
-            $GLOBALS['extraScriptParams']['page'] = "change-username"; //Swap page
+              $err = $this->_findConstraintViolation();
+              error("Change username: $err already registered.");
+              notify("Brukernavnet er opptatt.");
+              $GLOBALS['extraScriptParams']['page'] = "change-username"; //Swap page
           } else {
-            error("Change username: " . $result->toString());
-            notify("Problem under endring av brukernavn.");
+              error("Change username: " . $result->toString());
+              notify("Problem under endring av brukernavn.");
           }
           return false;
-        } else {
+      } else {
           $this->_registerUpdate("Brukernavn endret til $username");
           notify("Brukernavn endret.");
-        }
-    }
+      }
   }
 
   public function getRegistered() {
