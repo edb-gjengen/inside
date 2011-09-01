@@ -65,25 +65,41 @@ if( !function_exists('is_migrated') ) {
     }
 }
 /* Note: copied from functions.php */
-if( !function_exists('find_groups') ) {
-function find_groups($uid) {
-    $conn = db_connect();
-    $sql = "SELECT g.posix_group
-        FROM din_usergrouprelationship ugr, din_user u, din_group g
-        WHERE ugr.user_id = $uid
-        AND ugr.user_id = u.id
-        AND ugr.group_id = g.id";
-    $conn->setFetchMode(DB_FETCHMODE_ASSOC);
-    $result = $conn->getAll($sql);
+if( !function_exists('membership_expired') ) {
+    function membership_expired($uid) {
+        $conn = db_connect();
 
-    if(DB :: isError($result)) {
-        return false;
-    }
-    $arr = array();
-    foreach($result as $column => $group) {
-        $arr[] = $group['posix_group'];
-    }
+        $sql = sprintf("SELECT expires FROM din_user WHERE id=%s AND expires <= NOW()", $uid);
+        $result = $conn->query($sql);
 
-    return $arr;
+        if (DB :: isError($result) == true) {
+            error("membership_expired: " . $result->toString());
+            return false;
+        }
+        return $result->numRows() > 0;
+    }
 }
+
+/* Note: copied from functions.php */
+if( !function_exists('find_groups') ) {
+    function find_groups($uid) {
+        $conn = db_connect();
+        $sql = "SELECT g.posix_group
+            FROM din_usergrouprelationship ugr, din_user u, din_group g
+            WHERE ugr.user_id = $uid
+            AND ugr.user_id = u.id
+            AND ugr.group_id = g.id";
+        $conn->setFetchMode(DB_FETCHMODE_ASSOC);
+        $result = $conn->getAll($sql);
+
+        if(DB :: isError($result)) {
+            return false;
+        }
+        $arr = array();
+        foreach($result as $column => $group) {
+            $arr[] = $group['posix_group'];
+        }
+
+        return $arr;
+    }
 }

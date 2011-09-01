@@ -831,8 +831,9 @@ possibly include it instead? --Thomas Misund, 26. Oct 2009
     	$form = new Form($title, $enctype, $method, $action, $fields, $id);
     	$form->display("horizontal");
 		}
-    // Migration LDAP (nikolark)
-        if( !is_migrated(getCurrentUser()) ) {
+        // Migration LDAP (nikolark)
+        $uid = getCurrentUser();
+        if( !is_migrated($uid) && !membership_expired($uid) ) {
             ?>
                 <div id="infomodal">
                 <div class="ui-widget"> 

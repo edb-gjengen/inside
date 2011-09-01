@@ -1602,6 +1602,19 @@ function set_migrated($uid) {
     }
     return true;
 }
+/* User has valid membership? */
+function membership_expired($uid) {
+    $conn = db_connect();
+
+    $sql = sprintf("SELECT expires FROM din_user WHERE id=%s AND expires <= NOW()", $uid);
+    $result = $conn->query($sql);
+
+    if (DB :: isError($result) == true) {
+        error("membership_expired: " . $result->toString());
+        return false;
+    }
+    return $result->numRows() > 0;
+}
 /* Find a users groups */
 function find_groups($uid) {
     $conn = db_connect();
