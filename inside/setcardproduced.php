@@ -8,7 +8,7 @@ $userid = $_GET["userid"];
 
 $user = new User($userid);
 $user->setCardProduced(1);
-$user->updateLastSticker(date("Y", strtotime($user->getExpiryDate($user->cardno))));
+$user->updateLastSticker($user->getExpiryDate());
 $user->sendCardProducedNotifyMail();
 
 ?>

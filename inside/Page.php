@@ -3465,12 +3465,12 @@ Om dere lager en facebook side til arrangementet, ikke glem &aring; putte inn le
               print "produser kort";
             } elseif (!$user->getCardDelivered()) {
               print "<input type=\"hidden\" name=\"subaction\" value=\"give-card\" />";
-              print "<input type=\"hidden\" name=\"new-sticker-date\" value=\"" . $user->getNewStickerDate() . "\" />";
-              print "<input type=\"submit\" name=\"give-card\" value=\"Lever ut kort (" . $user->getNewStickerDate() . ")\" />";
+              print "<input type=\"hidden\" name=\"new-sticker-date\" value=\"" . getStickerPeriod($user->expiry) . "\" />";
+              print "<input type=\"submit\" name=\"give-card\" value=\"Lever ut kort (" . getStickerPeriod($user->expiry) . ")\" />";
             } elseif (!$user->hasCardSticker()) {
               print "<input type=\"hidden\" name=\"subaction\" value=\"give-sticker\" />";
-              print "<input type=\"hidden\" name=\"new-sticker-date\" value=\"" . $user->getNewStickerDate() . "\" />";
-              print "<input type=\"submit\" name=\"give-sticker\" value=\"Gi oblat (" . $user->getNewStickerDate() . ")\" />";
+              print "<input type=\"hidden\" name=\"new-sticker-date\" value=\"" . getStickerPeriod($user->expiry) . "\" />";
+              print "<input type=\"submit\" name=\"give-sticker\" value=\"Gi oblat (" . getStickerPeriod($user->expiry) . ")\" />";
             } else {
               print "-";
             }

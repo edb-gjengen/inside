@@ -550,7 +550,7 @@ class User {
       $this->cardno = $cardno;
     }
     
-    $expires = $this->getExpiryDate();
+    $expires = getNextMembershipExpiryDate();
 
     $sql = "UPDATE din_user SET cardno=" . $this->cardno . ", expires = '$expires' WHERE id=" . $this->id;
     $result = $this->conn->query($sql);
@@ -572,7 +572,7 @@ class User {
       notify("Du har allerede gyldig medlemskap for dette året.");
       return false;
     }
-    $expires = $this->getExpiryDate();
+    $expires = getNextMembershipExpiryDate();
     $this->conn->autoCommit(false);
     if ($this->_registerUsedCardno($cardno) == true) {
       $sql = "UPDATE din_user SET " . "  expires = '$expires' " . "WHERE " . "  id = $this->id";
@@ -599,7 +599,7 @@ class User {
       notify("Du har allerede gyldig medlemskap for dette året.");
       return false;
     }
-    $expires = $this->getExpiryDate();
+    $expires = getNextMembershipExpiryDate();
     $this->conn->autoCommit(false);
     $sql = "UPDATE din_user SET " . "  expires = '$expires' " . "WHERE " . "  id = $this->id";
     $result = $this->conn->query($sql);
@@ -623,7 +623,7 @@ class User {
       // har allerede gyldig medlemskap
       return false;
     }
-    $expires = $this->getExpiryDate();
+    $expires = getNextMembershipExpiryDate();
     $this->conn->autoCommit(false);
     $sql = "UPDATE din_user SET " . "  expires = '$expires' " . "WHERE " . "  id = $this->id";
     $result = $this->conn->query($sql);
@@ -646,7 +646,7 @@ class User {
       notify($this->id . ", " . $this->getName() . " er livsvarig medlem. Medlemskapet vil ikke bli oppdater.");
       return false;
     } else {
-      $expires = $this->getExpiryDate();
+      $expires = getNextMembershipExpiryDate();
       if ($expires <= $this->expires) {
         $newexpires = date("Y-m-d", strtotime("+1 year", strtotime($expires)));
         notify($this->id . ", " . $this->getName() . " har allerede gyldig medlemskap for dette året. Har utløpsdato " . $this->expires . ", men ny ble prøvd satt til " . $expires . ". Personen vil få satt ny utløpsdate på medlemskapet til " . $newexpires);
@@ -710,19 +710,21 @@ class User {
             error($result->toString());
         }
   }
-
+	
+  /*
+   * $newDate = YYYY-MM-DD or null (lifetime membership)
+   * Requires a full date for expiry, has to end on 1. of august or we get an exception.
+   */
   public function updateExpiry($newDate) {
-  	if(preg_match('#^\d{4}/\d{2}$#', $newDate))
-  	{
-  		$newDate = substr($newDate,0,2) . substr($newDate,5,2);
-  	}
+    if($newDate !== null && !preg_match("#^\d{4}-\d{2}-\d{2}$#", $newDate))
+    	throw new Exception("Invalid date: $newDate");
   
-    if ($newDate == 'lifetime') {
+    if ($newDate === null) {
       $sql = "UPDATE din_user SET expires = NULL WHERE id = $this->id LIMIT 1";
     } else {
-    	$expires = $this->getExpiryDate($newDate);
-      $sql = "UPDATE din_user SET expires = '$expires' WHERE id = $this->id LIMIT 1";
+      $sql = "UPDATE din_user SET expires = '$newDate' WHERE id = $this->id LIMIT 1";
     }
+    
     $conn = db_connect();
     $result = $this->conn->query($sql);
     if (DB :: isError($result) != true) {
@@ -732,8 +734,13 @@ class User {
       error($result->toString());
     }
   }
-
+	/*
+	 * $newDate = YYYY | YYYY/YY
+	 */
     public function updateLastSticker($newDate) {
+    	if(!preg_match('#^\d{4}(/\d{2})?$#', $newDate))
+    		throw new Exception("Invalid date format: $newDate");
+    	
         $sql = "UPDATE din_user SET lastSticker = '$newDate' WHERE id = $this->id LIMIT 1";
         $result = $this->conn->query($sql);
         if (DB :: isError($result) != true) {
@@ -918,31 +925,21 @@ class User {
     }
 
     public function hasCardSticker() {
-      if ($this->getLastSticker() >= date("Y", strtotime($this->expires))) {
+    	return $this->getLastSticker() != getStickerPeriod($this->expires);
+    /*  if ( $this->getLastSticker() != getStickerPeriod($this->expires) ) {
         return true;
       }
+      return false;*/
     }
     
-	public function getNewStickerDate()
+	/*public function getNewStickerDate()
 	{
 		$year = substr($this->getExpiryDate(),0,4);
 		return (substr($year,0,4) - 1) . '/' . substr($year,2,2);
 	}
-
+*/
     public function getExpiryDate($year = null) {
-      if($year)
-      {
-      	return $year . '-08-01';
-      }
-      
-      if (date("m-d") > "08-01" )
-      {
-      	return date("Y", strtotime("+1 year")) . '-08-01';
-      }
-      else
-      {
-      	return date("Y") . '-08-01';
-      }
+     return getExpiryDate($year);
     }
 
     public function _registerUsedCardno($cardno) {
@@ -1068,6 +1065,9 @@ class User {
     }
 
     public function setExpires($value) {
+    
+    	$this->updateExpiry($value);
+    	/*
         $sql = "UPDATE din_user SET expires = '$value' " .
             "WHERE id = $this->id";
         $result = $this->conn->query($sql);
@@ -1075,7 +1075,7 @@ class User {
         if (DB :: isError($result) != true) {
             $this->_registerUpdate("Utløpsdato endret til $value");
             notify("Utløpsdato for <strong>$this->firstname $this->lastname</strong> er endret til <strong>$value</strong>");
-        }
+        }*/
     }
 
     public function updateDivisionRequest($value) {
@@ -1243,11 +1243,11 @@ class User {
             print "<input type=\"hidden\" name=\"action\" value=\"update-user-expiry\" />\n";
             print "<select name=\"newExpiryDate_" . $this->id . "\" id=\"newExpiryDate_" . $this->id . "\">\n";
             print "<option value=\"0000-00-00\">" . "ugyldig utløpsår" . "</option>\n";
-            print "<option value=\"2011\" >" . "I år, gammelt medlemskap" . "</option>\n";
-            print "<option value=\"" . getStickerPeriod("now") . "\">" . "inneværende år (" . getStickerPeriod("now") . ")" . "</option>\n";
-            print "<option value=\"" . getStickerPeriod("+1 year") . "\">" . "neste år (" . getStickerPeriod("+1 year") . ")" . "</option>\n";
-            print "<option value=\"" . getStickerPeriod("+3 year") . "\">" . "tre år (" . getStickerPeriod("+3 year") . ")" . "</option>\n";
-            print "<option value=\"" . getStickerPeriod("+5 year") . "\">" . "fem år (" . getStickerPeriod("+5 year") . ")" . "</option>\n";
+            print "<option value=\"2011-12-31\" >" . "I år, gammelt medlemskap" . "</option>\n";
+            print "<option value=\"" . getExpiryDate("now") . "\">" . "inneværende år (" . getExpiryDate("now") . ")" . "</option>\n";
+            print "<option value=\"" . getExpiryDate("+1 year") . "\">" . "neste år (" . getExpiryDate("+1 year") . ")" . "</option>\n";
+            print "<option value=\"" . getExpiryDate("+3 year") . "\">" . "tre år (" . getExpiryDate("+3 year") . ")" . "</option>\n";
+            print "<option value=\"" . getExpiryDate("+5 year") . "\">" . "fem år (" . getExpiryDate("+5 year") . ")" . "</option>\n";
             print "<option value=\"lifetime\">" . "livsvarig" . "</option>\n";
             print "</select>\n";
             print "<input type=\"submit\" value=\"endre\" />\n";
@@ -1271,7 +1271,7 @@ class User {
             print "<option value=\"" . getStickerPeriod("+1 year") . "\">" . "neste år (" . getStickerPeriod("+1 year") . ")" . "</option>\n";
             print "<option value=\"" . getStickerPeriod("+3 year") . "\">" . "tre år (" . getStickerPeriod("+3 year") . ")" . "</option>\n";
             print "<option value=\"" . getStickerPeriod("+5 year") . "\">" . "fem år (" . getStickerPeriod("+5 year") . ")" . "</option>\n";
-            print "<option value=\"" . 0 . "\">ingen verdi</option>";
+            print "<option value=\"0000-00-00\">ingen verdi</option>";
             print "</select>";
             print "<input type=\"submit\" value=\"endre\" />";
             print "</div>";
