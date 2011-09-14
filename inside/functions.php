@@ -1571,7 +1571,8 @@ function strip_nl($string) {
 
 function getStickerPeriod($time)
 {
-	$time = is_numeric($time)?$time:strtotime($time);
+	
+	$time = strtotime(getExpiryDate($time));// is_numeric($time)?$time:strtotime($time);
 	
 	if($time < strtotime('2011-08-01'))
 		return date('Y', $time); //gammelt klistremerke
