@@ -6,6 +6,9 @@ require_once "includes.php";
 
 $userid = $_GET['userid'];
 $value = $_GET['value'];
+
+if($value == 'lifetime') $value = null;
+
 $user = new User($userid);
 $user->updateExpiry($value);
 
