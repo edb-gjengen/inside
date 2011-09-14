@@ -1244,11 +1244,12 @@ class User {
             print "<select name=\"newExpiryDate_" . $this->id . "\" id=\"newExpiryDate_" . $this->id . "\">\n";
             print "<option value=\"0000-00-00\">" . "ugyldig utløpsår" . "</option>\n";
             print "<option value=\"2011-12-31\" >" . "I år, gammelt medlemskap" . "</option>\n";
-            print "<option value=\"" . getExpiryDate("now") . "\">" . "inneværende år (" . getExpiryDate("now") . ")" . "</option>\n";
-            print "<option value=\"" . getExpiryDate("+1 year") . "\">" . "neste år (" . getExpiryDate("+1 year") . ")" . "</option>\n";
-            print "<option value=\"" . getExpiryDate("+3 year") . "\">" . "tre år (" . getExpiryDate("+3 year") . ")" . "</option>\n";
-            print "<option value=\"" . getExpiryDate("+5 year") . "\">" . "fem år (" . getExpiryDate("+5 year") . ")" . "</option>\n";
-            print "<option value=\"lifetime\">" . "livsvarig" . "</option>\n";
+            $loop = array('now'=>'inneværende år','+1 year'=>'neste år','+3 year'=>'tre år','+5 year'=>'fem år');
+            
+            foreach($loop as $time=>$label)
+            	echo '<option ' . (getExpiryDate($time) == $this->expires?' selected="selected" ':'') . ' value="' . getExpiryDate($time) . '">' . $label . ' (' . getExpiryDate($time) . ')</option';
+            
+            print "<option "  . ($this->expires === null?' selected="selected" ':'') .  " value=\"lifetime\">" . "livsvarig" . "</option>\n";
             print "</select>\n";
             print "<input type=\"submit\" value=\"endre\" />\n";
             print "</form>";
@@ -1267,6 +1268,7 @@ class User {
             print "<input type=\"hidden\" name=\"action\" value=\"update-user-last-sticker\" />";
             print "<select name=\"newStickerDate_" . $this->id . "\" id=\"newStickerDate_" . $this->id . "\">";
             print "<option value=\"2011\">" . "I år, gammelt medlemskap" . "</option>\n";
+            
             print "<option selected=\"selected\" value=\"" . getStickerPeriod("now") . "\">" . "inneværende år (" . getStickerPeriod("now") . ")" . "</option>\n";
             print "<option value=\"" . getStickerPeriod("+1 year") . "\">" . "neste år (" . getStickerPeriod("+1 year") . ")" . "</option>\n";
             print "<option value=\"" . getStickerPeriod("+3 year") . "\">" . "tre år (" . getStickerPeriod("+3 year") . ")" . "</option>\n";
