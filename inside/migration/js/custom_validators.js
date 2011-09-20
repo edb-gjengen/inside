@@ -4,6 +4,6 @@ jQuery.validator.addMethod("lettersonly", function(value, element) {
 jQuery.validator.addMethod("noquotes", function(value, element) {
 	return this.optional(element) || ! /['"]+/.test(value);
 }, "No single or double quotes, please."); 
-jQuery.validator.addMethod("noescape", function(value, element) {
+jQuery.validator.addMethod("noescapes", function(value, element) {
 	return this.optional(element) || ! /[\\]+/.test(value);
 }, "No backslashes, please."); 
