@@ -56,6 +56,7 @@ class User {
                 $this->id = -1;
                 return false;
             } else {
+                /* Validate user supplied data. */
                 if (strlen(stripcslashes($data['username'])) < 3 || strlen(stripcslashes($data['username'])) > 12 ) {
                     notify("Brukernavnet må være mellom 3 og 12 tegn.");
                     $this->id = -1;
@@ -69,6 +70,12 @@ class User {
                 $this->username = strtolower(stripcslashes($data['username']));
                 if (strlen($data['password1']) < 8) {
                     notify("Passordet må være minst 8 tegn.");
+                    $this->id = -1;
+                    return false;
+                }
+                /* No double nor single quotes */
+                if(preg_match('/["\'\\]+/', $data['password1'])) {
+                    notify("Passordet kan ikke inneholde enkel- eller dobbelfnutt eller bakslask.");
                     $this->id = -1;
                     return false;
                 }
