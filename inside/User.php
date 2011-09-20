@@ -74,7 +74,7 @@ class User {
                     return false;
                 }
                 /* No double nor single quotes */
-                if(preg_match('/["\'\\]+/', $data['password1'])) {
+                if(preg_match('/[\\\"\']+/', $data['password1'])) {
                     notify("Passordet kan ikke inneholde enkel- eller dobbelfnutt eller bakslask.");
                     $this->id = -1;
                     return false;
