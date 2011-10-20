@@ -1301,7 +1301,7 @@ private function logError($username, $error)
       if ($subaction == "sticker-sale") {
         $user->_registerUpdate("Oblat solgt i billettbod");
         $user->updateExpiry(scriptParam("new-sticker-date"));
-        $user->updateLastSticker(scriptParam("new-sticker-date"));
+        $user->updateLastSticker(getStickerPeriod(scriptParam("new-sticker-date")));
       } elseif ($subaction == "give-sticker") {
         $user->_registerUpdate("Gyldig medlemskap, oblat gitt ut i billettluka");
         $user->updateLastSticker(scriptParam("new-sticker-date"));

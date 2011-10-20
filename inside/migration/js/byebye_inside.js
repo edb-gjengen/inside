@@ -10,10 +10,14 @@ function init_validation() {
             password: {
                 required: true,
                 minlength: 8,
+                noquotes: true,
+                noescapes: true,
             },
             password_check: {
                 required: true,
                 minlength: 8,
+                noquotes: true,
+                noescapes: true,
                 equalTo: "#id_password",
             },
         },
