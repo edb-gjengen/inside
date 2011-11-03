@@ -519,7 +519,7 @@ class Form {
 
 	public
 	function _displayFile($attributes) {
-    print("<input type=\"hidden\" name=\"MAX_FILE_SIZE\" value=\"2000000\" />");
+    print("<input type=\"hidden\" name=\"MAX_FILE_SIZE\" value=\"12000000\" />");
     print("<input type=\"file\"");
 
     if (isset($attributes['name'])){

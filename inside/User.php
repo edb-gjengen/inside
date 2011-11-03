@@ -880,7 +880,7 @@ class User {
       if ($this->expires == NULL) {
         return false;
       } else
-        if ($this->expires > date("Y-m-d")) {
+        if (strtotime($this->expires) > time()) {
           return false;
         } else {
           return true;

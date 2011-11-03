@@ -581,7 +581,13 @@ possibly include it instead? --Thomas Misund, 26. Oct 2009
 	  $time_end = microtime(true);
 	  $time = round(($time_end - $GLOBALS['time_start']), 4);
 
-	  print("      <div id=\"footer\">Script execution: $time seconds || <a href=\"mailto:support@studentersamfundet.no\">support</a></div>\n");
+	  $html = "      <div id=\"footer\">";
+	  $html .= "<p>Script execution: $time seconds || <a href=\"mailto:support@studentersamfundet.no\">support</a>";
+
+	  $html .= "<p>upload_max_filesize = " . ini_get("upload_max_filesize") . "</p>";
+	  $html .= "</div>\n";
+
+	  print $html;
 
 /**
  * Google Analytics, since 2010-11-19 15:05
