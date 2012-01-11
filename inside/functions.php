@@ -449,22 +449,21 @@ function new_file($file, $dir) {
 }
 
 function rename_file($old_name, $id, $dir, $report = true) {
-	if ($dir == 'products') {
-	  $dir = 'images/products/';
-	}else {
-	  $dir = "../../public_html/bilder/$dir/";
-	}
+	if ($dir == 'products')
+		$dir = 'images/products/';
+	else
+  		$dir = "../../public_html/bilder/$dir/";
 
-	$old_name = $dir.$old_name;
-	$new_name = $dir.$id.substr($old_name, -4);
+	$ext = strtolower( pathinfo($old_name, PATHINFO_EXTENSION) );
+	$old_name = $dir . $old_name;
+	$new_name = $dir . $id . "." . $ext;
 	deleteFile($new_name, false);
-	if (rename($old_name, $new_name)) {
+
+	if (rename($old_name, $new_name))
 		return true;
-	}
 	else {
-		if ($report == true) {
+		if ($report == true)
 			error("Could not rename file.");
-		}
 		return false;
 	}
 }

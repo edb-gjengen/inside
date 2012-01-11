@@ -142,8 +142,9 @@ class Concert {
       $this->id = getNextId("program");
       if($_FILES['userfile']['error'] != 4){
         $temp_name = new_file($_FILES['userfile'], "program");
-        rename_file($temp_name, $this->id, "program");
-        $this->picture = $this->id.substr($temp_name, -4);
+		rename_file($temp_name, $this->id, "program");
+		$ext = strtolower( pathinfo($temp_name, PATHINFO_EXTENSION) );
+        $this->picture = $this->id . "." . $ext;
       } else {
         $this->picture = "0"; 
       }
