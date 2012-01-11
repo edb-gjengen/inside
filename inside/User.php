@@ -756,7 +756,7 @@ class User {
   function logExpiryUpdate($user_id, $expiry_date, $new_expiry)
   {
   	$timestamp = strftime('%F %T', time());
-  	$sql = "INSERT INTO din_membersale_log(`user_id`,`last_expiry`,`new_expiry`,`time`,`failed`) VALUES('{$user_id}', '{$expiry_date}', '{$new_expiry}','{$timestamp}',0)");
+  	$sql = "INSERT INTO din_membersale_log(`user_id`,`last_expiry`,`new_expiry`,`time`,`failed`) VALUES('{$user_id}', '{$expiry_date}', '{$new_expiry}','{$timestamp}',0)";
   	$result = $this->conn->query($sql);
   	
   	return mysql_insert_id();
