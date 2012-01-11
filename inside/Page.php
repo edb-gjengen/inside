@@ -3462,7 +3462,7 @@ Om dere lager en facebook side til arrangementet, ikke glem &aring; putte inn le
               print "lever ut kort";
             } else {
               print "<input type=\"hidden\" name=\"subaction\" value=\"sticker-sale\" />";
-              print "<select name=\"new-expiry-date\">\n";
+              print "<select name=\"new-sticker-date\">\n";
               print "<option value=\"" . getExpiryDate("now") . "\">" . "i år (" . getStickerPeriod(getExpiryDate('now')) . ")" . "</option>\n";
               print "<option value=\"" . getExpiryDate("+1 year") . "\">" . "neste år (" . getStickerPeriod(getExpiryDate("+1 year")) . ")" . "</option>\n";
               print "<option value=\"" . getExpiryDate("+3 year") . "\">" . "tre år (" . getStickerPeriod(getExpiryDate("+3 year")) . ")" . "</option>\n";

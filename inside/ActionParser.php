@@ -1299,7 +1299,7 @@ private function logError($username, $error)
       $user = new User(scriptParam("userid"));
       $subaction = scriptParam("subaction");
       if ($subaction == "sticker-sale") {
-        $user->_registerUpdate("Oblat solgt i billettbod");
+        $user->_registerUpdate("Oblat solgt i billettbod " . scriptParam("new-sticker-date"));
         $user->updateExpiry(scriptParam("new-sticker-date"));
         $user->updateLastSticker(getStickerPeriod(scriptParam("new-sticker-date")));
       } elseif ($subaction == "give-sticker") {
