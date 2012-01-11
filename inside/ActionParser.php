@@ -1313,7 +1313,7 @@ private function logError($username, $error)
         $user->_registerUpdate("Nytt medlemskort bestillt via billettluka");
         $user->setCardProduced(false);
         $user->setCardDelivered(false);
-        $user->updateLastSticker(0);
+        $user->unsetLastSticker();
       }
       
     } else {

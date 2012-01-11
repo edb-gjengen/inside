@@ -721,11 +721,19 @@ class User {
   /*
    * $newDate = YYYY-MM-DD or null (lifetime membership)
    * Requires a full date for expiry, has to end on 1. of august or we get an exception.
+   * (orly? tror jeg har kodet noe feil her, men er ikke så viktig med datosjekk selv om
+   *  jeg skulle ønske det var der)
    */
   public function updateExpiry($newDate) {
     if($newDate !== null && !preg_match("#^\d{4}-\d{2}-\d{2}$#", $newDate))
     	throw new Exception("Invalid date: $newDate");
-  
+  	
+  	if($this->expires === $newDate)
+  		throw new Exception("Utløpsdatoen har allerede denne verdien");
+  	
+  	// Logger medlemskapssalget.
+  	//$log_entry_id = logExpiryUpdate($this->id, $this->expires, $newDate);
+  	
     if ($newDate === null) {
       $sql = "UPDATE din_user SET expires = NULL WHERE id = $this->id LIMIT 1";
     } else {
@@ -738,8 +746,26 @@ class User {
       $this->_registerUpdate("Utløpsdato oppdatert til " . $newDate);
       notify("Utløpsdato oppdatert.");
     } else {
+      // logger at det gikk feil (håper denne funker ;))
+      //logExpiryUpdateFail($log_entry_id);
+      
       error($result->toString());
     }
+  }
+  
+  function logExpiryUpdate($user_id, $expiry_date, $new_expiry)
+  {
+  	$timestamp = strftime('%F %T', time());
+  	$sql = "INSERT INTO din_membersale_log(`user_id`,`last_expiry`,`new_expiry`,`time`,`failed`) VALUES('{$user_id}', '{$expiry_date}', '{$new_expiry}','{$timestamp}',0)");
+  	$result = $this->conn->query($sql);
+  	
+  	return mysql_insert_id();
+  }
+  
+  function logExpiryUpdateFail($entry_id)
+  {
+  	$register_fail = "UPDATE din_membersale_log SET `failed`=1 WHERE `id`='{$entry_id}'";
+    $this->conn->query($sql);
   }
 	/*
 	 * $newDate = YYYY | YYYY/YY
@@ -749,6 +775,24 @@ class User {
     		throw new Exception("Invalid date format: $newDate");
     	
         $sql = "UPDATE din_user SET lastSticker = '$newDate' WHERE id = $this->id LIMIT 1";
+        $result = $this->conn->query($sql);
+        if (DB :: isError($result) != true) {
+            $this->_registerUpdate("Oppdatert oblat til " . $newDate);
+            $this->lastSticker = $newDate;
+            notify("Oblat oppdatert til " . $this->getLastSticker() . " for " . $this->getName() . ".");
+
+            // Assume that a letter is sent to the registered address.
+            // We mark the address as valid, and will update it as invalid if the letter is not delivered
+            $this->setAddressStatus(1);
+        } else {
+            error($result->toString());
+        }
+    }
+    
+    // Used when a new card is ordered
+    public function unsetLastSticker()
+    {
+    	$sql = "UPDATE din_user SET lastSticker = '0' WHERE id = $this->id LIMIT 1";
         $result = $this->conn->query($sql);
         if (DB :: isError($result) != true) {
             $this->_registerUpdate("Oppdatert oblat til " . $newDate);
