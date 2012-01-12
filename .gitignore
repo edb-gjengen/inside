@@ -1,0 +1,7 @@
+credentials.php
+inside/credentials.php
+inside/tmp
+.htaccess
+inside/migration/config.php
+migration.log
+error_log
