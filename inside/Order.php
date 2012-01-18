@@ -102,6 +102,15 @@ class Order {
 
   	// new product id for this order, add order item
   	if (!$added) {
+		if($data['product_id'] == 27)
+		{
+			$user = new User($this->user_id);
+			if($user->expires != '2011-12-31')
+			{
+				notify('Du ser ikke ut til å ha hatt medlemskap for 2011 - vennligst kontakt billettluka om du mener dette er en feil');
+				return false;
+			}
+		}
 		$item = new OrderItem(NULL, $data);
 		$item->store();
   	}
@@ -325,7 +334,18 @@ class Order {
   				if (!$user->renewMembercardPayex()) {
   					return false;
   				}
-  			}
+  			} else if($item->product_id == 27) {
+				$user = new User($this->user_id);
+				if($user->expires == '2011-12-31')
+				{
+					if(!$user->renewMembershipPayex())
+					{
+						return false;
+					}
+				}
+				else
+					return false;
+			}
   		}
 	}
 }
