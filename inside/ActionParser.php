@@ -1327,4 +1327,11 @@ private function logError($username, $error)
   }
 
 }
+/*trortorltl
+
+1337!!!111oneone
+
+
+asdasd lololol
+Hurra!*/
 ?>
