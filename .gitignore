@@ -5,3 +5,4 @@ inside/tmp
 inside/migration/config.php
 migration.log
 error_log
+*.swp
