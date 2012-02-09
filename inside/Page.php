@@ -2685,6 +2685,14 @@ Om dere lager en facebook side til arrangementet, ikke glem &aring; putte inn le
                       "attributes" => Array("name" => "cardDelivered",
                       "disabled" => $readonly, "value" => $user->getCardDelivered()));
 
+    if ( isAdmin() ) {
+        $migrated = is_migrated($user->id) ? '<img src="graphics/tick.png" alt="ja">' : '<img src="graphics/cross.png" alt="nei">';
+        $fields[] = Array("label" => "migrert", "type" => "text",
+                          "attributes" => Array("name" => "migrated", "readonly" => true,
+                                                "size" => 16,
+                                                "value" => $migrated));
+    }
+
     $form = new Form($title, $enctype, $method, $action, $fields, NULL, $readonly);
     $form->display();
 
