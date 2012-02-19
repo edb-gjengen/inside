@@ -155,7 +155,7 @@ class Division {
                      $this->conn->quoteSmart($this->user_id_contact),
                      $this->conn->quoteSmart($this->url),
                      $this->conn->quoteSmart($this->divisioncategory_id),
-                     $this->picture,
+                     $this->conn->quoteSmart($this->picture),
                      $this->conn->quoteSmart($this->id)
                      );
 
