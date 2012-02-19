@@ -96,7 +96,7 @@ if ($format != 2){
   $newimage = imagecreatetruecolor($newwidth, $newheight);
 }
 // Resize image
-imagecopyresized($newimage, $source, 0, 0, 0, 0, $newwidth, $newheight, $width, $height);
+imagecopyresampled($newimage, $source, 0, 0, 0, 0, $newwidth, $newheight, $width, $height);
 
 // Output image
 switch ($format){
