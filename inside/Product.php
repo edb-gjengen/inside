@@ -34,7 +34,8 @@ class Product {
         if($_FILES['userfile']['error'] != 4){
           $temp_name = new_file($_FILES['userfile'], 'products');
           rename_file($temp_name, $this->id, 'products');
-          $this->picture = $this->id.substr($temp_name, -4);
+          $ext = strtolower( pathinfo($temp_name, PATHINFO_EXTENSION) );
+          $this->picture = $this->id . "." . $ext;
         }else {
           $this->picture = 0; 
         }
@@ -72,7 +73,8 @@ class Product {
         if($_FILES['userfile']['error'] != 4){
           $temp_name = new_file($_FILES['userfile'], 'products');
           rename_file($temp_name, $this->id, 'products');
-          $this->picture = $this->id.substr($temp_name, -4);
+          $ext = strtolower( pathinfo($temp_name, PATHINFO_EXTENSION) );
+          $this->picture = $this->id . "." . $ext;
         }else {
           $this->picture = 0; 
         }

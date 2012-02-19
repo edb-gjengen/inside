@@ -81,10 +81,11 @@ class Division {
       }
     }else {//ID set, existing article
       if ($data != NULL){//Update existing article
-        if($_FILES['userfile']['error'] != 4){
-          $temp_name = new_file($_FILES, "foreninger");
+        if($_FILES['userfile']['error'] != 4) {
+          $temp_name = new_file($_FILES['userfile'], "foreninger");
           rename_file($temp_name, $this->id, "foreninger");
-          $this->picture = $this->conn->quoteSmart($this->id.substr($temp_name, -4));
+          $ext = strtolower( pathinfo($temp_name, PATHINFO_EXTENSION) );
+          $this->picture = $this->id . "." . $ext;
         }else {
           $this->picture = "picture"; 
         }

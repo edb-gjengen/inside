@@ -45,7 +45,8 @@ class Article {
         if($_FILES['attachment1']['error'] != 4){
           $temp_name = new_file($_FILES['attachment1'], 'nyheter');
           rename_file($temp_name, $this->id, 'nyheter');
-          $this->attachment1 = $this->id.substr($temp_name, -4);
+          $ext = strtolower( pathinfo($temp_name, PATHINFO_EXTENSION) );
+          $this->attachment1 = $this->id . "." . $ext;
         }else {
           $this->attachment1 = 0;
         }
@@ -54,7 +55,8 @@ class Article {
         if($_FILES['attachment2']['error'] != 4){
           $temp_name = new_file($_FILES['attachment2'], 'nyheter');
           rename_file($temp_name, $this->id.'_2', 'nyheter');
-          $this->attachment2 = $this->id.'_2'.substr($temp_name, -4);
+          $ext = strtolower( pathinfo($temp_name, PATHINFO_EXTENSION) );
+          $this->attachment2 = $this->id . "_2." . $ext;
         }else {
           $this->attachment2 = 0;
         }
@@ -101,7 +103,8 @@ class Article {
         if($_FILES['attachment1']['error'] != 4){
           $temp_name = new_file($_FILES['attachment1'], 'nyheter');
           rename_file($temp_name, $this->id, 'nyheter');
-          $this->attachment1 = $this->id.substr($temp_name, -4);
+          $ext = strtolower( pathinfo($temp_name, PATHINFO_EXTENSION) );
+          $this->attachment1 = $this->id . "." . $ext;
         }else {
           $this->attachment1 = 0;
         }
@@ -110,7 +113,8 @@ class Article {
         if($_FILES['attachment2']['error'] != 4){
           $temp_name = new_file($_FILES['attachment2'], 'nyheter');
           rename_file($temp_name, $this->id.'_2', 'nyheter');
-          $this->attachment2 = $this->id.'_2'.substr($temp_name, -4);
+          $ext = strtolower( pathinfo($temp_name, PATHINFO_EXTENSION) );
+          $this->attachment1 = $this->id . "_2." . $ext;
         }else {
           $this->attachment2 = 0;
         }
