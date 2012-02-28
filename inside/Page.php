@@ -776,7 +776,6 @@ possibly include it instead? --Thomas Misund, 26. Oct 2009
     }
 		?>
 			<p><a href="index.php?page=display-current-user">Oppdatér din brukerinformasjon</a></p>
-	    <p><a href="index.php?page=change-username&amp;userid=<?php print(getCurrentUser()); ?>">Endre brukernavn</a></p>
 		<?php
   } else {
 
@@ -811,7 +810,6 @@ possibly include it instead? --Thomas Misund, 26. Oct 2009
       <li><a href="index.php?page=display-documents">Lese dokumenter</a></li>
       <li><a href="index.php?page=display-divisions">Finne kontaktinfo til en forening</a></li>
       <li><a href="index.php?page=display-current-user">Oppdatere min brukerinformasjon</a></li>
-      <li><a href="index.php?page=change-username&amp;userid=<?php print(getCurrentUser()); ?>">Endre brukernavn</a></li>
     </ul>
 
 <?php }
