@@ -130,7 +130,7 @@ possibly include it instead? --Thomas Misund, 26. Oct 2009
                     <div class="sub-menu">
                         <ul>
                             <li><a href="https://www.studentersamfundet.no/inside/">Inside</a></li>
-                            <li><a href="http://studentersamfundet.no/viteboka/?page_id=3">Viteboka</a></li>
+                            <li><a href="http://viteboka.studentersamfundet.no/">Viteboka</a></li>
                             <li><a href="https://www.studentersamfundet.no/inside/index.php?page=display-barshifts-calendar">Tappet&aring;rnets vaktliste</a></li>
                             <li><a href="http://studentersamfundet.no/aktive.php">Andre ressurser</a></li>
                         </ul>
