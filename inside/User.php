@@ -771,8 +771,20 @@ class User {
 	 * $newDate = YYYY | YYYY/YY
 	 */
     public function updateLastSticker($newDate) {
-    	if(!preg_match('#^\d{4}(/\d{2})?$#', $newDate))
-    		throw new Exception("Invalid date format: $newDate");
+    	if(!preg_match('#^\d{4}(/\d{2})?$#', $newDate)) {
+		// If not known format, try to convert it:
+		$tempDate = strtotime($newDate);
+		if (!$tempDate) {
+	    		throw new Exception("Invalid date format: $newDate");
+		} else {
+			// Determine if we want to have YYYY or YYYY/YY:
+			$currentYear = (int)date("Y", $tempDate);
+			$previousYear = $currentYear - 1;
+			$newDate = ((int)date("n", $tempDate) <= 8) ? 
+				((string)$previousYear) . "/" . ((string)($currentYear % 100)) :
+				(string)$currentYear;
+		}
+	}
     	
         $sql = "UPDATE din_user SET lastSticker = '$newDate' WHERE id = $this->id LIMIT 1";
         $result = $this->conn->query($sql);
