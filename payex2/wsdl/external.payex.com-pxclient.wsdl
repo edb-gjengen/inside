@@ -1,0 +1,964 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://external.payex.com/PxClient/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" targetNamespace="http://external.payex.com/PxClient/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://external.payex.com/PxClient/">
+      <s:element name="AddExternalIdLink">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="accountNumber" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="clientType" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="clientRef" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="externalId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="hash" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddExternalIdLinkResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AddExternalIdLinkResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreateClient2">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="accountNumber" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="verified" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="email" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="gsm" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="socialSecurityNumber" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="firstName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="lastName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="address1" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="address2" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="address3" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="postNumber" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="city" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="country" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="currency" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="language" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="externalId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ip" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="hash" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreateClient2Response">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CreateClient2Result" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreateClient3">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="accountNumber" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="verified" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="email" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="gsm" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="socialSecurityNumber" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="firstName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="lastName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="address1" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="address2" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="address3" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="postNumber" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="city" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="country" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="currency" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="language" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="externalId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ip" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="generatePxAccount" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="hash" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreateClient3Response">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CreateClient3Result" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateExternalUserID">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="accountNumber" type="s:long" />
+            <s:element minOccurs="0" maxOccurs="1" name="externalUserIdOld" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="externalUserIdNew" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="hash" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateExternalUserIDResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UpdateExternalUserIDResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateExternalIdLink">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="accountNumber" type="s:long" />
+            <s:element minOccurs="0" maxOccurs="1" name="externalIdOld" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="externalIdNew" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="hash" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateExternalIdLinkResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UpdateExternalIdLinkResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetClientInfo2">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="accountNumber" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="clientType" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="clientRef" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="validate" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="clientInfo" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="hash" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetClientInfo2Response">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetClientInfo2Result" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetClientInfo3">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="accountNumber" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="clientType" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="clientRef" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="validate" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="hash" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetClientInfo3Response">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetClientInfo3Result" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ClientToClientTransfer">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="accountNumber" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="senderAccountNumber" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="userType" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="userRef" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="amount" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="description" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="hash" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ClientToClientTransferResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ClientToClientTransferResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SetSocialSecurityNumberVerified">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="accountNumber" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="clientType" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="clientRef" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="socialSecurityNumber" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="firstName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="lastName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="address1" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="address2" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="address3" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="postNumber" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="city" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="country" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="hash" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SetSocialSecurityNumberVerifiedResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SetSocialSecurityNumberVerifiedResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddGsmNumber">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="accountNumber" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="clientType" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="clientRef" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="gsmNumber" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="hash" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddGsmNumberResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AddGsmNumberResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendGsmVerificationCode">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="accountNumber" type="s:long" />
+            <s:element minOccurs="0" maxOccurs="1" name="verificationCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="mobileNumber" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="hash" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendGsmVerificationCodeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SendGsmVerificationCodeResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GenerateTemporaryPassword">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="accountNumber" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="clientType" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="clientRef" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="hash" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GenerateTemporaryPasswordResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GenerateTemporaryPasswordResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="string" nillable="true" type="s:string" />
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="AddExternalIdLinkSoapIn">
+    <wsdl:part name="parameters" element="tns:AddExternalIdLink" />
+  </wsdl:message>
+  <wsdl:message name="AddExternalIdLinkSoapOut">
+    <wsdl:part name="parameters" element="tns:AddExternalIdLinkResponse" />
+  </wsdl:message>
+  <wsdl:message name="CreateClient2SoapIn">
+    <wsdl:part name="parameters" element="tns:CreateClient2" />
+  </wsdl:message>
+  <wsdl:message name="CreateClient2SoapOut">
+    <wsdl:part name="parameters" element="tns:CreateClient2Response" />
+  </wsdl:message>
+  <wsdl:message name="CreateClient3SoapIn">
+    <wsdl:part name="parameters" element="tns:CreateClient3" />
+  </wsdl:message>
+  <wsdl:message name="CreateClient3SoapOut">
+    <wsdl:part name="parameters" element="tns:CreateClient3Response" />
+  </wsdl:message>
+  <wsdl:message name="UpdateExternalUserIDSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdateExternalUserID" />
+  </wsdl:message>
+  <wsdl:message name="UpdateExternalUserIDSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdateExternalUserIDResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdateExternalIdLinkSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdateExternalIdLink" />
+  </wsdl:message>
+  <wsdl:message name="UpdateExternalIdLinkSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdateExternalIdLinkResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetClientInfo2SoapIn">
+    <wsdl:part name="parameters" element="tns:GetClientInfo2" />
+  </wsdl:message>
+  <wsdl:message name="GetClientInfo2SoapOut">
+    <wsdl:part name="parameters" element="tns:GetClientInfo2Response" />
+  </wsdl:message>
+  <wsdl:message name="GetClientInfo3SoapIn">
+    <wsdl:part name="parameters" element="tns:GetClientInfo3" />
+  </wsdl:message>
+  <wsdl:message name="GetClientInfo3SoapOut">
+    <wsdl:part name="parameters" element="tns:GetClientInfo3Response" />
+  </wsdl:message>
+  <wsdl:message name="ClientToClientTransferSoapIn">
+    <wsdl:part name="parameters" element="tns:ClientToClientTransfer" />
+  </wsdl:message>
+  <wsdl:message name="ClientToClientTransferSoapOut">
+    <wsdl:part name="parameters" element="tns:ClientToClientTransferResponse" />
+  </wsdl:message>
+  <wsdl:message name="SetSocialSecurityNumberVerifiedSoapIn">
+    <wsdl:part name="parameters" element="tns:SetSocialSecurityNumberVerified" />
+  </wsdl:message>
+  <wsdl:message name="SetSocialSecurityNumberVerifiedSoapOut">
+    <wsdl:part name="parameters" element="tns:SetSocialSecurityNumberVerifiedResponse" />
+  </wsdl:message>
+  <wsdl:message name="AddGsmNumberSoapIn">
+    <wsdl:part name="parameters" element="tns:AddGsmNumber" />
+  </wsdl:message>
+  <wsdl:message name="AddGsmNumberSoapOut">
+    <wsdl:part name="parameters" element="tns:AddGsmNumberResponse" />
+  </wsdl:message>
+  <wsdl:message name="SendGsmVerificationCodeSoapIn">
+    <wsdl:part name="parameters" element="tns:SendGsmVerificationCode" />
+  </wsdl:message>
+  <wsdl:message name="SendGsmVerificationCodeSoapOut">
+    <wsdl:part name="parameters" element="tns:SendGsmVerificationCodeResponse" />
+  </wsdl:message>
+  <wsdl:message name="GenerateTemporaryPasswordSoapIn">
+    <wsdl:part name="parameters" element="tns:GenerateTemporaryPassword" />
+  </wsdl:message>
+  <wsdl:message name="GenerateTemporaryPasswordSoapOut">
+    <wsdl:part name="parameters" element="tns:GenerateTemporaryPasswordResponse" />
+  </wsdl:message>
+  <wsdl:message name="AddExternalIdLinkHttpPostIn">
+    <wsdl:part name="accountNumber" type="s:string" />
+    <wsdl:part name="clientType" type="s:string" />
+    <wsdl:part name="clientRef" type="s:string" />
+    <wsdl:part name="password" type="s:string" />
+    <wsdl:part name="externalId" type="s:string" />
+    <wsdl:part name="hash" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="AddExternalIdLinkHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="CreateClient2HttpPostIn">
+    <wsdl:part name="accountNumber" type="s:string" />
+    <wsdl:part name="verified" type="s:string" />
+    <wsdl:part name="email" type="s:string" />
+    <wsdl:part name="gsm" type="s:string" />
+    <wsdl:part name="socialSecurityNumber" type="s:string" />
+    <wsdl:part name="password" type="s:string" />
+    <wsdl:part name="firstName" type="s:string" />
+    <wsdl:part name="lastName" type="s:string" />
+    <wsdl:part name="address1" type="s:string" />
+    <wsdl:part name="address2" type="s:string" />
+    <wsdl:part name="address3" type="s:string" />
+    <wsdl:part name="postNumber" type="s:string" />
+    <wsdl:part name="city" type="s:string" />
+    <wsdl:part name="country" type="s:string" />
+    <wsdl:part name="currency" type="s:string" />
+    <wsdl:part name="language" type="s:string" />
+    <wsdl:part name="externalId" type="s:string" />
+    <wsdl:part name="ip" type="s:string" />
+    <wsdl:part name="hash" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="CreateClient2HttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="CreateClient3HttpPostIn">
+    <wsdl:part name="accountNumber" type="s:string" />
+    <wsdl:part name="verified" type="s:string" />
+    <wsdl:part name="email" type="s:string" />
+    <wsdl:part name="gsm" type="s:string" />
+    <wsdl:part name="socialSecurityNumber" type="s:string" />
+    <wsdl:part name="password" type="s:string" />
+    <wsdl:part name="firstName" type="s:string" />
+    <wsdl:part name="lastName" type="s:string" />
+    <wsdl:part name="address1" type="s:string" />
+    <wsdl:part name="address2" type="s:string" />
+    <wsdl:part name="address3" type="s:string" />
+    <wsdl:part name="postNumber" type="s:string" />
+    <wsdl:part name="city" type="s:string" />
+    <wsdl:part name="country" type="s:string" />
+    <wsdl:part name="currency" type="s:string" />
+    <wsdl:part name="language" type="s:string" />
+    <wsdl:part name="externalId" type="s:string" />
+    <wsdl:part name="ip" type="s:string" />
+    <wsdl:part name="generatePxAccount" type="s:string" />
+    <wsdl:part name="hash" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="CreateClient3HttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="UpdateExternalUserIDHttpPostIn">
+    <wsdl:part name="accountNumber" type="s:string" />
+    <wsdl:part name="externalUserIdOld" type="s:string" />
+    <wsdl:part name="externalUserIdNew" type="s:string" />
+    <wsdl:part name="hash" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="UpdateExternalUserIDHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="UpdateExternalIdLinkHttpPostIn">
+    <wsdl:part name="accountNumber" type="s:string" />
+    <wsdl:part name="externalIdOld" type="s:string" />
+    <wsdl:part name="externalIdNew" type="s:string" />
+    <wsdl:part name="hash" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="UpdateExternalIdLinkHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="GetClientInfo2HttpPostIn">
+    <wsdl:part name="accountNumber" type="s:string" />
+    <wsdl:part name="clientType" type="s:string" />
+    <wsdl:part name="clientRef" type="s:string" />
+    <wsdl:part name="password" type="s:string" />
+    <wsdl:part name="validate" type="s:string" />
+    <wsdl:part name="clientInfo" type="s:string" />
+    <wsdl:part name="hash" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetClientInfo2HttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="GetClientInfo3HttpPostIn">
+    <wsdl:part name="accountNumber" type="s:string" />
+    <wsdl:part name="clientType" type="s:string" />
+    <wsdl:part name="clientRef" type="s:string" />
+    <wsdl:part name="password" type="s:string" />
+    <wsdl:part name="validate" type="s:string" />
+    <wsdl:part name="hash" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetClientInfo3HttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="ClientToClientTransferHttpPostIn">
+    <wsdl:part name="accountNumber" type="s:string" />
+    <wsdl:part name="senderAccountNumber" type="s:string" />
+    <wsdl:part name="userType" type="s:string" />
+    <wsdl:part name="userRef" type="s:string" />
+    <wsdl:part name="amount" type="s:string" />
+    <wsdl:part name="description" type="s:string" />
+    <wsdl:part name="hash" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ClientToClientTransferHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="SetSocialSecurityNumberVerifiedHttpPostIn">
+    <wsdl:part name="accountNumber" type="s:string" />
+    <wsdl:part name="clientType" type="s:string" />
+    <wsdl:part name="clientRef" type="s:string" />
+    <wsdl:part name="socialSecurityNumber" type="s:string" />
+    <wsdl:part name="firstName" type="s:string" />
+    <wsdl:part name="lastName" type="s:string" />
+    <wsdl:part name="address1" type="s:string" />
+    <wsdl:part name="address2" type="s:string" />
+    <wsdl:part name="address3" type="s:string" />
+    <wsdl:part name="postNumber" type="s:string" />
+    <wsdl:part name="city" type="s:string" />
+    <wsdl:part name="country" type="s:string" />
+    <wsdl:part name="hash" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SetSocialSecurityNumberVerifiedHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="AddGsmNumberHttpPostIn">
+    <wsdl:part name="accountNumber" type="s:string" />
+    <wsdl:part name="clientType" type="s:string" />
+    <wsdl:part name="clientRef" type="s:string" />
+    <wsdl:part name="gsmNumber" type="s:string" />
+    <wsdl:part name="hash" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="AddGsmNumberHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="SendGsmVerificationCodeHttpPostIn">
+    <wsdl:part name="accountNumber" type="s:string" />
+    <wsdl:part name="verificationCode" type="s:string" />
+    <wsdl:part name="mobileNumber" type="s:string" />
+    <wsdl:part name="hash" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SendGsmVerificationCodeHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="GenerateTemporaryPasswordHttpPostIn">
+    <wsdl:part name="accountNumber" type="s:string" />
+    <wsdl:part name="clientType" type="s:string" />
+    <wsdl:part name="clientRef" type="s:string" />
+    <wsdl:part name="hash" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GenerateTemporaryPasswordHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:portType name="PxClientSoap">
+    <wsdl:operation name="AddExternalIdLink">
+      <wsdl:input message="tns:AddExternalIdLinkSoapIn" />
+      <wsdl:output message="tns:AddExternalIdLinkSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateClient">
+      <wsdl:input name="CreateClient2" message="tns:CreateClient2SoapIn" />
+      <wsdl:output name="CreateClient2" message="tns:CreateClient2SoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateClient3">
+      <wsdl:input message="tns:CreateClient3SoapIn" />
+      <wsdl:output message="tns:CreateClient3SoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateExternalUserID">
+      <wsdl:input message="tns:UpdateExternalUserIDSoapIn" />
+      <wsdl:output message="tns:UpdateExternalUserIDSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetClientInfo">
+      <wsdl:input message="tns:GetClientInfoSoapIn" />
+      <wsdl:output message="tns:GetClientInfoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateExternalIdLink">
+      <wsdl:input message="tns:UpdateExternalIdLinkSoapIn" />
+      <wsdl:output message="tns:UpdateExternalIdLinkSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetClientInfo">
+      <wsdl:input name="GetClientInfo2" message="tns:GetClientInfo2SoapIn" />
+      <wsdl:output name="GetClientInfo2" message="tns:GetClientInfo2SoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetClientInfo3">
+      <wsdl:input message="tns:GetClientInfo3SoapIn" />
+      <wsdl:output message="tns:GetClientInfo3SoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ClientToClientTransfer">
+      <wsdl:input message="tns:ClientToClientTransferSoapIn" />
+      <wsdl:output message="tns:ClientToClientTransferSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SetSocialSecurityNumberVerified">
+      <wsdl:input message="tns:SetSocialSecurityNumberVerifiedSoapIn" />
+      <wsdl:output message="tns:SetSocialSecurityNumberVerifiedSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AddGsmNumber">
+      <wsdl:input message="tns:AddGsmNumberSoapIn" />
+      <wsdl:output message="tns:AddGsmNumberSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendGsmVerificationCode">
+      <wsdl:input message="tns:SendGsmVerificationCodeSoapIn" />
+      <wsdl:output message="tns:SendGsmVerificationCodeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GenerateTemporaryPassword">
+      <wsdl:input message="tns:GenerateTemporaryPasswordSoapIn" />
+      <wsdl:output message="tns:GenerateTemporaryPasswordSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="PxClientHttpPost">
+    <wsdl:operation name="AddExternalIdLink">
+      <wsdl:input message="tns:AddExternalIdLinkHttpPostIn" />
+      <wsdl:output message="tns:AddExternalIdLinkHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateClient">
+      <wsdl:input name="CreateClient2" message="tns:CreateClient2HttpPostIn" />
+      <wsdl:output name="CreateClient2" message="tns:CreateClient2HttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateClient3">
+      <wsdl:input message="tns:CreateClient3HttpPostIn" />
+      <wsdl:output message="tns:CreateClient3HttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateExternalUserID">
+      <wsdl:input message="tns:UpdateExternalUserIDHttpPostIn" />
+      <wsdl:output message="tns:UpdateExternalUserIDHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetClientInfo">
+      <wsdl:input message="tns:GetClientInfoHttpPostIn" />
+      <wsdl:output message="tns:GetClientInfoHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateExternalIdLink">
+      <wsdl:input message="tns:UpdateExternalIdLinkHttpPostIn" />
+      <wsdl:output message="tns:UpdateExternalIdLinkHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetClientInfo">
+      <wsdl:input name="GetClientInfo2" message="tns:GetClientInfo2HttpPostIn" />
+      <wsdl:output name="GetClientInfo2" message="tns:GetClientInfo2HttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetClientInfo3">
+      <wsdl:input message="tns:GetClientInfo3HttpPostIn" />
+      <wsdl:output message="tns:GetClientInfo3HttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ClientToClientTransfer">
+      <wsdl:input message="tns:ClientToClientTransferHttpPostIn" />
+      <wsdl:output message="tns:ClientToClientTransferHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SetSocialSecurityNumberVerified">
+      <wsdl:input message="tns:SetSocialSecurityNumberVerifiedHttpPostIn" />
+      <wsdl:output message="tns:SetSocialSecurityNumberVerifiedHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AddGsmNumber">
+      <wsdl:input message="tns:AddGsmNumberHttpPostIn" />
+      <wsdl:output message="tns:AddGsmNumberHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendGsmVerificationCode">
+      <wsdl:input message="tns:SendGsmVerificationCodeHttpPostIn" />
+      <wsdl:output message="tns:SendGsmVerificationCodeHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GenerateTemporaryPassword">
+      <wsdl:input message="tns:GenerateTemporaryPasswordHttpPostIn" />
+      <wsdl:output message="tns:GenerateTemporaryPasswordHttpPostOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="PxClientSoap" type="tns:PxClientSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="AddExternalIdLink">
+      <soap:operation soapAction="http://external.payex.com/PxClient/AddExternalIdLink" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateClient">
+      <soap:operation soapAction="http://external.payex.com/PxClient/CreateClient2" style="document" />
+      <wsdl:input name="CreateClient2">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="CreateClient2">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateClient3">
+      <soap:operation soapAction="http://external.payex.com/PxClient/CreateClient3" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateExternalUserID">
+      <soap:operation soapAction="http://external.payex.com/PxClient/UpdateExternalUserID" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateExternalIdLink">
+      <soap:operation soapAction="http://external.payex.com/PxClient/UpdateExternalIdLink" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetClientInfo">
+      <soap:operation soapAction="http://external.payex.com/PxClient/GetClientInfo2" style="document" />
+      <wsdl:input name="GetClientInfo2">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="GetClientInfo2">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetClientInfo3">
+      <soap:operation soapAction="http://external.payex.com/PxClient/GetClientInfo3" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ClientToClientTransfer">
+      <soap:operation soapAction="http://external.payex.com/PxClient/ClientToClientTransfer" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetSocialSecurityNumberVerified">
+      <soap:operation soapAction="http://external.payex.com/PxClient/SetSocialSecurityNumberVerified" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddGsmNumber">
+      <soap:operation soapAction="http://external.payex.com/PxClient/AddGsmNumber" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendGsmVerificationCode">
+      <soap:operation soapAction="http://external.payex.com/PxClient/SendGsmVerificationCode" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GenerateTemporaryPassword">
+      <soap:operation soapAction="http://external.payex.com/PxClient/GenerateTemporaryPassword" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="PxClientSoap12" type="tns:PxClientSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="AddExternalIdLink">
+      <soap12:operation soapAction="http://external.payex.com/PxClient/AddExternalIdLink" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateClient">
+      <soap12:operation soapAction="http://external.payex.com/PxClient/CreateClient" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateClient">
+      <soap12:operation soapAction="http://external.payex.com/PxClient/CreateClient2" style="document" />
+      <wsdl:input name="CreateClient2">
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="CreateClient2">
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateClient3">
+      <soap12:operation soapAction="http://external.payex.com/PxClient/CreateClient3" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateExternalUserID">
+      <soap12:operation soapAction="http://external.payex.com/PxClient/UpdateExternalUserID" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetClientInfo">
+      <soap12:operation soapAction="http://external.payex.com/PxClient/GetClientInfo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateExternalIdLink">
+      <soap12:operation soapAction="http://external.payex.com/PxClient/UpdateExternalIdLink" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetClientInfo">
+      <soap12:operation soapAction="http://external.payex.com/PxClient/GetClientInfo2" style="document" />
+      <wsdl:input name="GetClientInfo2">
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="GetClientInfo2">
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetClientInfo3">
+      <soap12:operation soapAction="http://external.payex.com/PxClient/GetClientInfo3" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ClientToClientTransfer">
+      <soap12:operation soapAction="http://external.payex.com/PxClient/ClientToClientTransfer" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetSocialSecurityNumberVerified">
+      <soap12:operation soapAction="http://external.payex.com/PxClient/SetSocialSecurityNumberVerified" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddGsmNumber">
+      <soap12:operation soapAction="http://external.payex.com/PxClient/AddGsmNumber" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendGsmVerificationCode">
+      <soap12:operation soapAction="http://external.payex.com/PxClient/SendGsmVerificationCode" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GenerateTemporaryPassword">
+      <soap12:operation soapAction="http://external.payex.com/PxClient/GenerateTemporaryPassword" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="PxClientHttpPost" type="tns:PxClientHttpPost">
+    <http:binding verb="POST" />
+    <wsdl:operation name="AddExternalIdLink">
+      <http:operation location="/AddExternalIdLink" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateClient">
+      <http:operation location="/CreateClient2" />
+      <wsdl:input name="CreateClient2">
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output name="CreateClient2">
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateClient3">
+      <http:operation location="/CreateClient3" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateExternalUserID">
+      <http:operation location="/UpdateExternalUserID" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateExternalIdLink">
+      <http:operation location="/UpdateExternalIdLink" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetClientInfo">
+      <http:operation location="/GetClientInfo2" />
+      <wsdl:input name="GetClientInfo2">
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output name="GetClientInfo2">
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetClientInfo3">
+      <http:operation location="/GetClientInfo3" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ClientToClientTransfer">
+      <http:operation location="/ClientToClientTransfer" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetSocialSecurityNumberVerified">
+      <http:operation location="/SetSocialSecurityNumberVerified" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddGsmNumber">
+      <http:operation location="/AddGsmNumber" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendGsmVerificationCode">
+      <http:operation location="/SendGsmVerificationCode" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GenerateTemporaryPassword">
+      <http:operation location="/GenerateTemporaryPassword" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="PxClient">
+    <wsdl:port name="PxClientSoap" binding="tns:PxClientSoap">
+      <soap:address location="https://external.payex.com/pxClient/pxclient.asmx" />
+    </wsdl:port>
+    <wsdl:port name="PxClientSoap12" binding="tns:PxClientSoap12">
+      <soap12:address location="https://external.payex.com/pxClient/pxclient.asmx" />
+    </wsdl:port>
+    <wsdl:port name="PxClientHttpPost" binding="tns:PxClientHttpPost">
+      <http:address location="https://external.payex.com/pxClient/pxclient.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

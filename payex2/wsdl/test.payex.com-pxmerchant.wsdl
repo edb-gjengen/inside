@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://external.payex.com/PxMerchant/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" targetNamespace="http://external.payex.com/PxMerchant/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://external.payex.com/PxMerchant/">
+      <s:element name="GenerateHash">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="plainText" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="encryptionKey" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GenerateHashResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GenerateHashResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="TransferToClient">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="accountNumber" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="userType" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="userRef" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="amount" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="description" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="hash" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="TransferToClientResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="TransferToClientResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="TransferToMerchant">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="accountNumber" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="toAccountNumber" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="amount" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="description" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="orderId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="hash" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="TransferToMerchantResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="TransferToMerchantResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="TransferToBankAccount">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="accountNumber" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="amount" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="description" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="orderId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="bankAccountNumber" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="hash" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="TransferToBankAccountResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="TransferToBankAccountResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="string" nillable="true" type="s:string" />
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="GenerateHashSoapIn">
+    <wsdl:part name="parameters" element="tns:GenerateHash" />
+  </wsdl:message>
+  <wsdl:message name="GenerateHashSoapOut">
+    <wsdl:part name="parameters" element="tns:GenerateHashResponse" />
+  </wsdl:message>
+  <wsdl:message name="TransferToClientSoapIn">
+    <wsdl:part name="parameters" element="tns:TransferToClient" />
+  </wsdl:message>
+  <wsdl:message name="TransferToClientSoapOut">
+    <wsdl:part name="parameters" element="tns:TransferToClientResponse" />
+  </wsdl:message>
+  <wsdl:message name="TransferToMerchantSoapIn">
+    <wsdl:part name="parameters" element="tns:TransferToMerchant" />
+  </wsdl:message>
+  <wsdl:message name="TransferToMerchantSoapOut">
+    <wsdl:part name="parameters" element="tns:TransferToMerchantResponse" />
+  </wsdl:message>
+  <wsdl:message name="TransferToBankAccountSoapIn">
+    <wsdl:part name="parameters" element="tns:TransferToBankAccount" />
+  </wsdl:message>
+  <wsdl:message name="TransferToBankAccountSoapOut">
+    <wsdl:part name="parameters" element="tns:TransferToBankAccountResponse" />
+  </wsdl:message>
+  <wsdl:message name="GenerateHashHttpPostIn">
+    <wsdl:part name="plainText" type="s:string" />
+    <wsdl:part name="encryptionKey" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GenerateHashHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="TransferToClientHttpPostIn">
+    <wsdl:part name="accountNumber" type="s:string" />
+    <wsdl:part name="userType" type="s:string" />
+    <wsdl:part name="userRef" type="s:string" />
+    <wsdl:part name="amount" type="s:string" />
+    <wsdl:part name="description" type="s:string" />
+    <wsdl:part name="hash" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="TransferToClientHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="TransferToMerchantHttpPostIn">
+    <wsdl:part name="accountNumber" type="s:string" />
+    <wsdl:part name="toAccountNumber" type="s:string" />
+    <wsdl:part name="amount" type="s:string" />
+    <wsdl:part name="description" type="s:string" />
+    <wsdl:part name="orderId" type="s:string" />
+    <wsdl:part name="hash" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="TransferToMerchantHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="TransferToBankAccountHttpPostIn">
+    <wsdl:part name="accountNumber" type="s:string" />
+    <wsdl:part name="amount" type="s:string" />
+    <wsdl:part name="description" type="s:string" />
+    <wsdl:part name="orderId" type="s:string" />
+    <wsdl:part name="bankAccountNumber" type="s:string" />
+    <wsdl:part name="hash" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="TransferToBankAccountHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:portType name="PxMerchantSoap">
+    <wsdl:operation name="GenerateHash">
+      <wsdl:input message="tns:GenerateHashSoapIn" />
+      <wsdl:output message="tns:GenerateHashSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="TransferToClient">
+      <wsdl:input message="tns:TransferToClientSoapIn" />
+      <wsdl:output message="tns:TransferToClientSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="TransferToMerchant">
+      <wsdl:input message="tns:TransferToMerchantSoapIn" />
+      <wsdl:output message="tns:TransferToMerchantSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="TransferToBankAccount">
+      <wsdl:input message="tns:TransferToBankAccountSoapIn" />
+      <wsdl:output message="tns:TransferToBankAccountSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="PxMerchantHttpPost">
+    <wsdl:operation name="GenerateHash">
+      <wsdl:input message="tns:GenerateHashHttpPostIn" />
+      <wsdl:output message="tns:GenerateHashHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="TransferToClient">
+      <wsdl:input message="tns:TransferToClientHttpPostIn" />
+      <wsdl:output message="tns:TransferToClientHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="TransferToMerchant">
+      <wsdl:input message="tns:TransferToMerchantHttpPostIn" />
+      <wsdl:output message="tns:TransferToMerchantHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="TransferToBankAccount">
+      <wsdl:input message="tns:TransferToBankAccountHttpPostIn" />
+      <wsdl:output message="tns:TransferToBankAccountHttpPostOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="PxMerchantSoap" type="tns:PxMerchantSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GenerateHash">
+      <soap:operation soapAction="http://external.payex.com/PxMerchant/GenerateHash" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TransferToClient">
+      <soap:operation soapAction="http://external.payex.com/PxMerchant/TransferToClient" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TransferToMerchant">
+      <soap:operation soapAction="http://external.payex.com/PxMerchant/TransferToMerchant" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TransferToBankAccount">
+      <soap:operation soapAction="http://external.payex.com/PxMerchant/TransferToBankAccount" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="PxMerchantSoap12" type="tns:PxMerchantSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GenerateHash">
+      <soap12:operation soapAction="http://external.payex.com/PxMerchant/GenerateHash" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TransferToClient">
+      <soap12:operation soapAction="http://external.payex.com/PxMerchant/TransferToClient" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TransferToMerchant">
+      <soap12:operation soapAction="http://external.payex.com/PxMerchant/TransferToMerchant" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TransferToBankAccount">
+      <soap12:operation soapAction="http://external.payex.com/PxMerchant/TransferToBankAccount" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="PxMerchantHttpPost" type="tns:PxMerchantHttpPost">
+    <http:binding verb="POST" />
+    <wsdl:operation name="GenerateHash">
+      <http:operation location="/GenerateHash" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TransferToClient">
+      <http:operation location="/TransferToClient" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TransferToMerchant">
+      <http:operation location="/TransferToMerchant" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TransferToBankAccount">
+      <http:operation location="/TransferToBankAccount" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="PxMerchant">
+    <wsdl:port name="PxMerchantSoap" binding="tns:PxMerchantSoap">
+      <soap:address location="https://test-external.payex.com/pxmerchant/pxmerchant.asmx" />
+    </wsdl:port>
+    <wsdl:port name="PxMerchantSoap12" binding="tns:PxMerchantSoap12">
+      <soap12:address location="https://test-external.payex.com/pxmerchant/pxmerchant.asmx" />
+    </wsdl:port>
+    <wsdl:port name="PxMerchantHttpPost" binding="tns:PxMerchantHttpPost">
+      <http:address location="https://test-external.payex.com/pxmerchant/pxmerchant.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

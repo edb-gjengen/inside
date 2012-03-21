@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://external.payex.com/PxPrint/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" targetNamespace="http://external.payex.com/PxPrint/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://external.payex.com/PxPrint/">
+      <s:element name="PrintToCustomer">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="accountNumber" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="template" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="distributionType" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="firstName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="lastName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="companyName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="organizationNumber" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="address1" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="address2" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="postNumber" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="city" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="country" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="email" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="gsm" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="extraFields" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="hash" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PrintToCustomerResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PrintToCustomerResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="string" nillable="true" type="s:string" />
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="PrintToCustomerSoapIn">
+    <wsdl:part name="parameters" element="tns:PrintToCustomer" />
+  </wsdl:message>
+  <wsdl:message name="PrintToCustomerSoapOut">
+    <wsdl:part name="parameters" element="tns:PrintToCustomerResponse" />
+  </wsdl:message>
+  <wsdl:message name="PrintToCustomerHttpPostIn">
+    <wsdl:part name="accountNumber" type="s:string" />
+    <wsdl:part name="template" type="s:string" />
+    <wsdl:part name="distributionType" type="s:string" />
+    <wsdl:part name="firstName" type="s:string" />
+    <wsdl:part name="lastName" type="s:string" />
+    <wsdl:part name="companyName" type="s:string" />
+    <wsdl:part name="organizationNumber" type="s:string" />
+    <wsdl:part name="address1" type="s:string" />
+    <wsdl:part name="address2" type="s:string" />
+    <wsdl:part name="postNumber" type="s:string" />
+    <wsdl:part name="city" type="s:string" />
+    <wsdl:part name="country" type="s:string" />
+    <wsdl:part name="email" type="s:string" />
+    <wsdl:part name="gsm" type="s:string" />
+    <wsdl:part name="extraFields" type="s:string" />
+    <wsdl:part name="hash" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="PrintToCustomerHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:portType name="PxPrintSoap">
+    <wsdl:operation name="PrintToCustomer">
+      <wsdl:input message="tns:PrintToCustomerSoapIn" />
+      <wsdl:output message="tns:PrintToCustomerSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="PxPrintHttpPost">
+    <wsdl:operation name="PrintToCustomer">
+      <wsdl:input message="tns:PrintToCustomerHttpPostIn" />
+      <wsdl:output message="tns:PrintToCustomerHttpPostOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="PxPrintSoap" type="tns:PxPrintSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="PrintToCustomer">
+      <soap:operation soapAction="http://external.payex.com/PxPrint/PrintToCustomer" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="PxPrintSoap12" type="tns:PxPrintSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="PrintToCustomer">
+      <soap12:operation soapAction="http://external.payex.com/PxPrint/PrintToCustomer" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="PxPrintHttpPost" type="tns:PxPrintHttpPost">
+    <http:binding verb="POST" />
+    <wsdl:operation name="PrintToCustomer">
+      <http:operation location="/PrintToCustomer" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="PxPrint">
+    <wsdl:port name="PxPrintSoap" binding="tns:PxPrintSoap">
+      <soap:address location="https://external.payex.com/pxMisc/pxprint.asmx" />
+    </wsdl:port>
+    <wsdl:port name="PxPrintSoap12" binding="tns:PxPrintSoap12">
+      <soap12:address location="https://external.payex.com/pxMisc/pxprint.asmx" />
+    </wsdl:port>
+    <wsdl:port name="PxPrintHttpPost" binding="tns:PxPrintHttpPost">
+      <http:address location="https://external.payex.com/pxMisc/pxprint.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

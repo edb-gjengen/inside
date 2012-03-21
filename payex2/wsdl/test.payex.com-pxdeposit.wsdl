@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://external.payex.com/PxClient/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" targetNamespace="http://external.payex.com/PxClient/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://external.payex.com/PxClient/">
+      <s:element name="DepositEVC">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="accountNumber" type="s:long" />
+            <s:element minOccurs="0" maxOccurs="1" name="description" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="clientType" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="clientRef" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="valueCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="clientIPAddress" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="clientIdentifier1" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="clientIdentifier2" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="hash" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DepositEVCResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DepositEVCResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="string" nillable="true" type="s:string" />
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="DepositEVCSoapIn">
+    <wsdl:part name="parameters" element="tns:DepositEVC" />
+  </wsdl:message>
+  <wsdl:message name="DepositEVCSoapOut">
+    <wsdl:part name="parameters" element="tns:DepositEVCResponse" />
+  </wsdl:message>
+  <wsdl:message name="DepositEVCHttpPostIn">
+    <wsdl:part name="accountNumber" type="s:string" />
+    <wsdl:part name="description" type="s:string" />
+    <wsdl:part name="clientType" type="s:string" />
+    <wsdl:part name="clientRef" type="s:string" />
+    <wsdl:part name="valueCode" type="s:string" />
+    <wsdl:part name="clientIPAddress" type="s:string" />
+    <wsdl:part name="clientIdentifier1" type="s:string" />
+    <wsdl:part name="clientIdentifier2" type="s:string" />
+    <wsdl:part name="hash" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="DepositEVCHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:portType name="PxDepositSoap">
+    <wsdl:operation name="DepositEVC">
+      <wsdl:input message="tns:DepositEVCSoapIn" />
+      <wsdl:output message="tns:DepositEVCSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="PxDepositHttpPost">
+    <wsdl:operation name="DepositEVC">
+      <wsdl:input message="tns:DepositEVCHttpPostIn" />
+      <wsdl:output message="tns:DepositEVCHttpPostOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="PxDepositSoap" type="tns:PxDepositSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="DepositEVC">
+      <soap:operation soapAction="http://external.payex.com/PxClient/DepositEVC" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="PxDepositSoap12" type="tns:PxDepositSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="DepositEVC">
+      <soap12:operation soapAction="http://external.payex.com/PxClient/DepositEVC" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="PxDepositHttpPost" type="tns:PxDepositHttpPost">
+    <http:binding verb="POST" />
+    <wsdl:operation name="DepositEVC">
+      <http:operation location="/DepositEVC" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="PxDeposit">
+    <wsdl:port name="PxDepositSoap" binding="tns:PxDepositSoap">
+      <soap:address location="https://test-external.payex.com/pxclient/pxdeposit.asmx" />
+    </wsdl:port>
+    <wsdl:port name="PxDepositSoap12" binding="tns:PxDepositSoap12">
+      <soap12:address location="https://test-external.payex.com/pxclient/pxdeposit.asmx" />
+    </wsdl:port>
+    <wsdl:port name="PxDepositHttpPost" binding="tns:PxDepositHttpPost">
+      <http:address location="https://test-external.payex.com/pxclient/pxdeposit.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
