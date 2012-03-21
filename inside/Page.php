@@ -621,7 +621,7 @@ possibly include it instead? --Thomas Misund, 26. Oct 2009
     <meta http-equiv="content-type" content="text/html;charset=iso-8859-1" />
     <link rel="stylesheet" title="default" type="text/css"
           href="<?php print $this->theme; ?>" media="screen, projection" />
-    <link rel="stylesheet" type="text/css" href="http://studentersamfundet.no/style.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="../style.css" media="screen" />
     <link rel="stylesheet" type="text/css" href="handheld.css" media="handheld" />
     <link rel="stylesheet" type="text/css" href="print.css" media="print" />
     <link rel="shortcut icon" href="favicon.ico" />
