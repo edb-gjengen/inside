@@ -1664,5 +1664,9 @@ function find_groups($uid) {
 
     return $arr;
 }
+function site_root() {
+    $url = 'http://inside.studentersamfundet.no/';
+    return $url;
+}
 
 ?>
