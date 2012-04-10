@@ -21,7 +21,11 @@ set_include_path("../includes");
 $include_path = "../includes/";
 
 //PEAR-class
-require_once $include_path."DB.php";
+require_once "DB.php";
+
+/* LDAP auth*/
+require_once "Ldap_defines.php";
+require_once "ldap.php";
 
 //Local classes
 require_once "Action.php";

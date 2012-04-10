@@ -30,120 +30,7 @@ class Page {
   <body class="dns section-inside">
     <div id="container">
       <div id="header">
-        <span class="site-title"><a href="http://studentersamfundet.no/"><?php print $this->page_title; ?></a></span>
-
-        <div id="quick-menu">
-            <a href="http://studentersamfundet.no/om-studentersamfundet.php">Om Studentersamfundet</a> | <a href="http://studentersamfundet.no/kart.php">Kart</a> | <a href="http://studentersamfundet.no/kontakt.php">Kontakt</a><a href="/english.php" style="margin-right:-30px;margin-left:5px;"><img src="english.png" style="border:0px; display:inline;" alt="english" title="english" /></a>
-
-        </div>
-
-        <div class="aapningstider">
-            <table>
-                <tr>
-                    <td>Mandag - tirsdag</td>
-                    <td style="text-align:right;">13.00 - 01.00</td>
-                </tr>
-                <tr>
-                        <td>Onsdag</td>
-                        <td style="text-align:right;">- 01.30</td>
-                </tr>
-                <tr>
-                        <td>Torsdag - fredag</td>
-                        <td style="text-align:right;">- 03.00</td>
-                </tr>
-                <tr>
-                        <td>Lørdag</td>
-                        <td style="text-align:right;">15.00 - 03.00</td>
-                </tr>
-                <tr>
-                        <td>Kjøkkenet</td>
-                        <td style="text-align:right;">- 19.00</td>
-                </tr>
-                <tr id="bokkafeen_tider"><td><a href="http://studentersamfundet.no/foreninger.php?id=3">BokCaféen</a> <span style="color:#888888; font-style:italic;">i dag        </span></td>
-                    <td style="text-align:right;"><?php
-
-    $tider = array('Stengt',
-        '19.00 - 00.00',
-        '19.00 - 00.00',
-        '19.00 - 00.00',
-        '19.00 - 03.00',
-        '19.00 - 03.00',
-        '20.00 - 03.00');
-
-    $day = date('w');
-    echo '<a href="http://studentersamfundet.no/foreninger.php?id=3">';
-    echo $tider[$day];
-    echo '</a>';
-?></td></tr>
-                </table>
-            </div>
-
-<?php /*
-This menu thing is pretty much copied and pasted from functions.php in the studentersamfundet-web project. Could we
-possibly include it instead? --Thomas Misund, 26. Oct 2009
- */ ?>
-        <div id="menu">
-            <ul>
-                <li id="forside-meny"><a href="http://studentersamfundet.no/">Forside</a>
-                    <div class="sub-menu">
-                        <ul>
-                            <li><a href="http://studentersamfundet.no/lokaler.php">Lokaler</a></li>
-                            <li><a href="http://studentersamfundet.no/historie.php">Historie</a></li>
-                            <li><a href="http://studentersamfundet.no/billetter.php">Billetter</a></li>
-                            <li><a href="http://studentersamfundet.no/medlemmer.php">Bli medlem</a></li>
-                            <li><a href="http://studentersamfundet.no/medlem/index.php">Registrere medlemskort</a></li>
-                        </ul>
-                    </div>
-                </li>
-                <li id="program-meny"><a href="http://studentersamfundet.no/prog.php">Program</a>
-                    <div class="sub-menu">
-                        <ul>
-                            <li><a href="http://studentersamfundet.no/prog.php">Alle</a></li>
-                            <li><a href="http://studentersamfundet.no/prog.php?type=konsert">Konsert</a></li>
-                            <li><a href="http://studentersamfundet.no/prog.php?type=debatt">Debatt</a></li>
-                            <li><a href="http://studentersamfundet.no/prog.php?type=film">Film</a></li>
-                            <li><a href="http://studentersamfundet.no/prog.php?type=fest">Fest</a></li>
-                            <li><a href="http://studentersamfundet.no/prog.php?type=teater">Teater</a></li>
-                            <li><a href="http://studentersamfundet.no/prog.php?type=annet">Annet</a></li>
-                            <li><a href="http://studentersamfundet.no/konsepter.php">Konsepter</a></li>
-                            <li><a href="http://studentersamfundet.no/booking.php">Booking</a></li>
-                        </ul>
-                    </div>
-                </li>
-                <li id="foreninger-meny"><a href="http://studentersamfundet.no/foreninger.php">Foreninger</a>
-                    <div class="sub-menu">
-                        <ul>
-                            <li><a href="http://studentersamfundet.no/foreninger.php">Foreninger</a></li>
-                        </ul>
-                    </div>
-                </li>
-                <li id="forum-meny"><a href="http://studentersamfundet.no/forum/index.php">Forum</a>
-                    <div class="sub-menu">
-                        <ul>
-                            <li><a href="http://studentersamfundet.no/forum/viewforum.php?f=68">Musikk</a></li>
-                            <li><a href="http://studentersamfundet.no/forum/viewforum.php?f=69">Debatt</a></li>
-                            <li><a href="http://studentersamfundet.no/forum/viewforum.php?f=70">Fritt forum</a></li>
-                        </ul>
-                    </div>
-                </li>
-                <li id="inside-meny" class="current"><a href="https://www.studentersamfundet.no/inside">For medlemmer</a>
-                    <div class="sub-menu">
-                        <ul>
-                            <li><a href="https://www.studentersamfundet.no/inside/">Inside</a></li>
-                            <li><a href="http://viteboka.studentersamfundet.no/">Viteboka</a></li>
-                            <li><a href="https://www.studentersamfundet.no/inside/index.php?page=display-barshifts-calendar">Tappet&aring;rnets vaktliste</a></li>
-                            <li><a href="http://studentersamfundet.no/aktive.php">Andre ressurser</a></li>
-                        </ul>
-                    </div>
-                </li>
-                <li id="nyheter-meny"><a href="http://studentersamfundet.no/nyheter.php">Nyheter</a>
-                    <div class="sub-menu">
-                        <ul>
-                        </ul>
-                    </div>
-                </li>
-            </ul>
-        </div> <!-- #menu -->
+        <span class="site-title"><a href="/"><?php print $this->page_title; ?></a></span>
       </div> <!-- #header -->
 
       <div id="content-wrap">
@@ -547,7 +434,6 @@ possibly include it instead? --Thomas Misund, 26. Oct 2009
 	case 'membership-sale':
 	  $this->_membershipSale();
 	  break;
-
 	case 'membercard-production':
 	  $this->_membercardProduction();
 	  break;
@@ -564,52 +450,25 @@ possibly include it instead? --Thomas Misund, 26. Oct 2009
       </div>
 
     </div> <!-- #content-wrap -->
+  </div> <!-- #inside-content-column -->
+    <script type="text/javascript">
 
-<?php
-	$this->_displayFooter();
-?>
-    </div>
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-52914-1']);
+      _gaq.push(['_setDomainName', '.studentersamfundet.no']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+
+    </script>
+
   </body>
 </html>
     <?php
-  }
-
-  public function _displayFooter() { ?>
-
-	  </div> <!-- #inside-content-column -->
-<?php
-	  $time_end = microtime(true);
-	  $time = round(($time_end - $GLOBALS['time_start']), 4);
-
-	  $html = "      <div id=\"footer\">";
-	  $html .= "<p>Script execution: $time seconds || <a href=\"mailto:support@studentersamfundet.no\">support</a>";
-
-	  $html .= "<p>upload_max_filesize = " . ini_get("upload_max_filesize") . "</p>";
-	  $html .= "</div>\n";
-
-	  print $html;
-
-/**
- * Google Analytics, since 2010-11-19 15:05
- */
-?>
-<script type="text/javascript">
-
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-52914-1']);
-  _gaq.push(['_setDomainName', '.studentersamfundet.no']);
-  _gaq.push(['_trackPageview']);
-
-  (function() {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  })();
-
-</script>
-<?php
-/* end Google Analytics */
-
   }
 
   public function _displayHeader(){?>
@@ -620,10 +479,10 @@ possibly include it instead? --Thomas Misund, 26. Oct 2009
   <head>
     <meta http-equiv="content-type" content="text/html;charset=iso-8859-1" />
     <link rel="stylesheet" title="default" type="text/css"
-          href="<?php print $this->theme; ?>" media="screen, projection" />
-    <link rel="stylesheet" type="text/css" href="../style.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="handheld.css" media="handheld" />
-    <link rel="stylesheet" type="text/css" href="print.css" media="print" />
+          href="../css/<?php print $this->theme; ?>" media="screen, projection" />
+    <link rel="stylesheet" type="text/css" href="../css/style.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="../css/handheld.css" media="handheld" />
+    <link rel="stylesheet" type="text/css" href="../css/print.css" media="print" />
     <link rel="shortcut icon" href="favicon.ico" />
     <script type="text/javascript" src="functions.js"></script>
     <script type="text/javascript" src="ajax.js"></script>

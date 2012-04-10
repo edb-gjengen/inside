@@ -7,8 +7,9 @@ class Navigation {
 ?>
       <div id="nav">
 
-        <a class="skip-nav" href="#content">Hopp til innholdet</a>
+        <a class="home-link" href="http://inside.studentersamfundet.no/">Hjem</a>
         <ul id="navList">
+
 <?php
    if(checkAuth("view-menu-quick")){
           ?>

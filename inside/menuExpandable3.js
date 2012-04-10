@@ -17,11 +17,11 @@ function initializeMenu(menuId, actuatorId) {
         return;
     }
 
-    actuator.parentNode.style.backgroundImage = "url(graphics/plus.png)";
+    actuator.parentNode.style.backgroundImage = "url(../inside/graphics/plus.png)";
     actuator.onclick = function() {
         var display = menu.style.display;
         this.parentNode.style.backgroundImage =
-            (display == "block") ? "url(graphics/plus.png)" : "url(graphics/minus.png)";
+            (display == "block") ? "url(../inside/graphics/plus.png)" : "url(../inside/graphics/minus.png)";
         menu.style.display = (display == "block") ? "none" : "block";
 
         return false;
@@ -33,7 +33,7 @@ function menuExpandCurrentSection(menuId){
     if (menu == null){
         return;
     }
-    menu.parentNode.style.backgroundImage = "url(graphics/minus.png)";
+    menu.parentNode.style.backgroundImage = "url(../inside/graphics/minus.png)";
     menu.style.display = "block";
 }
 

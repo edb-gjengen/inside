@@ -39,7 +39,7 @@ class ActionParser {
     if (checkAuth('perform-' . $this->action) || checkResponsible()) {
       switch ($this->action) {
         case 'log-in' :
-          $this->_logIn();
+          new_login(scriptParam('username'),scriptParam('password'));
           break;
 
         case 'log-out' :
@@ -589,60 +589,58 @@ private function logError($username, $error)
         $conn->query($sql);
 }
 
-  public function _logIn() {
+public function _logIn() {
     $conn = db_connect();
 
+    /* query db with form data (password, username) */
     $sql = sprintf("SELECT id, passwordReset FROM din_user " .
-    "WHERE username = %s " .
-    "AND (password = PASSWORD(%s) or password = old_password(%s))", $conn->quoteSmart(scriptParam('username')), $conn->quoteSmart(scriptParam('password')), $conn->quoteSmart(scriptParam('password')));
+        "WHERE username = %s " .
+        "AND (password = PASSWORD(%s) or password = old_password(%s))", $conn->quoteSmart(scriptParam('username')), $conn->quoteSmart(scriptParam('password')), $conn->quoteSmart(scriptParam('password')));
 
     $result = $conn->query($sql);
     if (DB :: isError($result) != true) {
-      if ($result->numRows() > 0) {
-        $row = $result->fetchRow(DB_FETCHMODE_ASSOC);
-        $_SESSION['valid-user'] = $row['id'];
-        
-	// SHA1	
-        if ($_GET['debug']){
-               echo "{SHA}" . base64_encode(pack("H", hash('sha1', $conn->quoteSmart(scriptParam('password')))));
-		
-		die("Jeg skammer meg over at dette er skrevet i vim - Sjur");
-        }
+        /* more than 1 row means valid user */
+        if ($result->numRows() > 0) {
+            $row = $result->fetchRow(DB_FETCHMODE_ASSOC);
+            $_SESSION['valid-user'] = $row['id'];
 
-	if ($row['passwordReset'] == 1) {
-          $GLOBALS['extraScriptParams']['page'] = "reset-password";
+            /* someone has requested a password reset, redirect to that page instead */
+            if ($row['passwordReset'] == 1) {
+                $GLOBALS['extraScriptParams']['page'] = "reset-password";
+            }
+        } else {
+            try
+            { 
+                /* log auth errors with reason */
+                $sql = sprintf("SELECT id FROM din_user WHERE username = %s", $conn->quoteSmart(scriptParam('username')));
+                $result = $conn->query($sql);
+                $userExists = $result->numRows() > 0;
+
+                $error = '';
+                if(scriptParam('password') == '')
+                {
+                    $error = 'no password supplied?';
+                }
+                elseif($userExists)
+                {
+                    $error = "user exists, wrong password?";
+                }
+                else
+                {
+                    $error = "user not found..";
+                }
+
+                $this->logError(scriptParam('username'), $error);
+            }
+            catch(Exception $e)
+            {
+                mail('komans@studentersamfundet.no','error with errorlog','error with errorlog');
+            }	
+            /* give user feedback */
+            notify("Problemer med innlogging.");
         }
-      } else {
-	try
-	{
-		$sql = sprintf("SELECT id FROM din_user WHERE username = %s", $conn->quoteSmart(scriptParam('username')));
-		$result = $conn->query($sql);
-		$userExists = $result->numRows() > 0;
-		
-		$error = '';
-		if(scriptParam('password') == '')
-		{
-			$error = 'no password supplied?';
-		}
-		elseif($userExists)
-		{
-			$error = "user exists, wrong password?";
-		}
-		else
-		{
-			$error = "user not found..";
-		}
-		
-		$this->logError(scriptParam('username'), $error);
-	}
-	catch(Exception $e)
-	{
-		mail('komans@studentersamfundet.no','error with errorlog','error with errorlog');
-	}	
-        notify("Problemer med innlogging.");
-      }
     }
-  }
+}
 
   public function _logOut() {
     unset ($_SESSION['valid-user']);

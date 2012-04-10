@@ -16,21 +16,6 @@ class Payment {
 	}
 	
 	private function initPayex() {
-		//From setupexample
-		define('PAYEX_PXPARTNER_WSDL', 'https://external.payex.com/pxorder/pxpartner.asmx?WSDL'); 
-		define('PAYEX_PXPRINT_WSDL', 'https://external.payex.com/pxorder/pxprint.asmx?WSDL'); 
-		define('PAYEX_PXDEPOSIT_WSDL', 'https://external.payex.com/pxorder/pxdeposit.asmx?WSDL');
-		define('PAYEX_PXACCOUNT_WSDL', 'https://external.payex.com/pxorder/pxaccount.asmx?WSDL');
-		define('PAYEX_PXORDER_WSDL', 'https://external.payex.com/pxorder/pxorder.asmx?WSDL');
-		define('PAYEX_PXCLIENT_WSDL', 'https://external.payex.com/pxclient/pxclient.asmx?WSDL'); 
-		define('PAYEX_PXMERCHANT_WSDL', 'https://external.payex.com/pxmerchant/pxmerchant.asmx?WSDL');
-		define('PAYEX_PXSUBSCRIPTION_WSDL', 'https://external.payex.com/pxsubscription/pxsubscription.asmx?WSDL');
-		define('PAYEX_PXAGREEMENT_WSDL', 'https://external.payex.com/pxagreement/pxagreement.asmx?WSDL'); 
-		
-		define('PAYEX_PXORDER_URL', 'https://account.payex.com/pxorder.asp'); // url to redirect user to
-		define('PAYEX_ACCOUNTNUMBER', 20180218); // payex merchant account number
-		define('PAYEX_ENCRYPTIONKEY', 'vy8wMAvJjvW4RaCEWJFf'); // payex encryption key
-		// end setup
 		require_once ('../payex2/payex_pxorder.php'); // Include the Payex PxOrder implementation
 		$this->payex = new PayexPxOrder(); // Make an instance of the PayexPxOrder class
 		

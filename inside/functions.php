@@ -692,7 +692,7 @@ function createTransactionId() {
 function checkResponsible() {
 	$subject = $_REQUEST;
 	ob_start();
-	var_dump($subject);
+	//var_dump($subject);
 	$subject = ob_get_clean();
 	if (strstr($subject, "id") != false) {
 		$pattern = "/\w+id/";
@@ -1030,7 +1030,7 @@ function displayLogin() {
 <?php
 
 
-	$title = "logg inn";
+	$title = "Logg inn";
 	$enctype = NULL;
 	$method = "post";
 	$action = "index.php?action=log-in";
@@ -1040,17 +1040,17 @@ function displayLogin() {
 	$fields = Array ();
 
 	$fields[] = Array (
-		"label" => "brukernavn",
+		"label" => "Epost eller brukernavn",
 		"type" => "text",
 		"attributes" => Array (
 			"name" => "username",
-			"size" => 12,
-			"maxlength" => 12
+			"size" => 25,
+			"maxlength" => 100
 		)
 	);
 
 	$fields[] = Array (
-		"label" => "passord",
+		"label" => "Passord",
 		"type" => "password",
 		"attributes" => Array (
 			"name" => "password",
@@ -1664,6 +1664,5 @@ function find_groups($uid) {
 
     return $arr;
 }
-
 
 ?>

@@ -1,6 +1,6 @@
-@import 'css/reset.css';
-@import 'css/rebuild.css';
-@import 'css/wp-css';
+@import 'reset.css';
+@import 'rebuild.css';
+@import 'wp.css';
 
 
 /**
@@ -80,10 +80,10 @@ body.dns {
 }
 /*body.dns */
 #header {
-    background:#191919 url('img/header-210x.png') repeat-x bottom;
+    background:#191919 url('../inside/graphics/header-210x.png') repeat-x bottom;
 }
 #header {
-    height:155px;
+    height:110px;
     margin-bottom:10px;
     overflow:hidden;
     position:relative;
@@ -92,7 +92,7 @@ body.dns {
     z-index:999
 }
 .site-title a {
-    background: url('img/bannerindex-400.png') no-repeat -20px 0;
+    background: url('../inside/graphics/bannerindex-400.png') no-repeat -20px 0;
     display:block;
     height:63px;
     margin-top:20px;
@@ -568,4 +568,9 @@ h2.jobb {
     background:#eeeeee;
     margin-top:0.5em;
     padding:10px 10px 5px;
+}
+/* random styles */
+.home-link {
+    display: inline-block;
+    margin-bottom: 5px;
 }
