@@ -1,6 +1,6 @@
 <?php
 set_include_path("../includes/");
-require_once("../../credentials.php");
+require_once("../inside/credentials.php");
 require_once("../includes/DB.php");
 /* Connect db */
 $options = array(
@@ -28,7 +28,7 @@ if(isset($_GET['v']) && $_GET['v'] == 'num') {
 /* current number of members */
 function num_members() {
     global $conn;
-    $sql = "SELECT COUNT(*) FROM din_user WHERE expires > NOW();";
+    $sql = "SELECT COUNT(*) FROM din_user WHERE expires > NOW() OR expires IS NULL;";
     $rows = $conn->getAll($sql);
     if( DB::isError($rows) ) {
        return json_encode( array('result' => 'db_error') );
