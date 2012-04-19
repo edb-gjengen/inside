@@ -2,3 +2,4 @@
 
 define('ENC_KEY', "lol");
 define('API_KEY', "lol");
+define('SYNC_HOST', "usersync.neuf.no");

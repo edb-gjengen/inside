@@ -2,7 +2,7 @@
 require_once('config.php');
 /* This file is an example on how you might push users from inside to ldap/radius.
  *  * Basically, fill an array with the required attributes, get the API_KEY and the encryption key
- *   * and send it to the file addNewUser.php under brukerinfo.neuf.no.
+ *   * and send it to the script addNewUser.php on SYNC_HOST.
  *    */
 
 function enc_password($password, $key) {
@@ -51,7 +51,7 @@ function ldap_add_user($username, $firstname, $lastname, $email, $password, $gro
     }
 
     /* Send the HTTP request. */
-    $result = var_export(file_get_contents("http://brukerinfo.neuf.no/addNewUser.php?" . implode("&", $arr)), true);
+    $result = var_export(file_get_contents("http://".SYNC_HOST."/addNewUser.php?" . implode("&", $arr)), true);
     return $result;
 }
 function _log($str) { 
