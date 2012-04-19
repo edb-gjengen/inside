@@ -1062,27 +1062,19 @@ function displayLogin() {
 	$form = new Form($title, $enctype, $method, $action, $fields);
 	$form->display("table");
 ?>
-  <p>Om du har problemer med innlogging kan du kontakte <a href="mailto:support@studentersamfundet.no">support@studentersamfundet.no</a>.</p>
-	<h3>Ny bruker?</h3>
-  <p><a href="index.php?page=register-user">Registrér deg!</a></p>
+<h3><a href="https://brukerinfo.neuf.no/accounts/password/reset">Glemt passord?</a></h3>
+<p>
+    Får du fortsatt ikke logget på så kontakt oss på <a href="mailto:support@studentersamfundet.no">support@studentersamfundet.no</a>.
+</p>
+<h3>Ny bruker?</h3>
+<p><a href="index.php?page=register-user">Registrér deg!</a></p>
   
-  <br />
-<h3>Mangler du eller har du glemt brukernavn og passord?</h3>
-<p>Du kan få tilsendt brukernavn og resatt passordet ditt ved å oppgi medlemskortnummer eller epostadresse:</p>
-  <fieldset>
-    <legend>Tast inn epost eller medlemskortnummer for å få tilsendt brukernavn og passord:</legend>
-    <form method="post" action="index.php?action=order-password">
-      <input type="text" name="userid" />
-      <input type="submit" value="send bestilling" />
-    </form>
-  </fieldset>
-<br />
-
-  <h3>Noe som ikke virker?</h3>
-  <p>Send epost til <a href="mailto:medlemskap@studentersamfundet.no">medlemskap@studentersamfundet.no</a>. Oppgi medlemskortnummer og en kort beskrivelse av hva som ikke virker, så skal vi hjelpe deg så fort vi kan.</p>
+<h3>Har du spørsmål om medlemskapet ditt?</h3>
+<p>
+    Send epost til <a href="mailto:medlemskap@studentersamfundet.no">medlemskap@studentersamfundet.no</a>. Oppgi medlemskortnummer og en kort beskrivelse av hva som ikke virker, så skal vi hjelpe deg så fort vi kan.
+</p>
 	</div>
 <?php
-
 
 }
 
