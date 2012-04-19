@@ -841,7 +841,7 @@ possibly include it instead? --Thomas Misund, 26. Oct 2009
 		}
         // Migration LDAP (nikolark)
         $uid = getCurrentUser();
-        if( !is_migrated($uid) && !membership_expired($uid) ) {
+        if( !is_migrated($uid) ) {
             ?>
                 <div id="infomodal">
                 <div class="ui-widget"> 
