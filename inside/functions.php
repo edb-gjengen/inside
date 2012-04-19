@@ -1066,8 +1066,8 @@ function displayLogin() {
 <p>
     Får du fortsatt ikke logget på så kontakt oss på <a href="mailto:support@studentersamfundet.no">support@studentersamfundet.no</a>.
 </p>
-<h3>Ny bruker?</h3>
-<p><a href="index.php?page=register-user">Registrér deg!</a></p>
+<h3><a href="index.php?page=register-user">Ny bruker?</a></h3>
+<p><a href="index.php?page=register-user">Registrer deg</a> for å bli medlem i Det Norske Studentersamfund.</p>
   
 <h3>Har du spørsmål om medlemskapet ditt?</h3>
 <p>
