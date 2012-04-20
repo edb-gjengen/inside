@@ -204,7 +204,7 @@ class Product {
 			<?php
       if ($this->picture != 0){
 		print('<div class="product_images">');
-  	    print('<img src="imageResize.php?pic=images/products/'.$this->picture.'&amp;maxwidth=200" alt="" />');
+  	    print('<img src="inside/imageResize.php?pic=images/products/'.$this->picture.'&amp;maxwidth=200" alt="" />');
 	    print('</div>');
 	  }
 			?>
@@ -242,7 +242,7 @@ class Product {
 			<?php
       if ($this->picture != 0){
 		print('<div class="product_images">');
-  	    print('<img src="imageResize.php?pic=images/products/'.$this->picture.'&amp;maxheight=100" alt="" />');
+  	    print('<img src="inside/imageResize.php?pic=images/products/'.$this->picture.'&amp;maxheight=100" alt="" />');
 	    print('</div>');
 	  }
 			?>

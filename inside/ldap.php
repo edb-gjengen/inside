@@ -1,11 +1,16 @@
 <?php
 
 function new_login($username_or_email, $password) {
-    $db = new Ldap(LDAP_SERVER);
-
     if(trim($username_or_email) == "" || trim($password) == "") {
         return false;
     }
+
+    if( !LDAP_ENABLED ) {
+        return legacy_login($username_or_email, $password);
+    }
+
+    $db = new Ldap(LDAP_SERVER);
+
     /* sanitize input */
     // TODO how?
 

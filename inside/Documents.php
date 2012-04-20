@@ -64,7 +64,7 @@ class Documents {
 <?php      
           while ($row =& $result->fetchRow(DB_FETCHMODE_OBJECT)){?>
         <tr>
-          <td><a href="file.php?id=<?php print $row->id; ?>"><?php print $row->name; ?></a></td>
+          <td><a href="inside/file.php?id=<?php print $row->id; ?>"><?php print $row->name; ?></a></td>
           <td><?php print $row->category; ?></td>
           <td><?php print $this->_tags_to_links($row->tags); ?></td>
           <td><?php print formatDate($row->date, "td"); ?></td>
@@ -113,7 +113,7 @@ class Documents {
 <?php      
           while ($row =& $result->fetchRow(DB_FETCHMODE_OBJECT)){?>
         <tr>
-          <td><a href="file.php?id=<?php print $row->id; ?>"><?php print $row->name; ?></a></td>
+          <td><a href="inside/file.php?id=<?php print $row->id; ?>"><?php print $row->name; ?></a></td>
           <td><?php print $row->category; ?></td>
           <td><?php print $this->_tags_to_links($row->tags); ?></td>
           <td><?php print formatDate($row->date, "td"); ?></td>

@@ -420,9 +420,9 @@ function new_file($file, $dir) {
 
 		if ($f) {
 			if ($dir == 'products') {
-			  $dir = 'images/products/';
+			  $dir = 'inside/images/products/';
 			}else {
-			  $dir = "../../public_html/bilder/$dir/";
+			  $dir = "inside/images/uploads/$dir/";
 			}
 			$upFile = $dir.$newFile_name;
 
@@ -450,9 +450,9 @@ function new_file($file, $dir) {
 
 function rename_file($old_name, $id, $dir, $report = true) {
 	if ($dir == 'products')
-		$dir = 'images/products/';
+		$dir = 'inside/images/products/';
 	else
-  		$dir = "../../public_html/bilder/$dir/";
+  		$dir = "inside/images/uploads/$dir/";
 
 	$ext = strtolower( pathinfo($old_name, PATHINFO_EXTENSION) );
 	$old_name = $dir . $old_name;

@@ -6,10 +6,8 @@ setlocale(LC_TIME, $locale);
 //Extras
 require_once("../functions.php");
 require_once("../language.php");
-set_include_path("../../includes");
-$include_path = "../../includes/";
 //PEAR-class
-require_once($include_path."DB.php");
+require_once("DB.php");
 require_once("../User.php");
 
 function update_user($username, $password) {

@@ -484,16 +484,16 @@ class Page {
     <link rel="stylesheet" type="text/css" href="../css/handheld.css" media="handheld" />
     <link rel="stylesheet" type="text/css" href="../css/print.css" media="print" />
     <link rel="shortcut icon" href="favicon.ico" />
-    <script type="text/javascript" src="functions.js"></script>
-    <script type="text/javascript" src="ajax.js"></script>
-    <script type="text/javascript" src="../includes/zXml/zxml.js"></script>
-    <script type="text/javascript" src="finder.js"></script>
-    <script type="text/javascript" src="sorttable.js"></script>
-    <script type="text/javascript" src="menuExpandable3.js"></script>
-    <script type="text/javascript" src="XMLRequest.js"></script>
-    <script type="text/javascript" src="XMLZipRequest.js"></script>
-    <script type="text/javascript" src="XMLCatRequest.js"></script>
-    <script type="text/javascript" src="XMLUsernameRequest.js"></script>
+    <script type="text/javascript" src="<?php echo $GLOBALS['static_path'];?>js/functions.js"></script>
+    <script type="text/javascript" src="<?php echo $GLOBALS['static_path'];?>js/ajax.js"></script>
+    <script type="text/javascript" src="<?php print $GLOBALS['include_path'];?>zXml/zxml.js"></script>
+    <script type="text/javascript" src="<?php echo $GLOBALS['static_path'];?>js/finder.js"></script>
+    <script type="text/javascript" src="<?php echo $GLOBALS['static_path'];?>js/sorttable.js"></script>
+    <script type="text/javascript" src="<?php echo $GLOBALS['static_path'];?>js/menuExpandable3.js"></script>
+    <script type="text/javascript" src="<?php echo $GLOBALS['static_path'];?>js/XMLRequest.js"></script>
+    <script type="text/javascript" src="<?php echo $GLOBALS['static_path'];?>js/XMLZipRequest.js"></script>
+    <script type="text/javascript" src="<?php echo $GLOBALS['static_path'];?>js/XMLCatRequest.js"></script>
+    <script type="text/javascript" src="<?php echo $GLOBALS['static_path'];?>js/XMLUsernameRequest.js"></script>
     <script type="text/javascript" src="<?php print $GLOBALS['include_path'];?>tiny_mce/tiny_mce.js"></script>
     <script type="text/javascript">
       tinyMCE.init({
@@ -544,13 +544,13 @@ class Page {
         }
     </script>
     <!-- Migration (nikolark) -->
-		<link type="text/css" href="./migration/css/smoothness/jquery-ui-1.8.14.custom.css" rel="stylesheet" />	
-        <link type="text/css" href="./migration/css/nikolark.css" rel="stylesheet" />
-		<script type="text/javascript" src="./migration/js/jquery-1.5.1.min.js"></script>
-		<script type="text/javascript" src="./migration/js/jquery-ui-1.8.14.custom.min.js"></script>
-		<script type="text/javascript" src="./migration/js/jquery.validate.min.js"></script>
-		<script type="text/javascript" src="./migration/js/custom_validators.js"></script>
-		<script type="text/javascript" src="./migration/js/byebye_inside.js"></script>
+        <link type="text/css" href="<?php echo $GLOBALS['static_path'];?>css/migration/smoothness/jquery-ui-1.8.14.custom.css" rel="stylesheet" />	
+        <link type="text/css" href="<?php echo $GLOBALS['static_path'];?>css/migration/nikolark.css" rel="stylesheet" />
+        <script type="text/javascript" src="<?php echo $GLOBALS['static_path'];?>js/migration/jquery-1.5.1.min.js"></script>
+        <script type="text/javascript" src="<?php echo $GLOBALS['static_path'];?>js/migration/jquery-ui-1.8.14.custom.min.js"></script>
+        <script type="text/javascript" src="<?php echo $GLOBALS['static_path'];?>js/migration/jquery.validate.min.js"></script>
+        <script type="text/javascript" src="<?php echo $GLOBALS['static_path'];?>js/migration/custom_validators.js"></script>
+        <script type="text/javascript" src="<?php echo $GLOBALS['static_path'];?>js/migration/byebye_inside.js"></script>
     <title><?php print $this->page_title; ?></title>
   </head>
 
@@ -664,8 +664,8 @@ class Page {
     <?php } ?>
       <li><a href="index.php?page=display-jobs">Se på ledige stillinger</a>
         (<?php print getUnreadCount('job', 'expires'); ?> nye ikke utgåtte)</li>
-      <li><a href="index.php?page=display-events-calendar">Se på aktivitetskalenderen</a>
-        (<?php print getUnreadCount('event', 'time'); ?> nye kommende)</li>
+      <!--<li><a href="index.php?page=display-events-calendar">Se på aktivitetskalenderen</a>
+        (<?php print getUnreadCount('event', 'time'); ?> nye kommende)</li>-->
       <li><a href="index.php?page=display-documents">Lese dokumenter</a></li>
       <li><a href="index.php?page=display-divisions">Finne kontaktinfo til en forening</a></li>
       <li><a href="index.php?page=display-current-user">Oppdatere min brukerinformasjon</a></li>
@@ -2977,7 +2977,7 @@ Om dere lager en facebook side til arrangementet, ikke glem &aring; putte inn le
                       "attributes" => Array("name" => "transactionid", "size" => 12, "maxlength" => 20,
                                             "value" => $trans_id));
     if ($value == NULL) {
-     	if ($product != NULL){
+     	if (@$product != NULL){
     		$fields[] = Array("label" => "beløp", "type" => "text",
       		                "attributes" => Array("name" => "amount", "size" => 5, "maxlength" => 5,
 																							"value" => $product->price, "readonly" => "readonly"));

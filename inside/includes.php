@@ -16,9 +16,11 @@ require_once "language.php";
 //Migration (nikolark)
 require_once "migration/ldap_api_functions.php";
 
-set_include_path("../includes");
+$path = "./includes".PATH_SEPARATOR."./includes/payex2".PATH_SEPARATOR."../includes";
+set_include_path(get_include_path() . PATH_SEPARATOR . $path);
 
-$include_path = "../includes/";
+$include_path = "./includes/";
+$static_path = "/";
 
 //PEAR-class
 require_once "DB.php";

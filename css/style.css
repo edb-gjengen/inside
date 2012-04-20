@@ -80,7 +80,7 @@ body.dns {
 }
 /*body.dns */
 #header {
-    background:#191919 url('../inside/graphics/header-210x.png') repeat-x bottom;
+    background:#191919 url('../graphics/header-210x.png') repeat-x bottom;
 }
 #header {
     height:110px;
@@ -92,7 +92,7 @@ body.dns {
     z-index:999
 }
 .site-title a {
-    background: url('../inside/graphics/bannerindex-400.png') no-repeat -20px 0;
+    background: url('../graphics/bannerindex-400.png') no-repeat -20px 0;
     display:block;
     height:63px;
     margin-top:20px;

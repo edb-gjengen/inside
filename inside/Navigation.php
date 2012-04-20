@@ -26,7 +26,8 @@ class Navigation {
           </li>
       <?php }?>
 <?php
-   if(checkAuth("view-menu-messages")){
+    /* Note: This menu item is hidden because the feature is not used anymore */
+   /*if(checkAuth("view-menu-messages")){
           ?>
           <li class="menulist">
             <a href="#" id="messagesSwitch" class="switch">Meldinger</a>
@@ -36,7 +37,7 @@ class Navigation {
               <li>Ny melding</li>
             </ul>
           </li>
-      <?php }?>
+      <?php }*/?>
 <?php
    if(checkAuth("view-menu-jobs")){
           ?>
@@ -52,7 +53,8 @@ class Navigation {
           </li>
       <?php }?>
 <?php
-   if(checkAuth("view-menu-barshifts")){
+    /* Note: This menu item is hidden because the feature is not used anymore */
+    /*if(checkAuth("view-menu-barshifts")){
           ?>
           <li class="menulist">
             <a href="#" id="barshiftsSwitch" class="switch">Tappetårnets vaktliste</a>
@@ -64,9 +66,10 @@ class Navigation {
 <?php } ?>
            </ul>
           </li>
-      <?php }?>
+      <?php }*/?>
 <?php
-   if(checkAuth("view-menu-events")){
+    /* Note: This menu item is hidden because the feature is not used anymore */
+   /*if(checkAuth("view-menu-events")){
           ?>
           <li class="menulist">
             <a href="#" id="eventsSwitch" class="switch">Møter/kurs/internfester</a>
@@ -79,9 +82,10 @@ class Navigation {
 ?>              <li><a href="index.php?page=display-all-calendar">Kombolender</a></li>
             </ul>
           </li>
-      <?php }?>
+      <?php }*/?>
 <?php
-   if(checkAuth("view-menu-concerts")){
+   /* Note: This menu item is disabled because it is replaced by the publishing features of Wordpress */
+   /*if(checkAuth("view-menu-concerts")){
           ?>
           <li class="menulist">
             <a href="#" id="concertsSwitch" class="switch">Konserter/program</a>
@@ -97,7 +101,7 @@ class Navigation {
       <?php }?>
             </ul>
           </li>
-      <?php }?>
+      <?php }*/?>
 <?php
    if(checkAuth("view-menu-divisions")){
           ?>
@@ -194,7 +198,8 @@ class Navigation {
           <?php }?>
 
 <?php
-   if(checkAuth("view-menu-webpages")){
+   /* Note: This menu item is disabled because it is replaced by the publishing features of Wordpress */
+   /*if(checkAuth("view-menu-webpages")){
           ?>
           <li class="menulist">
             <a href="#" id="webpagesSwitch" class="switch">Nyheter</a>
@@ -203,15 +208,15 @@ class Navigation {
               <li><a href="index.php?page=register-article">Skriv nyhet</a></li>
             </ul>
           </li>
-      <?php }?>
+      <?php }*/?>
 <?php
    if(checkAuth("view-menu-settings")){
           ?>
           <li class="menulist">
             <a href="#" id="settingsSwitch" class="switch">Innstillinger</a>
             <ul id="settingsMenu" class="menu">
-              <li><a href="index.php?action=switch-formtype&amp;section=settings">Bytt skjemastil</a></li>
-              <li><a href="index.php?action=switch-tinymce-theme&amp;section=settings">Bytt RT-editor</a></li>
+              <!--<li><a href="index.php?action=switch-formtype&amp;section=settings">Bytt skjemastil</a></li>
+              <li><a href="index.php?action=switch-tinymce-theme&amp;section=settings">Bytt RT-editor</a></li>-->
               <li><a href="index.php?page=register-documentcategory">Dokumenttyper</a></li>
               <li><a href="index.php?page=register-eventcategory">Aktitivitetstyper</a></li>
               <li><a href="index.php?page=register-jobcategory">Stillingstyper</a></li>
@@ -230,8 +235,8 @@ class Navigation {
           </li>
 <?php
   }
-
-  if(isAdmin()){
+  /* Note: This menu item is hidden because the feature is not used anymore */
+  /*if(isAdmin()){
           ?>
           <li class="menulist">
             <a href="#" id="samarbeidspartnereSwitch" class="switch">Samarbeidspartnere</a>
@@ -244,6 +249,7 @@ class Navigation {
           </li>
 <?php
   }
+  */
 
   if(checkAuth("view-menu-webshop")){
           ?>
@@ -259,23 +265,12 @@ class Navigation {
           </li>
 <?php
   }
-
-  if (loggedIn()){
+    if (loggedIn() && isActive()) {
 ?>
           <li class="menulist">
             <a href="#" id="linksSwitch" class="switch">Andre sider</a>
             <ul id="linksMenu" class="menu">
-              <li><a href="http://www.studentersamfundet.no/index.php">Studentersamfundet.no</a></li>
-              <li><a href="http://www.studentersamfundet.no/forum/index.php">Forum</a></li>
-<?php
-    if (isActive()) {
-?>
-              <li><a href="http://www.studentersamfundet.no/coppermine/index.php">Bildegalleri</a></li>
-              <li><a href="http://www.studentersamfundet.no/info/index.php">Infovræl</a></li>
-	          <li><a href="http://booking.studentersamfundet.no/">Bookingsystemet</a></li>
-<?php
-    }
-?>
+              <li><a href="http://booking.studentersamfundet.no/">Bookingsystemet</a></li>
             </ul>
           </li>
 <?php

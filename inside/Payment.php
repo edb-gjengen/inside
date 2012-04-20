@@ -16,7 +16,7 @@ class Payment {
 	}
 	
 	private function initPayex() {
-		require_once ('../payex2/payex_pxorder.php'); // Include the Payex PxOrder implementation
+		require_once ('payex_pxorder.php'); // Include the Payex PxOrder implementation
 		$this->payex = new PayexPxOrder(); // Make an instance of the PayexPxOrder class
 		
 		$this->user_email = false;
