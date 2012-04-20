@@ -1279,6 +1279,7 @@ public function _logIn() {
   public function _registerBugReport() {
     $bug = new BugReport(NULL, $_REQUEST);
     $bug->store();
+    mail("kak-edb@studentersamfundet.no", '[Inside] New bug report', var_export($_REQUEST, true));
   }
 
   public function _updateBugReportStatus() {

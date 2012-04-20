@@ -700,7 +700,7 @@ class Page {
 		}
         // Migration LDAP (nikolark)
         $uid = getCurrentUser();
-        if( !is_migrated($uid) && !membership_expired($uid) ) {
+        if( !is_migrated($uid) ) {
             ?>
                 <div id="infomodal">
                 <div class="ui-widget"> 

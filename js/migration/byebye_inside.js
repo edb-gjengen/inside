@@ -5,7 +5,7 @@ function init_validation() {
                 required: true,
                 rangelength: [3, 12],
                 lettersonly: true,
-                remote: "./migration/username_available.php",
+                remote: "/inside/migration/username_available.php",
             },
             password: {
                 required: true,
@@ -32,7 +32,7 @@ function init_validation() {
             var form_password_check = $("#id_password_check").val();
             var form_uid = $("#id_uid").val();
             $.ajax({
-                url: "./migration/submit_user.php",
+                url: "/inside/migration/submit_user.php",
                 type: 'POST',
                 data: {
                     username: form_username,
@@ -77,7 +77,7 @@ $( document ).ready( function() {
         buttons: {
             "Ok": function() { 
                 /* 2. Load in the user and pass form. */
-                $(this).load('./migration/form.php', function() {
+                $(this).load('/inside/migration/form.php', function() {
                     init_validation();
                     $(this).dialog('option',{
                         buttons: {

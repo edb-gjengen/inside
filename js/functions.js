@@ -226,7 +226,7 @@ function validateAllFieldsNotEmpty(id){
 }
 
 function checkUsername(username){
-    makeUsernameRequest("ajax.php?action=checkUsername&username=" + username);
+    makeUsernameRequest("../inside/ajax.php?action=checkUsername&username=" + username);
 }
 
 function checkZip(zipCode){
@@ -235,19 +235,19 @@ function checkZip(zipCode){
     	return true;
     }else {
         var z = zipCode.value;
-        makeZipRequest("ajax.php?action=checkZip&zip=" + z);
+        makeZipRequest("../inside/ajax.php?action=checkZip&zip=" + z);
     }
 }
 
 function addCategory(type){
     var title = document.getElementById("title").value;
     var text = document.getElementById("text").value;
-    var url = "ajax.php?action=register-" + type + "category&title=" + title + "&text=" + text;
+    var url = "../inside/ajax.php?action=register-" + type + "category&title=" + title + "&text=" + text;
     makeCatRequest(url);
 }
 
 function deleteObject(type, id){
-    var url = "ajax.php?action=delete-" + type + "&" +  type + "id=" + id;
+    var url = "../inside/ajax.php?action=delete-" + type + "&" +  type + "id=" + id;
     makeCatRequest(url);
 }
 
