@@ -50,7 +50,7 @@ class Payment {
 		$priceArgList = 'VISA=%s,MC=%s'; // No CPA, VISA, MasterCard, SMS
 		$priceArgList = sprintf($priceArgList, $price, $price);
 		$description = "Kjøp fra Studentersamfundet.no";
-		$returnURL = 'https://www.studentersamfundet.no/inside/index.php?action=transaction-return&transactionid='.$transaction_id; // ReturnURL
+		$returnURL = 'https://inside.studentersamfundet.no/index.php?action=transaction-return&transactionid='.$transaction_id; // ReturnURL
 
 		// Run Initialize. Check return-value
 		if ( $this->payex->InitializeBasic(

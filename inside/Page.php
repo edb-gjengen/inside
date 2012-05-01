@@ -1015,7 +1015,7 @@ Teksten under er hentet fra kunnskapsdatabasen. Du står fritt til å endre den et
 	?>
 Takk for at du oppdaterte siden!
 
-<br /><br /><a href="https://www.studentersamfundet.no/inside/index.php?page=display-division&divisionid=<?php echo $divId ?>">Til foreningsside</a>
+<br /><br /><a href="index.php?page=display-division&divisionid=<?php echo $divId ?>">Til foreningsside</a>
 <?php
 return;	
 }

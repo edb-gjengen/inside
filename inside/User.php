@@ -1401,7 +1401,7 @@ class User {
     public function _sendPassword() {
         $sendto = $this->email;
         $subject = "Brukernavn og passord for Studentersamfundet Inside";
-        $message = "Hei, $this->firstname $this->lastname!\n " . "\n" . "\nHer er din innloggingsinformasjon til Studentersamfundets medlemsider. " . "\n" . "\nDitt brukernavn er: $row->username" . "\nDitt passord er: $newPassword" . "\n" . "\nNår du logger på vil du bli bedt om å endre passord til noe som er lettere å huske." . "\n" . "\nhttps://www.studentersamfundet.no/inside" . "\n" . "\nmvh" . "\n\nDet Norske Studentersamfund.";
+        $message = "Hei, $this->firstname $this->lastname!\n " . "\n" . "\nHer er din innloggingsinformasjon til Studentersamfundets medlemsider. " . "\n" . "\nDitt brukernavn er: $row->username" . "\nDitt passord er: $newPassword" . "\n" . "\nNår du logger på vil du bli bedt om å endre passord til noe som er lettere å huske." . "\n" . "\nhttps://inside.studentersamfundet.no/" . "\n" . "\nmvh" . "\n\nDet Norske Studentersamfund.";
         $headers = 'From: Det Norske Studentersamfund <medlemskap@studentersamfundet.no>' . "\r\n";
         if (mail($sendto, $subject, $message, $headers)) {
             notify("Nytt brukernavn og passord er sendt til din registrerte epostadresse. Bruk skjemaet under for å logge deg inn.");
@@ -1581,7 +1581,7 @@ class User {
         "melde flytting må du logge inn på våre medlemsider, oppdatere adressen " .
         "din og bestille nytt kort i nettbutikken. Da vil du automatisk få tilsendt " .
         "nytt kort. Vi må ta 35 kroner for å dekke våre kostnader. " .
-        "Våre medlemsider finner du på https://www.studentersamfundet.no/inside/ ." .
+        "Våre medlemsider finner du på https://inside.studentersamfundet.no/ ." .
         "Ditt brukernavn er \"" . $this->username . "\". \n".
         "\n\n\n" .
         "Mvh\n\n" .

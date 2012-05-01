@@ -1517,7 +1517,7 @@ function send_welcome_mail($user) {
 	"\n" .
 	"OBS: Hvis du har kjøpt medlemskap må du gå inn å aktivere det." .
 	"\n" .
-	"\nhttps://www.studentersamfundet.no/inside/index.php" .
+	"\nhttps://inside.studentersamfundet.no/" .
 	"\n" .
 	"\nmvh" .
 	"\n" .

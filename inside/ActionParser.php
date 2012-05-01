@@ -456,7 +456,7 @@ class ActionParser {
       }
       $result = $conn->query($sql);
       if (DB :: isError($result) == true) {
-        notify('Tjenesten er midlertidig utilgjengelig, vennligst fors&#248;k igjen senere.');
+        notify('Tjenesten er midlertidig utilgjengelig, vennligst forsøk igjen senere.');
         return false;
       }
       $sendto = $row->email;
@@ -468,9 +468,9 @@ class ActionParser {
       "\nDitt brukernavn er: $row->username" .
       "\nDitt passord er: $newPassword" .
       "\n" .
-      "\nN&#229;r du logger p&#229; vil du bli bedt om &#229; endre passord til noe som er lettere &#229; huske. Du kan ogs&#229; endre brukernavnet ditt." .
+      "\nNår du logger på vil du bli bedt om å endre passord til noe som er lettere å huske. Du kan også endre brukernavnet ditt." .
       "\n" .
-      "\nhttp://www.studentersamfundet.no/inside/index.php#login" .
+      "\nhttp://inside.studentersamfundet.no/" .
       "\n" .
       "\nmvh" .
       "\nStudentersamfundet Inside";
@@ -484,10 +484,10 @@ class ActionParser {
       }
     } else {
       if (is_numeric($userid)) {
-        notify('Kortnummeret er er ikke registrert i databasen. Vennligst registr&#233;r deg f&#248;rst.');
+        notify('Kortnummeret er er ikke registrert i databasen. Vennligst registrér deg først.');
 	return false;
       } else {
-        notify('Ingen bruker er registrert p&#229; epostadressen du oppgav.');
+        notify('Ingen bruker er registrert på epostadressen du oppgav.');
 	return false;
       }
     }
@@ -549,35 +549,35 @@ class ActionParser {
       "  email = '$email'";
       $result = $conn->query($sql);
       if (DB :: isError($result) == true) {
-        notify("Tjenesten er midlertidig utilgjengelig, vennligst fors&#248;k igjen senere.");
+        notify("Tjenesten er midlertidig utilgjengelig, vennligst forsøk igjen senere.");
         return false;
       }
       $sendto = $row->email;
       $subject = "Brukernavn og passord for Studentersamfundets medlemsider";
       $message = "Hei, $row->firstname $row->lastname!\n " .
       "\n" .
-      "\nDu er registrert i Studentersamfundets medlemsdatabase. F&#248;lg linken under og logg p&#229; med f&#248;lgende informasjon: " .
+      "\nDu er registrert i Studentersamfundets medlemsdatabase. Følg linken under og logg på med følgende informasjon: " .
       "\n" .
       "\nDitt brukernavn er: $row->username" .
       "\nDitt passord er: $newPassword" .
       "\n" .
-      "\nN&#229;r du logger p&#229; vil du bli bedt om &#229; endre passord til noe som er lettere &#229; huske. Du kan ogs&#229; endre brukernavnet ditt. " .
+      "\nNår du logger på vil du bli bedt om å endre passord til noe som er lettere å huske. Du kan også endre brukernavnet ditt. " .
       "\n" .
       "\nEtter at dette er gjort vil du finne en link for registrering av fornyet medlemskap." .
       "\n" .
-      "\nhttp://www.studentersamfundet.no/inside#login" .
+      "\nhttps://inside.studentersamfundet.no/" .
       "\n" .
       "\nmvh" .
       "\nStudentersamfundet";
       $headers = 'From: medlemskort@studentersamfundet.no' . "\r\n";
       if (mail($sendto, $subject, $message, $headers)) {
-        notify("Din epostadresse er registrert i systemet v&#229;rt.");
-        notify("En epost er sendt til deg med brukernavn og passord. Logg p&#229; for &#229; registrere fornyelse av medlemskap.");
+        notify("Din epostadresse er registrert i systemet vårt.");
+        notify("En epost er sendt til deg med brukernavn og passord. Logg på for å registrere fornyelse av medlemskap.");
       } else {
         notify("Det oppstod en feil under sending av epost. Vennligst kontakt " . "<a href=\"mailto:support@studentersamfundet.no\">webansvarlig</a>.");
       }
     } else {
-      notify("Ingen bruker er registrert p&#229; epostadressen du oppga. Bruk skjemaet under for &#229; registrere deg.");
+      notify("Ingen bruker er registrert på epostadressen du oppga. Bruk skjemaet under for å registrere deg.");
       $GLOBALS['extraScriptParams']['page'] = 'register-user';
     }
   }
