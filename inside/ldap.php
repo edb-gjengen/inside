@@ -67,6 +67,7 @@ function ldap_login($username, $password, $db) {
     return $legacy_uid;
 }
 
+/* TODO exception handling */
 function ldap_get_user($username_or_email, $db) {
     if( is_mail($username_or_email) && $db->mailExists($username_or_email) ) {
         return $db->getUserWithMail($username_or_email);

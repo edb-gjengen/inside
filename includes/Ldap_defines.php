@@ -39,8 +39,8 @@ define("RADIUS_MYSQL_HOST", "snes.neuf.no");
 define("RADIUS_MYSQL_USER", apache_getenv("RADIUS_MYSQL_USER"));
 define("RADIUS_MYSQL_PASS", apache_getenv("RADIUS_MYSQL_PASS"));
 
-define("LDAP_ENABLED", false);
-define("LDAP_SERVER", "macgyver.neuf.no");
+define("LDAP_ENABLED", true);
+define("LDAP_SERVER", "pacman.neuf.no");
 
 $api_keys = array();
 $api_keys[] = apache_getenv("API_KEY1");
