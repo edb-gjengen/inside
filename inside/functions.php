@@ -1062,9 +1062,8 @@ function displayLogin() {
 	$form = new Form($title, $enctype, $method, $action, $fields);
 	$form->display("table");
 ?>
-<h3><a href="https://brukerinfo.neuf.no/accounts/password/reset">Glemt passord?</a></h3>
 <p>
-    Får du fortsatt ikke logget på så kontakt oss på <a href="mailto:support@studentersamfundet.no">support@studentersamfundet.no</a>.
+<a href="https://brukerinfo.neuf.no/accounts/password/reset">Glemt passord?</a>
 </p>
 <h3><a href="index.php?page=register-user">Ny bruker?</a></h3>
 <p><a href="index.php?page=register-user">Registrer deg</a> for å bli medlem i Det Norske Studentersamfund.</p>
@@ -1072,6 +1071,9 @@ function displayLogin() {
 <h3>Har du spørsmål om medlemskapet ditt?</h3>
 <p>
     Send epost til <a href="mailto:medlemskap@studentersamfundet.no">medlemskap@studentersamfundet.no</a>. Oppgi medlemskortnummer og en kort beskrivelse av hva som ikke virker, så skal vi hjelpe deg så fort vi kan.
+</p>
+<p>
+    Andre spørsmål? Kontakt oss på <a href="mailto:support@studentersamfundet.no">support@studentersamfundet.no</a>.
 </p>
 	</div>
 <?php

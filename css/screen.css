@@ -247,7 +247,6 @@ th {
   padding: 0 5px;
   text-align: center;
   font-weight: bold;
-  letter-spacing: 2px;
   background: #DDD;
 }
 
@@ -264,11 +263,11 @@ td {
 
 td.label { 
   font-weight: bold;
-  text-align: right;
+  text-align: left;
 }
 
 td.number { 
-  text-align: right;
+  text-align: left;
 }
 
 td.phone {
@@ -279,7 +278,7 @@ td.date {
   white-space: nowrap;
 }
 
-td.is_member{ 
+td.is_member { 
   text-align: center;
 }
 

@@ -451,19 +451,18 @@ class Page {
 
     </div> <!-- #content-wrap -->
   </div> <!-- #inside-content-column -->
+
+    <!-- Google Analytics -->
     <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-52914-11']);
+    _gaq.push(['_trackPageview']);
 
-      var _gaq = _gaq || [];
-      _gaq.push(['_setAccount', 'UA-52914-1']);
-      _gaq.push(['_setDomainName', '.studentersamfundet.no']);
-      _gaq.push(['_trackPageview']);
-
-      (function() {
+    (function() {
         var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
         ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
         var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-      })();
-
+    })();
     </script>
 
   </body>
@@ -2332,14 +2331,14 @@ Om dere lager en facebook side til arrangementet, ikke glem &aring; putte inn le
 
 		if (!isset($_SESSION['valid-user'])){?>
 		<h2>Bli medlem!</h2>
-		<p>Her kan du registrere deg for så å kjøpe medlemskap! Om du allerede har en konto kan du logge inn på <a href="/inside">Inside</a></p>
+		<p>Her kan du registrere deg for så å kjøpe medlemskap! Om du allerede har en konto kan du logge inn på <a href="/">Inside</a></p>
 		<p>Alle feltene må fylles ut.</p>
 
 		<?php
     }
 
     $id      = "userForm";
-    $title   = "registrér bruker";
+    $title   = "Registrer bruker";
 
     $enctype = NULL;
     $method  = "post";
@@ -2350,56 +2349,56 @@ Om dere lager en facebook side til arrangementet, ikke glem &aring; putte inn le
     }
     $fields  = Array();
 
-    $fields[] = Array("label" => "fornavn", "type" => "text",
+    $fields[] = Array("label" => "Fornavn", "type" => "text",
                       "attributes" => Array("name" => "firstname" ,"size" => 50, "maxlength" => 50,
                                             "value" => (isset($data['firstname'])) ? $data['firstname'] : ""));
-    $fields[] = Array("label" => "etternavn", "type" => "text",
+    $fields[] = Array("label" => "Etternavn", "type" => "text",
                       "attributes" => Array("name" => "lastname" ,"size" => 50, "maxlength" => 50,
                                             "value" => (isset($data['lastname'])) ? $data['lastname'] : ""));
-    $fields[] = Array("label" => "ønsket brukernavn", "type" => "text",
+    $fields[] = Array("label" => "Brukernavn", "type" => "text",
                       "attributes" => Array("name" => "username" ,"size" => 12, "maxlength" => 12,
                                             "onchange" => "checkUsername(this.value)",
 																						"value" => (isset($data['username'])) ? $data['username'] : ""));
-    $fields[] = Array("label" => "ønsket passord", "type" => "password",
+    $fields[] = Array("label" => "Passord", "type" => "password",
                       "attributes" => Array("name" => "password1"));
-    $fields[] = Array("label" => "gjenta passord", "type" => "password",
+    $fields[] = Array("label" => "Passord (gjenta)", "type" => "password",
                       "attributes" => Array("name" => "password2"));
-    $fields[] = Array("label" => "utenlandsk adresse?", "type" => "checkbox",
-                      "attributes" => Array("name" => "addresstype", "label" => " hak av for å registrere utenlandsk adresse",
+    $fields[] = Array("label" => "Utenlandsk adresse?", "type" => "checkbox",
+                      "attributes" => Array("name" => "addresstype", "label" => " Hak av for å registrere utenlandsk adresse",
                                             "checked" => (isset($data['addresstype'])) ? "checked" : ""));
-    $fields[] = Array("label" => "gateadresse", "type" => "textarea",
+    $fields[] = Array("label" => "Gateadresse", "type" => "textarea",
                       "attributes" => Array("name" => "street", "cols" => 70, "rows" => 3,
                                             "value" => (isset($data['street'])) ? $data['street'] : "",
                                             "maxlength" => 255, "nocounter" => true));
-    $fields[] = Array("label" => "postnummer", "type" => "text",
+    $fields[] = Array("label" => "Postnummer", "type" => "text",
                       "attributes" => Array("name" => "zipcode" ,"size" => 4,
                                             "maxlength" => 4,
                                             "onchange" => "checkZip(this);",
                                             "onblur" => "checkZip(this);",
                                             "value" => (isset($data['zipcode'])) ? $data['zipcode'] : ""));
-    $fields[] = Array("label" => "poststed", "type" => "text",
+    $fields[] = Array("label" => "Poststed", "type" => "text",
                       "attributes" => Array("name" => "postarea", "readonly" => "readonly",
                                             "readonly" => true));
-    $fields[] = Array("label" => "by", "type" => "text",
+    $fields[] = Array("label" => "By", "type" => "text",
                       "attributes" => Array("name" => "city" ,"size" => 50, "maxlength" => 50,
                                             "value" => (isset($data['city'])) ? $data['city'] : ""));
-    $fields[] = Array("label" => "stat", "type" => "text",
+    $fields[] = Array("label" => "Stat", "type" => "text",
                       "attributes" => Array("name" => "state" ,"size" => 50, "maxlength" => 50,
                                             "value" => (isset($data['state'])) ? $data['state'] : ""));
-    $fields[] = Array("label" => "land", "type" => "text",
+    $fields[] = Array("label" => "Land", "type" => "text",
                       "attributes" => Array("name" => "country" ,"size" => 50, "maxlength" => 50,
                                             "id" => "country",
                                             "value" => (isset($data['country'])) ? $data['country'] : ""));
-    $fields[] = Array("label" => "telefon", "type" => "text",
+    $fields[] = Array("label" => "Telefon", "type" => "text",
                       "attributes" => Array("name" => "phonenumber" ,"size" => 16, "maxlength" => 16,
                                             "value" => (isset($data['phonenumber'])) ? $data['phonenumber'] : ""));
-    $fields[] = Array("label" => "epost", "type" => "text",
+    $fields[] = Array("label" => "Epost", "type" => "text",
                       "attributes" => Array("name" => "email" ,"size" => 50, "maxlength" => 120,
                                             "value" => (isset($data['email'])) ? $data['email'] : ""));
-    $fields[] = Array("label" => "fødselsdato", "type" => "date",
+    $fields[] = Array("label" => "Fødselsdato", "type" => "date",
                       "attributes" => Array("name" => "birthdate",
                                             "value" => (isset($data['birthdate'])) ? $data['birthdate'] : "yyyy-mm-dd"));
-    $fields[] = Array("label" => "studiested", "type" => "select",
+    $fields[] = Array("label" => "Studiested", "type" => "select",
                       "attributes" => Array("name" => "placeOfStudy", "values" => $pos,
                                             "currentValue" => (isset($data['placeOfStudy'])) ? $data['placeOfStudy'] : ""));
     if (!isset($_SESSION['valid-user'])) {
@@ -2412,11 +2411,11 @@ Om dere lager en facebook side til arrangementet, ikke glem &aring; putte inn le
         	                                    "currentValue" => (isset($data['division'])) ? $data['division'] : ""));*/
 
     } else {
-	    $fields[] = Array("label" => "legg til i gruppe?", "type" => "checkbox",
+	    $fields[] = Array("label" => "Legg til i gruppe?", "type" => "checkbox",
       	                "attributes" => Array("name" => "group",
-        	                                    "label" => " hak av for å registrere bruker i en gruppe",
+        	                                    "label" => " Hak av for å registrere bruker i en gruppe",
           	                                  "checked" => (isset($data['group'])) ? "checked" : ""));
-    	$fields[] = Array("label" => "gruppe", "type" => "select",
+    	$fields[] = Array("label" => "Gruppe", "type" => "select",
       	                "attributes" => Array("name" => "group_id", "values" => $groups,
         	                                    "currentValue" => (isset($data['group_id'])) ? $data['group_id'] : ""));
     }
@@ -2474,7 +2473,7 @@ Om dere lager en facebook side til arrangementet, ikke glem &aring; putte inn le
                            "attributes" => Array("name" => "lastname" ,"size" => 50, "maxlength" => 50,
                                                  "readonly" => $readonly, "value" => $user->lastname));
     $fields[] = Array("label" => "utenlandsk adresse?", "type" => "checkbox",
-                      "attributes" => Array("name" => "addresstype", "label" => " hak av for å registrere utenlandsk adresse",
+                      "attributes" => Array("name" => "addresstype", "label" => " Hak av for å registrere utenlandsk adresse",
                                             "readonly" => $readonly, "checked" => $user->addresstype == "int" ? "checked" : ""));
     $fields[] = Array("label" => "gateadresse", "type" => "textarea",
                            "attributes" => Array("name" => "street", "cols" => 70, "rows" => 3,
