@@ -31,9 +31,6 @@ function legacy_login($username_or_email, $password) {
         if( $username_or_email === false) {
             return false;
         }
-    } else if(legacy_user_exists($username_or_email) === false) {
-        notify("Feil brukernavn eller passord.");
-        return false;
     }
     $uid = legacy_authenticate($username_or_email, $password);
     if(!$uid) {
@@ -86,7 +83,7 @@ function legacy_user_exists($username) {
     $conn = db_connect();
 
     /* get legacy_user_id */
-    $sql = sprintf("SELECT id FROM din_user WHERE username=%s", $conn->quoteSmart($username));
+    $sql = sprintf("SELECT id FROM din_user WHERE username='%s' or ldap_username='%s'", $conn->quoteSmart($username));
     $result = $conn->query($sql);
     if (DB :: isError($result) == true) {
         /* dberror */
