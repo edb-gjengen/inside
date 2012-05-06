@@ -112,7 +112,7 @@ class Payment {
             $order->getConfirmationText()."\n" .
             "Prisen for dette er NOK $transaction->amount,-\n" .
             "Beløpet er blitt belastet ditt VISA-kort. På kontoutskriften vil det stå Payex AS.\n\n" .
-            "For spørsmål angående dette kan du svare på denne eposten. Se forøvrig http://www.studentersamfundet.no/kontakt.php for ytterligere kontaktinformasjon.\n\n" . 
+            "For spørsmål angående dette kan du svare på denne eposten. Se forøvrig http://www.studentersamfundet.no/kontakt/ for ytterligere kontaktinformasjon.\n\n" . 
             "Med vennlig hilsen\n" .
             "Det Norske Studentersamfund\n\n";
         $headers = "From: Det Norske Studentersamfund <support@studentersamfundet.no>\r\n";

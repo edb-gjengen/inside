@@ -148,7 +148,7 @@ class Transaction {
   	
   	<p>På kontoutskriften vil det stå Payex AS.</p>
   	<p>For spørsmål angående dette kan du kontakte <a href="mailto:support@studentersamfundet.no">support@studentersamfundet.no</a>.</p>
-  	<p>Se forøvrig <a href="http://www.studentersamfundet.no/kontakt.php">våre kontaktsider</a> for ytterligere kontaktinformasjon.</p>
+  	<p>Se forøvrig <a href="http://www.studentersamfundet.no/kontakt/">våre kontaktsider</a> for ytterligere kontaktinformasjon.</p>
   	<?php
   }
 }
