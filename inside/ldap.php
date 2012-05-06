@@ -83,7 +83,7 @@ function legacy_user_exists($username) {
     $conn = db_connect();
 
     /* get legacy_user_id */
-    $sql = sprintf("SELECT id FROM din_user WHERE username=%s or ldap_username=%s", $conn->quoteSmart($username));
+    $sql = sprintf("SELECT id FROM din_user WHERE username=%s OR ldap_username=%s", $conn->quoteSmart($username), $conn->quoteSmart($username));
     $result = $conn->query($sql);
     if (DB :: isError($result) == true) {
         /* dberror */
