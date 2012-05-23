@@ -102,7 +102,7 @@ function updateUserExpiry(userid) {
   v.innerHTML = value;
  
   var oXmlHttp = zXmlHttp.createRequest();
-  var sURL = "updateuserexpiry.php?userid=" + userid + "&value="+value;
+  var sURL = "inside/updateuserexpiry.php?userid=" + userid + "&value="+value;
   oXmlHttp.open("get", sURL, true);
   oXmlHttp.onreadystatechange = function() {
     if (oXmlHttp.readyState == 4){
@@ -125,7 +125,7 @@ function updateLastSticker(userid) {
   v.innerHTML = value;
  
   var oXmlHttp = zXmlHttp.createRequest();
-  var sURL = "updatelaststicker.php?userid=" + userid + "&value="+value;
+  var sURL = "inside/updatelaststicker.php?userid=" + userid + "&value="+value;
   oXmlHttp.open("get", sURL, true);
   oXmlHttp.onreadystatechange = function() {
     if (oXmlHttp.readyState == 4){
