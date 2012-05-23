@@ -50,7 +50,7 @@ function setCardProduced(userid) {
   form.style.display = "none";
   
   var oXmlHttp = zXmlHttp.createRequest();
-  var sURL = "setcardproduced.php?userid=" + userid;
+  var sURL = "inside/setcardproduced.php?userid=" + userid;
   oXmlHttp.open("get", sURL, true);
   oXmlHttp.onreadystatechange = function() {
     if (oXmlHttp.readyState == 4){
@@ -75,7 +75,7 @@ function setCardDelivered(userid) {
   form.style.display = "none";
   
   var oXmlHttp = zXmlHttp.createRequest();
-  var sURL = "setcarddelivered.php?userid=" + userid;
+  var sURL = "inside/setcarddelivered.php?userid=" + userid;
   oXmlHttp.open("get", sURL, true);
   oXmlHttp.onreadystatechange = function() {
     if (oXmlHttp.readyState == 4){
