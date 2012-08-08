@@ -2331,7 +2331,8 @@ Om dere lager en facebook side til arrangementet, ikke glem &aring; putte inn le
 
 		if (!isset($_SESSION['valid-user'])){?>
 		<h2>Bli medlem!</h2>
-		<p>Her kan du registrere ditt midlertidige medlemskap. Er du allerede registrert? <a href="/">Logg inn</a> først.</p>
+		<p>Her kan du registrere ditt midlertidige medlemskap.</p>
+		<p>Er du allerede registrert? <a href="/">Logg inn</a> først.</p>
 		<p>Alle feltene må fylles ut.</p>
 
 		<?php
