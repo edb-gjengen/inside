@@ -2591,8 +2591,8 @@ Om dere lager en facebook side til arrangementet, ikke glem &aring; putte inn le
     }
     if(checkAuth("view-delete-user")){
 ?>
-		<a class="button" href="javascript: if(confirm('Slett bruker?\n\nDette kan ikke angres!')) {
-		  location='index.php?action=delete-user&amp;userid=<?php print $user->id;?>'};">slett bruker</a>
+		<!--a class="button" href="javascript: if(confirm('Slett bruker?\n\nDette kan ikke angres!')) {
+		  location='index.php?action=delete-user&amp;userid=<?php print $user->id;?>'};">slett bruker</a-->
 <?php
     }
   }

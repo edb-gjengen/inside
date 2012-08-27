@@ -708,14 +708,16 @@ class User {
   }
 
   public static function delete($id) {
-        $conn = db_connect();
+		/*
+		$conn = db_connect();
         $sql = "DELETE FROM din_user WHERE id = $id LIMIT 1";
         $result = $conn->query($sql);
         if (DB :: isError($result) != true) {
             notify("Bruker slettet.");
         } else {
             error($result->toString());
-        }
+		}
+		*/
   }
 	
   /*
