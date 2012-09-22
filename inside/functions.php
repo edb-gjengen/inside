@@ -1063,7 +1063,7 @@ function displayLogin() {
 	$form->display("table");
 ?>
 <p>
-<a href="https://brukerinfo.neuf.no/accounts/password/reset">Glemt passord?</a>
+<a href="https://brukerinfo.neuf.no/accounts/password/reset">Glemt passord eller brukernavn?</a>
 </p>
 <h3><a href="index.php?page=register-user">Ny bruker?</a></h3>
 <p><a href="index.php?page=register-user">Registrer deg</a> for å bli medlem i Det Norske Studentersamfund.</p>
