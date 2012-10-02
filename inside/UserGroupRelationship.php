@@ -77,32 +77,33 @@ class UserGroupRelationship {
 
   public
   function delete($user_id, $group_id) {
-    $conn = db_connect();
-    $sql = "DELETE FROM din_usergrouprelationship 
-                            WHERE user_id = $user_id 
-                            AND group_id = $group_id
-                            LIMIT 1";
-    $result = $conn->query($sql);
-    if (DB :: isError($result) != true) {
-      notify("Gruppemedlemskap slettet.");
-      unsubscribe_mailinglist($user_id, $group_id);
+    /* TODO Implement access control and comment in */
+    //$conn = db_connect();
+    //$sql = "DELETE FROM din_usergrouprelationship 
+    //                        WHERE user_id = $user_id 
+    //                        AND group_id = $group_id
+    //                        LIMIT 1";
+    //$result = $conn->query($sql);
+    //if (DB :: isError($result) != true) {
+    //  notify("Gruppemedlemskap slettet.");
+    //  unsubscribe_mailinglist($user_id, $group_id);
 
-      //Update moderator status
-      $group = new Group($group_id);
-      if ($group->admin == 1) {
-        $sql = "SELECT * "."FROM din_group g, din_usergrouprelationship ugr "."WHERE ugr.user_id = $user_id "."AND ugr.group_id = g.id "."AND g.admin = 1";
-        $result = $conn->query($sql);
-        if (DB :: isError($result) != true) {
-          if ($result->numRows() == 0) {
-            UserGroupRelationship :: delete($user_id, 61);
-          }
-        } else {
-          error("UserGroupRelationships - admin: ".$result->toString());
-        }
-      }
-    } else {
-      error($result->toString());
-    }
+    //  //Update moderator status
+    //  $group = new Group($group_id);
+    //  if ($group->admin == 1) {
+    //    $sql = "SELECT * "."FROM din_group g, din_usergrouprelationship ugr "."WHERE ugr.user_id = $user_id "."AND ugr.group_id = g.id "."AND g.admin = 1";
+    //    $result = $conn->query($sql);
+    //    if (DB :: isError($result) != true) {
+    //      if ($result->numRows() == 0) {
+    //        UserGroupRelationship :: delete($user_id, 61);
+    //      }
+    //    } else {
+    //      error("UserGroupRelationships - admin: ".$result->toString());
+    //    }
+    //  }
+    //} else {
+    //  error($result->toString());
+    //}
   }
 
   public
