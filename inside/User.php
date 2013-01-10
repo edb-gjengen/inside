@@ -114,7 +114,7 @@ class User {
             } else {
                 //Retrieve data from backend for display or other actions
                 if ($data = $this->_retrieveData()) {
-                    $this->username = stripcslashes($data['username']);
+                    $this->username = stripcslashes($data['ldap_username']);
                     $this->cardno = $data['cardno'];
                     $this->expires = $data['expires'];
                     $this->division_id_request = $data['division_id_request'];
