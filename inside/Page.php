@@ -30,7 +30,7 @@ class Page {
   <body class="dns section-inside">
     <div id="container">
       <div id="header">
-        <span class="site-title"><a href="/"><?php print $this->page_title; ?></a></span>
+        <span class="site-title"><a href="http://studentersamfundet.no/"><?php print $this->page_title; ?></a></span>
       </div> <!-- #header -->
 
       <div id="content-wrap">
