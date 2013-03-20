@@ -1280,7 +1280,7 @@ public function _logIn() {
     $bug = new BugReport(NULL, $_REQUEST);
     $bug->store();
     $user_url = "https://inside.studentersamfundet.no/index.php?page=display-user&userid=".$_REQUEST['user_id'];
-    $message = "Bruker:".$user_url."\n Type feil: ".$_REQUEST['title']."\nMelding fra bruker: " .$_REQUEST['comment'];
+    $message = "Bruker: ".$user_url."\nType feil: ".$_REQUEST['title']."\nMelding fra bruker: " .$_REQUEST['comment'];
     mail("medlemskap@studentersamfundet.no, kak-edb@studentersamfundet.no", '[Inside] Ny melding om noe muffins fra bruker', $message);
   }
 
