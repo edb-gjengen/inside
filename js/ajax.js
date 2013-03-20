@@ -5,7 +5,7 @@ function requestConcertInfo(callerid, target, programid) {
   var gigNo = parseInt(match[0]);
   
   var oXmlHttp = zXmlHttp.createRequest();
-  oXmlHttp.open("get", "getconcertinfo.php?gigid=" + iId + "&store=" + gigNo + "&programid=" + programid, true);
+  oXmlHttp.open("get", "inside/getconcertinfo.php?gigid=" + iId + "&store=" + gigNo + "&programid=" + programid, true);
   oXmlHttp.onreadystatechange = function() {
     if (oXmlHttp.readyState == 4){
       if (oXmlHttp.status == 200) {
@@ -23,7 +23,7 @@ function grantCardNumber(userid) {
   form.style.display = "none";
 
   var oXmlHttp = zXmlHttp.createRequest();
-  var sURL = "grantcardno.php?userid=" + userid;
+  var sURL = "inside/grantcardno.php?userid=" + userid;
   oXmlHttp.open("get", sURL, true);
   oXmlHttp.onreadystatechange = function() {
     if (oXmlHttp.readyState == 4){
@@ -151,7 +151,7 @@ function setOrderDeliveryStatus(orderid) {
 	var value = input.value;
 	
 	var oXmlHttp = zXmlHttp.createRequest();
-	var sURL = "setorderdelivery.php?orderid=" + orderid + "&newstatusid=" + value;
+	var sURL = "inside/setorderdelivery.php?orderid=" + orderid + "&newstatusid=" + value;
 	oXmlHttp.open("get", sURL, true);
 	oXmlHttp.onreadystatechange = function() {
 		if (oXmlHttp.readyState == 4) {
@@ -180,7 +180,7 @@ function setWeekText(sText, iId, sType) {
   
   var oXmlHttp = zXmlHttp.createRequest();
   sText = escape(sText);
-  var sURL = "setweekprogramtext.php?wid=" + iId + "&text=" + sText + "&type=" + sType;
+  var sURL = "inside/setweekprogramtext.php?wid=" + iId + "&text=" + sText + "&type=" + sType;
   oXmlHttp.open("get", sURL, true);
   oXmlHttp.onreadystatechange = function() {
     if (oXmlHttp.readyState == 4){
