@@ -1279,7 +1279,9 @@ public function _logIn() {
   public function _registerBugReport() {
     $bug = new BugReport(NULL, $_REQUEST);
     $bug->store();
-    mail("kak-edb@studentersamfundet.no", '[Inside] New bug report', var_export($_REQUEST, true));
+    $user_url = "https://inside.studentersamfundet.no/index.php?page=display-user&userid=".$_REQUEST['user_id'];
+    $message = "Bruker:".$user_url."\n Type feil: ".$_REQUEST['title']."\nMelding fra bruker: " .$_REQUEST['comment'];
+    mail("medlemskap@studentersamfundet.no, kak-edb@studentersamfundet.no", '[Inside] Ny melding om noe muffins fra bruker', $message);
   }
 
   public function _updateBugReportStatus() {
