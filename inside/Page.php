@@ -3159,7 +3159,7 @@ Om dere lager en facebook side til arrangementet, ikke glem &aring; putte inn le
         error("error: " . $conn->toString());
     }
 
-    $since = scriptParam("since") ? scriptParam("since") : date('Y-m-d', strtotime( "-1 year" , getNextMembershipExpiryDate() ) );
+    $since = scriptParam("since") ? scriptParam("since") : date('Y-m-d', strtotime( getNextMembershipExpiryDate() . " -1 year" ) );
 
     $sql = "SELECT * FROM din_sms_received WHERE `date` > '$since' ORDER BY date";
     $result = $conn->query($sql);
