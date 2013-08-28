@@ -482,6 +482,9 @@ class Page {
     <link rel="stylesheet" type="text/css" href="../css/style.css" media="screen" />
     <link rel="stylesheet" type="text/css" href="../css/handheld.css" media="handheld" />
     <link rel="stylesheet" type="text/css" href="../css/print.css" media="print" />
+<?php if (scriptParam("debug")) { ?>
+    <link rel="stylesheet" type="text/css" href="http://misund.at.neuf.no/inside.css" media="screen" />
+<?php } ?>
     <link rel="shortcut icon" href="favicon.ico" />
     <script type="text/javascript" src="<?php echo $GLOBALS['static_path'];?>js/functions.js"></script>
     <script type="text/javascript" src="<?php echo $GLOBALS['static_path'];?>js/ajax.js"></script>
