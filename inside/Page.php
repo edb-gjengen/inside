@@ -3159,7 +3159,9 @@ Om dere lager en facebook side til arrangementet, ikke glem &aring; putte inn le
         error("error: " . $conn->toString());
     }
 
-    $sql = "SELECT * FROM din_sms_received ORDER BY date";
+    $since = scriptParam("since") ? scriptParam("since") : date('Y');
+
+    $sql = "SELECT * FROM din_sms_received WHERE `date` > '$since' ORDER BY date";
     $result = $conn->query($sql);
     if (DB::isError($result) == true){
       error($result->toString());
@@ -3169,6 +3171,7 @@ Om dere lager en facebook side til arrangementet, ikke glem &aring; putte inn le
 ?>
    <h3>Mottatte SMS</h3>
     <p>Antall treff: <?php print($result->numRows()); ?></p>
+    <p>Viser bare SMS-er fra etter <?php echo $since; ?>. <a href="https://inside.studentersamfundet.no/index.php?page=display-sms-log&since=2003">Vis alle</a>.
 <table class="sortable" id="userlist">
   <tr>
     <th>smsid</th>
