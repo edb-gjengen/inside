@@ -2330,9 +2330,9 @@ Om dere lager en facebook side til arrangementet, ikke glem &aring; putte inn le
     $data      = $_POST; //Error during register, old values needed to avoid retyping
 
 		if (!isset($_SESSION['valid-user'])){?>
-		<h2>Bli medlem!</h2>
-		<p>Her kan du registrere ditt midlertidige medlemskap.</p>
-		<p>Er du allerede registrert? <a href="/">Logg inn</a> først.</p>
+		<h2>Skjema for medlemsregistrering</h2>
+		<p>Her kan du bli ny medlem, eller registrere ditt midlertidige medlemskap.</p>
+		<p>Har du allerede fylt inn din personinfo, men ikke fullført betalingen eller lagt inn aktiveringskoden for ditt midlertidige medlemsskap? <a href="/">Logg inn her.</a></p>
 		<p>Alle feltene må fylles ut.</p>
 
 		<?php
