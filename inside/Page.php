@@ -2330,9 +2330,9 @@ Om dere lager en facebook side til arrangementet, ikke glem &aring; putte inn le
     $data      = $_POST; //Error during register, old values needed to avoid retyping
 
 		if (!isset($_SESSION['valid-user'])){?>
-		<h2>Bli medlem!</h2>
-		<p>Her kan du registrere ditt midlertidige medlemskap.</p>
-		<p>Er du allerede registrert? <a href="/">Logg inn</a> først.</p>
+		<h2>Skjema for medlemsregistrering</h2>
+		<p>Her kan du bli ny medlem, eller registrere ditt midlertidige medlemskap.</p>
+		<p>Har du allerede fylt inn din personinfo, men ikke fullført betalingen eller lagt inn aktiveringskoden for ditt midlertidige medlemsskap? <a href="/">Logg inn her.</a></p>
 		<p>Alle feltene må fylles ut.</p>
 
 		<?php
@@ -3159,7 +3159,9 @@ Om dere lager en facebook side til arrangementet, ikke glem &aring; putte inn le
         error("error: " . $conn->toString());
     }
 
-    $sql = "SELECT * FROM din_sms_received ORDER BY date";
+    $since = scriptParam("since") ? scriptParam("since") : date('Y');
+
+    $sql = "SELECT * FROM din_sms_received WHERE `date` > '$since' ORDER BY date";
     $result = $conn->query($sql);
     if (DB::isError($result) == true){
       error($result->toString());
@@ -3169,6 +3171,7 @@ Om dere lager en facebook side til arrangementet, ikke glem &aring; putte inn le
 ?>
    <h3>Mottatte SMS</h3>
     <p>Antall treff: <?php print($result->numRows()); ?></p>
+    <p>Viser bare SMS-er fra etter <?php echo $since; ?>. <a href="https://inside.studentersamfundet.no/index.php?page=display-sms-log&since=2003">Vis alle</a>.
 <table class="sortable" id="userlist">
   <tr>
     <th>smsid</th>
