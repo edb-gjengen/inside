@@ -176,11 +176,11 @@ Class Calendar {
     case 'all':
 			?>
 			<div>
-				<label class="calendar-event button" ><input type="checkbox" id="calendar-toggle-events" 
+				<label class="calendar-event btn" ><input type="checkbox" id="calendar-toggle-events" 
 							onclick="toggleElements('div', 'calendar-event', this);"
 							checked="checked" />
 											 Interne arrangementer</label><br />
-				<label class="calendar-concert button"><input type="checkbox" id="calendar-toggle-concerts" 
+				<label class="calendar-concert btn"><input type="checkbox" id="calendar-toggle-concerts" 
 							onclick="toggleElements('div', 'calendar-concert', this);"
 							checked="checked" />
 											 Åpne arrangementer</label>
@@ -191,7 +191,7 @@ Class Calendar {
 		case 'barshifts':
 			?>
 			<div>
-				<label class="calendar-barshifworker button" ><input type="checkbox" id="calendar-toggle-barshiftworkers" 
+				<label class="calendar-barshifworker btn" ><input type="checkbox" id="calendar-toggle-barshiftworkers" 
 							onchange="toggleElements('ul', 'barshift-workers', this);"
 							checked="checked" />
 											 Vis personell</label><br />
