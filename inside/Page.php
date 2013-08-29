@@ -91,10 +91,6 @@ class Page {
 
     //Determine what page to display
       switch ($this->page) {
-        case "welcome":
-        $this->_displayWelcome();
-        break;
-
         case "home":
         $this->_displayHome();
         break;
@@ -583,24 +579,10 @@ class Page {
   }
 
   public
-  function _displayWelcome(){
-    print "<p>Velkommen til Studentersamfundets intranett.</p>\n";
-  }
-
-  public
   function _displayHome(){
     $user = new User(getCurrentUser());
 ?>
   <div class="text-column">
-
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h3>Velkommen til Studentersamfundets medlemssider!</h3>
-      </div>
-      <div class="panel-body">
-        <p>Du er logget inn som <strong><?php print getCurrentUserName(); ?></strong>.</p>
-      </div>
-    </div>
 
     <?=$user->membershipStatus()?>
 
