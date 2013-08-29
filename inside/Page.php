@@ -605,6 +605,14 @@ class Page {
     }
 		?>
 			<a class="btn" href="index.php?page=display-current-user">Oppdatér brukerinfo</a>
+			<a class="btn" href="index.php?page=display-webshop">Bestill nytt medlemskort</a>
+
+			<div class="bliaktiv">
+			    <h3>Engasjer deg!</h3>
+			    <p>Visste du at Studentersamfundet drives av frivillige studenter? Å være aktiv i en studentforening er en sosial affære. Det skaffer deg fort både venner og erfaring.</p>
+			    <p>La det neste året være året du husker. Finn en ny interesse i dag!</p>
+			    <a class="btn" href="http://studentersamfundet.no/bli-aktiv/">Engasjer deg</a>
+			</div>
 		<?php
   } else {
 
