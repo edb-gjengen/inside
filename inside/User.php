@@ -592,7 +592,7 @@ class User {
       if ($result = $this->conn->commit()) {
         return true;
       } else {
-        notify("Problemer med registrering av fornyet medlemskap");
+        notify("Problemer med registrering av fornyet medlemskap. Ta kontakt med <a href='mailto:support@studentersamfundet.no'>support@studentersamfundet.no</a>.");
         error("Kortnummer: " . $result->toString());
         return false;
       }
@@ -619,7 +619,7 @@ class User {
       notify("Medlemskap fornyet.");
       return true;
     } else {
-      notify("Problemer med registrering av fornyet medlemskap");
+      notify("Problemer med registrering av fornyet medlemskap. <a href='mailto:support@studentersamfundet.no'>Tilkall hjelp</a>.");
       error("Kortnummer: " . $result->toString());
       return false;
     }
@@ -656,7 +656,7 @@ class User {
       $expires = getNextMembershipExpiryDate();
       if ($expires <= $this->expires) {
         $newexpires = date("Y-m-d", strtotime("+1 year", strtotime($expires)));
-        notify($this->id . ", " . $this->getName() . " har allerede gyldig medlemskap for dette året. Har utløpsdato " . $this->expires . ", men ny ble prøvd satt til " . $expires . ". Personen vil få satt ny utløpsdate på medlemskapet til " . $newexpires);
+        notify($this->id . ", " . $this->getName() . " har allerede gyldig medlemskap for dette året. Har utløpsdato " . $this->expires . ", men ny ble prøvd satt til " . $expires . ". Personen vil få satt ny utløpsdato på medlemskapet til " . $newexpires);
         $expires = $newexpires;
       }
       $this->conn->autoCommit(false);
@@ -676,7 +676,7 @@ class User {
         notify($this->id . ", " . $this->getName() . ": medlemskap fornyet fram til " . $expires . ".");
         return true;
       } else {
-        notify($this->id . ", " . $this->getName() . ": Problemer med registrering av fornyet medlemskap");
+        notify($this->id . ", " . $this->getName() . ": Problemer med registrering av fornyet medlemskap. <a href='mailto:support@studentersamfundet.no'>Tilkall hjelp</a>.");
         error("Kortnummer: " . $result->toString());
         return false;
       }
@@ -686,7 +686,7 @@ class User {
   /* Order new membercard if old one is lost */
   public function renewMembercardPayex() {
         if ($this->hasExpired()) {
-            notify("Du har ikke gyldig medlemskap for dette året.");
+            notify("Du har ikke gyldig medlemskap for dette året. <a href='https://inside.studentersamfundet.no/index.php?page=register-membership'>Kjøp eller registrer medlemskap.</a>");
             return false;
         }
         $this->conn->autoCommit(false);
