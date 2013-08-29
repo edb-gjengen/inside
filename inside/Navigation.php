@@ -37,7 +37,7 @@ class Navigation {
 ?>
           <li class="menulist dropdown">
             <a href="#" id="divisionsSwitch" class="switch dropdown-toggle">Foreninger</a>
-            <ul id="divisionsMenu" class="menu">
+            <ul id="divisionsMenu" class="menu dropdown-menu">
               <li><a href="index.php?page=display-divisions">Vis foreninger</a></li>
               <?php if(checkAuth("view-register-division")){
             ?><li><a href="index.php?page=register-division">Registrér forening</a></li>
@@ -54,7 +54,7 @@ class Navigation {
           ?>
           <li class="menulist dropdown">
             <a href="#" id="documentsSwitch" class="switch dropdown-toggle">Dokumenter</a>
-            <ul id="documentsMenu" class="menu">
+            <ul id="documentsMenu" class="menu dropdown-menu">
               <li><a href="index.php?page=display-documents">Vis dokumenter</a></li>
               <?php if(checkAuth("view-upload-document")){
             ?><li><a href="index.php?page=upload-document">Last opp nytt</a></li>
@@ -66,7 +66,7 @@ class Navigation {
           ?>
           <li class="menulist dropdown">
             <a href="#" id="usersSwitch" class="switch dropdown-toggle">Medlemmer</a>
-            <ul id="usersMenu" class="menu">
+            <ul id="usersMenu" class="menu dropdown-menu">
               <li><a href="index.php?page=display-users">Vis medlemmer</a></li>
               <?php if(checkAuth("view-register-user")){
             ?><li><a href="index.php?page=register-user">Registrér medlem</a></li>
@@ -103,7 +103,7 @@ class Navigation {
       ?>
           <li class="menulist dropdown">
             <a href="#" id="billettbodSwitch" class="switch dropdown-toggle">Billettbod</a>
-            <ul id="billettbodMenu" class="menu">
+            <ul id="billettbodMenu" class="menu dropdown-menu">
               <li><a href="index.php?page=membership-sale">Salg av medlemskap</a></li>
               <?php if(checkAuth("view-membercard-production")){
               ?><li><a href="index.php?page=membercard-production">Administrer medlemskort</a></li>
@@ -116,7 +116,7 @@ class Navigation {
           ?>
           <li class="menulist dropdown">
             <a href="#" id="accessSwitch" class="switch dropdown-toggle">Tilgang</a>
-            <ul id="accessMenu" class="menu">
+            <ul id="accessMenu" class="menu dropdown-menu">
               <li><a href="index.php?page=display-groups">Vis grupper</a></li>
               <li><a href="index.php?page=register-group">Registrér gruppe</a></li>
               <li><a href="index.php?page=display-actions">Vis handlinger</a></li>
@@ -131,7 +131,7 @@ class Navigation {
           ?>
           <li class="menulist dropdown">
             <a href="#" id="settingsSwitch" class="switch dropdown-toggle">Innstillinger</a>
-            <ul id="settingsMenu" class="menu">
+            <ul id="settingsMenu" class="menu dropdown-menu">
               <!--<li><a href="index.php?action=switch-formtype&amp;section=settings">Bytt skjemastil</a></li>
               <li><a href="index.php?action=switch-tinymce-theme&amp;section=settings">Bytt RT-editor</a></li>-->
               <li><a href="index.php?page=register-documentcategory">Dokumenttyper</a></li>
@@ -146,7 +146,7 @@ class Navigation {
           ?>
           <li class="menulist dropdown">
             <a href="#" id="smsSwitch" class="switch dropdown-toggle">SMS</a>
-            <ul id="smsMenu" class="menu">
+            <ul id="smsMenu" class="menu dropdown-menu">
               <li><a href="?page=display-sms-log">Vis logg for SMS-tjeneste</a></li>
             </ul>
           </li>
@@ -157,7 +157,7 @@ class Navigation {
           ?>
           <li class="menulist dropdown">
             <a href="#" id="webshopSwitch" class="switch dropdown-toggle">Nettbutikk</a>
-            <ul id="webshopMenu" class="menu">
+            <ul id="webshopMenu" class="menu dropdown-menu">
               <li><a href="index.php?page=display-webshop">Vis produkter</a></li>
               <li><a href="index.php?page=display-carts">Vis handlekurver</a></li>
             <?php if (checkAuth('view-display-sales')) {?>
