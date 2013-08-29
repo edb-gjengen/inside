@@ -16,7 +16,7 @@ class Navigation {
 	</div>	
 
 
-<ul id="navList">
+<ul id="navList" class="nav navbar-nav">
 
 <?php
    if(checkAuth("view-menu-jobs")){
