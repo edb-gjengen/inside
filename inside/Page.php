@@ -78,7 +78,7 @@ class Page {
 		<?php echo get_gravatar( $user->email , 20 , 'mm' , 'g' , true ); ?>
 	    </span>
 	    <span class="username">
-		<a href="index.php?page=display-current-user"><?php echo( "$user->firstname; $user->lastname" ); ?></a>
+		<a href="index.php?page=display-current-user"><?php echo( "$user->firstname $user->lastname" ); ?></a>
 	    </span>
 	    <span class="logout">
 		(<a href="index.php?action=log-out">Logg ut</a>)
