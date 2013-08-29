@@ -70,6 +70,22 @@ class Page {
            </div>
         </noscript>
 <?php
+    if ( getCurrentUser() ) {
+	$user = new User( getCurrentUser() );
+?>
+	<div class="profile-info">
+	    <span class="gravatar">
+		<?php echo get_gravatar( $user->email , 20 , 'mm' , 'g' , true ); ?>
+	    </span>
+	    <span class="username">
+		<a href="index.php?page=display-current-user"><?php echo( "$user->firstname; $user->lastname" ); ?></a>
+	    </span>
+	    <span class="logout">
+		(<a href="index.php?action=log-out">Logg ut</a>)
+	    </span>
+	</div>
+<?php
+    }
 
     if (checkAuth("view-" . $this->page) || checkResponsible()){
 
@@ -595,44 +611,6 @@ class Page {
 		<?php
 	}
 
- if(time() < 1315612799):
-    ?>
-    <style type="text/css">
-    #lol
-    {
-    	margin:10px 0px;
-    }
-    
-    	#lol:after
-    	{
-    		content:".";
-    		clear:both;
-    		height:0px;
-    		display:block;
-    		visibility:hidden;
-    	}
-    	
-    	#lol .half
-    	{
-    		width:45%;
-    		float:left;
-    		
-    	}
-    </style>
-   <div id="lol">
-   <div class="half">
-    <h3>Ny i DNS?</h3>
-   
-    <p>Har du lyst til å være med å vår egen lille fadderhelg 9.-11. september? Bli kjent med Det Norske Studentersamfund og vi som holder til der! Se <a href="http://studentersamfundet.no/nyidns.php">ny i dns!</a></p>
- </div>
- <div class="half">
- 	<h3>Bli aktiv!</h3>
- 	<p>Syns du noe av det vi holder på med er spennende? Lyst til å booke band eller lære å mikse drinker? Bli med oss som aktiv i en av de mange foreningene på huset, du får garantert minner for livet og nye venner!<br /> Se <a href="http://studentersamfundet.no/bliaktiv.php">bli aktiv!</a></p>
- 
- </div>
- </div>
- 
- <?php endif;
   if (!isActive()){?>
     	<?php
     if (!isMember()){?>
