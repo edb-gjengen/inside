@@ -615,14 +615,14 @@ class Page {
   if (!isActive()){?>
     	<?php
     if (!isMember()){?>
-			<p><a href="index.php?page=register-membership">Registrér eller kjøp medlemskap</a></p>
+			<a class="btn btn-primary" href="index.php?page=register-membership">Registrér eller kjøp medlemskap</a>
 			<?php
     }else if (membershipExpired(getCurrentUser())){?>
-			<p><a href="index.php?page=register-membership">Registrér eller kjøp medlemskap</a></p>
+			<a class="btn btn-primary" href="index.php?page=register-membership">Registrér eller kjøp medlemskap</a>
 			<?php
     }
 		?>
-			<p><a href="index.php?page=display-current-user">Oppdatér din brukerinformasjon</a></p>
+			<a class="btn" href="index.php?page=display-current-user">Oppdatér brukerinfo</a>
 		<?php
   } else {
 
