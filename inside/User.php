@@ -1493,8 +1493,8 @@ class User {
         $message = "Hei, " . $this->firstname . " " . $this->lastname . "!" .
         "\n\n" .
         "Vi har registrert at du har fornyet medlemsskapet ditt i Det Norske Studentersamfund. " .
-        "Medlemsoblat som viser at du har medlemskap kan hetes i billettluka på Studentersamfundet i billettlukas åpningstid. Ta med medlemskortet ditt. \n" .
-        "Hvis du har mistet medlemskortet ditt kan du få ordnet nytt kort i billettluka også, eller bestille det fra nettbutikken.\n".
+        "Medlemsoblat som viser at du har medlemskap kan hentes i Billettluka på Studentersamfundet i billettlukas åpningstid. Ta med medlemskortet ditt. \n" .
+        "Hvis du har mistet medlemskortet ditt kan du få ordnet nytt kort i Billettluka også, eller bestille det fra nettbutikken.\n".
         "\n" .
         "For mer informasjon om hva som skjer på Det Norske Studentersamfund, gå inn på vår nettside: http://www.studentersamfundet.no/ .\n" .
         "\n" .
@@ -1527,14 +1527,14 @@ class User {
         "\" til \"" .
         $newstreet . ", " . $newzipcode . " " . $this->getPostarea($newzipcode) .
         "\".\n" .
-        "Brevet er vidresendt til denne nye adressen. " .
+        "Brevet er videresendt til denne nye adressen. " .
         "Hvis du ikke har mottatt dette brevet, eller ikke har flyttet kan " .
-        "du logge inn på våre medlemsider og oppdatere din adresse. " .
+        "du logge inn på våre medlemssider og oppdatere din adresse. " .
         "Logg inn på denne siden: " .
         "https://www.studentersamfundet.no/inside - ditt brukernavn er " .
         "\"" . $this->username . "\".\n" .
         "\n" .
-        "Hvis du ikke har mottat medlemskortet vil vi at du svarer på denne " .
+        "Hvis du ikke har mottatt medlemskortet vil vi at du svarer på denne " .
         "e-posten etter du har oppdatert din adresse og ber om å få tilsendt " .
         "nytt medlemskort.\n" .
         "\n\n\n" .
