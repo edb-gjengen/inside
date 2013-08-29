@@ -584,7 +584,7 @@ class Page {
 ?>
   <div class="text-column">
 
-    <?=$user->membershipStatus()?>
+    <?php $user->membershipStatus(); ?>
 
 <?php
 	if (!membershipNextYear(getCurrentUser())) {
@@ -2396,6 +2396,7 @@ Om dere lager en facebook side til arrangementet, ikke glem &aring; putte inn le
   }
 
   public function _editUser($id = NULL){
+
     $placesOfStudy = new PlacesOfStudy();
     $pos = $placesOfStudy->getList();
     $cardValues = Array(Array("id" => 0, "title" => "nei"),
@@ -2412,6 +2413,8 @@ Om dere lager en facebook side til arrangementet, ikke glem &aring; putte inn le
       $tag = "current-";
     }
     $user   = new User($userId);
+
+    $user->membershipStatus();
 
     if (checkAuth("perform-update-user") || $tag == "current-" || checkResponsible()){
       $readonly = false;
