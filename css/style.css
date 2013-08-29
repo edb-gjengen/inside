@@ -653,3 +653,7 @@ h2.jobb {
     display: inline-block;
     margin-bottom: 5px;
 }
+.bliaktiv {
+    margin-top:2.5em;
+    margin-bottom:2.5em;
+}
