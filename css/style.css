@@ -571,7 +571,9 @@ img {
     margin: 0 10px 10px 0;
 }
 
-/* Bootstrap preparations. */
+/**
+ * Bootstrap preparations.
+ **/
 .list-item {
     display:block;
 }
@@ -629,6 +631,11 @@ img {
     color: #333;
     background-color: #FFF;
     border-color: #CCC;
+}
+.btn-primary {
+    color: #FFF;
+    background-color: #428BCA;
+    border-color: #357EBD;
 }
 
 /******************************
