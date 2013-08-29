@@ -100,8 +100,14 @@ body.dns {
     width:575px;
 }
 .profile-info {
-    display:block;
     text-align:right;
+    position:absolute;
+    top:1.5em;
+    right:1.5em;
+}
+.profile-info .gravatar img {
+    display:inline-block;
+    vertical-align:text-bottom;
 }
 #menu {
     position:absolute;
