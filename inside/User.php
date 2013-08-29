@@ -1606,7 +1606,7 @@ class User {
      */
     public function membershipStatus() {
         if ($this->expires == "0000-00-00") {
-	    $panel_class = 'warning';
+	    $panel_class = 'danger';
 	    $panel_text  = "Du har ikke registrert medlemskap.</div></div>";
 	} elseif ($this->expires == "") {
 	    $panel_class = 'success';
@@ -1617,25 +1617,25 @@ class User {
 	} elseif (strtotime($this->expires) > strtotime("now")) {
             if ($this->getCardDelivered()) {
                 if ($this->lastSticker < date("Y", strtotime($this->expires))) {
-		    $panel_class = 'primary';
-                    $panel_text = "Du har aktivert medlemskapet ditt, og du kan hente oblat til å klistre på medlemskortet ditt i Bilettluka på Det Norske Studentersamfund.";
+		    $panel_class = 'warning';
+                    $panel_text = "Du har aktivert medlemskapet ditt, og du kan hente oblat til å klistre på medlemskortet ditt i Billettluka på Det Norske Studentersamfund.";
                 } else {
 		    $panel_class = 'success';
                     $panel_text = "Du har gyldig medlemskap (gyldig til " . date("d. m. Y", strtotime($this->expires)) . ").";
                 }
 	    } elseif ($this->getCardProduced()) {
-		$panel_class = 'primary';
+		$panel_class = 'warning';
                 $panel_text = "Medlemskapet ditt for " . date("Y", strtotime($this->expires)) . " er registrert, og medlemskortet ditt ligger klar til henting i billettluka på Det Norske Studentersamfund.";
             } else {
 		$panel_class = 'success';
                 $panel_text = "Medlemskapet ditt er registrert, og medlemskortet ditt for " . date("Y", strtotime($this->expires)) . " produseres. Du vil få en e-post av oss når det er klart til å hentes.";
             }
         } else {
-	    $panel_class = 'default';
+	    $panel_class = 'warning';
 	    $panel_text = "Ukjent medlemskapsstatus";
 	}
 	
-	$html = "<div class='panel panel-$panel_class'><div class='panel-heading'><h3>Medlemskap</h3></div><div class='panel-body'>$panel_text</div></div>";
+	$html = "<div class='alert alert-$panel_class'>$panel_text</div>";
 
 	return $html;
     }
