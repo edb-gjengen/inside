@@ -11,21 +11,6 @@ class Navigation {
         <ul id="navList">
 
 <?php
-   if(checkAuth("view-menu-quick")){
-          ?>
-          <li class="menulist">
-            <a href="#" id="quickSwitch" class="switch">Personlig</a>
-            <ul id="quickMenu" class="menu">
-              <li><a href="index.php?page=display-current-user">Oppdatér brukerinformasjon</a></li>
-            <?php if (!isMember(getCurrentUser())){?>
-              <li><a href="index.php?page=register-membership">Kjøp/registrér medlemskap</a></li>
-						<?php }else if (membershipExpired(getCurrentUser())){?>
-      				<li><a href="index.php?page=register-membership">Aktiver medlemskap</a></li>
-      			<?php } ?>
-            </ul>
-          </li>
-      <?php }?>
-<?php
     /* Note: This menu item is hidden because the feature is not used anymore */
    /*if(checkAuth("view-menu-messages")){
           ?>

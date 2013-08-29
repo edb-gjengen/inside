@@ -99,6 +99,10 @@ body.dns {
     text-indent:-9999px;
     width:575px;
 }
+.profile-info {
+    display:block;
+    text-align:right;
+}
 #menu {
     position:absolute;
     bottom:35px;
@@ -566,6 +570,7 @@ img {
     display:block;
 }
 
+.list-group,
 .panel {
     margin-bottom: 1.5em;
 }
