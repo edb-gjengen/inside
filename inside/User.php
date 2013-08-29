@@ -1605,28 +1605,39 @@ class User {
      * return: string
      */
     public function membershipStatus() {
-        //print "'" . $this->expires . "','" . $this->hasCard . "'";
-        if ($this->expires == "0000-00-00")
-            return "Du har ikke registrert medlemskap.";
-        elseif ($this->expires == "")
-            return "Du har livsvarig medlemskap.";
-        elseif (strtotime($this->expires) < strtotime("now"))
-            return "Du har ikke registrert gyldig medlemskap i år (medlemskapet ditt gikk ut " . date("d.m.Y", strtotime($this->expires)) . ").";
-        elseif (strtotime($this->expires) > strtotime("now")) {
+        if ($this->expires == "0000-00-00") {
+	    $panel_class = 'warning';
+	    $panel_text  = "Du har ikke registrert medlemskap.</div></div>";
+	} elseif ($this->expires == "") {
+	    $panel_class = 'success';
+            $panel_text = "Du har livsvarig medlemskap.";
+	} elseif (strtotime($this->expires) < strtotime("now")) {
+	    $panel_class = 'danger';
+            $panel_text = "Du har ikke registrert gyldig medlemskap i år (medlemskapet ditt gikk ut " . date("d.m.Y", strtotime($this->expires)) . ").";
+	} elseif (strtotime($this->expires) > strtotime("now")) {
             if ($this->getCardDelivered()) {
                 if ($this->lastSticker < date("Y", strtotime($this->expires))) {
-                    return "Du har aktivert medlemskapet ditt, og du kan hente oblat til å klistre på medlemskortet ditt i bilettluka på Det Norske Studentersamfund.";
+		    $panel_class = 'primary';
+                    $panel_text = "Du har aktivert medlemskapet ditt, og du kan hente oblat til å klistre på medlemskortet ditt i Bilettluka på Det Norske Studentersamfund.";
                 } else {
-                    return "Du har gyldig medlemskap (gyldig til " . date("d. m. Y", strtotime($this->expires)) . ").";
+		    $panel_class = 'success';
+                    $panel_text = "Du har gyldig medlemskap (gyldig til " . date("d. m. Y", strtotime($this->expires)) . ").";
                 }
-            } elseif ($this->getCardProduced()) {
-                return "Medlemskapet ditt for " . date("Y", strtotime($this->expires)) . " er registrert, og medlemskortet ditt ligger klar til henting i billettluka på Det Norske Studentersamfund.";
+	    } elseif ($this->getCardProduced()) {
+		$panel_class = 'primary';
+                $panel_text = "Medlemskapet ditt for " . date("Y", strtotime($this->expires)) . " er registrert, og medlemskortet ditt ligger klar til henting i billettluka på Det Norske Studentersamfund.";
             } else {
-                return "Medlemskapet ditt er registrert, og medlemskortet ditt for " . date("Y", strtotime($this->expires)) . " produseres.";
+		$panel_class = 'success';
+                $panel_text = "Medlemskapet ditt er registrert, og medlemskortet ditt for " . date("Y", strtotime($this->expires)) . " produseres. Du vil få en e-post av oss når det er klart til å hentes.";
             }
-        }
+        } else {
+	    $panel_class = 'default';
+	    $panel_text = "Ukjent medlemskapsstatus";
+	}
+	
+	$html = "<div class='panel panel-$panel_class'><div class='panel-heading'><h3>Medlemskap</h3></div><div class='panel-body'>$panel_text</div></div>";
 
-        return "Ukjent medlemskapsstatus";
+	return $html;
     }
 
   function setMembershipCard($membershipCard) {
