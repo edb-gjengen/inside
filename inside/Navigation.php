@@ -5,30 +5,25 @@ class Navigation {
    public
    function display(){
 ?>
-      <div id="nav">
+    <nav id="nav" class="navbar navbar-default" role="navigation">
+	<div class="navbar-header">
+	    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navList">
+		<span class="sr-only">Skru av/på navigasjon</a>
+		<span class="icon-bar">Icon bar</span>
+		<span class="icon-bar">Icon bar</span>
+	    </button>
+	    <a class="navbar-brand" href="http://inside.studentersamfundet.no/">Inside</a>
+	</div>	
 
-        <a class="home-link" href="http://inside.studentersamfundet.no/">Hjem</a>
-        <ul id="navList">
 
-<?php
-    /* Note: This menu item is hidden because the feature is not used anymore */
-   /*if(checkAuth("view-menu-messages")){
-          ?>
-          <li class="menulist">
-            <a href="#" id="messagesSwitch" class="switch">Meldinger</a>
-            <ul id="messagesMenu" class="menu">
-              <li><a href="index.php?page=display-messages">Vis meldinger</a></li>
-              <li><a href="index.php?page=display-bugreports">Vis feilmeldinger</a></li>
-              <li>Ny melding</li>
-            </ul>
-          </li>
-      <?php }*/?>
+<ul id="navList">
+
 <?php
    if(checkAuth("view-menu-jobs")){
           ?>
-          <li class="menulist">
-            <a href="#" id="jobsSwitch" class="switch">Ledige stillinger</a>
-            <ul id="jobsMenu" class="menu">
+          <li class="menulist dropdown">
+            <a href="#" id="jobsSwitch" class="switch dropdown-toggle">Ledige stillinger <b class="caret"></b></a>
+            <ul id="jobsMenu" class="menu dropdown-menu">
               <li><a href="index.php?page=display-jobs">Vis ledige</a></li>
               <?php if(isAdmin()){
             ?><li><a href="index.php?page=register-job">Registrér stilling</a></li>
@@ -36,62 +31,12 @@ class Navigation {
 ?>              <li><a href="index.php?page=display-jobs-archive">Arkiv</a></li>
             </ul>
           </li>
-      <?php }?>
-<?php
-    /* Note: This menu item is hidden because the feature is not used anymore */
-    /*if(checkAuth("view-menu-barshifts")){
-          ?>
-          <li class="menulist">
-            <a href="#" id="barshiftsSwitch" class="switch">Tappetårnets vaktliste</a>
-            <ul id="barshiftsMenu" class="menu">
-              <li><a href="index.php?page=display-barshifts">Vis kommende</a></li>
-              <li><a href="index.php?page=display-barshifts-calendar">Vis kalender</a></li>
-              <?php if(checkAuth("view-register-barshift")){
-            ?><li><a href="index.php?page=register-barshift">Registrér vakt</a></li>
-<?php } ?>
-           </ul>
-          </li>
-      <?php }*/?>
-<?php
-    /* Note: This menu item is hidden because the feature is not used anymore */
-   /*if(checkAuth("view-menu-events")){
-          ?>
-          <li class="menulist">
-            <a href="#" id="eventsSwitch" class="switch">Møter/kurs/internfester</a>
-            <ul id="eventsMenu" class="menu">
-              <li><a href="index.php?page=display-events-calendar">Kalender</a></li>
-              <li><a href="index.php?page=display-events">Kommende aktiviteter</a></li>
-              <?php if(checkAuth("view-register-event")){
-            ?><li><a href="index.php?page=register-event">Registrér aktivitet</a></li>
 <?php }
-?>              <li><a href="index.php?page=display-all-calendar">Kombolender</a></li>
-            </ul>
-          </li>
-      <?php }*/?>
-<?php
-   /* Note: This menu item is disabled because it is replaced by the publishing features of Wordpress */
-   /*if(checkAuth("view-menu-concerts")){
-          ?>
-          <li class="menulist">
-            <a href="#" id="concertsSwitch" class="switch">Konserter/program</a>
-            <ul id="concertsMenu" class="menu">
-              <li><a href="index.php?page=display-concerts-calendar">Kalender</a></li>
-              <li><a href="index.php?page=display-concerts">Kommende program</a></li>
-              <?php if(checkAuth("view-register-concert")){
-            ?><li><a href="index.php?page=register-concert">Registrér arrangement</a></li>
-<?php }
-?>          <?php if(checkAuth("view-week-program")){
-            ?><li><a href="index.php?page=week-program">Ukesprogram</a></li>
-      				<li><a href="index.php?page=program-selection">Programutvalg</a></li>
-      <?php }?>
-            </ul>
-          </li>
-      <?php }*/?>
-<?php
-   if(checkAuth("view-menu-divisions")){
-          ?>
-          <li class="menulist">
-            <a href="#" id="divisionsSwitch" class="switch">Foreninger</a>
+
+   if(checkAuth("view-menu-divisions")) {
+?>
+          <li class="menulist dropdown">
+            <a href="#" id="divisionsSwitch" class="switch dropdown-toggle">Foreninger</a>
             <ul id="divisionsMenu" class="menu">
               <li><a href="index.php?page=display-divisions">Vis foreninger</a></li>
               <?php if(checkAuth("view-register-division")){
@@ -107,8 +52,8 @@ class Navigation {
 <?php
    if(checkAuth("view-menu-documents")){
           ?>
-          <li class="menulist">
-            <a href="#" id="documentsSwitch" class="switch">Dokumenter</a>
+          <li class="menulist dropdown">
+            <a href="#" id="documentsSwitch" class="switch dropdown-toggle">Dokumenter</a>
             <ul id="documentsMenu" class="menu">
               <li><a href="index.php?page=display-documents">Vis dokumenter</a></li>
               <?php if(checkAuth("view-upload-document")){
@@ -119,8 +64,8 @@ class Navigation {
 <?php
    if(checkAuth("view-menu-users")){
           ?>
-          <li class="menulist">
-            <a href="#" id="usersSwitch" class="switch">Medlemmer</a>
+          <li class="menulist dropdown">
+            <a href="#" id="usersSwitch" class="switch dropdown-toggle">Medlemmer</a>
             <ul id="usersMenu" class="menu">
               <li><a href="index.php?page=display-users">Vis medlemmer</a></li>
               <?php if(checkAuth("view-register-user")){
@@ -156,8 +101,8 @@ class Navigation {
 <?php
       if(checkAuth("view-membership-sale")){
       ?>
-          <li class="menulist">
-            <a href="#" id="billettbodSwitch" class="switch">Billettbod</a>
+          <li class="menulist dropdown">
+            <a href="#" id="billettbodSwitch" class="switch dropdown-toggle">Billettbod</a>
             <ul id="billettbodMenu" class="menu">
               <li><a href="index.php?page=membership-sale">Salg av medlemskap</a></li>
               <?php if(checkAuth("view-membercard-production")){
@@ -169,8 +114,8 @@ class Navigation {
 <?php
    if(checkAuth("view-menu-access")){
           ?>
-          <li class="menulist">
-            <a href="#" id="accessSwitch" class="switch">Tilgang</a>
+          <li class="menulist dropdown">
+            <a href="#" id="accessSwitch" class="switch dropdown-toggle">Tilgang</a>
             <ul id="accessMenu" class="menu">
               <li><a href="index.php?page=display-groups">Vis grupper</a></li>
               <li><a href="index.php?page=register-group">Registrér gruppe</a></li>
@@ -180,25 +125,12 @@ class Navigation {
               <li><a href="index.php?page=register-actiongrouprelationship">Registrér forhold</a></li>
             </ul>
           </li>
-          <?php }?>
+          <?php }
 
-<?php
-   /* Note: This menu item is disabled because it is replaced by the publishing features of Wordpress */
-   /*if(checkAuth("view-menu-webpages")){
-          ?>
-          <li class="menulist">
-            <a href="#" id="webpagesSwitch" class="switch">Nyheter</a>
-            <ul id="webpagesMenu" class="menu">
-              <li><a href="index.php?page=display-articles">Vis nyheter</a></li>
-              <li><a href="index.php?page=register-article">Skriv nyhet</a></li>
-            </ul>
-          </li>
-      <?php }*/?>
-<?php
    if(checkAuth("view-menu-settings")){
           ?>
-          <li class="menulist">
-            <a href="#" id="settingsSwitch" class="switch">Innstillinger</a>
+          <li class="menulist dropdown">
+            <a href="#" id="settingsSwitch" class="switch dropdown-toggle">Innstillinger</a>
             <ul id="settingsMenu" class="menu">
               <!--<li><a href="index.php?action=switch-formtype&amp;section=settings">Bytt skjemastil</a></li>
               <li><a href="index.php?action=switch-tinymce-theme&amp;section=settings">Bytt RT-editor</a></li>-->
@@ -212,34 +144,19 @@ class Navigation {
 
   if (isAdmin()) {
           ?>
-          <li class="menulist">
-            <a href="#" id="smsSwitch" class="switch">SMS</a>
+          <li class="menulist dropdown">
+            <a href="#" id="smsSwitch" class="switch dropdown-toggle">SMS</a>
             <ul id="smsMenu" class="menu">
               <li><a href="?page=display-sms-log">Vis logg for SMS-tjeneste</a></li>
             </ul>
           </li>
 <?php
   }
-  /* Note: This menu item is hidden because the feature is not used anymore */
-  /*if(isAdmin()){
-          ?>
-          <li class="menulist">
-            <a href="#" id="samarbeidspartnereSwitch" class="switch">Samarbeidspartnere</a>
-            <ul id="samarbeidspartnereMenu" class="menu">
-              <li><a href="#">Rediger partnere</a></li>
-              <li><a href="#">Godkjenne plasser</a></li>
-              <li><a href="#">Vis oversikt</a></li>
-              <li><a href="#">Rediger e-post</a></li>
-            </ul>
-          </li>
-<?php
-  }
-  */
 
   if(checkAuth("view-menu-webshop")){
           ?>
-          <li class="menulist">
-            <a href="#" id="webshopSwitch" class="switch">Nettbutikk</a>
+          <li class="menulist dropdown">
+            <a href="#" id="webshopSwitch" class="switch dropdown-toggle">Nettbutikk</a>
             <ul id="webshopMenu" class="menu">
               <li><a href="index.php?page=display-webshop">Vis produkter</a></li>
               <li><a href="index.php?page=display-carts">Vis handlekurver</a></li>
@@ -252,7 +169,7 @@ class Navigation {
   }
 ?>
         </ul>
-      </div>
+      </nav>
 <?php
   }
 }
