@@ -1613,7 +1613,7 @@ class User {
             $panel_text = "Du har livsvarig medlemskap.";
 	} elseif (strtotime($this->expires) < strtotime("now")) {
 	    $panel_class = 'danger';
-            $panel_text = "Du har ikke registrert gyldig medlemskap i år (medlemskapet ditt gikk ut " . date("d.m.Y", strtotime($this->expires)) . ").";
+            $panel_text = "Du har ikke registrert gyldig medlemskap i år (medlemskapet ditt gikk ut " . date("d.m.Y", strtotime($this->expires)) . "). <a href='https://inside.studentersamfundet.no/index.php?page=register-membership'>Kjøp eller registrer medlemskap</a>.";
 	} elseif (strtotime($this->expires) > strtotime("now")) {
             if ($this->getCardDelivered()) {
                 if ($this->lastSticker < date("Y", strtotime($this->expires))) {

@@ -1065,8 +1065,8 @@ function displayLogin() {
 <p>
 <a href="https://brukerinfo.neuf.no/accounts/password/reset">Glemt passord eller brukernavn?</a>
 </p>
-<h3><a href="index.php?page=register-user">Ny bruker?</a></h3>
-<p><a href="index.php?page=register-user">Registrer deg</a> for å bli medlem i Det Norske Studentersamfund.</p>
+<h3>Ny bruker?</h3>
+<p>Hvis du aldri har vært medlem før, kan du <a href="index.php?page=register-user">registrere deg</a>.</p>
   
 <h3>Har du spørsmål om medlemskapet ditt?</h3>
 <p>
