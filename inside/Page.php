@@ -578,7 +578,7 @@ class Page {
     <h3>Velkommen til Studentersamfundets medlemssider!</h3>
     <br />
     <p>Du er logget inn som <strong><?php print getCurrentUserName(); ?></strong>.</p>
-    <p><?=$user->membershipStatus()?></p>
+    <?=$user->membershipStatus()?>
 
 <?php
 	if (!membershipNextYear(getCurrentUser())) {
