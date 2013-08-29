@@ -584,7 +584,7 @@ class Page {
 ?>
   <div class="text-column">
 
-    <?php $user->membershipStatus(); ?>
+    <?php echo $user->membershipStatus(); ?>
 
 <?php
 	if (!membershipNextYear(getCurrentUser())) {
@@ -2414,7 +2414,7 @@ Om dere lager en facebook side til arrangementet, ikke glem &aring; putte inn le
     }
     $user   = new User($userId);
 
-    $user->membershipStatus();
+    echo $user->membershipStatus();
 
     if (checkAuth("perform-update-user") || $tag == "current-" || checkResponsible()){
       $readonly = false;
