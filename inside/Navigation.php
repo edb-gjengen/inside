@@ -250,24 +250,8 @@ class Navigation {
           </li>
 <?php
   }
-    if (loggedIn() && isActive()) {
-?>
-          <li class="menulist">
-            <a href="#" id="linksSwitch" class="switch">Andre sider</a>
-            <ul id="linksMenu" class="menu">
-              <li><a href="http://booking.studentersamfundet.no/">Bookingsystemet</a></li>
-            </ul>
-          </li>
-<?php
-  }
 ?>
         </ul>
-<?php
-   if (loggedIn()){
-?><a href="index.php?action=log-out">Logg ut</a>
-<?php
-   }
-?>
       </div>
 <?php
   }

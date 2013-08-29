@@ -572,10 +572,6 @@ p.intro {
 div.messages, div.errors { 
     margin: 0 0 25px 0;
     padding: 10px 0;
-    background: #6B43A2;
-    color: #FFF;
-    border: 1px solid #CCC;
-    font-size:20px;
 }
 
 div.messages ul, div.erros ul {
