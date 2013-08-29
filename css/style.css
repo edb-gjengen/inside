@@ -561,6 +561,15 @@ img {
     margin: 0 10px 10px 0;
 }
 
+/* Bootstrap preparations. */
+.list-item {
+    display:block;
+}
+
+.panel {
+    margin-bottom: 1.5em;
+}
+
 /******************************
  * Styles for inividual pages *
  *****************************/
