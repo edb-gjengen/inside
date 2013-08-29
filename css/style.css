@@ -580,6 +580,15 @@ img {
 .panel {
     margin-bottom: 1.5em;
 }
+.alert {
+    border:1px solid;
+    border-radius:4px;
+}
+.alert-warning {
+    color: #C09853;
+    background-color: #FCF8E3;
+    border-color: #FBEED5;
+}
 
 /******************************
  * Styles for inividual pages *
