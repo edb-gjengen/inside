@@ -83,7 +83,7 @@ th a:visited {
   color: #000;
 }
 
-.optionsMenu a, a.button, span.button, label.button { 
+.optionsMenu a { 
   border: 1px solid #CCC;
   background: #DDD;
   padding: 1px 5px;

@@ -576,6 +576,7 @@ img {
     display:block;
 }
 
+
 .list-group,
 .panel {
     margin-bottom: 1.5em;
@@ -583,11 +584,35 @@ img {
 .alert {
     border:1px solid;
     border-radius:4px;
+    padding:0.5em 1em;
 }
 .alert-warning {
     color: #C09853;
     background-color: #FCF8E3;
     border-color: #FBEED5;
+}
+.btn {
+    background: 
+    display: inline-block;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.428571429;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    border: 1px solid rgba(0, 0, 0, 0);
+    border-radius: 4px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+    color: #333;
+    background-color: #FFF;
+    border-color: #CCC;
 }
 
 /******************************
