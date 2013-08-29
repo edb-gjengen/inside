@@ -512,6 +512,7 @@ class Page {
     <script type="text/javascript" src="<?php echo $GLOBALS['static_path'];?>js/XMLZipRequest.js"></script>
     <script type="text/javascript" src="<?php echo $GLOBALS['static_path'];?>js/XMLCatRequest.js"></script>
     <script type="text/javascript" src="<?php echo $GLOBALS['static_path'];?>js/XMLUsernameRequest.js"></script>
+    <script type="text/javascript" src="<?php echo $GLOBALS['static_path'];?>js/bootstrap.min.js"></script>
     <script type="text/javascript" src="<?php print $GLOBALS['include_path'];?>tiny_mce/tiny_mce.js"></script>
     <script type="text/javascript">
       tinyMCE.init({
