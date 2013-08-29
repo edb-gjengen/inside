@@ -36,7 +36,7 @@ class Form {
       }
     $pos = strpos($_SERVER['REQUEST_URI'], "action");
     if ($pos === false){?>
-        <!--<a class="button" href="index.php?action=switch-formtype&amp;section=customize">bytt skjemastil</a>-->
+        <!--<a class="btn" href="index.php?action=switch-formtype&amp;section=customize">bytt skjemastil</a>-->
     
 <?php }
     }

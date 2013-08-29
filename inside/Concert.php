@@ -553,7 +553,7 @@ class Concert {
 	public
 	function _displayReport() {
     ?>
-    <span class="button" onclick="toggleDisplay('report-form-<?php print $this->id; ?>'); toggleText(this, 'vis arrangementsrapport', 'skjul arrangementsrapport');">vis arrangementsrapport</span>
+    <span class="btn" onclick="toggleDisplay('report-form-<?php print $this->id; ?>'); toggleText(this, 'vis arrangementsrapport', 'skjul arrangementsrapport');">vis arrangementsrapport</span>
     <div id="report-form-<?php print $this->id; ?>" style="display: none;">
     <?php
     $sql = "SELECT id FROM din_concert_report WHERE concert_id = $this->id";

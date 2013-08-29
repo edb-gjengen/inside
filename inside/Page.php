@@ -2543,7 +2543,7 @@ Om dere lager en facebook side til arrangementet, ikke glem &aring; putte inn le
     $form->display();
 
 ?>
-		<span class="button" onclick="toggleDisplay('user-groups'); toggleText(this, 'vis grupper', 'skjul grupper');">vis grupper</span>
+		<span class="btn" onclick="toggleDisplay('user-groups'); toggleText(this, 'vis grupper', 'skjul grupper');">vis grupper</span>
 			<div id="user-groups" style="display: none;">
 <?php
     $user->displayGroups();
@@ -2572,7 +2572,7 @@ Om dere lager en facebook side til arrangementet, ikke glem &aring; putte inn le
 <?php
     if(checkAuth("view-user-updates")){
 ?>
-		<span class="button" onclick="toggleDisplay('user-updates'); toggleText(this, 'vis endringer', 'skjul endringer');">vis endringer</span>
+		<span class="btn" onclick="toggleDisplay('user-updates'); toggleText(this, 'vis endringer', 'skjul endringer');">vis endringer</span>
 		<div id="user-updates" style="display: none">
 <?php
       $user->displayUpdates();
@@ -2580,7 +2580,7 @@ Om dere lager en facebook side til arrangementet, ikke glem &aring; putte inn le
     }
     if(checkAuth("view-delete-user")){
 ?>
-		<!--a class="button" href="javascript: if(confirm('Slett bruker?\n\nDette kan ikke angres!')) {
+		<!--a class="btn" href="javascript: if(confirm('Slett bruker?\n\nDette kan ikke angres!')) {
 		  location='index.php?action=delete-user&amp;userid=<?php print $user->id;?>'};">slett bruker</a-->
 <?php
     }
@@ -2737,7 +2737,7 @@ Om dere lager en facebook side til arrangementet, ikke glem &aring; putte inn le
 
 	private function _displayProduct() {
 	  ?>
-		<p><a class="button" href="index.php?page=display-webshop">tilbake til produkter</a></p>
+		<p><a class="btn" href="index.php?page=display-webshop">tilbake til produkter</a></p>
 	  <?php
 	  $product = new Product(scriptParam('productid'));
 	  $product->display();
@@ -3011,9 +3011,9 @@ Om dere lager en facebook side til arrangementet, ikke glem &aring; putte inn le
   function _displayBugReports(){
     ?>
     <p>
-    	<a class="button" href="index.php?page=display-bugreports&amp;selection=all">vis alle</a>
-    	<a class="button" href="index.php?page=display-bugreports&amp;selection=old">vis behandlede</a>
-    	<a class="button" href="index.php?page=display-bugreports&amp;selection=new">vis ikke behandlede</a>
+    	<a class="btn" href="index.php?page=display-bugreports&amp;selection=all">vis alle</a>
+    	<a class="btn" href="index.php?page=display-bugreports&amp;selection=old">vis behandlede</a>
+    	<a class="btn" href="index.php?page=display-bugreports&amp;selection=new">vis ikke behandlede</a>
 		</p>
     <?php
     $selection = scriptParam("selection");
