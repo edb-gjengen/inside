@@ -7,11 +7,11 @@ class Navigation {
 ?>
     <nav id="nav" class="navbar navbar-default" role="navigation">
 	<div class="navbar-header">
-	    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navList">
+	    <!-- button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navList">
 		<span class="sr-only">Skru av/på navigasjon</a>
 		<span class="icon-bar">Icon bar</span>
 		<span class="icon-bar">Icon bar</span>
-	    </button>
+	    </button -->
 	    <a class="navbar-brand" href="http://inside.studentersamfundet.no/">Inside</a>
 	</div>	
 
