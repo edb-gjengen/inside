@@ -609,7 +609,8 @@ img {
     background-color: #F2DEDE;
     border-color: #EED3D7;
 }
-.btn {
+.btn,
+.btn:visited {
     background: 
     display: inline-block;
     padding: 6px 12px;
@@ -632,7 +633,8 @@ img {
     background-color: #FFF;
     border-color: #CCC;
 }
-.btn-primary {
+.btn-primary,
+.btn-primary:visited {
     color: #FFF;
     background-color: #428BCA;
     border-color: #357EBD;
