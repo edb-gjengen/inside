@@ -585,11 +585,27 @@ img {
     border:1px solid;
     border-radius:4px;
     padding:0.5em 1em;
+    margin-bottom:1.5em;
 }
 .alert-warning {
     color: #C09853;
     background-color: #FCF8E3;
     border-color: #FBEED5;
+}
+.alert-success {
+    color: #468847;
+    background-color: #DFF0D8;
+    border-color: #D6E9C6;
+}
+.alert-info {
+    color: #3A87AD;
+    background-color: #D9EDF7;
+    border-color: #BCE8F1;
+}
+.alert-danger {
+    color: #B94A48;
+    background-color: #F2DEDE;
+    border-color: #EED3D7;
 }
 .btn {
     background: 
