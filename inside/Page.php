@@ -453,7 +453,9 @@ class Page {
         default:
         $this->_displayHome();
       }
-
+      // If you're not in this block, you failed the capability test.
+    } elseif ( 'register-user' == $this->page)  {
+      $this->_displayHome();
     } else {
       $this->_displayAccessDenied();
     }
