@@ -571,7 +571,6 @@ p.intro {
 
 div.messages, div.errors { 
     margin: 0 0 25px 0;
-    padding: 10px 0;
 }
 
 div.messages ul, div.erros ul {
