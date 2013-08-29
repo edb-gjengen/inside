@@ -1625,7 +1625,7 @@ class User {
                 }
 	    } elseif ($this->getCardProduced()) {
 		$panel_class = 'warning';
-                $panel_text = "Medlemskapet ditt for " . date("Y", strtotime($this->expires)) . " er registrert, og medlemskortet ditt ligger klar til henting i billettluka på Det Norske Studentersamfund.";
+                $panel_text = "Medlemskortet ditt ligger klar til henting i billettluka på Det Norske Studentersamfund.";
             } else {
 		$panel_class = 'success';
                 $panel_text = "Medlemskapet ditt er registrert, og medlemskortet ditt for " . date("Y", strtotime($this->expires)) . " produseres. Du vil få en e-post av oss når det er klart til å hentes.";
