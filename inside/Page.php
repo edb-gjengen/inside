@@ -575,9 +575,16 @@ class Page {
     $user = new User(getCurrentUser());
 ?>
   <div class="text-column">
-    <h3>Velkommen til Studentersamfundets medlemssider!</h3>
-    <br />
-    <p>Du er logget inn som <strong><?php print getCurrentUserName(); ?></strong>.</p>
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3>Velkommen til Studentersamfundets medlemssider!</h3>
+      </div>
+      <div class="panel-body">
+        <p>Du er logget inn som <strong><?php print getCurrentUserName(); ?></strong>.</p>
+      </div>
+    </div>
+
     <?=$user->membershipStatus()?>
 
 <?php
@@ -656,37 +663,37 @@ class Page {
 
 
     ?>
-    <br />
-    <h3>Hva vil du gjøre?</h3>
-    <ul>
-      <li><a href="index.php?page=display-webshop">Besøke nettbutikken</a></li>
-    <?php
-    if (checkAuth('view-display-division-requests')){ ?>
-      <li><a href="index.php?page=display-division-requests">Godkjenn aktivforespørseler</a></li>
-    <?php } ?>
-      <li><a href="index.php?page=display-jobs">Se på ledige stillinger</a>
-        (<?php print getUnreadCount('job', 'expires'); ?> nye ikke utgåtte)</li>
-      <!--<li><a href="index.php?page=display-events-calendar">Se på aktivitetskalenderen</a>
-        (<?php print getUnreadCount('event', 'time'); ?> nye kommende)</li>-->
-      <li><a href="index.php?page=display-documents">Lese dokumenter</a></li>
-      <li><a href="index.php?page=display-divisions">Finne kontaktinfo til en forening</a></li>
-      <li><a href="index.php?page=display-current-user">Oppdatere min brukerinformasjon</a></li>
-    </ul>
-
+    <div class="often-used-links">
+        <h3>Hva vil du gjøre?</h3>
+      <div class="list-group">
+        <a class="list-item" href="index.php?page=display-webshop">Besøke nettbutikken</a>
+      <?php
+      if (checkAuth('view-display-division-requests')){ ?>
+        <a class="list-item" href="index.php?page=display-division-requests">Godkjenn aktivforespørseler</a>
+      <?php } ?>
+        <a class="list-item" href="index.php?page=display-jobs">Se på ledige stillinger</a>
+          (<?php print getUnreadCount('job', 'expires'); ?> nye ikke utgåtte)
+        <!--<li><a href="index.php?page=display-events-calendar">Se på aktivitetskalenderen</a>
+          (<?php print getUnreadCount('event', 'time'); ?> nye kommende)</li>-->
+        <a class="list-item" href="index.php?page=display-documents">Lese dokumenter</a>
+        <a class="list-item" href="index.php?page=display-divisions">Finne kontaktinfo til en forening</a>
+        <a class="list-item" href="index.php?page=display-current-user">Oppdatere min brukerinformasjon</a>
+      </div>
+    </div>
 <?php }
 
-		if (isAdmin()) {
-			?>
-			<h3>For administrator</h3>
-			  <ul>
-			    <li><a href="index.php?page=display-bugreports">Vis feilmeldinger</a>
-        (<?php print getBugreportCount(); ?> ubehandlede)</li>
-				</ul>
-			<?php
-		}
+if (isAdmin()) {
+?>
+	<div class="panel">
+	  <div class="panel-heading">
+            <h3>For administrator</h3>
+          </div>
+          <div class="panel-body">
+            <a href="index.php?page=display-bugreports">Vis feilmeldinger</a>
+            (<?php print getBugreportCount(); ?> ubehandlede)</li>
+<?php }
 
-
-		if (isActive()) {
+if (isActive()) {
   	// Brukersøk
     	$title   = "Søk etter bruker";
     	$id      = "usersearch";
@@ -699,11 +706,11 @@ class Page {
       	                "attributes" => Array("name" => "search"));
     	$form = new Form($title, $enctype, $method, $action, $fields, $id);
     	$form->display("horizontal");
-		}
+}
         // Migration LDAP (nikolark)
         $uid = getCurrentUser();
         if( !is_migrated($uid) ) {
-            ?>
+?>
                 <div id="infomodal">
                 <div class="ui-widget"> 
                 <div class="ui-state-highlight ui-corner-all" style="margin-top: 20px; padding: 0 .7em;"> 
@@ -724,9 +731,9 @@ class Page {
                     $("#infomodal").dialog('open');
                 });
                 </script>
-            <?php
+<?php
         }
-        ?>
+?>
   </div>
 
 <?php
