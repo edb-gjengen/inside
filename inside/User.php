@@ -1607,7 +1607,7 @@ class User {
     public function membershipStatus() {
         if ($this->expires == "0000-00-00") {
 	    $panel_class = 'danger';
-	    $panel_text  = "Du har ikke registrert medlemskap.</div></div>";
+	    $panel_text  = "Du har ikke registrert medlemskap. <a href='https://inside.studentersamfundet.no/index.php?page=register-membership'>Kjøp eller registrer medlemskap</a>.";
 	} elseif ($this->expires == "") {
 	    $panel_class = 'success';
             $panel_text = "Du har livsvarig medlemskap.";
