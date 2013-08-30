@@ -1570,8 +1570,7 @@ function getStickerPeriod($time)
 	if($time < strtotime('2011-08-01'))
 		return date('Y', $time); //gammelt klistremerke
 	
-	$year = date('Y', $time);
-	return ($year - 1) . '/' . substr($year, 2);
+	return date('Y-m-d', $time);
 }
 
 function getNextMembershipExpiryDate()
