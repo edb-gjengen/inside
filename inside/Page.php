@@ -491,13 +491,14 @@ class Page {
 
   <head>
     <meta http-equiv="content-type" content="text/html;charset=iso-8859-1" />
+<?php if (scriptParam("debug")) { ?>
+    <link rel="stylesheet" type="text/css" href="../css/misund.css" media="screen" />
+<?php } else { ?>
     <link rel="stylesheet" title="default" type="text/css"
           href="../css/<?php print $this->theme; ?>" media="screen, projection" />
     <link rel="stylesheet" type="text/css" href="../css/style.css" media="screen" />
     <link rel="stylesheet" type="text/css" href="../css/handheld.css" media="handheld" />
     <link rel="stylesheet" type="text/css" href="../css/print.css" media="print" />
-<?php if (scriptParam("debug")) { ?>
-    <link rel="stylesheet" type="text/css" href="../css/misund.css" media="screen" />
 <?php } ?>
     <link rel="shortcut icon" href="favicon.ico" />
     <script type="text/javascript" src="<?php echo $GLOBALS['static_path'];?>js/functions.js"></script>
