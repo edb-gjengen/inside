@@ -36,7 +36,7 @@ class Navigation {
    if(checkAuth("view-menu-divisions")) {
 ?>
           <li class="menulist dropdown">
-            <a href="#" id="divisionsSwitch" class="switch dropdown-toggle">Foreninger</a>
+            <a href="#" id="divisionsSwitch" class="switch dropdown-toggle">Foreninger <b class="caret"></a>
             <ul id="divisionsMenu" class="menu dropdown-menu">
               <li><a href="index.php?page=display-divisions">Vis foreninger</a></li>
               <?php if(checkAuth("view-register-division")){
@@ -53,7 +53,7 @@ class Navigation {
    if(checkAuth("view-menu-documents")){
           ?>
           <li class="menulist dropdown">
-            <a href="#" id="documentsSwitch" class="switch dropdown-toggle">Dokumenter</a>
+            <a href="#" id="documentsSwitch" class="switch dropdown-toggle">Dokumenter <b class="caret"></a>
             <ul id="documentsMenu" class="menu dropdown-menu">
               <li><a href="index.php?page=display-documents">Vis dokumenter</a></li>
               <?php if(checkAuth("view-upload-document")){
@@ -65,7 +65,7 @@ class Navigation {
    if(checkAuth("view-menu-users")){
           ?>
           <li class="menulist dropdown">
-            <a href="#" id="usersSwitch" class="switch dropdown-toggle">Medlemmer</a>
+            <a href="#" id="usersSwitch" class="switch dropdown-toggle">Medlemmer <b class="caret"></a>
             <ul id="usersMenu" class="menu dropdown-menu">
               <li><a href="index.php?page=display-users">Vis medlemmer</a></li>
               <?php if(checkAuth("view-register-user")){
@@ -102,7 +102,7 @@ class Navigation {
       if(checkAuth("view-membership-sale")){
       ?>
           <li class="menulist dropdown">
-            <a href="#" id="billettbodSwitch" class="switch dropdown-toggle">Billettbod</a>
+            <a href="#" id="billettbodSwitch" class="switch dropdown-toggle">Billettbod <b class="caret"></a>
             <ul id="billettbodMenu" class="menu dropdown-menu">
               <li><a href="index.php?page=membership-sale">Salg av medlemskap</a></li>
               <?php if(checkAuth("view-membercard-production")){
@@ -115,7 +115,7 @@ class Navigation {
    if(checkAuth("view-menu-access")){
           ?>
           <li class="menulist dropdown">
-            <a href="#" id="accessSwitch" class="switch dropdown-toggle">Tilgang</a>
+            <a href="#" id="accessSwitch" class="switch dropdown-toggle">Tilgang <b class="caret"></a>
             <ul id="accessMenu" class="menu dropdown-menu">
               <li><a href="index.php?page=display-groups">Vis grupper</a></li>
               <li><a href="index.php?page=register-group">Registrér gruppe</a></li>
@@ -130,7 +130,7 @@ class Navigation {
    if(checkAuth("view-menu-settings")){
           ?>
           <li class="menulist dropdown">
-            <a href="#" id="settingsSwitch" class="switch dropdown-toggle">Innstillinger</a>
+            <a href="#" id="settingsSwitch" class="switch dropdown-toggle">Innstillinger <b class="caret"></a>
             <ul id="settingsMenu" class="menu dropdown-menu">
               <!--<li><a href="index.php?action=switch-formtype&amp;section=settings">Bytt skjemastil</a></li>
               <li><a href="index.php?action=switch-tinymce-theme&amp;section=settings">Bytt RT-editor</a></li>-->
@@ -145,7 +145,7 @@ class Navigation {
   if (isAdmin()) {
           ?>
           <li class="menulist dropdown">
-            <a href="#" id="smsSwitch" class="switch dropdown-toggle">SMS</a>
+            <a href="#" id="smsSwitch" class="switch dropdown-toggle">SMS <b class="caret"></a>
             <ul id="smsMenu" class="menu dropdown-menu">
               <li><a href="?page=display-sms-log">Vis logg for SMS-tjeneste</a></li>
             </ul>
@@ -156,7 +156,7 @@ class Navigation {
   if(checkAuth("view-menu-webshop")){
           ?>
           <li class="menulist dropdown">
-            <a href="#" id="webshopSwitch" class="switch dropdown-toggle">Nettbutikk</a>
+            <a href="#" id="webshopSwitch" class="switch dropdown-toggle">Nettbutikk <b class="caret"></a>
             <ul id="webshopMenu" class="menu dropdown-menu">
               <li><a href="index.php?page=display-webshop">Vis produkter</a></li>
               <li><a href="index.php?page=display-carts">Vis handlekurver</a></li>
