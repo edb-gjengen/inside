@@ -92,7 +92,7 @@ body.dns {
     z-index:999
 }
 .site-title a {
-    background: url('//studentersamfundet.no/wp/wp-content/themes/neuf-old-style/img/dns-logo-web.png') no-repeat;
+    background: url('https://studentersamfundet.no/wp/wp-content/themes/neuf-old-style/img/dns-logo-web.png') no-repeat;
     display:block;
     height:75px;
     margin-top:16px;
