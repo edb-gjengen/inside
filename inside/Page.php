@@ -610,14 +610,14 @@ class Page {
 			<?php
     }
 		?>
-			<a class="btn" href="index.php?page=display-current-user">Oppdatér brukerinfo</a>
-			<a class="btn" href="index.php?page=display-webshop">Bestill nytt medlemskort</a>
+			<a class="btn btn-default" href="index.php?page=display-current-user">Oppdatér brukerinfo</a>
+			<a class="btn btn-default" href="index.php?page=display-webshop">Bestill nytt medlemskort</a>
 
 			<div class="bliaktiv">
 			    <h3>Engasjer deg!</h3>
 			    <p>Visste du at Studentersamfundet drives av frivillige studenter? Å være aktiv i en studentforening er en sosial affære. Det skaffer deg fort både venner og erfaring.</p>
 			    <p>La det neste året være året du husker. Finn en ny interesse i dag!</p>
-			    <a class="btn" href="http://studentersamfundet.no/bli-aktiv/">Engasjer deg</a>
+			    <a class="btn btn-default" href="http://studentersamfundet.no/bli-aktiv/">Engasjer deg</a>
 			</div>
 		<?php
   } else {
@@ -2542,7 +2542,7 @@ Om dere lager en facebook side til arrangementet, ikke glem &aring; putte inn le
     $form->display();
 
 ?>
-		<span class="btn" onclick="toggleDisplay('user-groups'); toggleText(this, 'vis grupper', 'skjul grupper');">vis grupper</span>
+		<span class="btn btn-default" onclick="toggleDisplay('user-groups'); toggleText(this, 'vis grupper', 'skjul grupper');">vis grupper</span>
 			<div id="user-groups" style="display: none;">
 <?php
     $user->displayGroups();
@@ -2571,7 +2571,7 @@ Om dere lager en facebook side til arrangementet, ikke glem &aring; putte inn le
 <?php
     if(checkAuth("view-user-updates")){
 ?>
-		<span class="btn" onclick="toggleDisplay('user-updates'); toggleText(this, 'vis endringer', 'skjul endringer');">vis endringer</span>
+		<span class="btn btn-default" onclick="toggleDisplay('user-updates'); toggleText(this, 'vis endringer', 'skjul endringer');">vis endringer</span>
 		<div id="user-updates" style="display: none">
 <?php
       $user->displayUpdates();
@@ -2579,7 +2579,7 @@ Om dere lager en facebook side til arrangementet, ikke glem &aring; putte inn le
     }
     if(checkAuth("view-delete-user")){
 ?>
-		<!--a class="btn" href="javascript: if(confirm('Slett bruker?\n\nDette kan ikke angres!')) {
+		<!--a class="btn btn-default" href="javascript: if(confirm('Slett bruker?\n\nDette kan ikke angres!')) {
 		  location='index.php?action=delete-user&amp;userid=<?php print $user->id;?>'};">slett bruker</a-->
 <?php
     }
@@ -2736,7 +2736,7 @@ Om dere lager en facebook side til arrangementet, ikke glem &aring; putte inn le
 
 	private function _displayProduct() {
 	  ?>
-		<p><a class="btn" href="index.php?page=display-webshop">tilbake til produkter</a></p>
+		<p><a class="btn btn-default" href="index.php?page=display-webshop">tilbake til produkter</a></p>
 	  <?php
 	  $product = new Product(scriptParam('productid'));
 	  $product->display();
@@ -3010,9 +3010,9 @@ Om dere lager en facebook side til arrangementet, ikke glem &aring; putte inn le
   function _displayBugReports(){
     ?>
     <p>
-    	<a class="btn" href="index.php?page=display-bugreports&amp;selection=all">vis alle</a>
-    	<a class="btn" href="index.php?page=display-bugreports&amp;selection=old">vis behandlede</a>
-    	<a class="btn" href="index.php?page=display-bugreports&amp;selection=new">vis ikke behandlede</a>
+    	<a class="btn btn-default" href="index.php?page=display-bugreports&amp;selection=all">vis alle</a>
+    	<a class="btn btn-default" href="index.php?page=display-bugreports&amp;selection=old">vis behandlede</a>
+    	<a class="btn btn-default" href="index.php?page=display-bugreports&amp;selection=new">vis ikke behandlede</a>
 		</p>
     <?php
     $selection = scriptParam("selection");

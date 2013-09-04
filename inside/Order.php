@@ -202,15 +202,15 @@ class Order {
       	<td colspan="2"><?php print formatPrice($this->calculateTotalAmount()); ?></td>
       </tr>
       </table>
-      <p>Har du gjort endringer? <span class="btn" onclick="document.getElementById('update-order-<?php print $this->id; ?>').submit();">oppdatér</span></p>
+      <p>Har du gjort endringer? <span class="btn btn-default" onclick="document.getElementById('update-order-<?php print $this->id; ?>').submit();">oppdatér</span></p>
       </form>
-      <p>Handle mer? <a class="btn" href="index.php?page=display-webshop">tilbake til produkter</a></p>
+      <p>Handle mer? <a class="btn btn-default" href="index.php?page=display-webshop">tilbake til produkter</a></p>
 
       <form action="index.php?action=cart-checkout" method="post">
 	  		<div>
 	  			<input type="hidden" name="order_id" value="<?php print $this->id; ?>" />
 	  			<input type="hidden" name="transaction_id_string" value="<?php print createTransactionId(); ?>" /></div>
-	  		<p>Er du ferdig? <a class="btn" href="index.php?action=cart-checkout&amp;order_id=<?php print $this->id; ?>&amp;transaction_id_string=<?php print createTransactionId(); ?>">gå til betaling</a></p>
+	  		<p>Er du ferdig? <a class="btn btn-primary" href="index.php?action=cart-checkout&amp;order_id=<?php print $this->id; ?>&amp;transaction_id_string=<?php print createTransactionId(); ?>">gå til betaling</a></p>
       </form>
       <?php
     }else {
@@ -251,9 +251,9 @@ class Order {
 			<p>Ordrestatus: <strong><?php print $this->order_status_value; ?></strong>
 			<?php if ($edit && $this->order_status_id < 3) { ?>
 			<p>
-				<a class="btn" href="index.php?page=display-cart&amp;order_id=<?php print $this->id; ?>">rediger ordre</a>
-				<a class="btn" href="index.php?page=display-carts&amp;action=delete-order&amp;order_id=<?php print $this->id; ?>">slett ordre</a>
-				<a class="btn" href="index.php?action=cart-checkout&amp;order_id=<?php print $this->id; ?>&amp;transaction_id_string=<?php print createTransactionId(); ?>">gå til betaling</a>
+				<a class="btn btn-default" href="index.php?page=display-cart&amp;order_id=<?php print $this->id; ?>">rediger ordre</a>
+				<a class="btn btn-default" href="index.php?page=display-carts&amp;action=delete-order&amp;order_id=<?php print $this->id; ?>">slett ordre</a>
+				<a class="btn btn-default" href="index.php?action=cart-checkout&amp;order_id=<?php print $this->id; ?>&amp;transaction_id_string=<?php print createTransactionId(); ?>">gå til betaling</a>
 			</p>
       <?php }
     }else {
