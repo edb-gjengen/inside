@@ -1204,7 +1204,7 @@ function reportBug($type) {
 
 function displayBugReportForm($type) {
 ?>
-  <span class="btn" onclick="toggleDisplay('bug-report-form'); toggleText(this, 'rapportér problem', 'skjul skjema');">rapportér problem</span>
+  <span class="btn btn-default" onclick="toggleDisplay('bug-report-form'); toggleText(this, 'rapportér problem', 'skjul skjema');">rapportér problem</span>
   <div id="bug-report-form" style="display: none;">
   <?php
 
