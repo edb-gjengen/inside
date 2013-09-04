@@ -9,8 +9,8 @@
 
 /* Layout */
 /*#wrapper */
-#header .site-title,
-#header #menu ul ul,
+#branding .site-title,
+#branding #menu ul ul,
 #main {
     width:1000px;
     margin:auto;
@@ -79,10 +79,10 @@ body.dns {
     background:#efefef;
 }
 /*body.dns */
-#header {
+#branding {
     background:#191919 url('../graphics/header-210x.png') repeat-x bottom;
 }
-#header {
+#branding {
     height:110px;
     margin-bottom:10px;
     overflow:hidden;
@@ -195,7 +195,7 @@ body.dns {
     background: #444444;
 }
 
-#header .aapningstider {
+#branding .aapningstider {
 font-size:12px;
 left:50%;
 margin-left:366px;

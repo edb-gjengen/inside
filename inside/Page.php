@@ -29,9 +29,13 @@ class Page {
     ?>
   <body class="dns section-inside">
     <div id="container">
-      <div id="header">
-        <span class="site-title"><a href="http://studentersamfundet.no/"><?php print $this->page_title; ?></a></span>
-      </div> <!-- #header -->
+      <header id="branding">
+        <div class="logo">
+	  <div class="site-title">
+            <a href="http://studentersamfundet.no/"><?php print $this->page_title; ?></a>
+          </div>
+        </div>  
+      </header>
 
       <div id="content-wrap">
       <div id="content" class="clearfix">
