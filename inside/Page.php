@@ -502,6 +502,7 @@ class Page {
     <link rel="stylesheet" type="text/css" href="../css/style.css" media="screen" />
     <link rel="stylesheet" type="text/css" href="../css/handheld.css" media="handheld" />
     <link rel="stylesheet" type="text/css" href="../css/print.css" media="print" />
+    <script type="text/javascript" src="<?php echo $GLOBALS['static_path'];?>js/menuExpandable3.js"></script>
 <?php } ?>
     <link rel="shortcut icon" href="favicon.ico" />
     <script type="text/javascript" src="<?php echo $GLOBALS['static_path'];?>js/functions.js"></script>
@@ -509,7 +510,6 @@ class Page {
     <script type="text/javascript" src="<?php print $GLOBALS['include_path'];?>zXml/zxml.js"></script>
     <script type="text/javascript" src="<?php echo $GLOBALS['static_path'];?>js/finder.js"></script>
     <script type="text/javascript" src="<?php echo $GLOBALS['static_path'];?>js/sorttable.js"></script>
-    <script type="text/javascript" src="<?php echo $GLOBALS['static_path'];?>js/menuExpandable3.js"></script>
     <script type="text/javascript" src="<?php echo $GLOBALS['static_path'];?>js/XMLRequest.js"></script>
     <script type="text/javascript" src="<?php echo $GLOBALS['static_path'];?>js/XMLZipRequest.js"></script>
     <script type="text/javascript" src="<?php echo $GLOBALS['static_path'];?>js/XMLCatRequest.js"></script>
@@ -617,7 +617,7 @@ class Page {
 			    <h3>Engasjer deg!</h3>
 			    <p>Visste du at Studentersamfundet drives av frivillige studenter? Å være aktiv i en studentforening er en sosial affære. Det skaffer deg fort både venner og erfaring.</p>
 			    <p>La det neste året være året du husker. Finn en ny interesse i dag!</p>
-			    <a class="btn btn-default" href="http://studentersamfundet.no/bli-aktiv/">Engasjer deg</a>
+			    <a class="btn <?php echo isMember() ? 'btn-primary' : 'btn-default';" href="http://studentersamfundet.no/bli-aktiv/">Engasjer deg</a>
 			</div>
 		<?php
   } else {
