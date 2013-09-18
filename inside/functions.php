@@ -10,7 +10,7 @@ require_once('credentials.php');
 function db_connect($host = "default") {
 
 	if (!isset ($GLOBALS['db_conn'][$host])) {
-		$conn = & DB :: connect(getDSN($host));
+		$conn = & DB :: connect(getDSN($host), array('debug' => 2));
 		if (DB :: isError($conn)) {
 			if ($conn->getCode() == -24) {
 				error("Databasen er for øyeblikket utilgjengelig, vennligst forsøk igjen siden.");
