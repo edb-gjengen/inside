@@ -87,7 +87,7 @@ function legacy_user_exists($username) {
     $result = $conn->query($sql);
     if (DB :: isError($result) == true) {
         /* dberror */
-        notify("Databasen sliter, prøv igjen senere.");
+        notify("Databasen sliter, prøv igjen senere. Error: ".$conn->getMessage());
         return false;
     }
     if ($row = & $result->fetchRow(DB_FETCHMODE_ASSOC)) {
