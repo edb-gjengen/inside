@@ -39,6 +39,7 @@ class ActionParser {
     if (checkAuth('perform-' . $this->action) || checkResponsible()) {
       switch ($this->action) {
         case 'log-in' :
+          $this->logError(scriptParam('username'), "Tried logon ". $_SERVER['REMOTE_ADDR']);
           new_login(scriptParam('username'),scriptParam('password'));
           break;
 
