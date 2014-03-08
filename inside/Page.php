@@ -2316,7 +2316,7 @@ Om dere lager en facebook side til arrangementet, ikke glem &aring; putte inn le
 
 		if (!isset($_SESSION['valid-user'])){?>
 		<h2>Skjema for medlemsregistrering</h2>
-		<p>Her kan du bli nytt medlem, eller registrere ditt midlertidige medlemskap.</p>
+		<p>Her kan du bli nytt medlem, eller registrere ditt midlertidige medlemskap. Skal du gjøre sistnevnte må du registrere aktiveringsnummeret og -passordet du har fått i neste steg.</p>
 		<p>Har du allerede fylt inn din personinfo, men ikke fullført betalingen eller lagt inn aktiveringskoden for ditt midlertidige medlemsskap? <a href="/">Logg inn her.</a></p>
 		<p>Alle feltene må fylles ut.</p>
 
