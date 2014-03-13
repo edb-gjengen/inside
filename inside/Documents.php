@@ -90,10 +90,11 @@ class Documents {
     if ($tag == NULL){
       return false;
     }
+    $tags = implode("%' AND tags LIKE '%", explode(" ", $tag));
     $sql = "SELECT d.*, dc.title AS category
             FROM din_document d, din_documentcategory dc
             WHERE d.documentcategory_id = dc.id " .
-           "AND tags LIKE '%$tag%' " .
+           "AND tags LIKE '%$tags%' " .
            "ORDER BY name ASC";
     $result =& $this->conn->query($sql);
     
