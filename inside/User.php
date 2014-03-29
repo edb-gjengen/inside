@@ -1464,7 +1464,7 @@ class User {
         $message = "Hei, " . $this->firstname . " " . $this->lastname . "!" .
         "\n\n" .
         "Vi har nå produsert medlemskortet ditt i Det Norske Studentersamfund. " .
-        "Det ligger nå klart til avhenting i Glassbaren på Studentersamfundet og kan hentes der i Blassbarens åpningstid. \n" .
+        "Det ligger nå klart til avhenting i Glassbaren på Studentersamfundet og kan hentes der i Glassbarens åpningstid. \n" .
         "\n" .
         "For mer informasjon om hva som skjer på Det Norske Studentersamfund, gå inn på vår nettside: http://www.studentersamfundet.no/ .\n" .
         "\n" .
