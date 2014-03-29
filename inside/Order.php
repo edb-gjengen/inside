@@ -107,7 +107,7 @@ class Order {
 			$user = new User($this->user_id);
 			if($user->expires != '2011-12-31')
 			{
-				notify('Du ser ikke ut til å ha hatt medlemskap for 2011 - vennligst kontakt billettluka om du mener dette er en feil');
+				notify('Du ser ikke ut til å ha hatt medlemskap for 2011 - vennligst kontakt Glassbaren om du mener dette er en feil');
 				return false;
 			}
 		}

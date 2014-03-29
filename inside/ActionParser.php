@@ -925,7 +925,7 @@ public function _logIn() {
         //$msa_code->store();
         
         $user->sendCardOrderedNotifyMail();
-        notify("Betalt medlemskap er registrert. Medlemskort vil bli produsert. Vi sender deg en e-post når kortet er klart. Da kan du hente det i billettluka på Studentersamfundet.");
+        notify("Betalt medlemskap er registrert. Medlemskort vil bli produsert. Vi sender deg en e-post når kortet er klart. Da kan du hente det i Glassbaren på Studentersamfundet.");
       } else {
         $GLOBALS['extraScriptParams']['page'] = "register-membership";
       }
@@ -984,7 +984,7 @@ public function _logIn() {
         //$msa_code->store();
         
         $user->sendRenewedMembershipRegisteredNotifyMail();
-        notify("Fornyelse av medlemskapet ditt er registrert. Ny oblat kan hentes i billettluka på Studentersamfundet.");
+        notify("Fornyelse av medlemskapet ditt er registrert. Nytt oblat kan hentes i Glassbaren på Studentersamfundet.");
       } else {
         $GLOBALS['extraScriptParams']['page'] = "renew-membership";
       }

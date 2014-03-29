@@ -1421,7 +1421,7 @@ class User {
         $message = "Hei, " . $this->firstname . " " . $this->lastname . "!" .
         "\n\n" .
         "Vi har registrert at du har aktivert medlemskapet ditt i Det Norske Studentersamfund. " .
-        "Du vil motta en e-post når medlemskortet ditt er produsert og klart til å hentes i billettluka på studentersamfundet. \n" .
+        "Du vil motta en e-post når medlemskortet ditt er produsert og klart til å hentes i Glassbaren på studentersamfundet. \n" .
         "\n" .
         "Som medlem vil du få informasjon om  arrangementer i vårt nyhetsbrev og rabatter på alt fra arrangementer" . 
         " til mat og drikke. I tillegg kan du være med og bestemme siden alle medlemmer har stemmerett ved Generalforsamlinger\n" . 
@@ -1464,7 +1464,7 @@ class User {
         $message = "Hei, " . $this->firstname . " " . $this->lastname . "!" .
         "\n\n" .
         "Vi har nå produsert medlemskortet ditt i Det Norske Studentersamfund. " .
-        "Det ligger nå klart til avhenting i  billettluka på Studentersamfundet og kan hentes der i billettlukas åpningstid. \n" .
+        "Det ligger nå klart til avhenting i Glassbaren på Studentersamfundet og kan hentes der i Blassbarens åpningstid. \n" .
         "\n" .
         "For mer informasjon om hva som skjer på Det Norske Studentersamfund, gå inn på vår nettside: http://www.studentersamfundet.no/ .\n" .
         "\n" .
@@ -1493,8 +1493,8 @@ class User {
         $message = "Hei, " . $this->firstname . " " . $this->lastname . "!" .
         "\n\n" .
         "Vi har registrert at du har fornyet medlemsskapet ditt i Det Norske Studentersamfund. " .
-        "Medlemsoblat som viser at du har medlemskap kan hentes i Billettluka på Studentersamfundet i billettlukas åpningstid. Ta med medlemskortet ditt. \n" .
-        "Hvis du har mistet medlemskortet ditt kan du få ordnet nytt kort i Billettluka også, eller bestille det fra nettbutikken.\n".
+        "Medlemsoblat som viser at du har medlemskap kan hentes i Glassbaren på Studentersamfundet i Glassbarens åpningstid. Ta med medlemskortet ditt. \n" .
+        "Hvis du har mistet medlemskortet ditt kan du få ordnet nytt kort i Glassbaren også, eller bestille det fra nettbutikken.\n".
         "\n" .
         "For mer informasjon om hva som skjer på Det Norske Studentersamfund, gå inn på vår nettside: http://www.studentersamfundet.no/ .\n" .
         "\n" .
@@ -1618,14 +1618,14 @@ class User {
             if ($this->getCardDelivered()) {
                 if ($this->lastSticker < date("Y", strtotime($this->expires))) {
 		    $panel_class = 'warning';
-                    $panel_text = "Du har aktivert medlemskapet ditt, og du kan hente oblat til å klistre på medlemskortet ditt i Billettluka på Det Norske Studentersamfund.";
+                    $panel_text = "Du har aktivert medlemskapet ditt, og du kan hente oblat til å klistre på medlemskortet ditt i Glassbaren på Det Norske Studentersamfund.";
                 } else {
 		    $panel_class = 'success';
                     $panel_text = "Du har gyldig medlemskap (gyldig til " . date("d. m. Y", strtotime($this->expires)) . ").";
                 }
 	    } elseif ($this->getCardProduced()) {
 		$panel_class = 'warning';
-                $panel_text = "Medlemskortet ditt ligger klar til henting i billettluka på Det Norske Studentersamfund.";
+                $panel_text = "Medlemskortet ditt ligger klar til henting i Glassbaren på Det Norske Studentersamfund.";
             } else {
 		$panel_class = 'success';
                 $panel_text = "Medlemskapet ditt er registrert, og medlemskortet ditt for " . date("Y", strtotime($this->expires)) . " produseres. Du vil få en e-post av oss når det er klart til å hentes.";
