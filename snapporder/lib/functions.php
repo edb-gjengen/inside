@@ -1,18 +1,9 @@
 <?php
-/* Init */
-set_include_path("../includes/");
-require_once("../inside/credentials.php");
-require_once("../includes/DB.php");
-/* Connect db */
-$options = array(
-    'debug'       => 2,
-    'portability' => DB_PORTABILITY_ALL,
-);
-$db = DB::connect(getDSN(), $options);
-if(DB :: isError($conn)) {
-    echo $conn->toString();
+function set_response_code($code) {
+    if(!is_int($code)) {
+        return false;
+    }
+    header('X-Ignore-This: something', true, $code);
 }
-$db->setFetchMode(DB_FETCHMODE_ASSOC);
-
 
 ?>

@@ -5,6 +5,7 @@ require_once("../../inside/functions.php");
 require_once("../../includes/DB.php");
 
 require_once("../lib/CryptoHelper.php");
+require_once("../lib/functions.php");
 require_once("../config.php");
 /* 
  * Lookup a members phone number and return a member-like object.
@@ -30,14 +31,14 @@ $crypt = new CryptoHelper(SNAP_IV, SNAP_KEY);
 
 /* Checks */
 if(!isset($_GET['phone'])) {
-    http_response_code(400);
+    set_response_code(400);
     echo json_encode(array('error' => 'Missing param phone'));
     die();
 }
-$phone = mysql_real_escape_string($_GET['phone']);
+$phone = $_GET['phone'];
 if(!is_numeric($phone) || strlen($phone) !== 8 ) {
-    http_response_code(400);
-    echo json_encode(array('error' => 'Not a phone number'));
+    set_response_code(400);
+    echo json_encode(array('error' => 'Not a phone number', 'query' => $_GET));
     die();
 }
 
@@ -46,17 +47,18 @@ $options = array( 'debug' => 2, 'portability' => DB_PORTABILITY_ALL );
 $conn = DB::connect(getDSN(), $options);
 if(DB :: isError($conn)) {
     echo $conn->toString();
-    http_response_code(500);
+    set_response_code(500);
     echo json_encode(array('error' => 'Could not connect to DB'));
     die();
 }
 
 /* Search in phone number table for phone number */
 $conn->setFetchMode(DB_FETCHMODE_ASSOC);
+$phone = $conn->escapeSimple($phone);
 $sql = "SELECT user_id FROM din_userphonenumber WHERE number='$phone'";
 $res = $conn->query($sql);
 if( DB::isError($res) ) {
-    http_response_code(500);
+    set_response_code(500);
     echo json_encode( array('error' => 'db_error', 'error_message' => $res->toString() ) );
     die();
 }
