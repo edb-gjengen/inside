@@ -1,6 +1,7 @@
 credentials.php
 inside/tmp
 inside/migration/config.php
+snapporder/config.php
 migration.log
 error_log
 *.swp

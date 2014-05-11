@@ -30,4 +30,8 @@
  * - register user in temp user db
  * - return result
  */
+/* Decrypt body */
+$crypt = new CryptoHelper(SNAP_IV, SNAP_KEY);
+var_dump($crypt->decrypt($crypt->encrypt("lol")));
+
 ?>

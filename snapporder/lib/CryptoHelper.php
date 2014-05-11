@@ -10,8 +10,8 @@ class CryptoHelper
 
     function __construct($iv, $key)
     {
-        $this->$iv = $iv;
-        $this->$key = $key;
+        $this->iv = $iv;
+        $this->key = $key;
         
     }
 
