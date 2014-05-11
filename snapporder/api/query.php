@@ -36,7 +36,7 @@ if(!isset($_GET['phone'])) {
     die();
 }
 $phone = $_GET['phone'];
-if(!is_numeric($phone) || strlen($phone) !== 8 ) {
+if( !valid_phonenumber($phone) ) {
     set_response_code(400);
     echo json_encode(array('error' => 'Not a phone number', 'query' => $_GET));
     die();
@@ -68,41 +68,12 @@ if( $res->numRows() == 0) {
     die();
 }
 $res->fetchInto($row);
-$user_id = $row['user_id'];
 
-/* Get user object with group ids and membership status */
-$cols = array('id', 'firstname', 'lastname', 'email', 'expires', 'cardno');
-$sql = "SELECT ".implode($cols, ",").",GROUP_CONCAT(group_id) AS group_ids,expires > NOW() OR expires IS NULL AS is_member FROM din_user AS u, din_usergrouprelationship AS ug WHERE u.id=$user_id AND u.id=ug.user_id GROUP BY user_id";
-$res = $conn->query($sql);
-if( DB::isError($res) ) {
-    echo json_encode( array('error' => 'db_error', 'error_message' => $res->toString() ) );
-    die();
-}
-$res->fetchInto($user);
+/* Get and format user */
+$user = get_user($row['user_id']);
 
-/* Membership status according to spec.
- * Status codes:
- * 0 - Registered
- * 1 - Member
- * 2 - Active member
- */
-$groups = explode(",", $user['group_ids']);
-$user['membership_status'] = 0;
-
-if($user['is_member'] !== "0") {
-    // Group id mappings 1:dns-alle, 2: dns-aktiv, 3:administrator, 4+:orgunits/special groups
-    if(in_array("2", $groups)) {
-        $user['membership_status'] = 2;
-    } else {
-        $user['membership_status'] = 1;
-    }
-}
 /* Add back phone number from query */
 $user['phone'] = $phone;
-
-/* Clean up user object */
-unset($user['is_member']);
-unset($user['group_ids']);
 
 /* Return encrypted user object */
 echo json_encode($user);

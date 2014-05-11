@@ -314,7 +314,11 @@ function handle_error($errno, $errstr, $errfile, $errline, $errcontext) {
 }
 
 function error($msg) {
-	Errors :: addError($msg);
+    if(class_exists('Errors')) {
+        Errors :: addError($msg);
+    } else {
+        var_dump($msg);
+    }
 }
 
 function notify($msg) {

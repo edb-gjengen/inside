@@ -34,6 +34,8 @@ class User {
 
     var $conn;
 
+    var $fromSnappOrder;
+
     function User($id = NULL, $data = NULL) {
         $this->__construct($id, $data);
     }
