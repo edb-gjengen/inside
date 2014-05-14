@@ -30,6 +30,12 @@ function add_user($data) {
 function get_user($user_id) {
     global $conn;
 
+    /* Note: Field 'expires' can have the following meanings: 
+     *  - 0000-00-00 (default): No membership (never has)
+     *  - a date < NOW(): Expired membership
+     *  - a date >= NOW(): Valid membership
+     *  - NULL: Lifelong membership
+     */
     $cols = array('id', 'firstname', 'lastname', 'email', 'expires', 'cardno');
     $sql = "SELECT ".implode($cols, ",").",GROUP_CONCAT(group_id) AS group_ids,expires > NOW() OR expires IS NULL AS is_member FROM din_user AS u, din_usergrouprelationship AS ug WHERE u.id=$user_id AND u.id=ug.user_id GROUP BY user_id";
     $res = $conn->query($sql);
