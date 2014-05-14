@@ -1,10 +1,29 @@
 <?php
+require_once("../../inside/functions.php");
+
 /* Set HTTP response code */
 function set_response_code($code) {
     if(!is_int($code)) {
         return false;
     }
     header('X-Ignore-This: something', true, $code);
+}
+
+function add_user($data) {
+    global $conn;
+
+    /* TODO validate input */
+    echo json_encode( array('error' => 'not implemented' ) );
+    die();
+
+    // TODO $cols from data
+    $sql = 'INSERT INTO din_user ('.implode($cols, ",").') VALUES ()';
+
+    $res = $conn->query($sql);
+    if( DB::isError($res) ) {
+        echo json_encode( array('error' => 'db_error', 'error_message' => $res->toString() ) );
+        die();
+    }
 }
 
 /* Get user object with group ids and membership status */
@@ -46,5 +65,7 @@ function get_user($user_id) {
 function valid_phonenumber($phone) {
     return is_numeric($phone) && strlen($phone) === 8;
 }
-
+function valid_email($email) {
+    return preg_match("/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$/i", $email);
+}
 ?>

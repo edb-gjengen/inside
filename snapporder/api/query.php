@@ -1,12 +1,4 @@
 <?php
-set_include_path("../../includes/");
-require_once("../../inside/credentials.php");
-require_once("../../inside/functions.php");
-require_once("../../includes/DB.php");
-
-require_once("../lib/CryptoHelper.php");
-require_once("../lib/functions.php");
-require_once("../config.php");
 /* 
  * Lookup a members phone number and return a member-like object.
  *
@@ -23,10 +15,21 @@ require_once("../config.php");
  *   "cardno": "12345",
  *   "firstName": "Jon",
  *   "lastName": "Hansen",
- *   "email": "jon@uio.no"
+ *   "email": "jon@uio.no",
+ *   "registration_status": "partial" // "partial" means show link
  * }
  *
  */
+set_include_path("../../includes/");
+
+require_once("../../inside/credentials.php");
+require_once("../../inside/functions.php");
+require_once("../../includes/DB.php");
+
+require_once("../lib/CryptoHelper.php");
+require_once("../lib/functions.php");
+require_once("../config.php");
+
 $crypt = new CryptoHelper(SNAP_IV, SNAP_KEY);
 
 /* Checks */

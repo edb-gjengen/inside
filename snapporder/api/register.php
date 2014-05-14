@@ -1,18 +1,4 @@
 <?php 
-
-/* Pull in Inside */
-set_include_path("../../inside/");
-require_once("functions.php");
-require_once("User.php");
-set_include_path("../../includes/");
-require_once("DB.php");
-
-/* Our own */
-require_once("../lib/CryptoHelper.php");
-require_once("../lib/functions.php");
-require_once("../config.php");
-
-
 /* 
  * Registers a user in the user table
  *
@@ -35,13 +21,26 @@ require_once("../config.php");
  *   "membershipNumber": "dsadsa2333",
  *   "firstName": "Jon",
  *   "lastName": "Hansen",
- *   "email": "jon@uio.no"
+ *   "email": "jon@uio.no",
+ *   "registration_status": "partial" // "partial" or "full"
  * }
  *
  * TODO:
  * - register user with fromSnappOrder flag
  * - return result
  */
+
+/* Pull in Inside */
+set_include_path("../../inside/");
+require_once("functions.php");
+require_once("User.php");
+set_include_path("../../includes/");
+require_once("DB.php");
+
+/* Our own */
+require_once("../lib/CryptoHelper.php");
+require_once("../lib/functions.php");
+require_once("../config.php");
 
 /* Validate request */
 $body = file_get_contents('php://input');
@@ -72,20 +71,35 @@ foreach($required_keys as $key) {
         die();
     }
 }
-// TODO validate phonenumber
-// TODO validate email
-// TODO look at getUseridFromPhone in inside/functions.php
-// TODO when $fromSnappOrder is sent to User-constructor...
-// ...then work around requirements for username, password, birthdate, address 
+var_dump($data);
+
+if( !valid_phonenumber($data['phone']) ) {
+    set_response_code(400);
+    echo json_encode(array('error' => 'Not a phone number:'.$data['phone']));
+    die();
+}
+if( !valid_email($data['email']) ) {
+    set_response_code(400);
+    echo json_encode(array('error' => 'Not an email: '.$data['email']));
+    die();
+}
+/* Existing user? */
+if( getUseridFromEmail($data['email']) !== false) {
+    set_response_code(409);
+    echo json_encode(array('error' => 'Existing user with email: '.$data['email']));
+    die();
+}
+if( getUseridFromPhone($data['phone']) !== false ) {
+    set_response_code(409);
+    echo json_encode(array('error' => 'Existing user with phone: '.$data['phone']));
+    die();
+}
 
 /* Create user */
-//$new_user = new User(NULL, $data);
+$user_id = add_user($data);
 
 /* Get and format user */
-//$user = get_user($new_user->id);
-
-/* Add back phone number from query */
-//$user['phone'] = $phone;
+$user = get_user($user_id);
 
 /* Return encrypted user object */
 //echo json_encode($user);

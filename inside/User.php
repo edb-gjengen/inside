@@ -98,6 +98,17 @@ class User {
                     return false;
                 }
 
+                /* TODO replace +47 and 0047 with blank */
+                //if( $data['phonenumber'] ) {
+                //}
+
+                /* No duplicate phone numbers */
+                if( getUseridFromPhone($data['phonenumber']) !== false ) {
+                    notify("Telefonnummeret er allerede registrert på en bruker.");
+                    $this->id = -1;
+                    return false;
+                }
+
                 if (isset ($data['active'])) {
                     $this->division_id_request = $data['division'];
                 } else {
