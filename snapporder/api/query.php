@@ -4,7 +4,7 @@
  *
  * Request:
  *
- * $ curl /snapporder/api/query.php?phone=48105885
+ * $ curl /snapporder/api/query.php?phone=%2B4748105885 # %2B is a +
  *
  * Response:
  *
@@ -39,6 +39,8 @@ if(!isset($_GET['phone'])) {
     die();
 }
 $phone = $_GET['phone'];
+$phone = clean_phonenumber($phone);
+// todo you are here
 if( !valid_phonenumber($phone) ) {
     set_response_code(400);
     echo json_encode(array('error' => 'Not a phone number', 'query' => $_GET));

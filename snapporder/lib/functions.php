@@ -68,8 +68,19 @@ function get_user($user_id) {
 
     return $user;
 }
+function clean_phonenumber($pn) {
+    var_dump($pn);
+    $pn = preg_replace('/[^0-9\+]/', '', $pn); // remove everything except valid chars
+    $pn = preg_replace('/^00/','+', $pn); // replace starting 00 with +
+    // norwegian phone numbers
+    if( strlen($pn === 8) && ($pn[0] === "4" || $pn[1] === "9") ) {
+        $pn = "+47".$pn;
+    }
+    return $pn;
+}
+// E.164
 function valid_phonenumber($phone) {
-    return is_numeric($phone) && strlen($phone) === 8;
+    return preg_match('/^\+?\d{8,15}$/i', $phone);
 }
 function valid_email($email) {
     return preg_match("/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$/i", $email);
