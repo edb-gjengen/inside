@@ -8,22 +8,45 @@ function set_response_code($code) {
     }
     header('X-Ignore-This: something', true, $code);
 }
+function generate_username($data) {
+    // TODO improve this, not unique enough
+    $firstname = preg_replace('/[^\w]/', '', $data['firstname']);
+    $firstname = substr(strtolower($firstname), 0, 6);
 
+    $lastname = preg_replace('/[^\w]/', '', $data['lastname']);
+    $lastname = substr(strtolower($lastname), 0, 3);
+    return $firstname.$lastname.substr(uniqid(), -3);
+}
 function add_user($data) {
     global $conn;
 
-    /* TODO validate input */
-    echo json_encode( array('error' => 'not implemented' ) );
-    die();
+    /* User table  */
+    $phone = $data['phone'];
+    unset($data['phone']);
+    $data['username'] = generate_username($data);
+    $cols = array_keys($data);
+    $values = array_values($data);
+    $sth = $conn->autoPrepare("din_user", $cols, DB_AUTOQUERY_INSERT);
 
-    // TODO $cols from data
-    $sql = 'INSERT INTO din_user ('.implode($cols, ",").') VALUES ()';
 
-    $res = $conn->query($sql);
+    $res = $conn->execute($sth, $values);
     if( DB::isError($res) ) {
         echo json_encode( array('error' => 'db_error', 'error_message' => $res->toString() ) );
         die();
     }
+
+    $user_id = get_user_id_by_username($data['username']);
+
+    /* Phonenumber table */
+    $sth = $conn->autoPrepare("din_userphonenumber", array('user_id', 'number'), DB_AUTOQUERY_INSERT);
+    $res = $conn->execute($sth, array($user_id, $phone));
+
+    if( DB::isError($res) ) {
+        echo json_encode( array('error' => 'db_error', 'error_message' => $res->toString() ) );
+        die();
+    }
+
+    return $user_id;
 }
 
 /* Get user object with group ids and membership status */
@@ -68,12 +91,24 @@ function get_user($user_id) {
 
     return $user;
 }
+function get_user_id_by_username($username) {
+    global $conn;
+
+    $sql = "SELECT id FROM din_user WHERE username='$username'";
+    $res = $conn->query($sql);
+    if( DB::isError($res) ) {
+        echo json_encode( array('error' => 'db_error', 'error_message' => $res->toString() ) );
+        die();
+    }
+    $res->fetchInto($data);
+    var_dump($data);
+    return $data['id'];
+}
 function clean_phonenumber($pn) {
-    var_dump($pn);
     $pn = preg_replace('/[^0-9\+]/', '', $pn); // remove everything except valid chars
     $pn = preg_replace('/^00/','+', $pn); // replace starting 00 with +
     // norwegian phone numbers
-    if( strlen($pn === 8) && ($pn[0] === "4" || $pn[1] === "9") ) {
+    if( strlen($pn) === 8 && ($pn[0] === "4" || $pn[0] === "9") ) {
         $pn = "+47".$pn;
     }
     return $pn;
@@ -83,6 +118,6 @@ function valid_phonenumber($phone) {
     return preg_match('/^\+?\d{8,15}$/i', $phone);
 }
 function valid_email($email) {
-    return preg_match("/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$/i", $email);
+    return filter_var($email, FILTER_VALIDATE_EMAIL);
 }
 ?>

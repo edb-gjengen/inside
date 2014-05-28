@@ -9,9 +9,10 @@
  * Response:
  *
  * {
- *   "phone":" 42345678",
+ *   "phone": "+4742345678",
  *   "membership_status": 1, // 0 - ikke medlem, 1 - medlem, 2 - aktiv
  *   "expires": "2015-04-23",
+ *   "memberid": "4331",
  *   "cardno": "12345",
  *   "firstName": "Jon",
  *   "lastName": "Hansen",
@@ -40,7 +41,6 @@ if(!isset($_GET['phone'])) {
 }
 $phone = $_GET['phone'];
 $phone = clean_phonenumber($phone);
-// todo you are here
 if( !valid_phonenumber($phone) ) {
     set_response_code(400);
     echo json_encode(array('error' => 'Not a phone number', 'query' => $_GET));
@@ -56,26 +56,17 @@ if(DB :: isError($conn)) {
     echo json_encode(array('error' => 'Could not connect to DB'));
     die();
 }
+$conn->setFetchMode(DB_FETCHMODE_ASSOC);
 
 /* Search in phone number table for phone number */
-$conn->setFetchMode(DB_FETCHMODE_ASSOC);
-$phone = $conn->escapeSimple($phone);
-$sql = "SELECT user_id FROM din_userphonenumber WHERE number='$phone'";
-$res = $conn->query($sql);
-if( DB::isError($res) ) {
-    set_response_code(500);
-    echo json_encode( array('error' => 'db_error', 'error_message' => $res->toString() ) );
-    die();
-}
-// empty?
-if( $res->numRows() == 0) {
+$user_id = getUseridFromPhone($phone);
+if( $user_id === false ) {
     echo json_encode( array('result' => 'No matching users'));
     die();
 }
-$res->fetchInto($row);
 
 /* Get and format user */
-$user = get_user($row['user_id']);
+$user = get_user($user_id);
 
 /* Add back phone number from query */
 $user['phone'] = $phone;

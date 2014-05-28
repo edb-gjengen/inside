@@ -62,17 +62,24 @@ if($data === NULL) {
 }
 
 /* Validate supplied data */
-$required_keys = array('firstname', 'lastname', 'phone', 'email');
+$valid_keys = array('firstname', 'lastname', 'phone', 'email');
 
-foreach($required_keys as $key) {
+foreach($valid_keys as $key) {
     if(!array_key_exists($key, $data)) {
         set_response_code(400);
         echo json_encode(array('error' => 'missing required field \''.$key.'\''));
         die();
     }
 }
-var_dump($data);
+foreach($data as $key => $value) {
+    if(!in_array($key, $valid_keys)) {
+        set_response_code(400);
+        echo json_encode(array('error' => 'unknown field \''.$key.'\''));
+        die();
+    }
+}
 
+$data['phone'] = clean_phonenumber($data['phone']);
 if( !valid_phonenumber($data['phone']) ) {
     set_response_code(400);
     echo json_encode(array('error' => 'Not a phone number:'.$data['phone']));
@@ -83,6 +90,17 @@ if( !valid_email($data['email']) ) {
     echo json_encode(array('error' => 'Not an email: '.$data['email']));
     die();
 }
+
+/* Connect to database */
+$options = array( 'debug' => 2, 'portability' => DB_PORTABILITY_ALL );
+$conn = DB::connect(getDSN(), $options);
+if(DB :: isError($conn)) {
+    echo $conn->toString();
+    set_response_code(500);
+    echo json_encode(array('error' => 'Could not connect to DB'));
+    die();
+}
+
 /* Existing user? */
 if( getUseridFromEmail($data['email']) !== false) {
     set_response_code(409);
@@ -94,6 +112,18 @@ if( getUseridFromPhone($data['phone']) !== false ) {
     echo json_encode(array('error' => 'Existing user with phone: '.$data['phone']));
     die();
 }
+/* validate firstname and lastname */
+if( strlen($data['firstname']) < 2) {
+    set_response_code(400);
+    echo json_encode(array('error' => 'Too short firstname: '.$data['firstname']));
+    die();
+}
+if( strlen($data['lastname']) < 2) {
+    set_response_code(400);
+    echo json_encode(array('error' => 'Too short lastname: '.$data['lastname']));
+    die();
+}
+
 
 /* Create user */
 $user_id = add_user($data);
@@ -102,7 +132,7 @@ $user_id = add_user($data);
 $user = get_user($user_id);
 
 /* Return encrypted user object */
-//echo json_encode($user);
+echo json_encode($user);
 //echo $crypt->encrypt(json_encode($user));
  
 ?>
