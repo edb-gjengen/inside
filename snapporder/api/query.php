@@ -10,14 +10,15 @@
  *
  * {
  *   "phone": "+4742345678",
- *   "membership_status": 1, // 0 - ikke medlem, 1 - medlem, 2 - aktiv
+ *   "membership_status": 1,  // 0: registrert, 1: medlem, 2: aktivt medlem
  *   "expires": "2015-04-23",
  *   "memberid": "4331",
  *   "cardno": "12345",
- *   "firstName": "Jon",
- *   "lastName": "Hansen",
+ *   "firstname": "Jon",
+ *   "lastname": "Hansen",
  *   "email": "jon@uio.no",
  *   "registration_status": "partial" // "partial" means show link
+ *   "register_url": "/snapporder/register_partial.php?id=4331&hmac=lol"
  * }
  *
  */

@@ -7,27 +7,28 @@
  * $ curl /snapporder/api/register.php 
  * {
  *   "phone":12345678,
- *   "firstName": "Jon",
- *   "lastName": "Hansen",
- *   "email": "jon@uio.no"
+ *   "firstname": "Jon",
+ *   "lastname": "Hansen",
+ *   "email": "jon@uio.no",
+ *   "purchased": "2004-02-12"  // optional, format: ISO-8601 date
  * }
  *
  * Response:
  *
  * {
- *   "phone":12345678,
- *   "memberStatus":1,
- *   "endDate": "2015-04-23" ,
- *   "membershipNumber": "dsadsa2333",
- *   "firstName": "Jon",
- *   "lastName": "Hansen",
+ *   "phone": "+4742345678",
+ *   "membership_status": 1,  // 0: registrert, 1: medlem, 2: aktivt medlem
+ *   "expires": "2015-04-23",
+ *   "memberid": "4331",
+ *   "firstname": "Jon",
+ *   "lastname": "Hansen",
  *   "email": "jon@uio.no",
- *   "registration_status": "partial" // "partial" or "full"
+ *   "registration_status": "partial"  // "partial" means show link
+ *   "register_url": "/snapporder/register_partial.php?id=4331&hmac=lol"
  * }
  *
- * TODO:
- * - register user with fromSnappOrder flag
- * - return result
+ * TODO register url
+ * TODO maybe check $_SERVER['REQUEST_METHOD']
  */
 
 /* Pull in Inside */
@@ -62,9 +63,11 @@ if($data === NULL) {
 }
 
 /* Validate supplied data */
-$valid_keys = array('firstname', 'lastname', 'phone', 'email');
+$required_keys = array('firstname', 'lastname', 'phone', 'email');
+$valid_keys = $required_keys;
+$valid_keys[] = + 'purchased';
 
-foreach($valid_keys as $key) {
+foreach($required_keys as $key) {
     if(!array_key_exists($key, $data)) {
         set_response_code(400);
         echo json_encode(array('error' => 'missing required field \''.$key.'\''));
@@ -100,6 +103,7 @@ if(DB :: isError($conn)) {
     echo json_encode(array('error' => 'Could not connect to DB'));
     die();
 }
+$conn->setFetchMode(DB_FETCHMODE_ASSOC);
 
 /* Existing user? */
 if( getUseridFromEmail($data['email']) !== false) {
@@ -112,6 +116,7 @@ if( getUseridFromPhone($data['phone']) !== false ) {
     echo json_encode(array('error' => 'Existing user with phone: '.$data['phone']));
     die();
 }
+
 /* validate firstname and lastname */
 if( strlen($data['firstname']) < 2) {
     set_response_code(400);
@@ -124,12 +129,26 @@ if( strlen($data['lastname']) < 2) {
     die();
 }
 
+/* Validate optional purchase_date */
+if( isset($data['purchased']) ) {
+    $purchased = clean_date($data['purchased']) ;
+    if($purchased === false) {
+        set_response_code(400);
+        echo json_encode(array('error' => 'Could not parse date from field purchased: '.$data['purchased']));
+        die();
+    }
+    $data['purchased'] = $purchased;
+}
+
 
 /* Create user */
 $user_id = add_user($data);
 
 /* Get and format user */
 $user = get_user($user_id);
+
+/* Add back phone number from query */
+$user['phone'] = $data['phone'];
 
 /* Return encrypted user object */
 echo json_encode($user);
