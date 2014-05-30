@@ -6,7 +6,7 @@
  *
  * $ curl /snapporder/api/register.php 
  * {
- *   "phone":12345678,
+ *   "phone": "+4742345678",
  *   "firstname": "Jon",
  *   "lastname": "Hansen",
  *   "email": "jon@uio.no",
