@@ -28,6 +28,7 @@
  * }
  *
  * TODO register url
+ * TODO Add entry in din_userupdate
  * TODO maybe check $_SERVER['REQUEST_METHOD']
  */
 
