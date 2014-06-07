@@ -18,7 +18,7 @@
  *   "lastname": "Hansen",
  *   "email": "jon@uio.no",
  *   "registration_status": "partial" // "partial" means show link
- *   "register_url": "/snapporder/register_partial.php?id=4331&hmac=lol"
+ *   "registration_url": "/snapporder/register_partial.php?userid=4331&token=lol"
  * }
  *
  */
@@ -74,7 +74,7 @@ $user['phone'] = $phone;
 
 /* Add register url if needed */
 if($user['registration_status'] === "partial") {
-    $user['registation_url'] = generate_registration_url($user, SECRET_KEY);
+    $user['registration_url'] = generate_registration_url($user, SECRET_KEY);
 }
 
 /* Return encrypted user object */

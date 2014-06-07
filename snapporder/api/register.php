@@ -24,7 +24,7 @@
  *   "lastname": "Hansen",
  *   "email": "jon@uio.no",
  *   "registration_status": "partial"  // "partial" means show link
- *   "register_url": "/snapporder/register_partial.php?id=4331&hmac=lol"
+ *   "registration_url": "/snapporder/register_partial.php?userid=4331&token=lol"
  * }
  *
  * TODO Add entry in din_userupdate
