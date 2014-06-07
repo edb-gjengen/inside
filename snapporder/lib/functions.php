@@ -205,7 +205,8 @@ function check_token($user, $token, $secret_key) {
 function generate_registration_url($user, $secret_key) {
     $token = create_token($user, $secret_key);
     $server_name = isset($_SERVER['HTTP_X_FORWARDED_SERVER']) ? $_SERVER['HTTP_X_FORWARDED_SERVER'] : $_SERVER['SERVER_NAME'];
-    $url = $_SERVER["REQUEST_SCHEME"]."://".$server_name."/snapporder/activate.php?userid=".$user['memberid']."&token=$token";
+    $scheme ="http".((empty($_SERVER['HTTPS']) or $_SERVER['HTTPS'] == 'off')?'':'s');
+    $url = "$scheme://".$server_name."/snapporder/activate.php?userid=".$user['memberid']."&token=$token";
 
     return $url;
 }
