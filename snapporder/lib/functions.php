@@ -91,7 +91,7 @@ function get_user($user_id) {
         echo json_encode( array('error' => 'db_error', 'error_message' => $res->toString() ) );
         die();
     }
-    if($res->numRows === 0) {
+    if($res->numRows() === 0) {
         return false;
     }
     $res->fetchInto($user);
