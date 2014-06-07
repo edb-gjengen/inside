@@ -72,6 +72,11 @@ $user = get_user($user_id);
 /* Add back phone number from query */
 $user['phone'] = $phone;
 
+/* Add register url if needed */
+if($user['registration_status'] === "partial") {
+    $user['registation_url'] = generate_registration_url($user, SECRET_KEY);
+}
+
 /* Return encrypted user object */
 echo json_encode($user);
 //echo $crypt->encrypt(json_encode($user));

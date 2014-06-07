@@ -1,0 +1,41 @@
+// Comment out this import if you don't want to use normalize
+@import './bower_components/foundation/scss/normalize';
+
+// Or selectively include components
+@import "foundation/components/grid";
+
+@import "foundation/components/buttons";
+@import "foundation/components/forms";
+@import "foundation/components/block-grid";
+@import "foundation/components/visibility";
+
+body {
+
+}
+.container {
+    @include grid-row();
+}
+.title {
+    @include grid-column(12);
+}
+.about{
+    @include grid-column(12);
+    @media #{$medium-up} { @include grid-column(6); }
+}
+.activation {
+    @include grid-column(12);
+    @media #{$medium-up} { @include grid-column(6); }
+    .profile {
+    }
+    .activation-form {
+    }
+}
+.btn-submit {
+    display: block;
+    width: 100%;
+    @media #{$medium-up} {
+        display: inline-block;
+        width: auto;
+    }
+
+}

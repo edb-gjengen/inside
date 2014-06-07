@@ -27,7 +27,6 @@
  *   "register_url": "/snapporder/register_partial.php?id=4331&hmac=lol"
  * }
  *
- * TODO register url
  * TODO Add entry in din_userupdate
  * TODO maybe check $_SERVER['REQUEST_METHOD']
  */

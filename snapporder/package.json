@@ -1,0 +1,12 @@
+{
+  "name": "inside-snapporder",
+  "version": "0.1.0",
+  "devDependencies": {
+    "node-sass": "latest",
+    "grunt": "latest",
+    "grunt-autoprefixer": "latest",
+    "grunt-contrib-watch": "latest",
+    "grunt-sass": "latest",
+    "matchdep": "latest"
+  }
+}

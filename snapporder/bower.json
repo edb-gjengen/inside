@@ -1,0 +1,8 @@
+{
+  "name": "inside-snapporder",
+  "dependencies": {
+    "foundation": "zurb/bower-foundation",
+    "underscore": "latest"
+  }
+}
+

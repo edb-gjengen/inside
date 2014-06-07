@@ -1,5 +1,4 @@
 <?php
-require_once("../../inside/functions.php");
 
 /* Set HTTP response code */
 function set_response_code($code) {
@@ -152,5 +151,59 @@ function valid_phonenumber($phone) {
 }
 function valid_email($email) {
     return filter_var($email, FILTER_VALIDATE_EMAIL);
+}
+/* Compare two hashes */
+function hash_compare($a, $b) {
+    if (!is_string($a) || !is_string($b)) {
+        return false;
+    }
+
+    $len = strlen($a);
+    if ($len !== strlen($b)) {
+        return false;
+    }
+
+    $status = 0;
+    for ($i = 0; $i < $len; $i++) {
+        $status |= ord($a[$i]) ^ ord($b[$i]);
+    }
+    return $status === 0;
+}
+function create_token($user, $secret_key, $timestamp=NULL) {
+    // Based on this: https://github.com/django/django/blob/master/django/contrib/auth/tokens.py#L50
+    if($timestamp === NULL) {
+        $timestamp = date_format(date_create(), "Y-m-d");
+    }
+    $message = $user['memberid'].$user['registration_status'].$timestamp;
+    $user_hash = hash_hmac("sha256", $message, $secret_key);
+
+    return $timestamp. "," .$user_hash;
+}
+
+function check_token($user, $token, $secret_key) {
+    /* Check that a password reset token is correct for a given user. */
+
+    // Parse the token
+    list($ts, $hash) = explode(",", $token);
+
+    // Check that the timestamp/uid has not been tampered with
+    if( !hash_compare(create_token($user, $secret_key, $ts), $token) ) {
+        return false;
+    }
+
+    // Check the timestamp is within limit
+    $n_days_ago = date_modify(date_create(), "-".REGISTRATION_URL_TIMEOUT_DAYS." days");
+    if( $n_days_ago > clean_date($ts) ) {
+        return false;
+    }
+
+    return true;
+}
+function generate_registration_url($user, $secret_key) {
+    $token = create_token($user, $secret_key);
+    $server_name = isset($_SERVER['HTTP_X_FORWARDED_SERVER']) ? $_SERVER['HTTP_X_FORWARDED_SERVER'] : $_SERVER['SERVER_NAME'];
+    $url = $_SERVER["REQUEST_SCHEME"]."://".$server_name."/snapporder/activate.php?userid=".$user['memberid']."&token=$token";
+
+    return $url;
 }
 ?>

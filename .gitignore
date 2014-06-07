@@ -2,6 +2,7 @@ credentials.php
 inside/tmp
 inside/migration/config.php
 snapporder/config.php
+snapporder/node_modules
 migration.log
 error_log
 *.swp
