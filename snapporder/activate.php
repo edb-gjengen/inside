@@ -34,6 +34,11 @@ if(DB :: isError($conn)) {
 $conn->setFetchMode(DB_FETCHMODE_ASSOC);
 /* Fetch user and check for valid token */
 $user = get_user($_GET['userid']);
+if(!$user) {
+    echo "Ugyldig aktiveringslenke. Ta kontakt med medlemskap@studentersamfundet.no hvis du har spørsmål.";
+    set_response_code(400);
+    die();
+}
 if( !check_token($user, $_GET['token'], SECRET_KEY)) {
     echo "Ugyldig aktiveringslenke. Ta kontakt med medlemskap@studentersamfundet.no hvis du har spørsmål.";
     set_response_code(400);
