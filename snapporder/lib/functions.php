@@ -268,9 +268,13 @@ function institutions($output=true) {
 }
 function mailchimp_subscribe($data, $list_id, $api_key) {
     // Ref: http://apidocs.mailchimp.com/api/2.0/lists/subscribe.php
+    if(strlen($api_key) == 0) {
+        return false;
+    }
+
     $double_optin = false;
     $send_welcome = false;
-    $dc = explode("-",$api_key)[1];
+    list($not_used, $dc) = explode("-", $api_key);
     $submit_url = "https://$dc.api.mailchimp.com/2.0/lists/subscribe.json";
 
     $data = array(
