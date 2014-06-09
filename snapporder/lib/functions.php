@@ -1,12 +1,6 @@
 <?php
 
-/* Set HTTP response code */
-function set_response_code($code) {
-    if(!is_int($code)) {
-        return false;
-    }
-    header('X-Ignore-This: something', true, $code);
-}
+class ValidationException extends Exception {}
 
 /* Username based on firstname and lastname, max 12 chars */
 function generate_username($data) {
@@ -68,6 +62,9 @@ function add_user($data) {
         die();
     }
 
+    log_userupdate($data['userid'], "User registered."); // for legacy
+    log_userupdate($data['userid'], "Medlemskap registrert via SnappOrder.");
+
     return $user_id;
 }
 
@@ -121,39 +118,25 @@ function get_user($user_id) {
 
     return $user;
 }
-function get_user_id_by_username($username) {
+function get_user_id_by_username($username, $json=true) {
     global $conn;
 
     $sql = "SELECT id FROM din_user WHERE username='$username'";
     $res = $conn->query($sql);
     if( DB::isError($res) ) {
         set_response_code(500);
-        echo json_encode( array('error' => 'db_error', 'error_message' => $res->toString() ) );
+        if($json) {
+            echo json_encode( array('error' => 'db_error', 'error_message' => $res->toString()) );
+        } else {
+            echo "Oops, databasefeil: ".$res->toString();
+        }
         die();
+    }
+    if( $res->numRows() === 0 ) {
+        return false;
     }
     $res->fetchInto($data);
     return $data['id'];
-}
-function clean_phonenumber($pn) {
-    $pn = preg_replace('/[^0-9\+]/', '', $pn); // remove everything except valid chars
-    $pn = preg_replace('/^00/','+', $pn); // replace starting 00 with +
-    // norwegian phone numbers
-    if( strlen($pn) === 8 && ($pn[0] === "4" || $pn[0] === "9") ) {
-        $pn = "+47".$pn;
-    }
-    return $pn;
-}
-// ISO-8601 Y-m-d
-function clean_date($date) {
-    // returns a DateTime object
-    return date_create_from_format('Y-m-d', $date);
-}
-// E.164
-function valid_phonenumber($phone) {
-    return preg_match('/^\+?\d{8,15}$/i', $phone);
-}
-function valid_email($email) {
-    return filter_var($email, FILTER_VALIDATE_EMAIL);
 }
 /* Compare two hashes */
 function hash_compare($a, $b) {
@@ -210,4 +193,232 @@ function generate_registration_url($user, $secret_key) {
 
     return $url;
 }
+function date_picker($id, $output=true) {
+    $html = "";
+    // day
+    $html .= '<select id="' .$id. '_day" name="day">';
+    $html .= '<option value="">Dag</option>';
+    for($i=1; $i<=31; $i++) {
+        $selected = (isset($_POST['day']) && $_POST['day'] == $i) ? " selected" : "";
+        $html .= "<option value=\"$i\"$selected>$i</option>";
+    }
+    $html .= "</select>";
+
+    // month
+    $html .= '<select id="' .$id. '_month" name="month">';
+    $html .= '<option value="">Måned</option>';
+    $months = array("januar", "februar", "mars", "april", "mai", "juni", "juli", "august", "september",
+        "oktober", "november", "desember");
+    $i = 1;
+    foreach($months as $month) {
+        $selected = (isset($_POST['month']) && $_POST['month'] === "$i") ? " selected" : "";
+        $html .= '<option value="' .$i. '"' .$selected. '>' .ucfirst($month). '</option>';
+        $i++;
+    }
+    $html .= "</select>";
+
+    // year
+    $html .= '<select id="' .$id. '_year" name="year">';
+    $html .= '<option value="">År</option>';
+    for($i=date("Y"); $i >= date("Y")-100; $i--) {
+        $selected = (isset($_POST['year']) && $_POST['year'] == $i) ? " selected" : "";
+        $html .= "<option value=\"$i\"$selected>$i</option>";
+    }
+    $html .= "</select>";
+
+    if($output) {
+        echo $html;
+    }
+    return $html;
+}
+function institutions($output=true) {
+    global $conn;
+
+    $sql = "SELECT * FROM studiesteder";
+    $res = $conn->getAll($sql);
+    if( DB::isError($res) ) {
+        set_response_code(500);
+        echo json_encode( array('error' => 'db_error', 'error_message' => $res->toString() ) );
+        die();
+    }
+    $institutions = $res;
+
+    /* Format */
+    $html = "";
+    $html .= '<select id="id_place_of_study" name="place_of_study">';
+    foreach($institutions as $place) {
+        // selection
+        $selected = "";
+        if( isset($_POST['place_of_study']) && $_POST['place_of_study'] == $place['id'] ) {
+            $selected = " selected";
+        } else if( $place['id'] == 22 && !isset($_POST['place_of_study']) ) {
+            $selected =" selected" ;
+        }
+
+        $name = iconv("ISO-8859-1", "UTF-8", $place['navn']); // DB is latin1
+        $html .= '<option value="' .$place['id']. '"' .$selected. '>' .$name. '</option>';
+    }
+    $html .= "</select>";
+
+    if($output) {
+        echo $html;
+    }
+
+    return $html;
+}
+function mailchimp_subscribe($data, $list_id, $api_key) {
+    // Ref: http://apidocs.mailchimp.com/api/2.0/lists/subscribe.php
+    $double_optin = false;
+    $send_welcome = false;
+    $dc = explode("-",$api_key)[1];
+    $submit_url = "https://$dc.api.mailchimp.com/2.0/lists/subscribe.json";
+
+    $data = array(
+        'apikey' => $api_key,
+        'id' => $list_id,
+        'email' => array('email' => $data['email']),
+        'merge_vars' => array('fname' => $data['firstname'], 'lname' => $data['lastname']),
+        'double_optin' => $double_optin,
+        'send_welcome' => $send_welcome
+
+    );
+    $payload = json_encode($data);
+
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $submit_url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
+
+    $result = curl_exec($ch);
+    $data = (array) json_decode($result);
+    if( isset($data['status']) && $data['status'] === "error") {
+        $message = "Request: '" .var_export(curl_getinfo($ch), true). "' \nPayload: '" .var_export($payload, true). "'";
+        @mail("kak-edb@studentersamfundet.no", "[Inside] Could not add a user to a mailchimp list.", $message);
+        curl_close ($ch);
+        return false;
+    } 
+
+    curl_close ($ch);
+    return true;
+}
+
+function update_user($data) {
+    global $conn;
+
+    $birthdate_sql = "";
+    if( strlen($data['date_of_birth']) > 0) {
+        $birthdate_sql = "birthdate=" .$conn->quoteSmart($data['date_of_birth']).",";
+    }
+    // user: update existing user, activation_status="full", form data
+    $sql = "UPDATE din_user SET ";
+    $sql .= "username=" .$conn->quoteSmart($data['username']).",";
+    $sql .= "password=PASSWORD(" .$conn->quoteSmart($data['password'])."),";
+    $sql .= $birthdate_sql;
+    $sql .= "placeOfStudy=" .$conn->quoteSmart($data['place_of_study']).",";
+    $sql .= "registration_status='full'";
+    $sql .= " WHERE id = " . $conn->quoteSmart($data['userid']);
+    $res = $conn->query($sql);
+    
+    if (DB::isError($res)) {
+        set_response_code(500);
+        echo "Oops, databasefeil: ".$res->toString();
+        die();
+    }
+    return true;
+}
+function update_user_groups($data) {
+    global $conn;
+
+    // add to dns-alle (2)
+    $group = array(
+        'user_id' => $data['userid'],
+        'group_id' => 2
+    );
+    $res = $conn->autoExecute('din_usergrouprelationship', $group, DB_AUTOQUERY_INSERT);
+
+    if (DB::isError($res)) {
+        // allready exists is fine
+    }
+    return true;
+}
+
+function validate_date_of_birth($data, $optional=true) {
+    $keys = array('year', 'month','day');
+    $values = array();
+
+    foreach( $keys as $key) {
+        // If started filling out date of birth
+        if(strlen($data[$key]) !== 0) {
+            $optional = false;
+        }
+        // year
+        $values[] = $data[$key];
+    }
+
+    if($optional) {
+        return ""; // skip
+    }
+
+    // try parsing
+    $date = implode('-', $values);
+    if(!clean_date($date)) {
+        return false;
+    }
+    return $date;
+}
+
+function validate_activation_form($data) {
+
+    // username: length, ascii, exists
+    $data['username'] = trim($data['username']);
+    if( !validate_username_length($data['username']) ) {
+        throw new ValidationException("Brukernavet må være mellom 3 og 12 tegn");
+    }
+    if( !validate_username_chars($data['username']) ) {
+        throw new ValidationException("Brukernavnet kan kun inneholde små bokstaver.");
+    }
+    if( get_user_id_by_username($data['username'], false) !== false) {
+        throw new ValidationException("Brukernavnet er allerede i bruk.");
+    }
+
+    // password: entropy, quotes
+    $data['password'] = trim($data['password']);
+    if( !validate_password_length($data['password']) ) {
+        throw new ValidationException("Passordet må være på minst 8 tegn.");
+    }
+    if( !validate_password_chars($data['password']) ) {
+        throw new ValidationException("Passordet kan ikke inneholde enkel- eller dobbelfnutt eller bakslask.");
+    }
+
+    // birthdate (optional)
+    $valid_date = validate_date_of_birth($data);
+    if( $valid_date === false ) {
+        throw new ValidationException("Ugyldig fødselsdato");
+    }
+    $data['date_of_birth'] = $valid_date; // Note: could be: ""
+
+    // place of study (optional)
+    if( !is_numeric($data['place_of_study']) ) {
+        throw new ValidationException("Ugyldig studiested");
+    }
+
+    return $data;
+}
+function save_activation_form($data) {
+    update_user($data);
+    update_user_groups($data);
+
+    log_userupdate($data['userid'], "Membership activated.");
+    
+    // weekly newsletter (mailchimp)
+    if(isset($data['newsletter']) && $data['newsletter'] === "1" && MAILCHIMP_API_KEY !== "") {
+        if( mailchimp_subscribe($data, MAILCHIMP_LIST_ID, MAILCHIMP_API_KEY) ) {
+            log_userupdate($data['userid'], "Added to newsletter.");
+        }
+    }
+
+    return true;
+}
 ?>
+

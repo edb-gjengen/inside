@@ -1690,5 +1690,80 @@ function get_gravatar( $email, $s = 80, $d = 'mm', $r = 'g', $img = false, $atts
     }
     return $url;
 }
+function validate_username_length($username) {
+    return strlen(stripcslashes($username)) >= 3 && strlen(stripcslashes($username)) <= 12;
+}
+function validate_username_chars($username) {
+    return preg_match('/^[a-z]+[a-z0-9]*$/', strtolower(stripcslashes($username)));
+}
+function validate_password_length($password) {
+    return strlen($password) >= 8;
+}
+function validate_password_chars($password) {
+    /* No double nor single quotes */
+    if( preg_match('/[\\\"\']+/', $password) ) {
+        return false;
+    }
+    return true;
+}
+function clean_phonenumber($pn) {
+    $pn = preg_replace('/[^0-9\+]/', '', $pn); // remove everything except valid chars
+    $pn = preg_replace('/^00/','+', $pn); // replace starting 00 with +
+    // norwegian phone numbers
+    if( strlen($pn) === 8 && ($pn[0] === "4" || $pn[0] === "9") ) {
+        $pn = "+47".$pn;
+    }
+    return $pn;
+}
+// ISO-8601 Y-m-d
+function clean_date($date) {
+    // returns a DateTime object
+    return date_create_from_format('Y-m-d', $date);
+}
+// E.164
+function valid_phonenumber($phone) {
+    return preg_match('/^\+?\d{8,15}$/i', $phone);
+}
+function valida_email($email) {
+    return filter_var($email, FILTER_VALIDATE_EMAIL);
+}
+
+/* Set HTTP response code */
+function set_response_code($code) {
+    if(!is_int($code)) {
+        return false;
+    }
+    header('X-Ignore-This: something', true, $code);
+}
+/* Redirect to path on same domain */
+function redirect($path) {
+    $scheme ="http".((empty($_SERVER['HTTPS']) or $_SERVER['HTTPS'] == 'off')?'':'s');
+    $host = $_SERVER['HTTP_HOST'];
+    $location = "$scheme://$host$path";
+    header("Location: $location");
+}
+
+function log_userupdate($updated, $comment, $updated_by=NULL) {
+    global $conn;
+
+    if( $updated_by == NULL) {
+        $updated_by = $updated;
+    }
+
+    $now = date_format(date_create(), "Y-m-d H:i:s");
+    $data = array(
+        'date' => $now,
+        'user_id_updated' => $updated,
+        'comment' => $comment,
+        'user_id_updated_by' => $updated_by
+    );
+    $res = $conn->autoExecute("din_userphonenumber", $data, DB_AUTOQUERY_INSERT);
+    
+    if (DB::isError($res)) {
+
+        return false;
+    }
+    return true;
+}
 
 ?>

@@ -57,68 +57,67 @@ class User {
                 error("User: No data supplied.");
                 $this->id = -1;
                 return false;
+            }
+
+            /* Validate user supplied data. */
+            if( !validate_username_length($data['username']) ) {
+                notify("Brukernavnet må være mellom 3 og 12 tegn.");
+                $this->id = -1;
+                return false;
+            }
+            if( !validate_username_chars($data['username']) ) {
+                notify("Brukernavnet kan kun inneholde små bokstaver.");
+                $this->id = -1;
+                return false;
+            }
+            $this->username = strtolower(stripcslashes($data['username']));
+            if( !validate_password_length($data['password']) ) {
+                notify("Passordet må være minst 8 tegn.");
+                $this->id = -1;
+                return false;
+            }
+            if( !validate_password_chars($data['password']) ) {
+                notify("Passordet kan ikke inneholde enkel- eller dobbelfnutt eller bakslask.");
+                $this->id = -1;
+                return false;
+            }
+            if ($data['password1'] != $data['password2']) {
+                notify("Passordene var ikke like.");
+                $this->id = -1;
+                return false;
+            }
+            $this->password = $data['password1'];
+
+            $this->addresstype = isset ($data['addresstype']) ? "int" : "no";
+
+            if (isDate($data['birthdate'])) {
+                $this->birthdate = $data['birthdate'];
             } else {
-                /* Validate user supplied data. */
-                if (strlen(stripcslashes($data['username'])) < 3 || strlen(stripcslashes($data['username'])) > 12 ) {
-                    notify("Brukernavnet må være mellom 3 og 12 tegn.");
-                    $this->id = -1;
-                    return false;
-                }
-                if(! preg_match('/^[a-z]*$/', strtolower(stripcslashes($data['username'])))) {
-                    notify("Brukernavnet kan kun inneholde små bokstaver.");
-                    $this->id = -1;
-                    return false;
-                }
-                $this->username = strtolower(stripcslashes($data['username']));
-                if (strlen($data['password1']) < 8) {
-                    notify("Passordet må være minst 8 tegn.");
-                    $this->id = -1;
-                    return false;
-                }
-                /* No double nor single quotes */
-                if(preg_match('/[\\\"\']+/', $data['password1'])) {
-                    notify("Passordet kan ikke inneholde enkel- eller dobbelfnutt eller bakslask.");
-                    $this->id = -1;
-                    return false;
-                }
-                if ($data['password1'] != $data['password2']) {
-                    notify("Passordene var ikke like.");
-                    $this->id = -1;
-                    return false;
-                }
-                $this->password = $data['password1'];
+                notify("Ugyldig fødselsdato: " . $data['birthdate']);
+                $this->id = -1;
+                return false;
+            }
 
-                $this->addresstype = isset ($data['addresstype']) ? "int" : "no";
+            if( $data['phonenumber'] ) {
+                $data['phonenumber'] = clean_phonenumber($data['phonenumber']);
+            }
 
-                if (isDate($data['birthdate'])) {
-                    $this->birthdate = $data['birthdate'];
-                } else {
-                    notify("Ugyldig fødselsdato: " . $data['birthdate']);
-                    $this->id = -1;
-                    return false;
-                }
+            /* No duplicate phone numbers */
+            if( getUseridFromPhone($data['phonenumber']) !== false ) {
+                notify("Telefonnummeret er allerede registrert på en bruker.");
+                $this->id = -1;
+                return false;
+            }
 
-                /* TODO replace +47 and 0047 with blank */
-                //if( $data['phonenumber'] ) {
-                //}
-
-                /* No duplicate phone numbers */
-                if( getUseridFromPhone($data['phonenumber']) !== false ) {
-                    notify("Telefonnummeret er allerede registrert på en bruker.");
-                    $this->id = -1;
-                    return false;
-                }
-
-                if (isset ($data['active'])) {
-                    $this->division_id_request = $data['division'];
-                } else {
-                    $this->division_id_request = NULL;
-                }
-                if (isset ($data['group'])) {
-                    $this->group_id = $data['group_id'];
-                } else {
-                    $this->group_id = NULL;
-                }
+            if (isset ($data['active'])) {
+                $this->division_id_request = $data['division'];
+            } else {
+                $this->division_id_request = NULL;
+            }
+            if (isset ($data['group'])) {
+                $this->group_id = $data['group_id'];
+            } else {
+                $this->group_id = NULL;
             }
         } else { //ID set, existing user
             if ($data != NULL) {
