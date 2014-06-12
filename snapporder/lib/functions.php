@@ -62,8 +62,8 @@ function add_user($data) {
         die();
     }
 
-    log_userupdate($data['userid'], "User registered."); // for legacy
-    log_userupdate($data['userid'], "Medlemskap registrert via SnappOrder.");
+    log_userupdate($user_id, "User registered."); // for legacy
+    log_userupdate($user_id, "Medlemskap registrert via SnappOrder.");
 
     return $user_id;
 }
