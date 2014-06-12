@@ -27,7 +27,6 @@
  *   "registration_url": "/snapporder/register_partial.php?userid=4331&token=lol"
  * }
  *
- * TODO Add entry in din_userupdate
  * TODO maybe check $_SERVER['REQUEST_METHOD']
  */
 

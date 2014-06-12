@@ -1724,7 +1724,7 @@ function clean_date($date) {
 function valid_phonenumber($phone) {
     return preg_match('/^\+?\d{8,15}$/i', $phone);
 }
-function valida_email($email) {
+function valid_email($email) {
     return filter_var($email, FILTER_VALIDATE_EMAIL);
 }
 
