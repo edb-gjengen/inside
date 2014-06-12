@@ -146,6 +146,9 @@ $user_id = add_user($data);
 /* Get and format user */
 $user = get_user($user_id);
 
+/* Add register url */
+$user['registration_url'] = generate_registration_url($user, SECRET_KEY);
+
 /* Add back phone number from query */
 $user['phone'] = $data['phone'];
 
