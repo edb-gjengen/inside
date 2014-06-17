@@ -78,7 +78,7 @@ function get_user($user_id) {
      *  - a date >= NOW(): Valid membership
      *  - NULL: Lifelong membership
      */
-    $cols = array('id', 'firstname', 'lastname', 'email', 'expires', 'cardno', 'registration_status');
+    $cols = array('id', 'firstname', 'lastname', 'email', 'expires', 'cardno', 'registration_status', 'birthdate');
     $sql_group_ids = "GROUP_CONCAT(group_id) AS group_ids";
     $sql_is_member = "expires > NOW() OR expires IS NULL AS is_member";
     $sql = "SELECT ".implode($cols, ",").",$sql_group_ids,$sql_is_member FROM din_user AS users LEFT JOIN din_usergrouprelationship AS ug ON users.id=ug.user_id WHERE users.id=$user_id GROUP BY users.id";
@@ -115,6 +115,9 @@ function get_user($user_id) {
     unset($user['group_ids']);
     $user['memberid'] = $user['id']; // rename
     unset($user['id']);
+    if($user['birthdate'] == "0000-00-00") {
+        unset($user['birthdate']);
+    }
 
     return $user;
 }
@@ -310,15 +313,10 @@ function mailchimp_subscribe($data, $list_id, $api_key) {
 function update_user($data) {
     global $conn;
 
-    $birthdate_sql = "";
-    if( strlen($data['date_of_birth']) > 0) {
-        $birthdate_sql = "birthdate=" .$conn->quoteSmart($data['date_of_birth']).",";
-    }
     // user: update existing user, activation_status="full", form data
     $sql = "UPDATE din_user SET ";
     $sql .= "username=" .$conn->quoteSmart($data['username']).",";
     $sql .= "password=PASSWORD(" .$conn->quoteSmart($data['password'])."),";
-    $sql .= $birthdate_sql;
     $sql .= "placeOfStudy=" .$conn->quoteSmart($data['place_of_study']).",";
     $sql .= "registration_status='full'";
     $sql .= " WHERE id = " . $conn->quoteSmart($data['userid']);
@@ -347,25 +345,8 @@ function update_user_groups($data) {
     return true;
 }
 
-function validate_date_of_birth($data, $optional=true) {
-    $keys = array('year', 'month','day');
-    $values = array();
-
-    foreach( $keys as $key) {
-        // If started filling out date of birth
-        if(strlen($data[$key]) !== 0) {
-            $optional = false;
-        }
-        // year
-        $values[] = $data[$key];
-    }
-
-    if($optional) {
-        return ""; // skip
-    }
-
+function valid_date($date) {
     // try parsing
-    $date = implode('-', $values);
     if(!clean_date($date)) {
         return false;
     }
@@ -394,13 +375,6 @@ function validate_activation_form($data) {
     if( !validate_password_chars($data['password']) ) {
         throw new ValidationException("Passordet kan ikke inneholde enkel- eller dobbelfnutt eller bakslask.");
     }
-
-    // birthdate (optional)
-    $valid_date = validate_date_of_birth($data);
-    if( $valid_date === false ) {
-        throw new ValidationException("Ugyldig fødselsdato");
-    }
-    $data['date_of_birth'] = $valid_date; // Note: could be: ""
 
     // place of study (optional)
     if( !is_numeric($data['place_of_study']) ) {

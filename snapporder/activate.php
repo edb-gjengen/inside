@@ -121,7 +121,6 @@ if( isset($_POST['submit']) ) {
             <!-- Account -->
             <label for="id_username">Brukernavn:</label><input id="id_username" type="text" name="username" placeholder="Brukernavn" value="<?php echo $username; ?>" />
             <label for="id_password">Passord:</label><input id="id_password" type="password" name="password" placeholder="Passord" value="<?php echo $password; ?>"/>
-            <label for="id_date_of_birth_day">Fødselsdato:</label><?php date_picker("id_date_of_birth"); ?>
             <label for="id_place_of_study">Studiested:</label><?php institutions(); ?>
             <label for="id_newsletter">Motta nyhetsbrev:</label><input type="checkbox" id="id_newsletter" name="newsletter" value="1"<?php echo $newsletter_checked; ?> /> Nyheter og kommende arrangementer på Studentersamfundet<br /><br />
             <button type="submit" name="submit" class="btn-submit">Aktiver medlemskapet</button>

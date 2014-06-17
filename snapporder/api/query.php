@@ -17,6 +17,7 @@
  *   "firstname": "Jon",
  *   "lastname": "Hansen",
  *   "email": "jon@uio.no",
+ *   "birthdate": "1985-03-01",
  *   "registration_status": "partial" // "partial" means show link
  *   "registration_url": "/snapporder/register_partial.php?userid=4331&token=lol"
  * }

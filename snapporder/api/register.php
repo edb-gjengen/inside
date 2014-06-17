@@ -10,6 +10,7 @@
  *   "firstname": "Jon",
  *   "lastname": "Hansen",
  *   "email": "jon@uio.no",
+ *   "birthdate": "1985-03-01"  // format: ISO-8601 date
  *   "purchased": "2004-02-12"  // optional, format: ISO-8601 date
  * }
  *
@@ -23,6 +24,7 @@
  *   "firstname": "Jon",
  *   "lastname": "Hansen",
  *   "email": "jon@uio.no",
+ *   "birthdate": "1985-03-01",
  *   "registration_status": "partial"  // "partial" means show link
  *   "registration_url": "/snapporder/register_partial.php?userid=4331&token=lol"
  * }
@@ -62,7 +64,7 @@ if($data === NULL) {
 }
 
 /* Validate supplied data */
-$required_keys = array('firstname', 'lastname', 'phone', 'email');
+$required_keys = array('firstname', 'lastname', 'phone', 'email', 'birthdate');
 $valid_keys = $required_keys;
 $valid_keys[] = + 'purchased';
 
@@ -125,6 +127,12 @@ if( strlen($data['firstname']) < 2) {
 if( strlen($data['lastname']) < 2) {
     set_response_code(400);
     echo json_encode(array('error' => 'Too short lastname: '.$data['lastname']));
+    die();
+}
+/* validate birthdate */
+if( !valid_date($data['birthdate']) ) {
+    set_response_code(400);
+    echo json_encode(array('error' => 'Could not parse birthdate: \''.$data['birthdate'].'\''));
     die();
 }
 
