@@ -109,11 +109,15 @@ body {
             outline: 0;
             margin: 0;
         }
+        label[for=id_newsletter] {
+            border-bottom: 0;
+        }
         .newsletter-text {
             display: inline-block;
             width: 70%;
-            border-bottom: 1px solid #ccc;
-            height: $row-height - rem-calc(11);
+            border-bottom: 0;
+            height: $row-height;
+
             input {
                 margin: 0;
                 margin-right: 4px;
