@@ -1744,7 +1744,7 @@ function redirect($path) {
 }
 
 function log_userupdate($updated, $comment, $updated_by=NULL) {
-    global $conn;
+    $conn = db_connect();
 
     if( $updated_by == NULL) {
         $updated_by = $updated;
@@ -1757,9 +1757,10 @@ function log_userupdate($updated, $comment, $updated_by=NULL) {
         'comment' => $comment,
         'user_id_updated_by' => $updated_by
     );
-    $res = $conn->autoExecute("din_userphonenumber", $data, DB_AUTOQUERY_INSERT);
+    $res = $conn->autoExecute("din_userupdate", $data, DB_AUTOQUERY_INSERT);
     
     if (DB::isError($res)) {
+        var_dump($res->toString());
 
         return false;
     }
