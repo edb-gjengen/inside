@@ -9,6 +9,9 @@
 @import "foundation/components/block-grid";
 @import "foundation/components/visibility";
 
+$green: lighten(#2AA82A, 10%);
+$row-height: rem-calc(46);
+
 body {
     line-height: 1.4;
     font-family: Arial, sans-serif;
@@ -47,7 +50,7 @@ body {
     li {
         list-style: none;
         border-bottom: 1px solid #ccc;
-        line-height: rem-calc(40);
+        line-height: $row-height;
     }
     strong {
         display: inline-block;
@@ -74,7 +77,14 @@ body {
             display: inline-block;
             width: 30%;
             border-bottom: 1px solid #ccc;
-            line-height: rem-calc(40);
+            line-height: $row-height;
+            &.no-width {
+                font-weight: normal;
+                display: inline-block;
+                width: auto;
+                border-bottom: 0;
+                line-height: 1;
+            }
         }
         input[type=text],
         input[type=password] {
@@ -84,7 +94,7 @@ body {
             border: 0;
             text-shadow: none;
             box-shadow: none;
-            height: rem-calc(40);
+            height: $row-height;
             margin: 0;
             border-bottom: 1px solid #ccc;
         }
@@ -95,7 +105,7 @@ body {
             border: 0;
             border-bottom: 1px solid #ccc;
             padding-left: 0;
-            height: rem-calc(40);
+            height: $row-height;
             outline: 0;
             margin: 0;
         }
@@ -103,7 +113,7 @@ body {
             display: inline-block;
             width: 70%;
             border-bottom: 1px solid #ccc;
-            height: rem-calc(32);
+            height: $row-height - rem-calc(11);
             input {
                 margin: 0;
                 margin-right: 4px;
@@ -125,7 +135,6 @@ body {
 #id_date_of_birth_year {
     width: 33.333333%;
 }
-$green: lighten(#2AA82A, 10%);
 
 .btn-submit {
     font-family: Arial, sans-serif;

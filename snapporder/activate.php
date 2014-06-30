@@ -92,7 +92,7 @@ if( isset($_POST['submit']) ) {
 
 <body>
 <div class="container">
-    <h1 class="title">Aktiver medlemskapet ditt</h1>
+    <h1 class="title">Aktiver medlemskapet</h1>
     <header class="about">
         <p>Hei <strong><?php echo $user['firstname']." ".$user['lastname']; ?></strong>, du er veldig nære å kunne:</p>
         <ul class="incentives">
@@ -122,7 +122,7 @@ if( isset($_POST['submit']) ) {
             <label for="id_username">Brukernavn:</label><input id="id_username" type="text" name="username" placeholder="Brukernavn" value="<?php echo $username; ?>" />
             <label for="id_password">Passord:</label><input id="id_password" type="password" name="password" placeholder="Passord" value="<?php echo $password; ?>"/>
             <label for="id_place_of_study">Studiested:</label><?php institutions(); ?>
-            <label for="id_newsletter">Nyhetsbrev:</label><div class="newsletter-text"><input type="checkbox" id="id_newsletter" name="newsletter" value="1"<?php echo $newsletter_checked; ?> /><span>Nyheter og arrangementer</span></div>
+            <label for="id_newsletter">Nyhetsbrev:</label><div class="newsletter-text"><input type="checkbox" id="id_newsletter" name="newsletter" value="1"<?php echo $newsletter_checked; ?> /><label for="id_newsletter" class="no-width">Nyheter og arrangementer</label></div>
             <button type="submit" name="submit" class="btn-submit">Aktiver medlemskapet mitt</button>
         </form>
     </section>
