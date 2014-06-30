@@ -10,24 +10,105 @@
 @import "foundation/components/visibility";
 
 body {
+    line-height: 1.4;
+    font-family: Arial, sans-serif;
 
+    h1, h2, h3, h4, h5, h6 {
+        margin: 0;
+        margin-top: rem-calc(10);
+        font-family: Arvo, sans-serif;
+
+    }
+    ul {
+        margin: 0;
+        padding: 0;
+        padding-left: rem-calc(20);
+        padding-top: rem-calc(8);
+    }
+    p {
+        margin: 0;
+        margin-top: rem-calc(10);
+    }
 }
 .container {
     @include grid-row();
+    margin-top: rem-calc(10);
 }
 .title {
     @include grid-column(12);
 }
-.about{
+.about {
     @include grid-column(12);
     @media #{$medium-up} { @include grid-column(6); }
+}
+.profile {
+    padding-left: 0;
+
+    li {
+        list-style: none;
+        border-bottom: 1px solid #ccc;
+        line-height: rem-calc(40);
+    }
+    strong {
+        display: inline-block;
+        width: 30%;
+        color: #4d4d4d;
+    }
+    .profile-value {
+        display: inline-block;
+        width: 70%;
+        text-align: right;
+    }
 }
 .activation {
     @include grid-column(12);
     @media #{$medium-up} { @include grid-column(6); }
-    .profile {
+
+    span.error {
+        margin-bottom: 0;
     }
+
     .activation-form {
+        label {
+            font-weight: bold;
+            display: inline-block;
+            width: 30%;
+            border-bottom: 1px solid #ccc;
+            line-height: rem-calc(40);
+        }
+        input[type=text],
+        input[type=password] {
+            display: inline-block;
+            width: 70%;
+            background-color: white;
+            border: 0;
+            text-shadow: none;
+            box-shadow: none;
+            height: rem-calc(40);
+            margin: 0;
+            border-bottom: 1px solid #ccc;
+        }
+        select {
+            display: inline-block;
+            width: 70%;
+            background-color: white;
+            border: 0;
+            border-bottom: 1px solid #ccc;
+            padding-left: 0;
+            height: rem-calc(40);
+            outline: 0;
+            margin: 0;
+        }
+        .newsletter-text {
+            display: inline-block;
+            width: 70%;
+            border-bottom: 1px solid #ccc;
+            height: rem-calc(32);
+            input {
+                margin: 0;
+                margin-right: 4px;
+            }
+        }
     }
 }
 .btn-submit {
@@ -44,4 +125,42 @@ body {
 #id_date_of_birth_year {
     width: 33.333333%;
 }
+$green: lighten(#2AA82A, 10%);
 
+.btn-submit {
+    font-family: Arial, sans-serif;
+    color: darken($green, 30%);
+    font-weight: bold;
+    font-size: 20px;
+    padding: 0.8em 1.2em;
+    border: none;
+    background: $green url('../img/gradient.png') repeat-x bottom left;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+    border: 1px solid darken($green, 10%);
+    display: inline-block;
+    box-shadow: 0 1px 0 rgba(17, 73, 17, 0.1), 0 1px 0 lighten($green, 10%) inset;
+    text-align: center;
+    border-radius: 6px;
+    margin: 0;
+    margin-top: rem-calc(16);
+
+    &:hover,
+    &:focus {
+        background-color: lighten($green, 10%);
+        color: darken($green, 20%);
+    }
+}
+
+footer {
+    @include grid-column(12);
+    text-align: center;
+}
+
+header,
+.about,
+.activation {
+    @media #{$small-only} {
+        //padding-left: 0;
+        //padding-right: 0;
+    }
+}

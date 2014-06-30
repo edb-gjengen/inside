@@ -349,7 +349,7 @@ class User {
 
   public function _validate() {
     $valid = true;
-    if (!preg_match("/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$/i", $this->email)) {
+    if( !valid_email($this->email) ) {
       notify("Ugyldig format på epostadresse.");
       $valid = false;
     }

@@ -75,7 +75,8 @@ if( isset($_POST['submit']) ) {
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
-    <title></title>
+    <title>Aktiver medlemskapet ditt hos Det Norske Studentersamfund</title>
+    <link href='http://fonts.googleapis.com/css?family=Arvo:700' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" media="all" href="css/style.css" />
 
     <!--<script src="js/jquery-1.11.0.js"></script>
@@ -93,19 +94,18 @@ if( isset($_POST['submit']) ) {
 <div class="container">
     <h1 class="title">Aktiver medlemskapet ditt</h1>
     <header class="about">
-        <p>Hei <strong><?php echo $user['firstname']; ?></strong>, du er veldig nære å kunne:</p>
+        <p>Hei <strong><?php echo $user['firstname']." ".$user['lastname']; ?></strong>, du er veldig nære å kunne:</p>
         <ul class="incentives">
-            <li>Få tilgang til din medlemskonto</li>
+            <li>Få tilgang til medlemskontoen din</li>
             <li>Bruke trådløsnett på Chateau Neuf</li>
             <li>Bli aktiv på Studentersamfundet</li>
         </ul>
-        <p>Fullfør profilen din ved å angi brukernavn og passord.</p>
+        <p class="imperative">Fullfør profilen din ved å angi <em>brukernavn</em> og <em>passord</em>.</p>
         <h2>Din profil</h2>
         <ul class="profile">
-            <!-- TODO: I bet firstname and lastname will be in iso8859-1 -->
-            <li><strong>Navn</strong>: <?php echo $user['firstname']. " " .$user['lastname']; ?></li>
-            <li><strong>E-post</strong>: <?php echo $user['email']; ?></li>
-            <li><strong>Medlemsnummer</strong>: <?php echo $user['memberid']; ?></li>
+            <li><strong>Navn:</strong><span class="profile-value"><?php echo $user['firstname']. " " .$user['lastname']; ?></span></li>
+            <li><strong>E-post:</strong><span class="profile-value email-value"><?php echo $user['email']; ?></span></li>
+            <li><strong>Medlemsnummer:</strong><span class="profile-value"><?php echo $user['memberid']; ?></span></li>
         </ul>
     </header>
     <section class="activation">
@@ -122,12 +122,12 @@ if( isset($_POST['submit']) ) {
             <label for="id_username">Brukernavn:</label><input id="id_username" type="text" name="username" placeholder="Brukernavn" value="<?php echo $username; ?>" />
             <label for="id_password">Passord:</label><input id="id_password" type="password" name="password" placeholder="Passord" value="<?php echo $password; ?>"/>
             <label for="id_place_of_study">Studiested:</label><?php institutions(); ?>
-            <label for="id_newsletter">Motta nyhetsbrev:</label><input type="checkbox" id="id_newsletter" name="newsletter" value="1"<?php echo $newsletter_checked; ?> /> Nyheter og kommende arrangementer på Studentersamfundet<br /><br />
-            <button type="submit" name="submit" class="btn-submit">Aktiver medlemskapet</button>
+            <label for="id_newsletter">Nyhetsbrev:</label><div class="newsletter-text"><input type="checkbox" id="id_newsletter" name="newsletter" value="1"<?php echo $newsletter_checked; ?> /><span>Nyheter og arrangementer</span></div>
+            <button type="submit" name="submit" class="btn-submit">Aktiver medlemskapet mitt</button>
         </form>
     </section>
     <footer>
-        <img src="https://brukerinfo.neuf.no/static/style/img/DNSlogo.png">
+        <img src="/snapporder/img/logo.png" width="150" height="150">
         <img src="/snapporder/img/snapporder_logo_dark_liggende.png">
     </footer>
 </div>
