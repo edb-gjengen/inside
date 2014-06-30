@@ -93,6 +93,7 @@ if( isset($_POST['submit']) ) {
 <body>
 <div class="container">
     <h1 class="title">Aktiver medlemskapet</h1>
+    <em class="subtitle">på Det Norske Studentersamfund</em>
     <header class="about">
         <p>Hei <strong><?php echo $user['firstname']." ".$user['lastname']; ?></strong>, du er veldig nære å kunne:</p>
         <ul class="incentives">
@@ -119,15 +120,21 @@ if( isset($_POST['submit']) ) {
             <input type="hidden" name="firstname" value="<?php echo $user['firstname']; ?>"/>
             <input type="hidden" name="lastname" value="<?php echo $user['lastname']; ?>"/>
             <!-- Account -->
-            <label for="id_username">Brukernavn:</label><input id="id_username" type="text" name="username" placeholder="Brukernavn" value="<?php echo $username; ?>" />
-            <label for="id_password">Passord:</label><input id="id_password" type="password" name="password" placeholder="Passord" value="<?php echo $password; ?>"/>
-            <label for="id_place_of_study">Studiested:</label><?php institutions(); ?>
+            <div class="form-row">
+                <label for="id_username">Brukernavn:</label><input id="id_username" type="text" name="username" placeholder="Brukernavn" value="<?php echo $username; ?>" />
+            </div>
+            <div class="form-row">
+                <label for="id_password">Passord:</label><input id="id_password" type="password" name="password" placeholder="Passord" value="<?php echo $password; ?>"/>
+            </div>
+            <div class="form-row">
+                <label for="id_place_of_study">Studiested:</label><?php institutions(); ?>
+            </div>
             <label for="id_newsletter">Nyhetsbrev:</label><div class="newsletter-text"><input type="checkbox" id="id_newsletter" name="newsletter" value="1"<?php echo $newsletter_checked; ?> /><label for="id_newsletter" class="no-width">Nyheter og arrangementer</label></div>
             <button type="submit" name="submit" class="btn-submit">Aktiver medlemskapet mitt</button>
         </form>
     </section>
     <footer>
-        <img src="/snapporder/img/logo.png" width="150" height="150">
+        <a href="https://studentersamfundet.no" title="Det Norske Studentersamfund"><img src="/snapporder/img/logo.png" width="100" height="100" class="logo"></a>
         <img src="/snapporder/img/snapporder_logo_dark_liggende.png">
     </footer>
 </div>

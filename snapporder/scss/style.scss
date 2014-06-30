@@ -37,8 +37,12 @@ body {
     @include grid-row();
     margin-top: rem-calc(10);
 }
-.title {
+.title,
+.subtitle {
     @include grid-column(12);
+}
+.subtitle {
+    margin-bottom: rem-calc(10);
 }
 .about {
     @include grid-column(12);
@@ -76,7 +80,6 @@ body {
             font-weight: bold;
             display: inline-block;
             width: 30%;
-            border-bottom: 1px solid #ccc;
             line-height: $row-height;
             &.no-width {
                 font-weight: normal;
@@ -86,6 +89,9 @@ body {
                 line-height: 1;
             }
         }
+        .form-row {
+            border-bottom: 1px solid #ccc;
+        }
         input[type=text],
         input[type=password] {
             display: inline-block;
@@ -93,17 +99,14 @@ body {
             background-color: white;
             border: 0;
             text-shadow: none;
-            box-shadow: none;
             height: $row-height;
             margin: 0;
-            border-bottom: 1px solid #ccc;
         }
         select {
             display: inline-block;
             width: 70%;
             background-color: white;
             border: 0;
-            border-bottom: 1px solid #ccc;
             padding-left: 0;
             height: $row-height;
             outline: 0;
@@ -155,7 +158,6 @@ body {
     text-align: center;
     border-radius: 6px;
     margin: 0;
-    margin-top: rem-calc(16);
 
     &:hover,
     &:focus {
@@ -166,7 +168,12 @@ body {
 
 footer {
     @include grid-column(12);
-    text-align: center;
+
+    text-align: left;
+
+    .logo {
+        margin-right: rem-calc(36);
+    }
 }
 
 header,
