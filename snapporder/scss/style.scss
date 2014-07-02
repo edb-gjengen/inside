@@ -9,7 +9,7 @@
 @import "foundation/components/block-grid";
 @import "foundation/components/visibility";
 
-$green: lighten(#2AA82A, 10%);
+$green: #58AA58;
 $row-height: rem-calc(46);
 
 body {
@@ -143,7 +143,8 @@ body {
     width: 33.333333%;
 }
 
-.btn-submit {
+.btn-submit,
+.button {
     font-family: Arial, sans-serif;
     color: darken($green, 30%);
     font-weight: bold;
@@ -176,11 +177,35 @@ footer {
     }
 }
 
-header,
-.about,
-.activation {
-    @media #{$small-only} {
-        //padding-left: 0;
-        //padding-right: 0;
+/* Confirmation*/
+.confirmed {
+    margin-top: 0;
+    footer {
+        margin-top: rem-calc(20);
+        text-align: center;
+    }
+}
+.success-wrap {
+    text-align: center;
+    position: relative;
+    .title {
+        position: absolute;
+        font-size: rem-calc(16);
+        top: rem-calc(32);
+        color: white;
+        text-shadow: 2px 2px 0 black;
+        .em {
+            text-transform: uppercase;
+            font-size: rem-calc(72);
+        }
+    }
+    img {
+    }
+    .button-wrap {
+        position: absolute;
+        bottom: rem-calc(32);
+        left: 0;
+        right: 0;
+        text-align: center;
     }
 }

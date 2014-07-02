@@ -1,6 +1,6 @@
 <?php
 /* User activation form (step 2).
- * SnappOrder first saves initial data in our temp user db
+ * SnappOrder first saves user with initial data and registration_status="partial"
  *
  * TODO possible to activate expired memberships?
  */
@@ -8,6 +8,7 @@ set_include_path("../includes/");
 
 require_once("../inside/credentials.php");
 require_once("../inside/functions.php");
+require_once("../inside/migration/ldap_api_functions.php");
 require_once("../includes/DB.php");
 
 require_once("lib/functions.php");
@@ -55,6 +56,12 @@ if( isset($_POST['submit']) ) {
 
         // persist
         save_activation_form($data);
+
+        // Push the user to LDAP
+        $migrated = ldap_add_user($user['username'], $data['firstname'], $data['lastname'], $data['email'], $data['password'], array('dns-alle'));
+        _log($migrated);
+        set_migrated($data['userid']);
+
         // redirect to confirmation page
         redirect("/snapporder/activate_confirmed.php");
         die();
@@ -70,28 +77,9 @@ if( isset($_POST['submit']) ) {
 }
 
 ?>
-<!DOCTYPE html>
-<html class="no-js" lang="en">
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
-    <title>Aktiver medlemskapet ditt hos Det Norske Studentersamfund</title>
-    <link href='http://fonts.googleapis.com/css?family=Arvo:700' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" media="all" href="css/style.css" />
 
-    <!--<script src="js/jquery-1.11.0.js"></script>
-    <script src="bower_components/foundation/js/foundation.js"></script>
-    <script src="js/app.js"></script>-->
+<?php include("header.php"); ?>
 
-    <!-- GA? -->
-
-    <!--[if lt IE 9]>
-        <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-</head>
-
-<body>
-<div class="container">
     <h1 class="title">Aktiver medlemskapet</h1>
     <em class="subtitle">på Det Norske Studentersamfund</em>
     <header class="about">
@@ -133,10 +121,5 @@ if( isset($_POST['submit']) ) {
             <button type="submit" name="submit" class="btn-submit">Aktiver medlemskapet mitt</button>
         </form>
     </section>
-    <footer>
-        <a href="https://studentersamfundet.no" title="Det Norske Studentersamfund"><img src="/snapporder/img/logo.png" width="100" height="100" class="logo"></a>
-        <img src="/snapporder/img/snapporder_logo_dark_liggende.png">
-    </footer>
-</div>
-</body>
-</html>
+
+<?php include("footer.php"); ?>
