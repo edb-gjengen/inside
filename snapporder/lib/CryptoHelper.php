@@ -58,7 +58,7 @@ class CryptoHelper
     }
 
     public function json_encode_and_encrypt($data) {
-        return $this->encode(json_encode($data));
+        return $this->encrypt(json_encode($data));
     }
 
 }
