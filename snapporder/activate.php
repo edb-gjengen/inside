@@ -51,21 +51,9 @@ $password = "";
 $newsletter_checked = " checked";
 
 if( isset($_POST['submit']) ) {
+    $data = NULL;
     try {
         $data = validate_activation_form($_POST); // can throw
-
-        // persist
-        save_activation_form($data);
-
-        // Push the user to LDAP
-        $migrated = ldap_add_user($user['username'], $data['firstname'], $data['lastname'], $data['email'], $data['password'], array('dns-alle'));
-        _log($migrated);
-        set_migrated($data['userid']);
-
-        // redirect to confirmation page
-        redirect("/snapporder/activate_confirmed.php");
-        die();
-
     } catch(ValidationException $e) {
         $validation_errors = $e->getMessage();
 
@@ -73,6 +61,24 @@ if( isset($_POST['submit']) ) {
         $username = $_POST['username'];
         $password = $_POST['password'];
         $newsletter_checked = isset($_POST['newsletter']) ? " checked" : "";
+    }
+    if($data !== NULL) {
+        // persist
+        try {
+            save_activation_form($data);
+
+            // Push the user to LDAP
+            $migrated = ldap_add_user($user['username'], $data['firstname'], $data['lastname'], $data['email'], $data['password'], array('dns-alle'));
+            _log($migrated);
+            // FIXME assumes this works every time
+            set_migrated($data['userid']);
+            // redirect to confirmation page
+            redirect("/snapporder/activate_confirmed.php");
+            die();
+        } catch(InsideDatabaseException $e) {
+            echo $e->getMessage();
+            die();
+        }
     }
 }
 

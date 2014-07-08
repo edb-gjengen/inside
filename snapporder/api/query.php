@@ -38,14 +38,14 @@ $crypt = new CryptoHelper(SNAP_IV, SNAP_KEY);
 /* Checks */
 if(!isset($_GET['phone'])) {
     set_response_code(400);
-    echo json_encode(array('error' => 'Missing param phone'));
+    echo $crypt->json_encode_and_encrypt(array('error' => 'Missing param phone'));
     die();
 }
 $phone = $_GET['phone'];
 $phone = clean_phonenumber($phone);
 if( !valid_phonenumber($phone) ) {
     set_response_code(400);
-    echo json_encode(array('error' => 'Not a phone number', 'query' => $_GET));
+    echo $crypt->json_encode_and_encrypt(array('error' => 'Not a phone number', 'query' => $_GET));
     die();
 }
 
@@ -55,7 +55,7 @@ $conn = DB::connect(getDSN(), $options);
 if(DB :: isError($conn)) {
     echo $conn->toString();
     set_response_code(500);
-    echo json_encode(array('error' => 'Could not connect to DB'));
+    echo $crypt->json_encode_and_encrypt(array('error' => 'Could not connect to DB'));
     die();
 }
 $conn->setFetchMode(DB_FETCHMODE_ASSOC);
@@ -63,12 +63,19 @@ $conn->setFetchMode(DB_FETCHMODE_ASSOC);
 /* Search in phone number table for phone number */
 $user_id = getUseridFromPhone($phone);
 if( $user_id === false ) {
-    echo json_encode( array('result' => 'No matching users'));
+    echo $crypt->json_encode_and_encrypt( array('result' => 'No matching users'));
     die();
 }
 
 /* Get and format user */
-$user = get_user($user_id);
+$user = NULL;
+try {
+    $user = get_user($user_id);
+} catch(InsideDatabaseException $e) {
+    set_response_code(500);
+    echo $crypt->json_encode_and_encrypt(array('error' => 'db_error', 'error_message' => $e->getMessage()));
+    die();
+}
 
 /* Add back phone number from query */
 $user['phone'] = $phone;
@@ -79,7 +86,7 @@ if($user['registration_status'] === "partial") {
 }
 
 /* Return encrypted user object */
-echo json_encode($user);
-//echo $crypt->encrypt(json_encode($user));
+echo $crypt->json_encode_and_encrypt($user);
+//echo json_encode($user);
 
 ?>

@@ -2,6 +2,8 @@
 
 class ValidationException extends Exception {}
 
+class InsideDatabaseException extends Exception {}
+
 /* Username based on firstname and lastname, max 12 chars */
 function generate_username($data) {
     $firstname = preg_replace('/[^\w]/', '', $data['firstname']);
@@ -42,9 +44,7 @@ function add_user($data) {
     $res = $conn->execute($sth, $values);
 
     if( DB::isError($res) ) {
-        set_response_code(500);
-        echo json_encode( array('error' => 'db_error', 'error_message' => $res->toString() ) );
-        die();
+        throw new InsideDatabaseException($res->toString);
     }
 
     $user_id = get_user_id_by_username($data['username']);
@@ -57,9 +57,7 @@ function add_user($data) {
     $res = $conn->execute($sth, $values);
 
     if( DB::isError($res) ) {
-        set_response_code(500);
-        echo json_encode( array('error' => 'db_error', 'error_message' => $res->toString() ) );
-        die();
+        throw new InsideDatabaseException($res->toString);
     }
 
     log_userupdate($user_id, "User registered."); // for legacy
@@ -84,9 +82,7 @@ function get_user($user_id) {
     $sql = "SELECT ".implode($cols, ",").",$sql_group_ids,$sql_is_member FROM din_user AS users LEFT JOIN din_usergrouprelationship AS ug ON users.id=ug.user_id WHERE users.id=$user_id GROUP BY users.id";
     $res = $conn->query($sql);
     if( DB::isError($res) ) {
-        set_response_code(500);
-        echo json_encode( array('error' => 'db_error', 'error_message' => $res->toString() ) );
-        die();
+        throw new InsideDatabaseException($res->toString);
     }
     if($res->numRows() === 0) {
         return false;
@@ -121,19 +117,13 @@ function get_user($user_id) {
 
     return $user;
 }
-function get_user_id_by_username($username, $json=true) {
+function get_user_id_by_username($username) {
     global $conn;
 
     $sql = "SELECT id FROM din_user WHERE username='$username'";
     $res = $conn->query($sql);
     if( DB::isError($res) ) {
-        set_response_code(500);
-        if($json) {
-            echo json_encode( array('error' => 'db_error', 'error_message' => $res->toString()) );
-        } else {
-            echo "Oops, databasefeil: ".$res->toString();
-        }
-        die();
+        throw new InsideDatabaseException($res->toString);
     }
     if( $res->numRows() === 0 ) {
         return false;
@@ -240,9 +230,7 @@ function institutions($output=true) {
     $sql = "SELECT * FROM studiesteder";
     $res = $conn->getAll($sql);
     if( DB::isError($res) ) {
-        set_response_code(500);
-        echo json_encode( array('error' => 'db_error', 'error_message' => $res->toString() ) );
-        die();
+        throw new InsideDatabaseException($res->toString);
     }
     $institutions = $res;
 
@@ -329,9 +317,7 @@ function update_user($data) {
     $res = $conn->query($sql);
     
     if (DB::isError($res)) {
-        set_response_code(500);
-        echo "Oops, databasefeil: ".$res->toString();
-        die();
+        throw new InsideDatabaseException($res->toString);
     }
     return true;
 }
@@ -429,7 +415,7 @@ function save_activation_form($data) {
     // weekly newsletter (mailchimp)
     if(isset($data['newsletter']) && $data['newsletter'] === "1" && MAILCHIMP_API_KEY !== "") {
         if( mailchimp_subscribe($data, MAILCHIMP_LIST_ID, MAILCHIMP_API_KEY) ) {
-            log_userupdate($data['userid'], "Added to newsletter.");
+            log_userupdate($data['userid'], "Lagt til nyhetsbrevet.");
         }
     }
 

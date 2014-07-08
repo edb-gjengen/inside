@@ -57,5 +57,9 @@ class CryptoHelper
         return $bindata;
     }
 
+    public function json_encode_and_encrypt($data) {
+        return $this->encode(json_encode($data));
+    }
+
 }
 

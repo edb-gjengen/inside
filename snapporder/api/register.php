@@ -52,13 +52,12 @@ if(strlen($body) === 0) {
 }
 
 /* Decrypt body */
-// TODO enable
-//$crypt = new CryptoHelper(SNAP_IV, SNAP_KEY);
-//$body = $crypt->decrypt($body);
+$crypt = new CryptoHelper(SNAP_IV, SNAP_KEY);
+$body = $crypt->decrypt($body);
 $data = (array) json_decode($body);
 if($data === NULL) {
     set_response_code(400);
-    echo json_encode(array('error' => 'Can\'t decode body'));
+    echo $crypt->json_encode_and_encrypt(array('error' => 'Can\'t decode body'));
     die();
 }
 
@@ -70,14 +69,14 @@ $valid_keys[] = + 'purchased';
 foreach($required_keys as $key) {
     if(!array_key_exists($key, $data)) {
         set_response_code(400);
-        echo json_encode(array('error' => 'missing required field \''.$key.'\''));
+        echo $crypt->json_encode_and_encrypt(array('error' => 'missing required field \''.$key.'\''));
         die();
     }
 }
 foreach($data as $key => $value) {
     if(!in_array($key, $valid_keys)) {
         set_response_code(400);
-        echo json_encode(array('error' => 'unknown field \''.$key.'\''));
+        echo $crypt->json_encode_and_encrypt(array('error' => 'unknown field \''.$key.'\''));
         die();
     }
 }
@@ -85,12 +84,12 @@ foreach($data as $key => $value) {
 $data['phone'] = clean_phonenumber($data['phone']);
 if( !valid_phonenumber($data['phone']) ) {
     set_response_code(400);
-    echo json_encode(array('error' => 'Not a phone number:'.$data['phone']));
+    echo $crypt->json_encode_and_encrypt(array('error' => 'Not a phone number:'.$data['phone']));
     die();
 }
 if( !valid_email($data['email']) ) {
     set_response_code(400);
-    echo json_encode(array('error' => 'Not an email: '.$data['email']));
+    echo $crypt->json_encode_and_encrypt(array('error' => 'Not an email: '.$data['email']));
     die();
 }
 
@@ -100,7 +99,7 @@ $conn = DB::connect(getDSN(), $options);
 if(DB :: isError($conn)) {
     echo $conn->toString();
     set_response_code(500);
-    echo json_encode(array('error' => 'Could not connect to DB'));
+    echo $crypt->json_encode_and_encrypt(array('error' => 'Could not connect to DB'));
     die();
 }
 $conn->setFetchMode(DB_FETCHMODE_ASSOC);
@@ -108,24 +107,24 @@ $conn->setFetchMode(DB_FETCHMODE_ASSOC);
 /* Existing user? */
 if( getUseridFromEmail($data['email']) !== false) {
     set_response_code(409);
-    echo json_encode(array('error' => 'Existing user with email: '.$data['email']));
+    echo $crypt->json_encode_and_encrypt(array('error' => 'Existing user with email: '.$data['email']));
     die();
 }
 if( getUseridFromPhone($data['phone']) !== false ) {
     set_response_code(409);
-    echo json_encode(array('error' => 'Existing user with phone: '.$data['phone']));
+    echo $crypt->json_encode_and_encrypt(array('error' => 'Existing user with phone: '.$data['phone']));
     die();
 }
 
 /* validate firstname and lastname */
 if( strlen($data['firstname']) < 2) {
     set_response_code(400);
-    echo json_encode(array('error' => 'Too short firstname: '.$data['firstname']));
+    echo $crypt->json_encode_and_encrypt(array('error' => 'Too short firstname: '.$data['firstname']));
     die();
 }
 if( strlen($data['lastname']) < 2) {
     set_response_code(400);
-    echo json_encode(array('error' => 'Too short lastname: '.$data['lastname']));
+    echo $crypt->json_encode_and_encrypt(array('error' => 'Too short lastname: '.$data['lastname']));
     die();
 }
 
@@ -134,7 +133,7 @@ if( isset($data['purchased']) ) {
     $purchased = clean_date($data['purchased']) ;
     if($purchased === false) {
         set_response_code(400);
-        echo json_encode(array('error' => 'Could not parse date from field purchased: '.$data['purchased']));
+        echo $crypt->json_encode_and_encrypt(array('error' => 'Could not parse date from field purchased: '.$data['purchased']));
         die();
     }
     $data['purchased'] = $purchased;
@@ -142,10 +141,24 @@ if( isset($data['purchased']) ) {
 
 
 /* Create user */
-$user_id = add_user($data);
+$user_id = NULL;
+try {
+    $user_id = add_user($user_id);
+} catch(InsideDatabaseException $e) {
+    set_response_code(500);
+    echo $crypt->json_encode_and_encrypt(array('error' => 'db_error', 'error_message' => $e->getMessage()));
+    die();
+}
 
 /* Get and format user */
-$user = get_user($user_id);
+$user = NULL;
+try {
+    $user = add_user($user_id);
+} catch(InsideDatabaseException $e) {
+    set_response_code(500);
+    echo $crypt->json_encode_and_encrypt(array('error' => 'db_error', 'error_message' => $e->getMessage()));
+    die();
+}
 
 /* Add register url */
 $user['registration_url'] = generate_registration_url($user, SECRET_KEY);
@@ -154,7 +167,7 @@ $user['registration_url'] = generate_registration_url($user, SECRET_KEY);
 $user['phone'] = $data['phone'];
 
 /* Return encrypted user object */
-echo json_encode($user);
-//echo $crypt->encrypt(json_encode($user));
+echo $crypt->json_encode_and_encrypt($user);
+//echo json_encode($user);
  
 ?>
