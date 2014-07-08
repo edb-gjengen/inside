@@ -115,6 +115,9 @@ if( isset($_POST['submit']) ) {
                 <label for="id_password">Passord:</label><input id="id_password" type="password" name="password" placeholder="Passord" value="<?php echo $password; ?>"/>
             </div>
             <div class="form-row">
+                <label for="id_birthdate_day">Fødselsdato:</label><?php date_picker("id_birthdate"); ?>
+            </div>
+            <div class="form-row">
                 <label for="id_place_of_study">Studiested:</label><?php institutions(); ?>
             </div>
             <label for="id_newsletter">Nyhetsbrev:</label><div class="newsletter-text"><input type="checkbox" id="id_newsletter" name="newsletter" value="1"<?php echo $newsletter_checked; ?> /><label for="id_newsletter" class="no-width">Nyheter og arrangementer</label></div>

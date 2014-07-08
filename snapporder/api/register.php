@@ -10,7 +10,6 @@
  *   "firstname": "Jon",
  *   "lastname": "Hansen",
  *   "email": "jon@uio.no",
- *   "birthdate": "1985-03-01"  // format: ISO-8601 date
  *   "purchased": "2004-02-12"  // optional, format: ISO-8601 date
  * }
  *
@@ -64,7 +63,7 @@ if($data === NULL) {
 }
 
 /* Validate supplied data */
-$required_keys = array('firstname', 'lastname', 'phone', 'email', 'birthdate');
+$required_keys = array('firstname', 'lastname', 'phone', 'email');
 $valid_keys = $required_keys;
 $valid_keys[] = + 'purchased';
 
@@ -127,12 +126,6 @@ if( strlen($data['firstname']) < 2) {
 if( strlen($data['lastname']) < 2) {
     set_response_code(400);
     echo json_encode(array('error' => 'Too short lastname: '.$data['lastname']));
-    die();
-}
-/* validate birthdate */
-if( !valid_date($data['birthdate']) ) {
-    set_response_code(400);
-    echo json_encode(array('error' => 'Could not parse birthdate: \''.$data['birthdate'].'\''));
     die();
 }
 

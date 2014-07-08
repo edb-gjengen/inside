@@ -111,6 +111,12 @@ body {
             height: $row-height;
             outline: 0;
             margin: 0;
+
+            &[name=day],
+            &[name=month],
+            &[name=year] {
+                width: 23.333333333333%;
+            }
         }
         label[for=id_newsletter] {
             border-bottom: 0;

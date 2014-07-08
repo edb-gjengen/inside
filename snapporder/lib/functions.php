@@ -313,10 +313,16 @@ function mailchimp_subscribe($data, $list_id, $api_key) {
 function update_user($data) {
     global $conn;
 
+    $birthdate_sql = "";
+    if( strlen($data['birthdate']) > 0) {
+        $birthdate_sql = "birthdate=" .$conn->quoteSmart($data['birthdate']).",";
+    }
+
     // user: update existing user, activation_status="full", form data
     $sql = "UPDATE din_user SET ";
     $sql .= "username=" .$conn->quoteSmart($data['username']).",";
     $sql .= "password=PASSWORD(" .$conn->quoteSmart($data['password'])."),";
+    $sql .= $birthdate_sql;
     $sql .= "placeOfStudy=" .$conn->quoteSmart($data['place_of_study']).",";
     $sql .= "registration_status='full'";
     $sql .= " WHERE id = " . $conn->quoteSmart($data['userid']);
@@ -352,6 +358,30 @@ function valid_date($date) {
     }
     return $date;
 }
+function validate_birthdate($data, $optional=true) {
+    $keys = array('year', 'month','day');
+    $values = array();
+
+    foreach( $keys as $key) {
+        // If started filling out date of birth
+        if(strlen($data[$key]) !== 0) {
+            $optional = false;
+        }
+        // year
+        $values[] = $data[$key];
+    }
+
+    if($optional) {
+        return ""; // skip
+    }
+
+    // try parsing
+    $date = implode('-', $values);
+    if(!clean_date($date)) {
+        return false;
+    }
+    return $date;
+}
 
 function validate_activation_form($data) {
 
@@ -375,6 +405,13 @@ function validate_activation_form($data) {
     if( !validate_password_chars($data['password']) ) {
         throw new ValidationException("Passordet kan ikke inneholde enkel- eller dobbelfnutt eller bakslask.");
     }
+
+    // birthdate (optional)
+    $valid_date = validate_birthdate($data);
+    if( $valid_date === false ) {
+        throw new ValidationException("Ugyldig fødselsdato");
+    }
+    $data['birthdate'] = $valid_date; // Note: could be: ""
 
     // place of study (optional)
     if( !is_numeric($data['place_of_study']) ) {
