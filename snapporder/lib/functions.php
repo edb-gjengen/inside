@@ -44,7 +44,7 @@ function add_user($data) {
     $res = $conn->execute($sth, $values);
 
     if( DB::isError($res) ) {
-        throw new InsideDatabaseException($res->toString);
+        throw new InsideDatabaseException($res->getMessage());
     }
 
     $user_id = get_user_id_by_username($data['username']);
@@ -57,7 +57,7 @@ function add_user($data) {
     $res = $conn->execute($sth, $values);
 
     if( DB::isError($res) ) {
-        throw new InsideDatabaseException($res->toString);
+        throw new InsideDatabaseException($res->getMessage());
     }
 
     log_userupdate($user_id, "User registered."); // for legacy
@@ -82,7 +82,7 @@ function get_user($user_id) {
     $sql = "SELECT ".implode($cols, ",").",$sql_group_ids,$sql_is_member FROM din_user AS users LEFT JOIN din_usergrouprelationship AS ug ON users.id=ug.user_id WHERE users.id=$user_id GROUP BY users.id";
     $res = $conn->query($sql);
     if( DB::isError($res) ) {
-        throw new InsideDatabaseException($res->toString);
+        throw new InsideDatabaseException($res->getMessage());
     }
     if($res->numRows() === 0) {
         return false;
@@ -123,7 +123,7 @@ function get_user_id_by_username($username) {
     $sql = "SELECT id FROM din_user WHERE username='$username'";
     $res = $conn->query($sql);
     if( DB::isError($res) ) {
-        throw new InsideDatabaseException($res->toString);
+        throw new InsideDatabaseException($res->getMessage());
     }
     if( $res->numRows() === 0 ) {
         return false;
@@ -230,7 +230,7 @@ function institutions($output=true) {
     $sql = "SELECT * FROM studiesteder";
     $res = $conn->getAll($sql);
     if( DB::isError($res) ) {
-        throw new InsideDatabaseException($res->toString);
+        throw new InsideDatabaseException($res->getMessage());
     }
     $institutions = $res;
 
@@ -317,7 +317,7 @@ function update_user($data) {
     $res = $conn->query($sql);
     
     if (DB::isError($res)) {
-        throw new InsideDatabaseException($res->toString);
+        throw new InsideDatabaseException($res->getMessage());
     }
     return true;
 }
