@@ -32,6 +32,7 @@ class CryptoHelper
 
     public function decrypt($code)
     {
+        //return $code;
         $code = $this->hex2bin($code);
         $iv = $this->iv;
 
@@ -58,6 +59,7 @@ class CryptoHelper
     }
 
     public function json_encode_and_encrypt($data) {
+        //return json_encode($data);
         return $this->encrypt(json_encode($data));
     }
 

@@ -53,7 +53,7 @@ if(strlen($body) === 0) {
 
 /* Decrypt body */
 $crypt = new CryptoHelper(SNAP_IV, SNAP_KEY);
-$body = $crypt->decrypt($body);
+$body = $crypt->decrypt(trim($body));
 $data = (array) json_decode($body);
 if($data === NULL) {
     set_response_code(400);
@@ -143,7 +143,7 @@ if( isset($data['purchased']) ) {
 /* Create user */
 $user_id = NULL;
 try {
-    $user_id = add_user($user_id);
+    $user_id = add_user($data);
 } catch(InsideDatabaseException $e) {
     set_response_code(500);
     echo $crypt->json_encode_and_encrypt(array('error' => 'db_error', 'error_message' => $e->getMessage()));
