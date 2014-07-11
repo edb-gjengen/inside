@@ -153,7 +153,7 @@ try {
 /* Get and format user */
 $user = NULL;
 try {
-    $user = add_user($user_id);
+    $user = get_user($user_id);
 } catch(InsideDatabaseException $e) {
     set_response_code(500);
     echo $crypt->json_encode_and_encrypt(array('error' => 'db_error', 'error_message' => $e->getMessage()));
