@@ -37,13 +37,14 @@ function test_post_register() {
     curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
     curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json '));
+    curl_setopt($ch, CURLOPT_ENCODING ,"");
+    curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json; charset=UTF-8'));
 
     $result = curl_exec($ch);
     $result = $crypt->decrypt(trim($result));
-    $decoded_result = json_decode($result);
+    $decoded_result = (array) json_decode($result);
 
-    if(!isset($decoded_result->error)) {
+    if(isset($decoded_result['birthdate']) && $decoded_result['birthdate'] === "1983-01-01") {
         echo "OK";
         var_dump($decoded_result);
     } else {

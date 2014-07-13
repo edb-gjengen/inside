@@ -44,7 +44,7 @@ class CryptoHelper
         mcrypt_generic_deinit($td);
         mcrypt_module_close($td);
 
-        return utf8_encode(trim($decrypted));
+        return trim($decrypted);
     }
 
     private function hex2bin($hexdata)

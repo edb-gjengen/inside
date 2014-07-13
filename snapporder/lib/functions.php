@@ -40,6 +40,9 @@ function add_user($data) {
     $cols = array_keys($data);
     $values = array_values($data);
 
+    // FIXME: Decode UTF-8 values... why?
+    $values = array_map("utf8_decode", $values);
+
     $sth = $conn->autoPrepare("din_user", $cols, DB_AUTOQUERY_INSERT);
     $res = $conn->execute($sth, $values);
 
@@ -115,6 +118,10 @@ function get_user($user_id) {
         unset($user['birthdate']);
     }
 
+    /* FIXME: Double encode fields as utf-8... why? */
+    foreach($user as $key => $value) {
+        $user[$key] = utf8_encode($value);
+    }
     return $user;
 }
 function get_user_id_by_username($username) {
