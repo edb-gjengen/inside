@@ -343,6 +343,21 @@ function update_user_groups($data) {
     }
     return true;
 }
+function update_user_address($data) {
+    global $conn;
+
+    $address = array(
+        'user_id' => $data['userid'],
+        'street' => $data['street'],
+        'zipcode' => $data['zipcode']
+    );
+    $res = $conn->autoExecute('din_useraddressno', $address, DB_AUTOQUERY_INSERT);
+
+    if (DB::isError($res)) {
+        // allready exists is fine
+    }
+    return true;
+}
 
 function valid_date($date) {
     // try parsing
@@ -410,12 +425,20 @@ function validate_activation_form($data) {
     if( !is_numeric($data['place_of_study']) ) {
         throw new ValidationException("Ugyldig studiested");
     }
+    // address
+    if( strlen($data['street']) == 0) {
+        $data['street'] = '-';
+    }
+    if( !is_numeric($data['zipcode']) ) {
+        throw new ValidationException("Ugyldig postnummer, må være et tall");
+    }
 
     return $data;
 }
 function save_activation_form($data) {
     update_user($data);
     update_user_groups($data);
+    update_user_address($data);
 
     log_userupdate($data['userid'], "Membership activated.");
     

@@ -118,6 +118,14 @@ body {
                 width: 23.333333333333%;
             }
         }
+        input[name=zipcode],
+        .area-wrap {
+            width: 33.33333%;
+        }
+        .area-wrap {
+            display: inline-block;
+            padding-left: 4px;
+        }
         label[for=id_newsletter] {
             border-bottom: 0;
         }

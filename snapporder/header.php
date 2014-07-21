@@ -7,9 +7,8 @@
     <link href='//fonts.googleapis.com/css?family=Arvo:700' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" media="all" href="css/style.css" />
 
-    <!--<script src="js/jquery-1.11.0.js"></script>
-    <script src="bower_components/foundation/js/foundation.js"></script>
-    <script src="js/app.js"></script>-->
+    <script src="js/jquery-1.11.0.js"></script>
+    <script src="js/activate.js"></script>
 
     <!-- GA? -->
 

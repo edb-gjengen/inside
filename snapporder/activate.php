@@ -47,6 +47,8 @@ if( !check_token($user, $_GET['token'], SECRET_KEY)) {
 // empty default form values
 $validation_errors = "";
 $username = "";
+$street = "";
+$zipcode = "";
 $password = "";
 $newsletter_checked = " checked";
 
@@ -60,6 +62,8 @@ if( isset($_POST['submit']) ) {
         /* Refill form values*/
         $username = $_POST['username'];
         $password = $_POST['password'];
+        $street = $_POST['street'];
+        $zipcode = $_POST['zipcode'];
         $newsletter_checked = isset($_POST['newsletter']) ? " checked" : "";
     }
     if($data !== NULL) {
@@ -122,6 +126,12 @@ if( isset($_POST['submit']) ) {
             </div>
             <div class="form-row">
                 <label for="id_birthdate_day">Fødselsdato:</label><?php date_picker("id_birthdate"); ?>
+            </div>
+            <div class="form-row">
+                <label for="id_street">Gateadresse:</label><input id="id_street" type="text" name="street" placeholder="Gateadresse" value="<?php echo $street; ?>" />
+            </div>
+            <div class="form-row">
+                <label for="id_zipcode">Postnummer:</label><input id="id_zipcode" type="text" name="zipcode" placeholder="Postnummer" value="<?php echo $zipcode; ?>" maxlength="5"/><div class="area-wrap"></div>
             </div>
             <div class="form-row">
                 <label for="id_place_of_study">Studiested:</label><?php institutions(); ?>
