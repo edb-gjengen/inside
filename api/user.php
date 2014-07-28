@@ -1,4 +1,5 @@
 <?php
+// TODO: limit access by API-key
 set_include_path("../includes/");
 require_once("../inside/credentials.php");
 require_once("../includes/DB.php");
@@ -80,17 +81,22 @@ $ids = implode(",", $id_array);
 
 $conn->setFetchMode(DB_FETCHMODE_ASSOC);
 /* Get data */
-$sql = "SELECT u.id, u.username, u.firstname, u.lastname, u.email, up.number
+$sql_is_member = "u.expires > NOW() OR u.expires IS NULL AS is_member";
+$sql_groups = "GROUP_CONCAT(DISTINCT g.name SEPARATOR ', ') AS groups";
+$sql = "SELECT u.id,u.username,u.firstname,u.lastname,u.email,up.number,$sql_groups,$sql_is_member
     FROM din_user as u
     LEFT JOIN din_userphonenumber as up ON up.user_id=u.id
+    LEFT JOIN din_usergrouprelationship AS ug ON u.id=ug.user_id
+    LEFT JOIN din_group AS g ON g.id=ug.group_id
     WHERE u.id IN ($ids)
+    GROUP BY u.id
     ORDER BY u.firstname, u.lastname ASC";
 
 $res = $conn->getAll($sql);
 
 if( DB::isError($res) ) {
     set_response_code(500);
-    echo json_encode(array('error' => $res->message));
+    echo json_encode(array('error' => $res->getMessage()));
     die();
 }
 
