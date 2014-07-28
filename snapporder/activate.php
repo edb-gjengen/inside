@@ -89,7 +89,7 @@ if( isset($_POST['submit']) ) {
 ?>
 
 <?php include("header.php"); ?>
-
+<div class="container">
     <h1 class="title">Aktiver medlemskapet</h1>
     <em class="subtitle">på Det Norske Studentersamfund</em>
     <header class="about">
