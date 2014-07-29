@@ -331,10 +331,10 @@ function update_user($data) {
 function update_user_groups($data) {
     global $conn;
 
-    // add to dns-alle (2)
+    // add to dns-alle (1)
     $group = array(
         'user_id' => $data['userid'],
-        'group_id' => 2
+        'group_id' => 1
     );
     $res = $conn->autoExecute('din_usergrouprelationship', $group, DB_AUTOQUERY_INSERT);
 
