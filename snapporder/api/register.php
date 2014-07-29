@@ -137,7 +137,7 @@ if( $reg_type === "new" && $user_id !== false ) {
     die();
 }
 /* Renewal of membership? */
-if( $reg_type === "renew" && $user_id === false ) {
+if( $reg_type === "renewal" && $user_id === false ) {
     set_response_code(409);
     echo $crypt->json_encode_and_encrypt(array('error' => 'Could not find user with phone: '.$data['phone']));
     die();

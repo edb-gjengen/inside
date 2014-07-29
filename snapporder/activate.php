@@ -72,7 +72,7 @@ if( isset($_POST['submit']) ) {
             save_activation_form($data);
 
             // Push the user to LDAP
-            $migrated = ldap_add_user($user['username'], $data['firstname'], $data['lastname'], $data['email'], $data['password'], array('dns-alle'));
+            $migrated = ldap_add_user($data['username'], $data['firstname'], $data['lastname'], $data['email'], $data['password'], array('dns-alle'));
             _log($migrated);
             // FIXME assumes this works every time
             set_migrated($data['userid']);
