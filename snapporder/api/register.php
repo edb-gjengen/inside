@@ -2,15 +2,16 @@
 /* 
  * Registers a user in the user table
  *
- * Request:
+ * Request (new):
  *
- * $ curl /snapporder/api/register.php 
+ * $ curl /snapporder/api/register.php
  * {
  *   "phone": "+4742345678",
  *   "firstname": "Jon",
  *   "lastname": "Hansen",
  *   "email": "jon@uio.no",
- *   "purchased": "2004-02-12"  // optional, format: ISO-8601 date
+ *   "purchased": "2004-02-12"   // optional, format: ISO-8601 date
+ *   "source": "snapporder_sms"  // optional, possible values: "snapporder" or "snapporder_sms"
  * }
  *
  * Response:
@@ -26,6 +27,16 @@
  *   "birthdate": "1985-03-01",
  *   "registration_status": "partial"  // "partial" means show link
  *   "registration_url": "/snapporder/register_partial.php?userid=4331&token=lol"
+ * }
+ *
+ * Request (renewal):
+ *
+ * $ curl /snapporder/api/register.php
+ * {
+ *   "phone": "+4742345678",
+ *   "purchased": "2004-02-12"   // optional, format: ISO-8601 date
+ *   "type": "renewal"           // optional, possible value: "renewal"
+ *   "source": "snapporder_sms"  // optional, possible values: "snapporder" or "snapporder_sms"
  * }
  *
  * TODO maybe check $_SERVER['REQUEST_METHOD']
@@ -60,11 +71,19 @@ if($data === NULL) {
     echo $crypt->json_encode_and_encrypt(array('error' => 'Can\'t decode body'));
     die();
 }
+/* Check type of registration */
+$reg_type = "new";
+/* Renewal */
+if( isset($data['type']) && $data['type'] === "renewal" ) {
+    $required_keys = array('phone');
+    $reg_type = $data['type'];
+} else {
+    $required_keys = array('firstname', 'lastname', 'phone', 'email');
+}
 
 /* Validate supplied data */
-$required_keys = array('firstname', 'lastname', 'phone', 'email');
 $valid_keys = $required_keys;
-$valid_keys[] = + 'purchased';
+$valid_keys = array_merge($valid_keys, array('purchased', 'source', 'type'));
 
 foreach($required_keys as $key) {
     if(!array_key_exists($key, $data)) {
@@ -87,7 +106,8 @@ if( !valid_phonenumber($data['phone']) ) {
     echo $crypt->json_encode_and_encrypt(array('error' => 'Not a phone number:'.$data['phone']));
     die();
 }
-if( !valid_email($data['email']) ) {
+
+if( $reg_type === "new" && !valid_email($data['email']) ) {
     set_response_code(400);
     echo $crypt->json_encode_and_encrypt(array('error' => 'Not an email: '.$data['email']));
     die();
@@ -105,24 +125,40 @@ if(DB :: isError($conn)) {
 $conn->setFetchMode(DB_FETCHMODE_ASSOC);
 
 /* Existing user? */
-if( getUseridFromEmail($data['email']) !== false) {
+if( $reg_type === "new" && getUseridFromEmail($data['email']) !== false) {
     set_response_code(409);
     echo $crypt->json_encode_and_encrypt(array('error' => 'Existing user with email: '.$data['email']));
     die();
 }
-if( getUseridFromPhone($data['phone']) !== false ) {
+$user_id = getUseridFromPhone($data['phone']);
+if( $reg_type === "new" && $user_id !== false ) {
     set_response_code(409);
     echo $crypt->json_encode_and_encrypt(array('error' => 'Existing user with phone: '.$data['phone']));
     die();
 }
+/* Renewal of membership? */
+if( $reg_type === "renew" && $user_id === false ) {
+    set_response_code(409);
+    echo $crypt->json_encode_and_encrypt(array('error' => 'Could not find user with phone: '.$data['phone']));
+    die();
+}
+if( $reg_type === "renewal") {
+    $user = get_user($user_id);
+    /* Don't allow renewal of an existing valid membership. */
+    if( $user['membership_status'] !== 0 ) {
+        set_response_code(409);
+        echo $crypt->json_encode_and_encrypt(array('error' => 'Cannot renew, user with phone '.$data['phone'].' has a valid membership until: '.$user['expires']));
+        die();
+    }
+}
 
 /* validate firstname and lastname */
-if( strlen($data['firstname']) < 2) {
+if( $reg_type === "new" && strlen($data['firstname']) < 2 ) {
     set_response_code(400);
     echo $crypt->json_encode_and_encrypt(array('error' => 'Too short firstname: '.$data['firstname']));
     die();
 }
-if( strlen($data['lastname']) < 2) {
+if( $reg_type === "new" && strlen($data['lastname']) < 2 ) {
     set_response_code(400);
     echo $crypt->json_encode_and_encrypt(array('error' => 'Too short lastname: '.$data['lastname']));
     die();
@@ -139,11 +175,22 @@ if( isset($data['purchased']) ) {
     $data['purchased'] = $purchased;
 }
 
+/* Validate optional source */
+if( isset($data['source']) && !in_array($data['source'], array('snapporder', 'snapporder_sms')) ) {
+    set_response_code(400);
+    echo $crypt->json_encode_and_encrypt(array('error' => 'Invalid value in field source: '.$data['source']));
+    die();
+}
+
 
 /* Create user */
 $user_id = NULL;
 try {
-    $user_id = add_user($data);
+    if( $reg_type === "new" ) {
+        $user_id = add_user($data);
+    } else {
+        $user_id = renew_user($data);
+    }
 } catch(InsideDatabaseException $e) {
     set_response_code(500);
     echo $crypt->json_encode_and_encrypt(array('error' => 'db_error', 'error_message' => $e->getMessage()));
@@ -161,13 +208,14 @@ try {
 }
 
 /* Add register url */
-$user['registration_url'] = generate_registration_url($user, SECRET_KEY);
+if($user['registration_status'] === "partial") {
+    $user['registration_url'] = generate_registration_url($user, SECRET_KEY);
+}
 
 /* Add back phone number from query */
 $user['phone'] = $data['phone'];
 
 /* Return encrypted user object */
 echo $crypt->json_encode_and_encrypt($user);
-//echo json_encode($user);
  
 ?>

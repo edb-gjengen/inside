@@ -124,6 +124,56 @@ function get_user($user_id) {
     }
     return $user;
 }
+
+function renew_user($data) {
+    global $conn;
+
+    /* User table  */
+    $phone = $data['phone'];
+    unset($data['phone']);
+    unset($data['type']);
+
+    /* Our own values */
+    $source = $data['source'];
+    if( !isset($data['source']) ) {
+        $source = "snapporder";
+    }
+    unset($data['source']);
+
+    /* Membership expiry */
+    /* One year from today (default) */
+    if( !isset($data['purchased']) ) {
+        $data['purchased'] = date_create();
+    }
+    /* ...or one year from specified date */
+    $data['expires'] = date_format(date_modify($data['purchased'], "+1 year"), "Y-m-d");
+    unset($data['purchased']); // dont save purchase date
+
+    // FIXME: Decode UTF-8 values... why?
+    foreach($data as $key=>$value) {
+        $data[$key] = utf8_decode($value);
+    }
+
+    $res = $conn->autoExecute("din_user", $data, DB_AUTOQUERY_UPDATE, "id = $user_id");
+
+    if( DB::isError($res) ) {
+        throw new InsideDatabaseException($res->getMessage());
+    }
+
+    /* Phonenumber table, set validated */
+    $fields_values = array('validated' => 1);
+
+    $res = $conn->autoExecute("din_userphonenumber", $fields_values, DB_AUTOQUERY_UPDATE, "user_id=$user_id AND number='$number'");
+
+    if( DB::isError($res) ) {
+        throw new InsideDatabaseException($res->getMessage());
+    }
+
+    log_userupdate($user_id, "Medlemskap fornyet via SnappOrder ($source).");
+
+    return $user_id;
+}
+
 function get_user_id_by_username($username) {
     global $conn;
 
