@@ -56,8 +56,8 @@ function ldap_add_user($username, $firstname, $lastname, $email, $password, $gro
 }
 function _log($str) { 
     $time = date("[Y-m-d H:i:s.u]"); 
-    file_put_contents("migration.log", $time . 
-    $str . "\n", FILE_APPEND); 
+    // relative to the file _log is in
+    file_put_contents(dirname(__FILE__)."/migration.log", $time.$str."\n", FILE_APPEND); 
 } 
 
 
