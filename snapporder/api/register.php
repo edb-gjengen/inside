@@ -142,6 +142,7 @@ if( $reg_type === "renewal" && $user_id === false ) {
     echo $crypt->json_encode_and_encrypt(array('error' => 'Could not find user with phone: '.$data['phone']));
     die();
 }
+$data['user_id'] = $user_id;
 if( $reg_type === "renewal") {
     $user = get_user($user_id);
     /* Don't allow renewal of an existing valid membership. */
@@ -184,12 +185,11 @@ if( isset($data['source']) && !in_array($data['source'], array('snapporder', 'sn
 
 
 /* Create user */
-$user_id = NULL;
 try {
     if( $reg_type === "new" ) {
         $user_id = add_user($data);
     } else {
-        $user_id = renew_user($data);
+        renew_user($data);
     }
 } catch(InsideDatabaseException $e) {
     set_response_code(500);

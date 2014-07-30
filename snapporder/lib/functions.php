@@ -130,9 +130,11 @@ function get_user($user_id) {
 function renew_user($data) {
     global $conn;
 
-    /* User table  */
+    /* Cleanup for user table */
     $phone = $data['phone'];
     unset($data['phone']);
+    $user_id = $data['user_id'];
+    unset($data['user_id']);
     unset($data['type']);
 
     /* Our own values */
@@ -156,10 +158,10 @@ function renew_user($data) {
         $data[$key] = utf8_decode($value);
     }
 
-    $res = $conn->autoExecute("din_user", $data, DB_AUTOQUERY_UPDATE, "id = $user_id");
+    $res = $conn->autoExecute("din_user", $data, DB_AUTOQUERY_UPDATE, "id=$user_id");
 
     if( DB::isError($res) ) {
-        throw new InsideDatabaseException($res->getMessage());
+        throw new InsideDatabaseException($res->getMessage().". DEBUG: ".$res->getDebugInfo());
     }
 
     /* Phonenumber table, set validated */
@@ -168,12 +170,12 @@ function renew_user($data) {
     $res = $conn->autoExecute("din_userphonenumber", $fields_values, DB_AUTOQUERY_UPDATE, "user_id=$user_id AND number='$number'");
 
     if( DB::isError($res) ) {
-        throw new InsideDatabaseException($res->getMessage());
+        throw new InsideDatabaseException($res->getMessage().". DEBUG: ".$res->getDebugInfo());
     }
 
     log_userupdate($user_id, "Medlemskap fornyet via SnappOrder ($source).");
 
-    return $user_id;
+    return;
 }
 
 function get_user_id_by_username($username) {
