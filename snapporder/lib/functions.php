@@ -120,7 +120,9 @@ function get_user($user_id) {
 
     /* FIXME: Double encode fields as utf-8... why? */
     foreach($user as $key => $value) {
-        $user[$key] = utf8_encode($value);
+        if(is_string($value)) {
+            $user[$key] = utf8_encode($value);
+        }
     }
     return $user;
 }
