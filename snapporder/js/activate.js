@@ -40,21 +40,24 @@ function validate_username(query) {
     });
 }
 $(document).ready(function() {
-    var zipcode_field = $('input[name=zipcode]');
-    var username_field= $('input[name=username]');
+    if( $(".activation").length > 0 ) {
+        var zipcode_field = $('input[name=zipcode]');
+        var username_field= $('input[name=username]');
 
-    if(zipcode_field.val().length !== 0) {
-        lookup_area(zipcode_field.val());
+        if(zipcode_field.val().length !== 0) {
+            lookup_area(zipcode_field.val());
+        }
+
+        zipcode_field.on('keyup keypress', function(event) {
+            var query = event.target.value;
+            lookup_area(query);
+        });
+
+        username_field.on('keyup keypress', function(event) {
+            var query = event.target.value;
+            validate_username(query);
+        });
     }
 
-    zipcode_field.on('keyup keypress', function(event) {
-        var query = event.target.value;
-        lookup_area(query);
-    });
-
-    username_field.on('keyup keypress', function(event) {
-        var query = event.target.value;
-        validate_username(query);
-    });
-
 });
+
