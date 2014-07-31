@@ -1694,7 +1694,7 @@ function validate_username_length($username) {
     return strlen(stripcslashes($username)) >= 3 && strlen(stripcslashes($username)) <= 12;
 }
 function validate_username_chars($username) {
-    return preg_match('/^[a-z]+[a-z0-9]*$/', strtolower(stripcslashes($username)));
+    return preg_match('/^[a-z][a-z0-9]*$/', strtolower(stripcslashes($username)));
 }
 function validate_password_length($password) {
     return strlen($password) >= 8;

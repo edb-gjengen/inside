@@ -73,6 +73,10 @@ body {
 
     span.error {
         margin-bottom: 0;
+
+        &.hidden {
+            display: none !important;
+        }
     }
 
     .activation-form {
@@ -138,6 +142,35 @@ body {
             input {
                 margin: 0;
                 margin-right: 4px;
+            }
+        }
+        
+        .username-row {
+            position: relative;
+        }
+        input[name=username] {
+        }
+        .username-check {
+            position: absolute;
+            pointer-events: none;
+            right: 0;
+            top: 0;
+            width: 46px;
+            height: 46px;
+            z-index: 4;
+            background-image: url('../img/icon-check.png');
+            background-size: 50% 50%;
+            background-position: center center;
+            background-repeat: no-repeat;
+            visibility: hidden;
+
+            &.check {
+                background-image: url('../img/icon-check.png');
+                visibility: visible;
+            }
+            &.failed {
+                background-image: url('../img/icon-failed.png');
+                visibility: visible;
             }
         }
     }

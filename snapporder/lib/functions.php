@@ -22,11 +22,13 @@ function add_user($data) {
     /* User table  */
     $phone = $data['phone']; // used later
     unset($data['phone']);
+    unset($data['user_id']);
 
     /* Add our own initial values */
     $data['username'] = generate_username($data);
     $data['source'] = "snapporder";
     $data['registration_status'] = "partial";
+
 
     /* Membership expiry */
     /* One year from today (default) */
@@ -47,7 +49,7 @@ function add_user($data) {
     $res = $conn->execute($sth, $values);
 
     if( DB::isError($res) ) {
-        throw new InsideDatabaseException($res->getMessage());
+        throw new InsideDatabaseException($res->getMessage().". DEBUG: ".$res->getDebugInfo());
     }
 
     $user_id = get_user_id_by_username($data['username']);
@@ -60,7 +62,7 @@ function add_user($data) {
     $res = $conn->execute($sth, $values);
 
     if( DB::isError($res) ) {
-        throw new InsideDatabaseException($res->getMessage());
+        throw new InsideDatabaseException($res->getMessage().". DEBUG: ".$res->getDebugInfo());
     }
 
     log_userupdate($user_id, "User registered."); // for legacy
@@ -85,7 +87,7 @@ function get_user($user_id) {
     $sql = "SELECT ".implode($cols, ",").",$sql_group_ids,$sql_is_member FROM din_user AS users LEFT JOIN din_usergrouprelationship AS ug ON users.id=ug.user_id WHERE users.id=$user_id GROUP BY users.id";
     $res = $conn->query($sql);
     if( DB::isError($res) ) {
-        throw new InsideDatabaseException($res->getMessage());
+        throw new InsideDatabaseException($res->getMessage().". DEBUG: ".$res->getDebugInfo());
     }
     if($res->numRows() === 0) {
         return false;
@@ -184,7 +186,7 @@ function get_user_id_by_username($username) {
     $sql = "SELECT id FROM din_user WHERE username='$username'";
     $res = $conn->query($sql);
     if( DB::isError($res) ) {
-        throw new InsideDatabaseException($res->getMessage());
+        throw new InsideDatabaseException($res->getMessage().". DEBUG: ".$res->getDebugInfo());
     }
     if( $res->numRows() === 0 ) {
         return false;
@@ -291,7 +293,7 @@ function institutions($output=true) {
     $sql = "SELECT * FROM studiesteder";
     $res = $conn->getAll($sql);
     if( DB::isError($res) ) {
-        throw new InsideDatabaseException($res->getMessage());
+        throw new InsideDatabaseException($res->getMessage().". DEBUG: ".$res->getDebugInfo());
     }
     $institutions = $res;
 
@@ -370,6 +372,7 @@ function update_user($data) {
     // user: update existing user, activation_status="full", form data
     $sql = "UPDATE din_user SET ";
     $sql .= "username=" .$conn->quoteSmart($data['username']).",";
+    $sql .= "ldap_username=" .$conn->quoteSmart($data['username']).",";
     $sql .= "password=PASSWORD(" .$conn->quoteSmart($data['password'])."),";
     $sql .= $birthdate_sql;
     $sql .= "placeOfStudy=" .$conn->quoteSmart($data['place_of_study']).",";
@@ -378,7 +381,7 @@ function update_user($data) {
     $res = $conn->query($sql);
     
     if (DB::isError($res)) {
-        throw new InsideDatabaseException($res->getMessage());
+        throw new InsideDatabaseException($res->getMessage().". DEBUG: ".$res->getDebugInfo());
     }
     return true;
 }
@@ -448,12 +451,12 @@ function validate_birthdate($data, $optional=true) {
 function validate_activation_form($data) {
 
     // username: length, ascii, exists
-    $data['username'] = trim($data['username']);
+    $data['username'] = strtolower(trim($data['username']));
     if( !validate_username_length($data['username']) ) {
         throw new ValidationException("Brukernavet må være mellom 3 og 12 tegn");
     }
     if( !validate_username_chars($data['username']) ) {
-        throw new ValidationException("Brukernavnet kan kun inneholde små bokstaver.");
+        throw new ValidationException("Brukernavnet kan kun inneholde små bokstaver og tall (tall kan ikke være første tegn).");
     }
     if( get_user_id_by_username($data['username'], false) !== false) {
         throw new ValidationException("Brukernavnet er allerede i bruk.");

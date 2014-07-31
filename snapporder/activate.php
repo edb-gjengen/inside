@@ -110,6 +110,8 @@ if( isset($_POST['submit']) ) {
     <section class="activation">
         <?php if(strlen($validation_errors) > 0 ) {
             echo "<span class=\"error\">$validation_errors</span>";
+        } else {
+            echo "<span class=\"error hidden\"></span>";
         } ?>
         <form method="post" class="activation-form">
             <!-- Profile -->
@@ -118,8 +120,8 @@ if( isset($_POST['submit']) ) {
             <input type="hidden" name="firstname" value="<?php echo $user['firstname']; ?>"/>
             <input type="hidden" name="lastname" value="<?php echo $user['lastname']; ?>"/>
             <!-- Account -->
-            <div class="form-row">
-                <label for="id_username">Brukernavn:</label><input id="id_username" type="text" name="username" placeholder="Brukernavn" value="<?php echo $username; ?>" />
+            <div class="form-row username-row">
+                <label for="id_username">Brukernavn:</label><input id="id_username" type="text" name="username" placeholder="Brukernavn" value="<?php echo $username; ?>" maxlength="12"/><div class="username-check"></div>
             </div>
             <div class="form-row">
                 <label for="id_password">Passord:</label><input id="id_password" type="password" name="password" placeholder="Passord" value="<?php echo $password; ?>"/>
