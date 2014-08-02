@@ -18,6 +18,7 @@ function test_get_query() {
 
     if($decoded_result['phone'] ===  $number) {
         echo "OK";
+        var_dump($decoded_result);
     } else {
         echo "FAIL";
     }
@@ -40,7 +41,7 @@ function test_post_register() {
     $result = $crypt->decrypt(trim($result));
     $decoded_result = (array) json_decode($result);
 
-    if(isset($decoded_result['birthdate']) && $decoded_result['birthdate'] === "1983-01-01") {
+    if(isset($decoded_result['membership_status']) && $decoded_result['membership_status'] === 1) {
         echo "OK";
         var_dump($decoded_result);
     } else {
@@ -76,6 +77,64 @@ function test_post_register_renewal() {
     /* Register */
     curl_close ($ch);
 }
-//test_get_query();
+function test_post_register_buddy() {
+    $crypt = new CryptoHelper(SNAP_IV, SNAP_KEY);
+    $data = file_get_contents("./testuser_buddy.json");
+
+    $data = $crypt->encrypt($data);
+    $ch = curl_init(API_URL.'/snapporder/api/register.php');
+    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_ENCODING ,"");
+    curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json; charset=UTF-8'));
+
+    $result = curl_exec($ch);
+    $result = $crypt->decrypt(trim($result));
+    $decoded_result = (array) json_decode($result);
+
+    $correct_expires = isset($decoded_result['expires']) && $decoded_result['expires'] === "2015-01-01";
+    $has_param = isset($decoded_result['membership_trial']) && $decoded_result['membership_trial'] === "buddy";
+    if($correct_expires && $has_param) {
+        echo "OK";
+        var_dump($decoded_result);
+    } else {
+        echo "FAIL\n";
+        var_dump($decoded_result);
+    }
+    /* Register */
+    curl_close ($ch);
+}
+function test_post_register_buddy_renewal() {
+    $crypt = new CryptoHelper(SNAP_IV, SNAP_KEY);
+    $data = file_get_contents("./testuser_buddy_renewal.json");
+
+    $data = $crypt->encrypt($data);
+    $ch = curl_init(API_URL.'/snapporder/api/register.php');
+    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_ENCODING ,"");
+    curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json; charset=UTF-8'));
+
+    $result = curl_exec($ch);
+    $result = $crypt->decrypt(trim($result));
+    $decoded_result = (array) json_decode($result);
+
+    $correct_expires = isset($decoded_result['expires']) && $decoded_result['expires'] === "2015-01-01";
+    $has_param = isset($decoded_result['membership_trial']) && $decoded_result['membership_trial'] === "buddy";
+    if($correct_expires && $has_param) {
+        echo "OK";
+        var_dump($decoded_result);
+    } else {
+        echo "FAIL\n";
+        var_dump($decoded_result);
+    }
+    /* Register */
+    curl_close ($ch);
+}
+test_get_query();
 //test_post_register();
-test_post_register_renewal();
+//test_post_register_renewal();
+//test_post_register_buddy();
+//test_post_register_buddy_renewal();

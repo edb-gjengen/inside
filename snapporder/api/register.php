@@ -71,20 +71,20 @@ if($data === NULL) {
     echo $crypt->json_encode_and_encrypt(array('error' => 'Can\'t decode body'));
     die();
 }
-/* Check type of registration */
+/* Check type of registration and set valid fields */
 $reg_type = "new";
-/* Renewal */
 if( isset($data['type']) && $data['type'] === "renewal" ) {
+    /* Renewal */
     $required_keys = array('phone');
     $reg_type = $data['type'];
 } else {
     $required_keys = array('firstname', 'lastname', 'phone', 'email');
 }
 
-/* Validate supplied data */
 $valid_keys = $required_keys;
-$valid_keys = array_merge($valid_keys, array('purchased', 'source', 'type'));
+$valid_keys = array_merge($valid_keys, array('purchased', 'source', 'type', 'membership_trial'));
 
+/* Validate supplied data */
 foreach($required_keys as $key) {
     if(!array_key_exists($key, $data)) {
         set_response_code(400);
@@ -183,6 +183,12 @@ if( isset($data['source']) && !in_array($data['source'], array('snapporder', 'sn
     die();
 }
 
+/* Validate optional membership_trial */
+if( isset($data['membership_trial']) && $data['membership_trial'] !== "buddy") {
+    set_response_code(400);
+    echo $crypt->json_encode_and_encrypt(array('error' => 'Invalid value in field membership_trial: '.$data['membership_trial']));
+    die();
+}
 
 /* Create user */
 try {
@@ -214,6 +220,11 @@ if($user['registration_status'] === "partial") {
 
 /* Add back phone number from query */
 $user['phone'] = $data['phone'];
+
+if( isset($data['membership_trial']) ) {
+    /* Add back membership_trial from query */
+    $user['membership_trial'] = $data['membership_trial'];
+}
 
 /* Return encrypted user object */
 echo $crypt->json_encode_and_encrypt($user);

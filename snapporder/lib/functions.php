@@ -39,6 +39,12 @@ function add_user($data) {
     $data['expires'] = date_format(date_modify($data['purchased'], "+1 year"), "Y-m-d");
     unset($data['purchased']); // dont save purchase date
 
+    /* Trial membership (special case, ignored if not in autumn) */
+    $in_autumn = intval(date("n")) >= 8 && intval(date("n")) <= 12;
+    if( isset($data['membership_trial']) && $in_autumn) {
+        $data['expires'] = date_format(date_create("first day of january next year"), "Y-m-d");
+    }
+
     $cols = array_keys($data);
     $values = array_values($data);
 
@@ -66,7 +72,11 @@ function add_user($data) {
     }
 
     log_userupdate($user_id, "User registered."); // for legacy
-    log_userupdate($user_id, "Medlemskap registrert via SnappOrder.");
+    if( isset($data['membership_trial']) && $in_autumn) {
+        log_userupdate($user_id, "Medlemskap registrert via SnappOrder. Prøvemedlemskap (".$data['membership_trial'].").");
+    } else {
+        log_userupdate($user_id, "Medlemskap registrert via SnappOrder.");
+    }
 
     return $user_id;
 }
@@ -81,7 +91,7 @@ function get_user($user_id) {
      *  - a date >= NOW(): Valid membership
      *  - NULL: Lifelong membership
      */
-    $cols = array('id', 'firstname', 'lastname', 'email', 'expires', 'cardno', 'registration_status', 'birthdate');
+    $cols = array('id', 'firstname', 'lastname', 'email', 'expires', 'cardno', 'registration_status', 'birthdate', 'membership_trial');
     $sql_group_ids = "GROUP_CONCAT(group_id) AS group_ids";
     $sql_is_member = "expires > NOW() OR expires IS NULL AS is_member";
     $sql = "SELECT ".implode($cols, ",").",$sql_group_ids,$sql_is_member FROM din_user AS users LEFT JOIN din_usergrouprelationship AS ug ON users.id=ug.user_id WHERE users.id=$user_id GROUP BY users.id";
@@ -119,6 +129,9 @@ function get_user($user_id) {
     if($user['birthdate'] == "0000-00-00") {
         unset($user['birthdate']);
     }
+    if($user['membership_trial'] === "") {
+        unset($user['membership_trial']);
+    }
 
     /* FIXME: Double encode fields as utf-8... why? */
     foreach($user as $key => $value) {
@@ -140,9 +153,9 @@ function renew_user($data) {
     unset($data['type']);
 
     /* Our own values */
-    $source = $data['source'];
-    if( !isset($data['source']) ) {
-        $source = "snapporder";
+    $source = "snapporder";
+    if( isset($data['source']) ) {
+        $source = $data['source'];
     }
     unset($data['source']);
 
@@ -155,9 +168,17 @@ function renew_user($data) {
     $data['expires'] = date_format(date_modify($data['purchased'], "+1 year"), "Y-m-d");
     unset($data['purchased']); // dont save purchase date
 
+    /* Trial membership (special case, ignored if not in autumn) */
+    $in_autumn = intval(date("n")) >= 8 && intval(date("n")) <= 12;
+    if( isset($data['membership_trial']) && $in_autumn) {
+        $data['expires'] = date_format(date_create("first day of january next year"), "Y-m-d");
+    }
+
     // FIXME: Decode UTF-8 values... why?
     foreach($data as $key=>$value) {
-        $data[$key] = utf8_decode($value);
+        if(is_string($value)) {
+            $data[$key] = utf8_decode($value);
+        }
     }
 
     $res = $conn->autoExecute("din_user", $data, DB_AUTOQUERY_UPDATE, "id=$user_id");
@@ -169,13 +190,17 @@ function renew_user($data) {
     /* Phonenumber table, set validated */
     $fields_values = array('validated' => 1);
 
-    $res = $conn->autoExecute("din_userphonenumber", $fields_values, DB_AUTOQUERY_UPDATE, "user_id=$user_id AND number='$number'");
+    $res = $conn->autoExecute("din_userphonenumber", $fields_values, DB_AUTOQUERY_UPDATE, "user_id=$user_id AND number='$phone'");
 
     if( DB::isError($res) ) {
         throw new InsideDatabaseException($res->getMessage().". DEBUG: ".$res->getDebugInfo());
     }
 
-    log_userupdate($user_id, "Medlemskap fornyet via SnappOrder ($source).");
+    if( isset($data['membership_trial']) && $in_autumn) {
+        log_userupdate($user_id, "Medlemskap registrert via SnappOrder ($source). Prøvemedlemskap (".$data['membership_trial'].").");
+    } else {
+        log_userupdate($user_id, "Medlemskap fornyet via SnappOrder ($source).");
+    }
 
     return;
 }
