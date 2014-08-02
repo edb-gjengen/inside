@@ -38,6 +38,7 @@ function test_post_register() {
     curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json; charset=UTF-8'));
 
     $result = curl_exec($ch);
+    var_dump($result);
     $result = $crypt->decrypt(trim($result));
     $decoded_result = (array) json_decode($result);
 
@@ -133,8 +134,8 @@ function test_post_register_buddy_renewal() {
     /* Register */
     curl_close ($ch);
 }
-test_get_query();
-//test_post_register();
+//test_get_query();
+test_post_register();
 //test_post_register_renewal();
 //test_post_register_buddy();
 //test_post_register_buddy_renewal();

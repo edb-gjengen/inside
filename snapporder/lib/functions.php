@@ -533,5 +533,59 @@ function save_activation_form($data) {
 
     return true;
 }
+
+/* The purpose of this email is:
+ * - to store the registration_url in the users inbox
+ * - give some sort of positive confirmation outside of the SnappOrder-app
+ */
+function send_activation_email($data, $user) {
+    $from_email = "medlemskap@studentersamfundet.no";
+	$sendto = $user['email'];
+	$subject = "Aktiver medlemskapet ditt - Det Norske Studentersamfund";
+
+    $headers = "From: $from_email\r\n";
+    $headers .= "Reply-To: $from_email\r\n";
+    $headers .= "MIME-Version: 1.0\r\n";
+    $headers .= "Content-Type: text/html; charset=UTF-8\r\n";
+
+    $message = '<html><body>';
+    $message .= '<h3>Hei '.$user['firstname'].', og velkommen til Det Norske Studentersamfund!</h3>';
+    $message .= '<p>For at medlemskapet ditt skal v&aelig;re gyldig trenger vi noen flere opplysninger fra deg.</p>';
+    $message .= '<p style="margin-bottom: 20px;">Trykk p&aring; lenken under for &aring; fortsette.</p>';
+    $message .= '<p style="margin-bottom: 20px;"><a href="'.$user['registration_url'].'" style="font-family: Arial,sans-serif; color: white; font-weight: bold; font-size: 20px; padding: 0.8em 1.2em; border: none; text-decoration: none; background-color: #58AA58; display: inline-block; text-align: center; margin: 0;">Aktiver medlemskapet</a></p>';
+    $message .= "<p>Med vennlig hilsen<br>Det Norske Studentersamfund</p>";
+    $message .= "</body></html>";
+
+	@mail($sendto, $subject, $message, $headers);
+}
+
+/* The purpose of this email is:
+ * - to store the users username in the users inbox
+ * - give some sort of positive confirmation that everything is as it should be!
+ */
+function send_confirmation_email($data, $user) {
+    $from_email = "medlemskap@studentersamfundet.no";
+	$sendto = $user['email'];
+	$subject = "Medlemskap aktivert - Det Norske Studentersamfund";
+
+    $headers = "From: $from_email\r\n";
+    $headers .= "Reply-To: $from_email\r\n";
+    $headers .= "MIME-Version: 1.0\r\n";
+    $headers .= "Content-Type: text/html; charset=UTF-8\r\n";
+
+    $inside_url = "https://inside.studentersamfundet.no/";
+    $password_reset_url = "https://brukerinfo.neuf.no/accounts/password/reset";
+
+    $message = '<html><body>';
+    $message .= '<h3>Gratulerer med ditt nye medlemskap i Det Norske Studentersamfund!</h3>';
+    $message .= '<p>Brukernavnet ditt er: '.$data['username'].'</p>';
+    $message .= '<p>Om du i fremtiden skulle glemme passordet ditt, s&aring; kan du <a href="'.$password_reset_url.'">f&aring; nytt her</a>.</p>';
+    $message .= '<p style="margin-bottom: 20px;">Trykk p&aring; lenken under for &aring; logge inn og se medlemskapet ditt.</p>';
+    $message .= '<p style="margin-bottom: 20px;"><a href="'.$inside_url.'" style="font-family: Arial,sans-serif; color: white; font-weight: bold; font-size: 20px; padding: 0.8em 1.2em; border: none; text-decoration: none; background-color: #58AA58; display: inline-block; text-align: center; margin: 0;">Logg inn</a></p>';
+    $message .= "<p>Med vennlig hilsen<br>Det Norske Studentersamfund</p>";
+    $message .= "</body></html>";
+
+	@mail($sendto, $subject, $message, $headers);
+}
 ?>
 

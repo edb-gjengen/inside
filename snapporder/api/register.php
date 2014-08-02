@@ -10,8 +10,9 @@
  *   "firstname": "Jon",
  *   "lastname": "Hansen",
  *   "email": "jon@uio.no",
- *   "purchased": "2004-02-12"   // optional, format: ISO-8601 date
- *   "source": "snapporder_sms"  // optional, possible values: "snapporder" or "snapporder_sms"
+ *   "purchased": "2004-02-12"    // optional, format: ISO-8601 date
+ *   "source": "snapporder_sms"   // optional, possible values: "snapporder" or "snapporder_sms"
+ *   "membership_trial": "buddy"  // optional, gives free membership in autumn, possible value: "buddy"
  * }
  *
  * Response:
@@ -26,6 +27,7 @@
  *   "email": "jon@uio.no",
  *   "birthdate": "1985-03-01",
  *   "registration_status": "partial"  // "partial" means show link
+ *   "membership_trial": "buddy"       // possible value: "buddy", user has a trial membership, unset if not
  *   "registration_url": "/snapporder/register_partial.php?userid=4331&token=lol"
  * }
  *
@@ -39,7 +41,6 @@
  *   "source": "snapporder_sms"  // optional, possible values: "snapporder" or "snapporder_sms"
  * }
  *
- * TODO maybe check $_SERVER['REQUEST_METHOD']
  */
 
 /* Pull in Inside */
@@ -224,6 +225,11 @@ $user['phone'] = $data['phone'];
 if( isset($data['membership_trial']) ) {
     /* Add back membership_trial from query */
     $user['membership_trial'] = $data['membership_trial'];
+}
+
+/* Send welcome email */
+if($reg_type === "new") {
+    send_activation_email($data, $user);
 }
 
 /* Return encrypted user object */

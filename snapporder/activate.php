@@ -67,15 +67,18 @@ if( isset($_POST['submit']) ) {
         $newsletter_checked = isset($_POST['newsletter']) ? " checked" : "";
     }
     if($data !== NULL) {
-        // persist
         try {
+            // persist
             save_activation_form($data);
 
             // Push the user to LDAP
             $migrated = ldap_add_user($data['username'], $data['firstname'], $data['lastname'], $data['email'], $data['password'], array('dns-alle'));
             _log($migrated);
-            // FIXME assumes this works every time
-            set_migrated($data['userid']);
+            set_migrated($data['userid']); // FIXME assumes this works every time
+
+            // send warm and fuzzy welcome email
+            send_confirmation_email($data, $user);
+
             // redirect to confirmation page
             redirect("/snapporder/activate_confirmed.php");
             die();
