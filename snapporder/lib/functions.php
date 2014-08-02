@@ -73,7 +73,7 @@ function add_user($data) {
 
     log_userupdate($user_id, "User registered."); // for legacy
     if( isset($data['membership_trial']) && $in_autumn) {
-        log_userupdate($user_id, "Medlemskap registrert via SnappOrder. Prøvemedlemskap (".$data['membership_trial'].").");
+        log_userupdate($user_id, "Medlemskap registrert via SnappOrder. Gratis medlemskap (".$data['membership_trial'].").");
     } else {
         log_userupdate($user_id, "Medlemskap registrert via SnappOrder.");
     }
@@ -197,7 +197,7 @@ function renew_user($data) {
     }
 
     if( isset($data['membership_trial']) && $in_autumn) {
-        log_userupdate($user_id, "Medlemskap registrert via SnappOrder ($source). Prøvemedlemskap (".$data['membership_trial'].").");
+        log_userupdate($user_id, "Medlemskap registrert via SnappOrder ($source). Gratis medlemskap (".$data['membership_trial'].").");
     } else {
         log_userupdate($user_id, "Medlemskap fornyet via SnappOrder ($source).");
     }
