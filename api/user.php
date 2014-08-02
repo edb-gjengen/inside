@@ -33,6 +33,13 @@ if(DB :: isError($conn)) {
 }
 $conn->setFetchMode(DB_FETCHMODE_ORDERED);
 
+/* Valid API KEY (defined in credentials.php) ? */
+if(!isset($_GET['apikey']) || $_GET['apikey'] !== USER_API_KEY) {
+    set_response_code(400);
+    echo json_encode(array('error' => "Invalid apikey."));
+    die();
+}
+
 /* Validate params */
 if(!isset($_GET['q'])) {
     set_response_code(400);

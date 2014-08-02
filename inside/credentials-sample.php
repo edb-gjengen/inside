@@ -24,4 +24,7 @@ function getDSN($host = "default") {
 
 	return "$driver://$user_name:$password@$host_name/$db_name";
 }
+
+define("USER_API_KEY", "");
+
 ?>
