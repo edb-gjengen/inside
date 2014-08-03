@@ -33,10 +33,15 @@ if(DB :: isError($conn)) {
 }
 $conn->setFetchMode(DB_FETCHMODE_ORDERED);
 
-/* Valid API KEY (defined in credentials.php) ? */
-if(!isset($_GET['apikey']) || $_GET['apikey'] !== USER_API_KEY) {
+if( !isset($_GET['apikey']) ) {
     set_response_code(400);
-    echo json_encode(array('error' => "Invalid apikey."));
+    echo json_encode(array('error' => "Missing param apikey."));
+    die();
+}
+/* Valid API KEY (defined in credentials.php) ? */
+if( $_GET['apikey'] !== USER_API_KEY ) {
+    set_response_code(400);
+    echo json_encode(array('error' => "Invalid apikey.".$_GET['apikey']));
     die();
 }
 
@@ -46,7 +51,25 @@ if(!isset($_GET['q'])) {
     echo json_encode(array('error' => "Missing search param q"));
     die();
 }
-if( strlen($_GET['q']) <= 2 ) {
+
+/* Filters */
+$groups = array();
+if(isset($_GET['filter_groups']) && strlen($_GET['filter_groups']) > 0 ) {
+    if( !strstr(",", $_GET['filter_groups']) ) {
+        $groups = array($_GET['filter_groups']);
+    } else {
+        $groups = explode($_GET['filter_groups'], ",");
+    }
+    foreach($groups as $group) {
+        if( !is_numeric($group) ) {
+            set_response_code(400);
+            echo json_encode(array('error' => "Value in filter_groups must be numeric: '".$group."'"));
+            die();
+        }
+    }
+}
+
+if( strlen($_GET['q']) <= 2 && count($groups) == 0 ) {
     set_response_code(400);
     echo json_encode(array('error' => "Search param must be longer than 2 chars"));
     die();
@@ -58,13 +81,25 @@ $query = $_GET['q'];
 $query = "%" . str_replace(" ", "% %", $query) . "%";
 $query = $conn->quoteSmart($query);
 
+
 // Search query
+$user_search_query = "CONCAT(UPPER(u.firstname), ' ', UPPER(u.lastname)) LIKE $query
+        OR CONCAT(UPPER(u.firstname), ' ', UPPER(u.lastname)) LIKE $query
+        OR UPPER(u.username) LIKE $query
+        OR UPPER(u.email) LIKE $query";
+
 $sql = "SELECT DISTINCT u.id
     FROM din_user u
-    WHERE CONCAT(UPPER(u.firstname), ' ', UPPER(u.lastname)) LIKE $query
-    OR CONCAT(UPPER(u.firstname), ' ', UPPER(u.lastname)) LIKE $query
-    OR UPPER(u.username) LIKE $query
-    OR UPPER(u.email) LIKE $query";
+    WHERE $user_search_query";
+
+// Search query with groups 
+if(count($groups) > 0) {
+    $sql = "SELECT DISTINCT u.id
+        FROM din_user u
+        LEFT JOIN din_usergrouprelationship as ug ON u.id=ug.user_id
+        WHERE ($user_search_query)
+        AND ug.group_id IN(".implode($groups, ",").")";
+}
 
 $res = $conn->getAll($sql);
 if( DB::isError($res) ) {
