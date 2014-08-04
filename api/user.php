@@ -69,11 +69,16 @@ if(isset($_GET['filter_groups']) && strlen($_GET['filter_groups']) > 0 ) {
     }
 }
 
+// TODO
+//  - define a set of admin-groups (admin=1) and use in group filter
+//  - allow new param is_member
+
 if( strlen($_GET['q']) <= 2 && count($groups) == 0 ) {
     set_response_code(400);
     echo json_encode(array('error' => "Search param must be longer than 2 chars"));
     die();
 }
+
 
 $query = $_GET['q'];
 
@@ -88,11 +93,12 @@ $user_search_query = "CONCAT(UPPER(u.firstname), ' ', UPPER(u.lastname)) LIKE $q
         OR UPPER(u.username) LIKE $query
         OR UPPER(u.email) LIKE $query";
 
+// Default
 $sql = "SELECT DISTINCT u.id
     FROM din_user u
     WHERE $user_search_query";
 
-// Search query with groups 
+// Overrid query with groups 
 if(count($groups) > 0) {
     $sql = "SELECT DISTINCT u.id
         FROM din_user u
