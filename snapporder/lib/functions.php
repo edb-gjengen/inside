@@ -351,8 +351,6 @@ function mailchimp_subscribe($data, $list_id, $api_key) {
         return false;
     }
 
-    $double_optin = false;
-    $send_welcome = false;
     list($not_used, $dc) = explode("-", $api_key);
     $submit_url = "https://$dc.api.mailchimp.com/2.0/lists/subscribe.json";
 
@@ -361,8 +359,9 @@ function mailchimp_subscribe($data, $list_id, $api_key) {
         'id' => $list_id,
         'email' => array('email' => $data['email']),
         'merge_vars' => array('fname' => $data['firstname'], 'lname' => $data['lastname']),
-        'double_optin' => $double_optin,
-        'send_welcome' => $send_welcome
+        'double_optin' => false,
+        'update_existing' => true, // if email exists, dont throw an error
+        'send_welcome' => false
 
     );
     $payload = json_encode($data);
@@ -376,7 +375,7 @@ function mailchimp_subscribe($data, $list_id, $api_key) {
     $result = curl_exec($ch);
     $data = (array) json_decode($result);
     if( isset($data['status']) && $data['status'] === "error") {
-        $message = "Request: '" .var_export(curl_getinfo($ch), true). "' \nPayload: '" .var_export($payload, true). "'";
+        $message = "Request: '" .var_export(curl_getinfo($ch), true). "' \nPayload: '" .var_export($payload, true). "' \nResponse: '$result'";
         @mail("kak-edb@studentersamfundet.no", "[Inside] Could not add a user to a mailchimp list.", $message);
         curl_close ($ch);
         return false;
