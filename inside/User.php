@@ -225,7 +225,7 @@ class User {
       // Mark address as valid
       $this->setAddressStatus(1);
 
-      $sql = sprintf("INSERT INTO din_userphonenumber VALUES (%s, %s)", $this->conn->quoteSmart($this->id), $this->conn->quoteSmart($this->phonenumber));
+      $sql = sprintf("INSERT INTO din_userphonenumber (user_id, number) VALUES (%s, %s)", $this->conn->quoteSmart($this->id), $this->conn->quoteSmart($this->phonenumber));
       $result = $this->conn->query($sql);
       if (DB :: isError($result) == true) {
         $this->conn->rollback();
@@ -327,9 +327,7 @@ class User {
           $this->setAddressStatus(1);
         }
       }
-      $sql = "DELETE FROM din_userphonenumber WHERE user_id = $this->id";
-      $this->conn->query($sql);
-      $sql = sprintf("INSERT INTO din_userphonenumber VALUES (%s, %s)", $this->conn->quoteSmart($this->id), $this->conn->quoteSmart($this->phonenumber));
+      $sql = sprintf("REPLACE INTO din_userphonenumber (user_id, number) VALUES (%s, %s)", $this->conn->quoteSmart($this->id), $this->conn->quoteSmart($this->phonenumber));
 
       $result = $this->conn->query($sql);
       if (DB :: isError($result) == true) {
