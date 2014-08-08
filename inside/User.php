@@ -71,18 +71,18 @@ class User {
                 return false;
             }
             $this->username = strtolower(stripcslashes($data['username']));
-            if( !validate_password_length($data['password']) ) {
+            if( !validate_password_length($data['password1']) ) {
                 notify("Passordet må være minst 8 tegn.");
                 $this->id = -1;
                 return false;
             }
-            if( !validate_password_chars($data['password']) ) {
+            if( !validate_password_chars($data['password1']) ) {
                 notify("Passordet kan ikke inneholde enkel- eller dobbelfnutt eller bakslask.");
                 $this->id = -1;
                 return false;
             }
             if ($data['password1'] != $data['password2']) {
-                notify("Passordene var ikke like.");
+                notify("Passordene er ikke like.");
                 $this->id = -1;
                 return false;
             }
