@@ -55,10 +55,10 @@ if(!isset($_GET['q'])) {
 /* Filters */
 $groups = array();
 if(isset($_GET['filter_groups']) && strlen($_GET['filter_groups']) > 0 ) {
-    if( !strstr(",", $_GET['filter_groups']) ) {
-        $groups = array($_GET['filter_groups']);
+    if( !strstr($_GET['filter_groups'], ",") ) {
+        $groups[] = $_GET['filter_groups'];
     } else {
-        $groups = explode($_GET['filter_groups'], ",");
+        $groups = explode(",", $_GET['filter_groups']);
     }
     foreach($groups as $group) {
         if( !is_numeric($group) ) {
@@ -71,9 +71,12 @@ if(isset($_GET['filter_groups']) && strlen($_GET['filter_groups']) > 0 ) {
 
 // TODO
 //  - define a set of admin-groups (admin=1) and use in group filter
-//  - allow new param is_member
+$filter_valid_membership = false;
+if( isset($_GET['has_valid_membership']) && $_GET['has_valid_membership'] == "true") {
+    $filter_valid_membership = true;
+}
 
-if( strlen($_GET['q']) <= 2 && count($groups) == 0 ) {
+if( strlen($_GET['q']) <= 2 && count($groups) == 0 && !$filter_valid_membership ) {
     set_response_code(400);
     echo json_encode(array('error' => "Search param must be longer than 2 chars"));
     die();
@@ -88,23 +91,32 @@ $query = $conn->quoteSmart($query);
 
 
 // Search query
+// TODO allow users with permission to search all users (not filter active group)
 $user_search_query = "CONCAT(UPPER(u.firstname), ' ', UPPER(u.lastname)) LIKE $query
         OR CONCAT(UPPER(u.firstname), ' ', UPPER(u.lastname)) LIKE $query
         OR UPPER(u.username) LIKE $query
         OR UPPER(u.email) LIKE $query";
 
+$valid_membership_query = $filter_valid_membership ? " AND (u.expires >= NOW() OR u.expires IS NULL)" : "";
+
 // Default
 $sql = "SELECT DISTINCT u.id
     FROM din_user u
-    WHERE $user_search_query";
+    LEFT JOIN din_usergrouprelationship as ug ON u.id=ug.user_id
+    WHERE ($user_search_query)
+    AND ug.group_id=2 /* Note: Always filter on active group */
+    $valid_membership_query";
 
 // Overrid query with groups 
 if(count($groups) > 0) {
     $sql = "SELECT DISTINCT u.id
         FROM din_user u
         LEFT JOIN din_usergrouprelationship as ug ON u.id=ug.user_id
+        LEFT JOIN din_usergrouprelationship as ug2 ON u.id=ug2.user_id
         WHERE ($user_search_query)
-        AND ug.group_id IN(".implode($groups, ",").")";
+        AND ug.group_id IN(".implode($groups, ",").")
+        AND ug2.group_id=2  /* Note: Always filter on active group, here with a double join */
+        $valid_membership_query";
 }
 
 $res = $conn->getAll($sql);
@@ -131,7 +143,7 @@ $conn->setFetchMode(DB_FETCHMODE_ASSOC);
 /* Get data */
 $sql_is_member = "u.expires > NOW() OR u.expires IS NULL AS is_member";
 $sql_groups = "GROUP_CONCAT(DISTINCT g.name SEPARATOR ', ') AS groups";
-$sql = "SELECT u.id,u.username,u.firstname,u.lastname,u.email,up.number,$sql_groups,$sql_is_member
+$data_sql = "SELECT u.id,u.username,u.firstname,u.lastname,u.email,up.number,$sql_groups,$sql_is_member
     FROM din_user as u
     LEFT JOIN din_userphonenumber as up ON up.user_id=u.id
     LEFT JOIN din_usergrouprelationship AS ug ON u.id=ug.user_id
@@ -140,7 +152,7 @@ $sql = "SELECT u.id,u.username,u.firstname,u.lastname,u.email,up.number,$sql_gro
     GROUP BY u.id
     ORDER BY u.firstname, u.lastname ASC";
 
-$res = $conn->getAll($sql);
+$res = $conn->getAll($data_sql);
 
 if( DB::isError($res) ) {
     set_response_code(500);
