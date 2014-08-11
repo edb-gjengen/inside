@@ -16,7 +16,7 @@ function generate_username($data) {
     return $firstname.$lastname.$rand;
 }
 
-function add_user($data) {
+function add_user($data, $source) {
     global $conn;
 
     /* User table  */
@@ -26,7 +26,7 @@ function add_user($data) {
 
     /* Add our own initial values */
     $data['username'] = generate_username($data);
-    $data['source'] = "snapporder";
+    $data['source'] = $source;
     $data['registration_status'] = "partial";
 
 
@@ -73,9 +73,9 @@ function add_user($data) {
 
     log_userupdate($user_id, "User registered."); // for legacy
     if( isset($data['membership_trial']) && $in_autumn) {
-        log_userupdate($user_id, "Medlemskap registrert via SnappOrder. Gratis medlemskap (".$data['membership_trial'].").");
+        log_userupdate($user_id, "Medlemskap registrert via $source. Gratis medlemskap (".$data['membership_trial'].").");
     } else {
-        log_userupdate($user_id, "Medlemskap registrert via SnappOrder.");
+        log_userupdate($user_id, "Medlemskap registrert via $source.");
     }
 
     return $user_id;
@@ -197,9 +197,9 @@ function renew_user($data) {
     }
 
     if( isset($data['membership_trial']) && $in_autumn) {
-        log_userupdate($user_id, "Medlemskap registrert via SnappOrder ($source). Gratis medlemskap (".$data['membership_trial'].").");
+        log_userupdate($user_id, "Medlemskap registrert via $source. Gratis medlemskap (".$data['membership_trial'].").");
     } else {
-        log_userupdate($user_id, "Medlemskap fornyet via SnappOrder ($source).");
+        log_userupdate($user_id, "Medlemskap fornyet via $source.");
     }
 
     return;
@@ -516,6 +516,28 @@ function validate_activation_form($data) {
 
     return $data;
 }
+function validate_sms_form($data) {
+	// lookup phonenumber
+	$data['phone'] = clean_phonenumber($data['phone']);
+	if( !valid_phonenumber($data['phone']) ) {
+        throw new ValidationException("Ugyldig telefonnummer");
+	}
+
+	$user_id = getUseridFromPhone($data['phone']);
+	if( $user_id !== false ) {
+        throw new ValidationException("Telefonnummeret er allerede registrert i bruk.");
+	}
+	
+	// lookup code and phonenumber tuple
+	$phone = substr($data['phone'], 0, 3);
+	// TODO: you are here
+	// get purchased from date
+
+    return $data;
+}
+function save_sms_form($data) {
+    add_user($data, "sms");
+}
 function save_activation_form($data) {
     update_user($data);
     update_user_groups($data);
@@ -531,6 +553,16 @@ function save_activation_form($data) {
     }
 
     return true;
+}
+function is_valid_sms_activation_code($phone, $code) {
+    $sql = "SELECT * FROM din_sms_sent AS s WHERE s.activation_code=$code AND s.reciever=$phone";
+    $res = $conn->query($sql);
+    if( DB::isError($res) ) {
+        throw new InsideDatabaseException($res->getMessage().". DEBUG: ".$res->getDebugInfo());
+    }
+    if($res->numRows() === 0) {
+        return false;
+    }
 }
 
 /* The purpose of this email is:

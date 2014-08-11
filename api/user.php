@@ -92,6 +92,7 @@ $query = $conn->quoteSmart($query);
 
 // Search query
 // TODO allow users with permission to search all users (not filter active group)
+// TODO: group memberships should be "AND-ed" together somehow
 $user_search_query = "CONCAT(UPPER(u.firstname), ' ', UPPER(u.lastname)) LIKE $query
         OR CONCAT(UPPER(u.firstname), ' ', UPPER(u.lastname)) LIKE $query
         OR UPPER(u.username) LIKE $query

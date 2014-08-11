@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width" />
     <title>Aktiver medlemskapet ditt hos Det Norske Studentersamfund</title>
     <link href='//fonts.googleapis.com/css?family=Arvo:700' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" media="all" href="css/style.css" />
+    <link rel="stylesheet" type="text/css" media="all" href="../snapporder/css/style.css" />
 
-    <script src="js/jquery-1.11.0.js"></script>
-    <script src="js/activate.js"></script>
+    <script src="../snapporder/js/jquery-1.11.0.js"></script>
+    <script src="../snapporder/js/activate.js"></script>
 
     <!-- GA? -->
 

@@ -67,114 +67,117 @@ body {
         text-align: right;
     }
 }
-.activation {
+.activation,
+.register-sms {
     @include grid-column(12);
     @media #{$medium-up} { @include grid-column(6); }
-
-    span.error {
-        margin-bottom: 0;
-
-        &.hidden {
-            display: none !important;
-        }
-    }
-
-    .activation-form {
-        label {
-            font-weight: bold;
-            display: inline-block;
-            width: 30%;
-            line-height: $row-height;
-            &.no-width {
-                font-weight: normal;
-                display: inline-block;
-                width: auto;
-                border-bottom: 0;
-                line-height: 1;
-            }
-        }
-        .form-row {
-            border-bottom: 1px solid #ccc;
-        }
-        input[type=text],
-        input[type=password] {
-            display: inline-block;
-            width: 70%;
-            background-color: white;
-            border: 0;
-            text-shadow: none;
-            height: $row-height;
-            margin: 0;
-        }
-        select {
-            display: inline-block;
-            width: 70%;
-            background-color: white;
-            border: 0;
-            padding-left: 0;
-            height: $row-height;
-            outline: 0;
-            margin: 0;
-
-            &[name=day],
-            &[name=month],
-            &[name=year] {
-                width: 23.333333333333%;
-            }
-        }
-        input[name=zipcode],
-        .area-wrap {
-            width: 33.33333%;
-        }
-        .area-wrap {
-            display: inline-block;
-            padding-left: 4px;
-        }
-        label[for=id_newsletter] {
-            border-bottom: 0;
-        }
-        .newsletter-text {
-            display: inline-block;
-            width: 70%;
-            border-bottom: 0;
-            height: $row-height;
-
-            input {
-                margin: 0;
-                margin-right: 4px;
-            }
-        }
-        
-        .username-row {
-            position: relative;
-        }
-        input[name=username] {
-        }
-        .username-check {
-            position: absolute;
-            pointer-events: none;
-            right: 0;
-            top: 0;
-            width: 46px;
-            height: 46px;
-            z-index: 4;
-            background-image: url('../img/icon-check.png');
-            background-size: 50% 50%;
-            background-position: center center;
-            background-repeat: no-repeat;
-            visibility: hidden;
-
-            &.check {
-                background-image: url('../img/icon-check.png');
-                visibility: visible;
-            }
-            &.failed {
-                background-image: url('../img/icon-failed.png');
-                visibility: visible;
-            }
-        }
-    }
 }
+
+span.error {
+	margin-bottom: 0;
+
+	&.hidden {
+		display: none !important;
+	}
+}
+
+.activation-form {
+	label {
+		font-weight: bold;
+		display: inline-block;
+		width: 30%;
+		line-height: $row-height;
+		&.no-width {
+			font-weight: normal;
+			display: inline-block;
+			width: auto;
+			border-bottom: 0;
+			line-height: 1;
+		}
+	}
+	.form-row {
+		border-bottom: 1px solid #ccc;
+	}
+	input[type=text],
+	input[type=email],
+	input[type=password] {
+		display: inline-block;
+		width: 70%;
+		background-color: white;
+		border: 0;
+		text-shadow: none;
+		height: $row-height;
+		margin: 0;
+	}
+	select {
+		display: inline-block;
+		width: 70%;
+		background-color: white;
+		border: 0;
+		padding-left: 0;
+		height: $row-height;
+		outline: 0;
+		margin: 0;
+
+		&[name=day],
+		&[name=month],
+		&[name=year] {
+			width: 23.333333333333%;
+		}
+	}
+	input[name=zipcode],
+	.area-wrap {
+		width: 33.33333%;
+	}
+	.area-wrap {
+		display: inline-block;
+		padding-left: 4px;
+	}
+	label[for=id_newsletter] {
+		border-bottom: 0;
+	}
+	.newsletter-text {
+		display: inline-block;
+		width: 70%;
+		border-bottom: 0;
+		height: $row-height;
+
+		input {
+			margin: 0;
+			margin-right: 4px;
+		}
+	}
+	
+	.username-row {
+		position: relative;
+	}
+	input[name=username] {
+	}
+	.username-check {
+		position: absolute;
+		pointer-events: none;
+		right: 0;
+		top: 0;
+		width: 46px;
+		height: 46px;
+		z-index: 4;
+		background-image: url('../img/icon-check.png');
+		background-size: 50% 50%;
+		background-position: center center;
+		background-repeat: no-repeat;
+		visibility: hidden;
+
+		&.check {
+			background-image: url('../img/icon-check.png');
+			visibility: visible;
+		}
+		&.failed {
+			background-image: url('../img/icon-failed.png');
+			visibility: visible;
+		}
+	}
+}
+
 .btn-submit {
     display: block;
     width: 100%;
