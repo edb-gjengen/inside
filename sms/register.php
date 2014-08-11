@@ -79,11 +79,11 @@ if( isset($_POST['submit']) ) {
 
 <?php include("../snapporder/header.php"); ?>
 <div class="container">
-    <h1 class="title">Registrer medlemskap kjøpt på SMS</h1>
+    <h1 class="title">Registrering av medlemskap kjøpt på SMS</h1>
     <em class="subtitle">på Det Norske Studentersamfund</em>
     <header class="about">
-        <p>Hei, for at medlemskapet du har kjøpt på SMS skal være gyldig, så <strong>må</strong> du registerere deg med navn og epost.</p>
-        <p class="imperative">Fullfør registreringen din ved å angi <em>telefonnummer, aktiveringskode, fornanavn</em> og <em>epost</em>.</p>
+        <p>Hei, for at medlemskapet du har kjøpt på SMS skal være gyldig, så <strong>må</strong> du registerere deg.</p>
+        <p class="imperative">Gå videre med registreringen ved å angi <em>telefonnummer, aktiveringskode, fornavn</em> og <em>epost</em>.</p>
     </header>
     <section class="register-sms">
         <?php if(strlen($validation_errors) > 0 ) {
@@ -110,7 +110,7 @@ if( isset($_POST['submit']) ) {
                 <label for="id_email">Epost:</label><input id="id_email" type="email" name="email" placeholder="Epost" value="<?php echo $email; ?>"/>
             </div>
             
-            <button type="submit" name="submit" class="btn-submit">Registrer medlemskapet mitt</button>
+            <button type="submit" name="submit" class="btn-submit">Gå videre</button>
         </form>
     </section>
 

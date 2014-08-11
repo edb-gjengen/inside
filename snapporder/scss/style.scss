@@ -178,16 +178,6 @@ span.error {
 		}
 	}
 }
-
-.btn-submit {
-    display: block;
-    width: 100%;
-    @media #{$medium-up} {
-        display: inline-block;
-        width: auto;
-    }
-
-}
 #id_date_of_birth_day,
 #id_date_of_birth_month,
 #id_date_of_birth_year {
@@ -212,6 +202,18 @@ span.error {
     &:focus {
         background-color: lighten($green, 10%);
     }
+}
+
+.btn-submit {
+    display: block;
+    width: 100%;
+    margin-top: rem-calc(16);
+
+    @media #{$medium-up} {
+        display: inline-block;
+        width: auto;
+    }
+
 }
 
 footer {
