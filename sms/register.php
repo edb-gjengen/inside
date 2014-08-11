@@ -1,13 +1,11 @@
 <?php
 /* SMS purchase activation form
  *
- * TODO possible to activate expired memberships?
  */
 set_include_path("../includes/");
 
 require_once("../inside/credentials.php");
 require_once("../inside/functions.php");
-require_once("../inside/migration/ldap_api_functions.php");
 require_once("DB.php");
 
 require_once("../snapporder/lib/functions.php");
@@ -26,7 +24,7 @@ if(DB :: isError($conn)) {
 $conn->setFetchMode(DB_FETCHMODE_ASSOC);
 
 // empty default form values
-$validation_errors = "";
+
 $firstname = "";
 $lastname = "";
 $email = "";
@@ -51,6 +49,8 @@ if( isset($_POST['submit']) ) {
         $validation_errors = $e->getMessage();
 
         /* Refill form values*/
+        $phone = $_POST['phone'];
+        $activation_code = $_POST['activation_code'];
         $firstname = $_POST['firstname'];
         $lastname = $_POST['lastname'];
         $email = $_POST['email'];
@@ -58,17 +58,15 @@ if( isset($_POST['submit']) ) {
     if($data !== NULL) {
         try {
             // persist
-            save_sms_form($data);
+            $user_id = save_sms_form($data);
+			$user = get_user($user_id);
 
-			$user = get_user($data['userid']);
+            // send email about user registration (same as on new snapporder membership)
+            $user['registration_url'] = generate_registration_url($user, SECRET_KEY);
+            send_activation_email($data, $user);
 
-            // send warm and fuzzy welcome email
-            send_registration_email($data); // same as on new snapporder membership
-
-			$url = $data['registration_url'];
-
-            // redirect to confirmation page
-            redirect("/snapporder/$url");
+            // redirect to second form
+            header("Location: ".$user['registration_url']);
             die();
         } catch(InsideDatabaseException $e) {
             echo $e->getMessage();
@@ -97,7 +95,7 @@ if( isset($_POST['submit']) ) {
 		<div class="activation-form">
             <!-- Profile -->
             <div class="form-row">
-                <label for="id_phone">Telefonnummer:</label><input id="id_phone" type="text" name="phone" placeholder="Telefonnummer" value="<?php echo $phone; ?>"/>
+                <label for="id_phone">Telefonnummer:</label><input id="id_phone" type="tel" name="phone" placeholder="Telefonnummer" value="<?php echo $phone; ?>"/>
             </div>
             <div class="form-row">
                 <label for="id_activation_code">Aktiveringskode:</label><input id="id_activation_code" type="text" name="activation_code" placeholder="Aktiveringskode" value="<?php echo $activation_code; ?>"/>
@@ -109,7 +107,7 @@ if( isset($_POST['submit']) ) {
                 <label for="id_lastname">Etternavn:</label><input id="id_lastname" type="text" name="lastname" placeholder="Etternavn" value="<?php echo $lastname; ?>"/>
             </div>
             <div class="form-row">
-                <label for="id_email">Epost:</label><input id="id_email" type="email" name="email" placeholder="Passord" value="<?php echo $email; ?>"/>
+                <label for="id_email">Epost:</label><input id="id_email" type="email" name="email" placeholder="Epost" value="<?php echo $email; ?>"/>
             </div>
             
             <button type="submit" name="submit" class="btn-submit">Registrer medlemskapet mitt</button>

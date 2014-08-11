@@ -1720,6 +1720,11 @@ function clean_date($date) {
     // returns a DateTime object
     return date_create_from_format('Y-m-d', $date);
 }
+// MySQL TIMESTAMP Y-m-d H:i:s
+function clean_timestamp($date) {
+    // returns a DateTime object
+    return date_create_from_format('Y-m-d H:i:s', $date);
+}
 // E.164
 function valid_phonenumber($phone) {
     return preg_match('/^\+?\d{8,15}$/i', $phone);

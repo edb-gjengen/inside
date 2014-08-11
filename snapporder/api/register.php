@@ -194,7 +194,7 @@ if( isset($data['membership_trial']) && $data['membership_trial'] !== "buddy") {
 /* Create user */
 try {
     if( $reg_type === "new" ) {
-        $user_id = add_user($data);
+        $user_id = add_user($data, "snapporder");
     } else {
         renew_user($data);
     }

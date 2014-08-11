@@ -362,7 +362,6 @@ function mailchimp_subscribe($data, $list_id, $api_key) {
         'double_optin' => false,
         'update_existing' => true, // if email exists, dont throw an error
         'send_welcome' => false
-
     );
     $payload = json_encode($data);
 
@@ -516,27 +515,51 @@ function validate_activation_form($data) {
 
     return $data;
 }
-function validate_sms_form($data) {
-	// lookup phonenumber
-	$data['phone'] = clean_phonenumber($data['phone']);
-	if( !valid_phonenumber($data['phone']) ) {
-        throw new ValidationException("Ugyldig telefonnummer");
-	}
 
-	$user_id = getUseridFromPhone($data['phone']);
-	if( $user_id !== false ) {
-        throw new ValidationException("Telefonnummeret er allerede registrert i bruk.");
+function validate_sms_form($data) {
+	// phonenumber
+	$phone = clean_phonenumber($data['phone']);
+	if( !valid_phonenumber($phone) ) {
+        throw new ValidationException("Ugyldig telefonnummer: ".$data['phone']);
 	}
-	
-	// lookup code and phonenumber tuple
-	$phone = substr($data['phone'], 0, 3);
-	// TODO: you are here
-	// get purchased from date
+	if( getUseridFromPhone($phone) !== false ) {
+        throw new ValidationException("Telefonnummeret ".$data['phone']." er allerede registrert i bruk.");
+	}
+    $data['phone'] = $phone;
+
+	// lookup code and phonenumber tuple to validate code and get purchase date
+    $purchased = get_purchase_date($data['phone'], $data['activation_code']);
+    if( $purchased === false ) {
+        throw new ValidationException("Ugyldig aktiveringskode ".$data['activation_code']);
+    }
+    $data['purchased'] = clean_timestamp($purchased);
+
+    /* validate firstname and lastname */
+    if( strlen($data['firstname']) < 2 ) {
+        throw new ValidationException("Fornavn må være 2 tegn eller lengre: ".$data['firstname']);
+    }
+    if( strlen($data['lastname']) < 2 ) {
+        throw new ValidationException("Etternavn må være 2 tegn eller lengre: ".$data['lastname']);
+    }
+    // email
+    if( !valid_email($data['email']) ) {
+        throw new ValidationException("Ugyldig epost: ".$data['email']);
+    }
+    if( getUseridFromEmail($data['email']) !== false ) {
+        throw new ValidationException("Epostadressen ".$data['email']." er allerede registrert i bruk");
+    }
+
+    // remove fields for later db insertion
+    unset($data['activation_code']);
+    unset($data['submit']);
 
     return $data;
 }
 function save_sms_form($data) {
-    add_user($data, "sms");
+    $user_id = add_user($data, "sms");
+
+    log_userupdate($user_id, "Membership activated.");
+    return $user_id;
 }
 function save_activation_form($data) {
     update_user($data);
@@ -554,15 +577,18 @@ function save_activation_form($data) {
 
     return true;
 }
-function is_valid_sms_activation_code($phone, $code) {
-    $sql = "SELECT * FROM din_sms_sent AS s WHERE s.activation_code=$code AND s.reciever=$phone";
-    $res = $conn->query($sql);
+function get_purchase_date($phone, $activation_code) {
+    global $conn;
+    $gsm = substr($phone, 3); // strip off country code
+
+    $sql = "SELECT date FROM din_sms_sent AS s WHERE s.activation_code=".$conn->quoteSmart($activation_code)." AND s.receiver=".$conn->quoteSmart($gsm);
+    $res = $conn->getOne($sql);
+
     if( DB::isError($res) ) {
         throw new InsideDatabaseException($res->getMessage().". DEBUG: ".$res->getDebugInfo());
     }
-    if($res->numRows() === 0) {
-        return false;
-    }
+
+    return $res !== null ? $res : false;
 }
 
 /* The purpose of this email is:
@@ -581,7 +607,7 @@ function send_activation_email($data, $user) {
 
     $message = '<html><body>';
     $message .= '<h3>Hei '.$user['firstname'].', og velkommen til Det Norske Studentersamfund!</h3>';
-    $message .= '<p>For at medlemskapet ditt skal v&aelig;re gyldig trenger vi noen flere opplysninger fra deg.</p>';
+    $message .= '<p>For at medlemskapet ditt skal v&aelig;re komplett trenger vi noen flere opplysninger fra deg.</p>';
     $message .= '<p style="margin-bottom: 20px;">Trykk p&aring; lenken under for &aring; fortsette.</p>';
     $message .= '<p style="margin-bottom: 20px;"><a href="'.$user['registration_url'].'" style="font-family: Arial,sans-serif; color: white; font-weight: bold; font-size: 20px; padding: 0.8em 1.2em; border: none; text-decoration: none; background-color: #58AA58; display: inline-block; text-align: center; margin: 0;">Aktiver medlemskapet</a></p>';
     $message .= "<p>Med vennlig hilsen<br>Det Norske Studentersamfund</p>";
