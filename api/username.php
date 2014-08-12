@@ -39,7 +39,7 @@ $query = $_GET['q'];
 $query = $conn->quoteSmart($query);
 
 // Search query
-$sql = "SELECT id FROM din_user WHERE username=$query";
+$sql = "SELECT id FROM din_user WHERE username=$query OR ldap_username=$query";
 $res = $conn->query($sql);
 
 if( DB::isError($res) ) {

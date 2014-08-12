@@ -40,6 +40,9 @@ function validate_username(query) {
     });
 }
 $(document).ready(function() {
+    /* Add loader on submit */
+    $('.btn-submit').on('click', function() { $(this).addClass('submitted'); });
+
     if( $(".activation").length > 0 ) {
         var zipcode_field = $('input[name=zipcode]');
         var username_field= $('input[name=username]');

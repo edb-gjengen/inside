@@ -202,6 +202,19 @@ span.error {
     &:focus {
         background-color: lighten($green, 10%);
     }
+    &:active {
+        background-color: lighten($green, 10%);
+    }
+    &.submitted:before {
+        position: absolute;
+        left: 5px;
+        content: ' ';
+        display: block;
+        width: 16px;
+        height: 16px;
+        margin-top: 1px;
+        background-image: url('../img/spinner.gif');
+    }
 }
 
 .btn-submit {
