@@ -219,6 +219,16 @@ function get_user_id_by_username($username) {
     $res->fetchInto($data);
     return $data['id'];
 }
+function safe_username_exists($username) {
+    global $conn;
+
+    $sql = "SELECT id FROM din_user WHERE username=".$conn->quoteSmart($username)." OR ldap_username=".$conn->quoteSmart($username);
+    $res = $conn->query($sql);
+    if( DB::isError($res) ) {
+        throw new InsideDatabaseException($res->getMessage().". DEBUG: ".$res->getDebugInfo());
+    }
+    return $res->numRows() !== 0;
+}
 /* Compare two hashes */
 function hash_compare($a, $b) {
     if (!is_string($a) || !is_string($b)) {
@@ -428,9 +438,10 @@ function update_user_address($data) {
 
     $address = array(
         'user_id' => $data['userid'],
-        'street' => $data['street'],
+        'street' => utf8_decode($data['street']), // FIXME: why latin1?
         'zipcode' => $data['zipcode']
     );
+
     $res = $conn->autoExecute('din_useraddressno', $address, DB_AUTOQUERY_INSERT);
 
     if (DB::isError($res)) {
@@ -481,7 +492,7 @@ function validate_activation_form($data) {
     if( !validate_username_chars($data['username']) ) {
         throw new ValidationException("Brukernavnet kan kun inneholde små bokstaver og tall (tall kan ikke være første tegn).");
     }
-    if( get_user_id_by_username($data['username'], false) !== false) {
+    if( safe_username_exists($data['username']) ) {
         throw new ValidationException("Brukernavnet er allerede i bruk.");
     }
 
