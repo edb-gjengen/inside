@@ -84,6 +84,7 @@ if( isset($_POST['submit']) ) {
             die();
         } catch(InsideDatabaseException $e) {
             echo $e->getMessage();
+            error_log($e->getMessage());
             die();
         }
     }

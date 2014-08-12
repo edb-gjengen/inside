@@ -30,6 +30,7 @@ $lastname = "";
 $email = "";
 $activation_code = "";
 $phone = "";
+$validation_errors = "";
 
 if( isset($_GET['n']) ) {
     // phone
@@ -70,6 +71,7 @@ if( isset($_POST['submit']) ) {
             die();
         } catch(InsideDatabaseException $e) {
             echo $e->getMessage();
+            error_log($e->getMessage());
             die();
         }
     }

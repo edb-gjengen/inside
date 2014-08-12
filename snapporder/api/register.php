@@ -11,7 +11,7 @@
  *   "lastname": "Hansen",
  *   "email": "jon@uio.no",
  *   "purchased": "2004-02-12"    // optional, format: ISO-8601 date
- *   "source": "snapporder_sms"   // optional, possible values: "snapporder" or "snapporder_sms"
+ *   "source": "snapporder"   // optional, possible values: "snapporder", "sms" or "manual"
  *   "membership_trial": "buddy"  // optional, gives free membership in autumn, possible value: "buddy"
  * }
  *
@@ -38,7 +38,7 @@
  *   "phone": "+4742345678",
  *   "purchased": "2004-02-12"   // optional, format: ISO-8601 date
  *   "type": "renewal"           // optional, possible value: "renewal"
- *   "source": "snapporder_sms"  // optional, possible values: "snapporder" or "snapporder_sms"
+ *   "source": "snapporder"  // optional, possible values: "snapporder", "sms" or "manual"
  * }
  *
  */
@@ -178,7 +178,7 @@ if( isset($data['purchased']) ) {
 }
 
 /* Validate optional source */
-if( isset($data['source']) && !in_array($data['source'], array('snapporder', 'snapporder_sms')) ) {
+if( isset($data['source']) && !in_array($data['source'], array('snapporder', 'sms', 'manual')) ) {
     set_response_code(400);
     echo $crypt->json_encode_and_encrypt(array('error' => 'Invalid value in field source: '.$data['source']));
     die();
@@ -201,6 +201,7 @@ try {
 } catch(InsideDatabaseException $e) {
     set_response_code(500);
     echo $crypt->json_encode_and_encrypt(array('error' => 'db_error', 'error_message' => $e->getMessage()));
+    error_log($e->getMessage());
     die();
 }
 
@@ -211,6 +212,7 @@ try {
 } catch(InsideDatabaseException $e) {
     set_response_code(500);
     echo $crypt->json_encode_and_encrypt(array('error' => 'db_error', 'error_message' => $e->getMessage()));
+    error_log($e->getMessage());
     die();
 }
 
