@@ -39,6 +39,10 @@ if(!$user) {
     die();
 }
 if( !check_token($user, $_GET['token'], SECRET_KEY)) {
+    if($user['registration_status'] === "full") {
+        redirect("/snapporder/activate_confirmed.php");
+        die();
+    }
     echo "Ugyldig eller utgått aktiveringslenke. Ta kontakt med medlemskap@studentersamfundet.no hvis du har spørsmål.";
     set_response_code(400);
     die();
