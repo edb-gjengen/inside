@@ -85,8 +85,10 @@ if( strlen($_GET['q']) <= 2 && count($groups) == 0 && !$filter_valid_membership 
 
 $query = $_GET['q'];
 
-// Add wildcards around and between words
-$query = "%" . str_replace(" ", "% %", $query) . "%";
+if( !isset($_GET['exact']) ) {
+    // Add wildcards around and between words
+    $query = "%" . str_replace(" ", "% %", $query) . "%";
+}
 $query = $conn->quoteSmart($query);
 
 
@@ -97,6 +99,10 @@ $user_search_query = "CONCAT(UPPER(u.firstname), ' ', UPPER(u.lastname)) LIKE $q
         OR CONCAT(UPPER(u.firstname), ' ', UPPER(u.lastname)) LIKE $query
         OR UPPER(u.username) LIKE $query
         OR UPPER(u.email) LIKE $query";
+
+if( isset($_GET['exact']) ) {
+    $user_search_query = "u.username=$query";
+}
 
 $valid_membership_query = $filter_valid_membership ? " AND (u.expires >= NOW() OR u.expires IS NULL)" : "";
 
@@ -143,7 +149,7 @@ $ids = implode(",", $id_array);
 $conn->setFetchMode(DB_FETCHMODE_ASSOC);
 /* Get data */
 $sql_is_member = "u.expires > NOW() OR u.expires IS NULL AS is_member";
-$sql_groups = "GROUP_CONCAT(DISTINCT g.name SEPARATOR ', ') AS groups";
+$sql_groups = "GROUP_CONCAT(DISTINCT g.id,'-',g.name SEPARATOR ',') AS groups";
 $data_sql = "SELECT u.id,u.username,u.firstname,u.lastname,u.email,up.number,$sql_groups,$sql_is_member
     FROM din_user as u
     LEFT JOIN din_userphonenumber as up ON up.user_id=u.id
@@ -167,8 +173,20 @@ $results = array();
 
 foreach($res as $result) {
     foreach($result as $key => $value) {
+        if($key == "groups") {
+            $u_gs = array();
+            $u_groups = explode(",",$value);
+            foreach($u_groups as $g) {
+                list($id,$name) = explode("-", $g);
+                $u_gs[] = array(
+                    'id' => $id,
+                    'name' => utf8_encode($name)
+                );
+            }
+            $result[$key] = $u_gs;
+        }
         /* Encoding issues? oh yes, utf-8 please */
-        if(!is_valid_utf8($value)) {
+        elseif(!is_valid_utf8($value)) {
             $result[$key] = utf8_encode($value);
         }
     }
