@@ -1730,7 +1730,15 @@ function valid_phonenumber($phone) {
     return preg_match('/^\+?\d{8,15}$/i', $phone);
 }
 function valid_email($email) {
-    return filter_var($email, FILTER_VALIDATE_EMAIL);
+    if( substr($email, -4) === ".con" ) { // .con is a common typo and not a TLD atm.
+        return false;
+    }
+    $parts = explode("@", $email);
+    // domain part does not need a . in some PHP-versions, fix that
+    if( count($parts) == 2 && strstr($parts[1], ".") === false) {
+        return false;
+    }
+    return filter_var($email, FILTER_VALIDATE_EMAIL) !== false;
 }
 
 /* Set HTTP response code */
