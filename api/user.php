@@ -178,15 +178,19 @@ foreach($res as $result) {
             $u_groups = explode(",",$value);
             foreach($u_groups as $g) {
                 list($id,$name) = explode("-", $g);
+                if( !is_valid_utf8($name) ) {
+                    $name = utf8_encode($name);
+                }
+
                 $u_gs[] = array(
                     'id' => $id,
-                    'name' => utf8_encode($name)
+                    'name' => $name
                 );
             }
             $result[$key] = $u_gs;
         }
         /* Encoding issues? oh yes, utf-8 please */
-        elseif(!is_valid_utf8($value)) {
+        elseif( !is_valid_utf8($value) ) {
             $result[$key] = utf8_encode($value);
         }
     }
