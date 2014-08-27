@@ -1627,18 +1627,18 @@ class User {
 	} elseif (strtotime($this->expires) > strtotime("now")) {
             if ($this->getCardDelivered()) {
                 if ($this->lastSticker < date("Y", strtotime($this->expires))) {
-		    $panel_class = 'warning';
-                    $panel_text = "Du har aktivert medlemskapet ditt, og du kan hente oblat til å klistre på medlemskortet ditt i Glassbaren på Det Norske Studentersamfund.";
+		    $panel_class = 'success';
+		    $panel_text = "Du har gyldig medlemskap til " . date("d.m.Y", strtotime($this->expires)) . ".";
                 } else {
 		    $panel_class = 'success';
-                    $panel_text = "Du har gyldig medlemskap (gyldig til " . date("d. m. Y", strtotime($this->expires)) . ").";
+		    $panel_text = "Du har gyldig medlemskap til " . date("d.m.Y", strtotime($this->expires)) . ".";
                 }
 	    } elseif ($this->getCardProduced()) {
-		$panel_class = 'warning';
-                $panel_text = "Medlemskortet ditt ligger klar til henting i Glassbaren på Det Norske Studentersamfund.";
+		$panel_class = 'success';
+		$panel_text = "Du har gyldig medlemskap til " . date("d.m.Y", strtotime($this->expires)) . ".";
             } else {
 		$panel_class = 'success';
-                $panel_text = "Medlemskapet ditt er registrert, og medlemskortet ditt for " . date("Y", strtotime($this->expires)) . " produseres. Du vil få en e-post av oss når det er klart til å hentes.";
+		$panel_text = "Du har gyldig medlemskap til " . date("d.m.Y", strtotime($this->expires)) . ".";
             }
         } else {
 	    $panel_class = 'warning';
