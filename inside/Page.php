@@ -603,7 +603,7 @@ class Page {
   if (!isActive()){?>
     	<?php
     if (!isMember()){?>
-			<a class="btn btn-primary" href="index.php?page=register-membership">Registrér eller kjøp medlemskap</a>
+			<a class="btn btn-primary" href="index.php?page=register-membership">Registrer eller kjøp medlemskap</a>
 			<?php
     }else if (membershipExpired(getCurrentUser())){?>
 			<a class="btn btn-primary" href="index.php?page=register-membership">Registrér eller kjøp medlemskap</a>
@@ -611,7 +611,6 @@ class Page {
     }
 		?>
 			<a class="btn btn-default" href="index.php?page=display-current-user">Oppdatér brukerinfo</a>
-			<a class="btn btn-default" href="index.php?page=display-webshop">Bestill nytt medlemskort</a>
 
 			<div class="bliaktiv">
 			    <h3>Engasjer deg!</h3>
@@ -626,18 +625,11 @@ class Page {
       //Meldinger til styremedlemmer kan skrives her
     }
     ?>
-      <?php if (!isMember(getCurrentUser())){?>
-      <h3>Du har ikke registrert medlemskort</h3>
-      <p>Om du har kjøpt medlemskap må du <a href="index.php?page=register-membership">registrere kortnummer og kode</a>.</p>
-      <?php if (checkAuth("view-register-membership-payex")) ?><p>Du kan også <a href="index.php?page=register-membership">kjøpe medlemskap med VISA-kort</a>.</p> <?php ; ?>
-<?php }else if (membershipExpired(getCurrentUser())){?>
+      <?php if (membershipExpired(getCurrentUser())){?>
       <h3>Medlemskapet ditt er utgått!</h3>
       <p>Om du har kjøpt medlemskap i en av barene på huset må du <a href="index.php?page=renew-membership">aktivere medlemskapet ditt med aktiveringsnummer og aktiveringskode</a>!</p>
       <?php if (checkAuth("view-register-membership-payex")) ?><p>Du kan også <a href="index.php?page=register-membership">kjøpe medlemskap med VISA-kort</a>.</p> <?php ; ?>
-<?php }
-
-
-    ?>
+<?php } ?>
     <div class="often-used-links">
         <h3>Hva vil du gjøre?</h3>
       <div class="list-group">
