@@ -1583,21 +1583,15 @@ function getNextMembershipExpiryDate()
 }
 
 /*
- * Returns the next expiry date for a given time.
+ * Returns the expiry date for a given time.
  */
-function getExpiryDate($time = null)
-{
-      if($time == null) $time = time();
-      $time = is_numeric($time)?$time:strtotime($time);
-      
-      if (date("m-d", $time) > "08-01" )
-      {
-      	return date("Y", strtotime("+1 year", $time)) . '-08-01';
-      }
-      else
-      {
-      	return date("Y", $time) . '-08-01';
-      }
+function getExpiryDate($time = null) {
+    if($time == null) {
+        $time = time();
+    }
+    $time = is_numeric($time) ? $time : strtotime($time);
+
+    return date("Y-m-d", strtotime("+1 year", $time));
 }
 
 // Migration (nikolark)
