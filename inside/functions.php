@@ -1041,6 +1041,9 @@ function displayLogin() {
     if( isset($_GET['page']) ) {
         $action .= "&page=" . $_GET['page'];
     }
+    if( isset($_GET['userid']) ) {
+        $action .= "&userid=" . $_GET['userid'];
+    }
 	$fields = Array ();
 
 	$fields[] = Array (
