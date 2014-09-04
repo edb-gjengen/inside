@@ -149,7 +149,7 @@ $ids = implode(",", $id_array);
 $conn->setFetchMode(DB_FETCHMODE_ASSOC);
 /* Get data */
 $sql_is_member = "u.expires > NOW() OR u.expires IS NULL AS is_member";
-$sql_groups = "GROUP_CONCAT(DISTINCT g.id,'-',g.name SEPARATOR ',') AS groups";
+$sql_groups = "GROUP_CONCAT(DISTINCT g.id,';',g.name SEPARATOR ',') AS groups";
 $data_sql = "SELECT u.id,u.username,u.firstname,u.lastname,u.email,up.number,$sql_groups,$sql_is_member
     FROM din_user as u
     LEFT JOIN din_userphonenumber as up ON up.user_id=u.id
@@ -177,7 +177,7 @@ foreach($res as $result) {
             $u_gs = array();
             $u_groups = explode(",",$value);
             foreach($u_groups as $g) {
-                list($id,$name) = explode("-", $g);
+                list($id,$name) = explode(";", $g);
                 if( !is_valid_utf8($name) ) {
                     $name = utf8_encode($name);
                 }
