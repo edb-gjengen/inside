@@ -351,6 +351,10 @@ class User {
       notify("Ugyldig format på epostadresse.");
       $valid = false;
     }
+    if ( $this->firstname == "" || $this->lastname == "" ) {
+      notify("Du må oppgi både fornavn og etternavn.");
+      $valid = false;
+    }
     return $valid;
   }
 
