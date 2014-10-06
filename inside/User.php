@@ -1431,39 +1431,24 @@ class User {
     public function sendCardOrderedNotifyMail() {
         $sendto = $this->email;
 
+        $headers = 'From: Det Norske Studentersamfund <medlemskap@studentersamfundet.no>' . "\r\n";
         $subject = "Medlemskapet ditt er aktivert";
         $message = "Hei, " . $this->firstname . " " . $this->lastname . "!" .
         "\n\n" .
         "Vi har registrert at du har aktivert medlemskapet ditt i Det Norske Studentersamfund. " .
-        "Du vil motta en e-post når medlemskortet ditt er produsert og klart til å hentes i Glassbaren på studentersamfundet. \n" .
+        "For å kunne fremvise gyldig medlemskap så behøver du å laste ned appen SnappOrder på din telefon og velge Chateau Neuf.\n" .
         "\n" .
-        "Som medlem vil du få informasjon om  arrangementer i vårt nyhetsbrev og rabatter på alt fra arrangementer" . 
-        " til mat og drikke. I tillegg kan du være med og bestemme siden alle medlemmer har stemmerett ved Generalforsamlinger\n" . 
-        " og Medlemsmøter i DNS.\n" . 
+        "Som medlem vil du få informasjon om arrangementer i vårt nyhetsbrev og rabatter på alt fra arrangementer" . 
+        " til mat og drikke. I tillegg kan du være med og bestemme siden alle medlemmer har stemmerett ved medlemsmøter\n" . 
+        " og generalforsamlinger.\n" . 
         "\n";
-        
-        //For mer informasjon om hva som skjer på Det Norske Studentersamfund, gå inn på vår nettside: http://www.studentersamfundet.no/ .\n" .
-        
-        if(time() < strtotime("2011-09-12")) //trenger ikke vise denne etter fadderhelga
-        {
-        	$message .= "Ny i DNS? Ikke meldt deg på fadderhelgen? 9-11. september kan alle nye medlemmer og aktive få se våre innerste ganger,".
-        				" bli kjent med nye og gamle neufere og ikke minst få med seg en av våre legendariske internfester! Send mail til".
-        				" nyidns@studentersamfundet.no eller finn ut mer på http://studentersamfundet.no/nyidns". "\n\n".
 
-						"Virker noe av det vi holder på med på huset spennende?  Du kan bli med som aktiv i en eller mange av våre foreninger. sjekk http://studentersamfundet/bliaktiv\n\n".
-						"Lik Det Norske Studentersamfund på facebook! http://www.facebook.com/studentersamfundet\n\n";
-		}
-		
         $message .= "Er det noe du lurer på kan du bare svare på denne eposten, så svarer vi så fort vi klarer.\n".
-					"\n\n".
-					"Virker noe av det vi holder på med på huset spennende?  Du kan bli med som aktiv i en eller mange av våre foreninger.\n Sjekk http://studentersamfundet/bliaktiv" .
-					"\n\n" .
-					"Mvh\n\n" .
-					"Medlemskapsordningen\n" .
-					"medlemskap@studentersamfundet.no\n" .
-					"Det Norske Studentersamfund\n\n";
-
-        $headers = 'From: Det Norske Studentersamfund <medlemskap@studentersamfundet.no>' . "\r\n";
+				"\n\n".
+				"Virker noe av det vi holder på med på huset spennende? Du kan bli med som aktiv i en eller mange av våre foreninger.\n Sjekk http://studentersamfundet/bliaktiv" .
+				"\n\n" .
+				"Med vennlig hilsen\n\n" .
+				"Det Norske Studentersamfund\n\n";
 
         if (!mail($sendto, $subject, $message, $headers)) {
             notify("Det oppstod en feil under sending av epost. Vennligst kontakt" . "<a href=\"mailto:medlemskap@studentersamfundet.no\">webansvarlig</a>.");

@@ -562,7 +562,7 @@ class ActionParser {
       "\nDitt brukernavn er: $row->username" .
       "\nDitt passord er: $newPassword" .
       "\n" .
-      "\nNår du logger på vil du bli bedt om å endre passord til noe som er lettere å huske. Du kan også endre brukernavnet ditt. " .
+      "\nNår du logger på vil du bli bedt om å endre passord til noe som er lettere å huske." .
       "\n" .
       "\nEtter at dette er gjort vil du finne en link for registrering av fornyet medlemskap." .
       "\n" .
@@ -570,7 +570,7 @@ class ActionParser {
       "\n" .
       "\nmvh" .
       "\nStudentersamfundet";
-      $headers = 'From: medlemskort@studentersamfundet.no' . "\r\n";
+      $headers = 'From: medlemskap@studentersamfundet.no' . "\r\n";
       if (mail($sendto, $subject, $message, $headers)) {
         notify("Din epostadresse er registrert i systemet vårt.");
         notify("En epost er sendt til deg med brukernavn og passord. Logg på for å registrere fornyelse av medlemskap.");
@@ -925,12 +925,12 @@ public function _logIn() {
         //$msa_code->store();
         
         $user->sendCardOrderedNotifyMail();
-        notify("Betalt medlemskap er registrert. Medlemskort vil bli produsert. Vi sender deg en e-post når kortet er klart. Da kan du hente det i Glassbaren på Studentersamfundet.");
+        notify("Betalt medlemskap er registrert. For å fremvise medlemskap last ned appen SnappOrder og velg Chateau Neuf.");
       } else {
         $GLOBALS['extraScriptParams']['page'] = "register-membership";
       }
     } else {
-      notify("Aktiveringsnummer og kode passer ikke sammen. Kortnummeret er det som st&#229;r p&#229; kodelappen, ikke det som st&#229;r p&#229; medlemskortet ditt. Vi gj&#248;r ogs&#229; oppmerksom p&#229; det skilles mellom store og sm&#229; bokstaver.");
+      notify("Aktiveringsnummer og kode passer ikke sammen. Vi gj&#248;r ogs&#229; oppmerksom p&#229; det skilles mellom store og sm&#229; bokstaver.");
       $GLOBALS['extraScriptParams']['page'] = "register-membership";
       $GLOBALS['extraScriptParams']['report-bug'] = "register-membership";
     }
