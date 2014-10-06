@@ -925,12 +925,12 @@ public function _logIn() {
         //$msa_code->store();
         
         $user->sendCardOrderedNotifyMail();
-        notify("Betalt medlemskap er registrert. For å fremvise medlemskap last ned appen SnappOrder og velg Chateau Neuf.");
+        notify("Betalt medlemskap er registrert. For å kunne fremvise gyldig medlemskap så behøver du å laste ned appen SnappOrder og velge Chateau Neuf.");
       } else {
         $GLOBALS['extraScriptParams']['page'] = "register-membership";
       }
     } else {
-      notify("Aktiveringsnummer og kode passer ikke sammen. Vi gj&#248;r ogs&#229; oppmerksom p&#229; det skilles mellom store og sm&#229; bokstaver.");
+      notify("Aktiveringsnummer og kode passer ikke sammen. Vi gj&#248;r oppmerksom p&#229; det skilles mellom store og sm&#229; bokstaver.");
       $GLOBALS['extraScriptParams']['page'] = "register-membership";
       $GLOBALS['extraScriptParams']['report-bug'] = "register-membership";
     }

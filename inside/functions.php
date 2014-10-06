@@ -1730,6 +1730,9 @@ function valid_email($email) {
     if( substr($email, -4) === ".con" ) { // .con is a common typo and not a TLD atm.
         return false;
     }
+    if( substr($email, -8) === "gmail.co" ) { // gmail.co is a common typo
+        return false;
+    }
     $parts = explode("@", $email);
     // domain part does not need a . in some PHP-versions, fix that
     if( count($parts) == 2 && strstr($parts[1], ".") === false) {
