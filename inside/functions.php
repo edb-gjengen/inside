@@ -1483,8 +1483,8 @@ function unsubscribe_mailinglist($user_id, $group_id) {
 	if ($group->mailinglist != "") {
 		$user = new User($user_id);
 		$sendto = $group->mailinglist . "-unsubscribe@studentersamfundet.no";
-		$subject = "subscribe";
-		$message = "subscribe";
+		$subject = "unsubscribe";
+		$message = "unsubscribe";
 		$headers = "From: $user->email \r\n";
 		if (!@ mail($sendto, $subject, $message, $headers)) {
 			error("Ikke kontakt med server for avmelding fra epostliste.");
