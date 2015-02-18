@@ -5,4 +5,5 @@
     define("REGISTRATION_URL_TIMEOUT_DAYS", 3);
     define("MAILCHIMP_API_KEY", "");
     define("MAILCHIMP_LIST_ID", "004f53d7c6");
+    define("TEKSTMELDING_API_KEY", 'qwertyuiop');
 ?>
