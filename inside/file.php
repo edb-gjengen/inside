@@ -7,6 +7,9 @@ $conn =& DB_connect();
 
 $id = $_GET['id'];
 
+if (!preg_match('/^\d+$/', $id))
+	die("That's not an id");
+
 $nodelist = array(); 
 
 // Pull file meta-data   
