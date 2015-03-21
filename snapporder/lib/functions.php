@@ -588,7 +588,33 @@ function save_activation_form($data) {
 
     return true;
 }
+
 function get_purchase_date($phone, $activation_code) {
+    $url = "https://tekstmelding.neuf.no/inside-code-purchase-date";
+
+    $params = array(
+        'api_key' => TEKSTMELDING_API_KEY,
+        'number' => str_replace('+', '', $phone),
+        'activation_code' => $activation_code,
+    );
+    $url .= '?' . http_build_query($params);
+
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    $result = curl_exec($ch);
+    curl_close($ch);
+
+    $timestamp = clean_timestamp($result);
+
+    if ($timestamp === false) {
+        return get_purchase_date_legacy($phone, $activation_code);
+    }
+
+    return $timestamp;
+}
+
+function get_purchase_date_legacy($phone, $activation_code) {
     global $conn;
     $gsm = substr($phone, 3); // strip off country code
 
