@@ -1,6 +1,6 @@
 <?php
 
-define("LDAP_ENABLED", true);
+define("LDAP_ENABLED", false);
 define("LDAP_SERVER", "pacman.neuf.no");
 
 define("KSUFFIX", "cn=krbcontainer");
