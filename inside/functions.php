@@ -1780,4 +1780,10 @@ function log_userupdate($updated, $comment, $updated_by=NULL) {
     return true;
 }
 
+function hash_ldap_password($raw_password) {
+	$salt = openssl_random_pseudo_bytes(4);
+
+	return '{SSHA}' . base64_encode(sha1( $raw_password.$salt, TRUE ). $salt);
+}
+
 ?>

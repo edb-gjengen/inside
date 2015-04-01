@@ -9,3 +9,4 @@ error_log
 *.swo
 .htaccess
 payex_defines.php
+.idea

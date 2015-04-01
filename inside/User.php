@@ -188,7 +188,7 @@ class User {
       $sql = sprintf("INSERT INTO din_user " .
       "  (id, username, password, firstname, " .
       "   lastname, addresstype, email, birthdate, " .
-      "   placeOfStudy, division_id_request, ldap_username) " . "VALUES " . "  (%s, %s, PASSWORD(%s), %s, %s, %s, %s, " . "   %s, %s, %s, %s)", $this->conn->quoteSmart($this->id), $this->conn->quoteSmart($this->username), $this->conn->quoteSmart($this->password), $this->conn->quoteSmart($this->firstname), $this->conn->quoteSmart($this->lastname), $this->conn->quoteSmart($this->addresstype), $this->conn->quoteSmart($this->email), $this->conn->quoteSmart($this->birthdate), $this->conn->quoteSmart($this->placeOfStudy), $this->conn->quoteSmart(($this->division_id_request == NULL) ? NULL : $this->division_id_request), $this->conn->quoteSmart($this->username));
+      "   placeOfStudy, division_id_request, ldap_username, ldap_password) " . "VALUES " . "  (%s, %s, PASSWORD(%s), %s, %s, %s, %s, " . "   %s, %s, %s, %s, %s)", $this->conn->quoteSmart($this->id), $this->conn->quoteSmart($this->username), $this->conn->quoteSmart($this->password), $this->conn->quoteSmart($this->firstname), $this->conn->quoteSmart($this->lastname), $this->conn->quoteSmart($this->addresstype), $this->conn->quoteSmart($this->email), $this->conn->quoteSmart($this->birthdate), $this->conn->quoteSmart($this->placeOfStudy), $this->conn->quoteSmart(($this->division_id_request == NULL) ? NULL : $this->division_id_request), $this->conn->quoteSmart($this->username), $this->conn->quoteSmart(hash_ldap_password($this->password)));
       $result = $this->conn->query($sql);
       if (DB :: isError($result) == true) {
         if ($result->getCode() == -5) {
