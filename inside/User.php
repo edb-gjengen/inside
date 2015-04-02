@@ -98,10 +98,6 @@ class User {
                 return false;
             }
 
-            if( $data['phonenumber'] ) {
-                $data['phonenumber'] = clean_phonenumber($data['phonenumber']);
-            }
-
             /* No duplicate phone numbers */
             if( getUseridFromPhone($data['phonenumber']) !== false ) {
                 notify("Telefonnummeret er allerede registrert på en bruker.");
@@ -170,7 +166,7 @@ class User {
         if ($data['phonenumber'] == "00000000" || $data['phonenumber'] == "") {
             $data['phonenumber'] = "-";
         }
-        $this->phonenumber = $data['phonenumber'];
+        $this->phonenumber = clean_phonenumber($data['phonenumber']);
         $this->email = $data['email'];
         $this->placeOfStudy = $data['placeOfStudy'];
         return true;
@@ -327,6 +323,14 @@ class User {
           $this->setAddressStatus(1);
         }
       }
+      /* Check for existing use of new phonenumber */
+      $sql = sprintf("SELECT user_id FROM din_userphonenumber WHERE number=%s AND user_id != %s", $this->conn->quoteSmart($this->phonenumber), $this->conn->quoteSmart($this->id));
+      $result = $this->conn->query($sql);
+      if ($result->numRows() != 0) {
+        notify("Telefonnummeret er allerede i bruk. Hvis du mener dette er en feil, ta kontakt med <a href=\"mailto:support@studentersamfundet.no\">support@studentersamfundet.no</a>.");
+        return false;
+      }
+
       $sql = sprintf("REPLACE INTO din_userphonenumber (user_id, number) VALUES (%s, %s)", $this->conn->quoteSmart($this->id), $this->conn->quoteSmart($this->phonenumber));
 
       $result = $this->conn->query($sql);
@@ -858,7 +862,7 @@ class User {
         print "<td class=\"phone\">";
         print $this->phonenumber;
         if ($this->phonenumber != "-") {
-            print "<a href=\"callto://+47" . $this->phonenumber . "\" " .
+            print "<a href=\"callto://" . $this->phonenumber . "\" " .
                 "title=\"ring til " . $this->firstname . " " . $this->lastname . "\">";
             print "<img src=\"graphics/call_to.png\" alt=\"ring til " . $this->firstname . " " . $this->lastname . "\" />";
             print "</a>";

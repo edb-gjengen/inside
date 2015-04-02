@@ -124,7 +124,7 @@ function getUseridFromEmail($email) {
 
 function getUseridFromPhone($phoneno) {
 	$conn = db_connect();
-	$sql = sprintf("SELECT user_id FROM din_userphonenumber u " . "WHERE number = '%s' or number = '+47%s'", $phoneno, $phoneno);
+	$sql = sprintf("SELECT user_id FROM din_userphonenumber WHERE number = '%s' or number = '+47%s'", $phoneno, $phoneno);
 	$result = & $conn->query($sql);
 	if ($result->numRows() == 0) {
 		return false;
