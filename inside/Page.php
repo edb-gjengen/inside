@@ -2826,7 +2826,7 @@ Om dere lager en facebook side til arrangementet, ikke glem &aring; putte inn le
   public
   function _registerMembership(){
     ?>
-    <h3>Har du allerede kjøpt midlertidig medlemskap via sms, eller i en av barene på Studentersamfundet?</h3>
+    <h3>Har du allerede kjøpt midlertidig medlemskap i en av barene på Studentersamfundet?</h3>
 		<p>Du skal isåfall ha mottatt et aktiveringsnummer og aktiveringspassord.</p>
 
     <?php
