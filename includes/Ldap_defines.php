@@ -21,8 +21,8 @@ define("SHADOW_LAST_CHANGE", "10877");
 
 define("HOME_DIRECTORY_PREFIX", "/home");
 
-define("BIND_USER", apache_getenv("BIND_USER"));
-define("BIND_PASS", apache_getenv("BIND_PASS"));
+define("BIND_USER", '');
+define("BIND_PASS", '');
 
 define("UID_MIN", "10000");
 define("UID_MAX", "29999");
@@ -39,11 +39,11 @@ define("FILESERVER", "wii.neuf.no");
 define("FILESERVER_HOMES", "/fileserver/homes");
 
 define("RADIUS_MYSQL_HOST", "snes.neuf.no");
-define("RADIUS_MYSQL_USER", apache_getenv("RADIUS_MYSQL_USER"));
-define("RADIUS_MYSQL_PASS", apache_getenv("RADIUS_MYSQL_PASS"));
+define("RADIUS_MYSQL_USER", '');
+define("RADIUS_MYSQL_PASS", '');
 
 $api_keys = array();
-$api_keys[] = apache_getenv("API_KEY1");
+$api_keys[] = '';
 
 
 function __autoload($class_name) {
