@@ -15,6 +15,12 @@ function generate_username($data) {
 
     return $firstname.$lastname.$rand;
 }
+if( !function_exists('hash_ldap_password') ) {
+    function hash_ldap_password($raw_password) {
+        $salt = openssl_random_pseudo_bytes(4);
+        return '{SSHA}' . base64_encode(sha1( $raw_password.$salt, TRUE ). $salt);
+    }
+}
 
 function add_user($data, $source) {
     global $conn;
@@ -407,6 +413,7 @@ function update_user($data) {
     $sql .= "username=" .$conn->quoteSmart($data['username']).",";
     $sql .= "ldap_username=" .$conn->quoteSmart($data['username']).",";
     $sql .= "password=PASSWORD(" .$conn->quoteSmart($data['password'])."),";
+    $sql .= "ldap_password=" .$conn->quoteSmart(hash_ldap_password($data['password'])).",";
     $sql .= $birthdate_sql;
     $sql .= "placeOfStudy=" .$conn->quoteSmart($data['place_of_study']).",";
     $sql .= "registration_status='full'";
