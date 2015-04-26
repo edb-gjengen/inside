@@ -679,6 +679,7 @@ function send_confirmation_email($data, $user) {
 
     $message = '<html><body>';
     $message .= '<h3>Gratulerer med ditt nye medlemskap i Det Norske Studentersamfund!</h3>';
+    $message .= '<p>Medlemskapsbeviset ditt finner du i appen <a href="http://snappo.com/app">SnappOrder</a> (i <a href="https://itunes.apple.com/no/app/snapporder/id657308079">App Store</a> eller <a href="https://play.google.com/store/apps/details?id=com.snapporder">Google Play</a>) under valget "Chateau Neuf".</p>';
     $message .= '<p>Brukernavnet ditt er: '.$data['username'].'</p>';
     $message .= '<p>Om du i fremtiden skulle glemme passordet ditt, s&aring; kan du <a href="'.$password_reset_url.'">f&aring; nytt her</a>.</p>';
     $message .= '<p style="margin-bottom: 20px;">Trykk p&aring; lenken under for &aring; logge inn og se medlemskapet ditt.</p>';
