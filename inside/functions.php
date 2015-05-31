@@ -1719,6 +1719,9 @@ function clean_date($date) {
 }
 // MySQL TIMESTAMP Y-m-d H:i:s
 function clean_timestamp($date) {
+    if($date instanceof DateTime) {
+        return $date;  // already cleaned, bail
+    }
     // returns a DateTime object
     return date_create_from_format('Y-m-d H:i:s', $date);
 }
