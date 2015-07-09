@@ -159,6 +159,9 @@ $results = array();
 foreach($res as $result) {
     foreach($result as $key => $value) {
         if($key == "groups") {
+            if($value === "") {
+                continue; // no groups
+            }
             $u_gs = array();
             $u_groups = explode(",",$value);
             foreach($u_groups as $g) {
