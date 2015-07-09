@@ -134,8 +134,10 @@ $ids = implode(",", $id_array);
 $conn->setFetchMode(DB_FETCHMODE_ASSOC);
 /* Get data */
 $sql_is_member = "u.expires > NOW() OR u.expires IS NULL AS is_member";
+$CARDNO_LEGACY_MAX = 100000000;
+$sql_card_is_legacy = "u.cardno<$CARDNO_LEGACY_MAX AS card_is_legacy";
 $sql_groups = "GROUP_CONCAT(DISTINCT g.id,';',g.name SEPARATOR ',') AS groups";
-$data_sql = "SELECT u.id,u.username,u.firstname,u.lastname,u.email,up.number,u.expires,u.cardno,$sql_groups,$sql_is_member
+$data_sql = "SELECT u.id,u.username,u.firstname,u.lastname,u.email,up.number,u.expires,u.cardno,$sql_card_is_legacy,$sql_groups,$sql_is_member
     FROM din_user as u
     LEFT JOIN din_userphonenumber as up ON up.user_id=u.id
     LEFT JOIN din_usergrouprelationship AS ug ON u.id=ug.user_id
