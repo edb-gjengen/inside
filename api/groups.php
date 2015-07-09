@@ -1,32 +1,12 @@
 <?php
-set_include_path("../includes/");
-require_once("../inside/credentials.php");
+require_once("api_functions.php");
 require_once("../includes/DB.php");
 
-/* Functions */
-
-/* Set HTTP response code */
-function set_response_code($code) {
-    if(!is_int($code)) {
-        return false;
-    }
-    header('X-Ignore-This: something', true, $code);
-}
 
 header('Access-Control-Allow-Origin: *', true); // Come fetch!
 
 /* Connect to database */
-$options = array(
-    'debug'       => 2,
-    'portability' => DB_PORTABILITY_ALL,
-);
-
-$conn = DB::connect(getDSN(), $options);
-
-if(DB :: isError($conn)) {
-    echo $conn->toString();
-}
-$conn->setFetchMode(DB_FETCHMODE_ASSOC);
+$conn = get_db_connection(DB_FETCHMODE_ASSOC);
 
 // Search query
 $sql = "SELECT g.name as group_name, g.id as group_id, g.posix_group, g.mailinglist, g.admin as is_admin_group,

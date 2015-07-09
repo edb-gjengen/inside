@@ -27,4 +27,6 @@ function getDSN($host = "default") {
 
 define("USER_API_KEY", "");
 
+define("USER_API_KEY_KASSA", "");
+
 ?>

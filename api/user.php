@@ -1,36 +1,12 @@
 <?php
-set_include_path("../includes/");
-require_once("../inside/credentials.php");
+require_once("api_functions.php");
 require_once("../includes/DB.php");
 
-/* Functions */
-
-/* Set HTTP response code */
-function set_response_code($code) {
-    if(!is_int($code)) {
-        return false;
-    }
-    header('X-Ignore-This: something', true, $code);
-}
-
-function is_valid_utf8($text) {
-    return mb_check_encoding($text, 'utf-8');
-}
 
 header('Access-Control-Allow-Origin: *', true); // Come fetch!
 
 /* Connect to database */
-$options = array(
-    'debug'       => 2,
-    'portability' => DB_PORTABILITY_ALL,
-);
-
-$conn = DB::connect(getDSN(), $options);
-
-if(DB :: isError($conn)) {
-    echo $conn->toString();
-}
-$conn->setFetchMode(DB_FETCHMODE_ORDERED);
+$conn = get_db_connection(DB_FETCHMODE_ORDERED);
 
 if( !isset($_GET['apikey']) ) {
     set_response_code(400);
@@ -38,11 +14,13 @@ if( !isset($_GET['apikey']) ) {
     die();
 }
 /* Valid API KEY (defined in credentials.php) ? */
-if( $_GET['apikey'] !== USER_API_KEY ) {
+if( $_GET['apikey'] !== USER_API_KEY && $_GET['apikey'] !== USER_API_KEY_KASSA ) {
     set_response_code(400);
-    echo json_encode(array('error' => "Invalid apikey.".$_GET['apikey']));
+    echo json_encode(array('error' => "Invalid apikey: '".$_GET['apikey']."'."));
     die();
 }
+/* Note: Only gives kassa.neuf.no API-rights to search all members */
+$limit_to_active = $_GET['apikey'] !== USER_API_KEY_KASSA;
 
 /* Validate params */
 if(!isset($_GET['q'])) {
@@ -104,17 +82,18 @@ if( isset($_GET['exact']) ) {
 }
 
 $valid_membership_query = $filter_valid_membership ? " AND (u.expires >= NOW() OR u.expires IS NULL)" : "";
+$limit_active_query = $limit_to_active ? "AND ug.group_id=2" : "";  // Note: Conditional filter on active group
 
 // Default
 $sql = "SELECT DISTINCT u.id
     FROM din_user u
     LEFT JOIN din_usergrouprelationship as ug ON u.id=ug.user_id
     WHERE ($user_search_query)
-    AND ug.group_id=2 /* Note: Always filter on active group */
+    $limit_active_query
     $valid_membership_query";
 
 // Override query with groups
-if(count($groups) > 0) {
+if(count($groups) > 0 && $limit_to_active) {
     $sql = "SELECT DISTINCT u.id
         FROM din_user u
         LEFT JOIN din_usergrouprelationship as ug ON u.id=ug.user_id
@@ -122,6 +101,13 @@ if(count($groups) > 0) {
         WHERE ($user_search_query)
         AND ug.group_id IN(".implode($groups, ",").")
         AND ug2.group_id=2  /* Note: Always filter on active group, here with a double join */
+        $valid_membership_query";
+} elseif(count($groups) > 0 && !$limit_to_active) {
+    $sql = "SELECT DISTINCT u.id
+        FROM din_user u
+        LEFT JOIN din_usergrouprelationship as ug ON u.id=ug.user_id
+        WHERE ($user_search_query)
+        AND ug.group_id IN(".implode($groups, ",").")
         $valid_membership_query";
 }
 
@@ -149,7 +135,7 @@ $conn->setFetchMode(DB_FETCHMODE_ASSOC);
 /* Get data */
 $sql_is_member = "u.expires > NOW() OR u.expires IS NULL AS is_member";
 $sql_groups = "GROUP_CONCAT(DISTINCT g.id,';',g.name SEPARATOR ',') AS groups";
-$data_sql = "SELECT u.id,u.username,u.firstname,u.lastname,u.email,up.number,u.expires,$sql_groups,$sql_is_member
+$data_sql = "SELECT u.id,u.username,u.firstname,u.lastname,u.email,up.number,u.expires,u.cardno,$sql_groups,$sql_is_member
     FROM din_user as u
     LEFT JOIN din_userphonenumber as up ON up.user_id=u.id
     LEFT JOIN din_usergrouprelationship AS ug ON u.id=ug.user_id
