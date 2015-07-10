@@ -50,12 +50,28 @@ if( DB::isError($res) ) {
     echo json_encode(array('error' => $res->message));
     die();
 }
-$user_ids = array();
 if(count($res) == 0) {
-    echo json_encode(array('results' => []));
+    echo json_encode(array('meta' => array('num_results' => 0),'results' => []));
     die();
 }
-$user_ids = $res[0];
-echo json_encode(array('results' => $user_ids));
+$id_array = array();
+foreach($res as $value) {
+    $id_array[] = $value[0];
+}
+$user_ids = implode(",", $id_array);
+
+try{
+    $results = get_user_data($user_ids, $conn);
+} catch(Exception $e) {
+    set_response_code(500);
+    echo json_encode(array('error' => $e->getMessage()));
+    die();
+}
+echo json_encode(array(
+    'meta' => array(
+        'num_results' => count($results)
+    ),
+    'results' => $results,
+));
 
 ?>

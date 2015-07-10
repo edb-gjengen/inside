@@ -131,61 +131,14 @@ foreach($res as $value) {
 }
 $ids = implode(",", $id_array);
 
-$conn->setFetchMode(DB_FETCHMODE_ASSOC);
-/* Get data */
-$sql_is_member = "u.expires > NOW() OR u.expires IS NULL AS is_member";
-$CARDNO_LEGACY_MAX = 100000000;
-$sql_card_is_legacy = "u.cardno<$CARDNO_LEGACY_MAX AS card_is_legacy";
-$sql_groups = "GROUP_CONCAT(DISTINCT g.id,';',g.name SEPARATOR ',') AS groups";
-$data_sql = "SELECT u.id,u.username,u.firstname,u.lastname,u.email,up.number,u.expires,u.cardno,$sql_card_is_legacy,$sql_groups,$sql_is_member
-    FROM din_user as u
-    LEFT JOIN din_userphonenumber as up ON up.user_id=u.id
-    LEFT JOIN din_usergrouprelationship AS ug ON u.id=ug.user_id
-    LEFT JOIN din_group AS g ON g.id=ug.group_id
-    WHERE u.id IN ($ids)
-    GROUP BY u.id
-    ORDER BY u.firstname, u.lastname ASC";
-
-$res = $conn->getAll($data_sql);
-
-if( DB::isError($res) ) {
+try{
+    $results = get_user_data($ids, $conn);
+} catch(Exception $e) {
     set_response_code(500);
-    echo json_encode(array('error' => $res->getMessage()));
+    echo json_encode(array('error' => $e->getMessage()));
     die();
 }
 
-
-/* Encode and output */
-$results = array();
-
-foreach($res as $result) {
-    foreach($result as $key => $value) {
-        if($key == "groups") {
-            if($value === "") {
-                continue; // no groups
-            }
-            $u_gs = array();
-            $u_groups = explode(",",$value);
-            foreach($u_groups as $g) {
-                list($id,$name) = explode(";", $g);
-                if( !is_valid_utf8($name) ) {
-                    $name = utf8_encode($name);
-                }
-
-                $u_gs[] = array(
-                    'id' => $id,
-                    'name' => $name
-                );
-            }
-            $result[$key] = $u_gs;
-        }
-        /* Encoding issues? oh yes, utf-8 please */
-        elseif( !is_valid_utf8($value) ) {
-            $result[$key] = utf8_encode($value);
-        }
-    }
-    $results[] = $result;
-}
 $out = json_encode(array(
     'meta' => array(
         'num_results' => count($results),
