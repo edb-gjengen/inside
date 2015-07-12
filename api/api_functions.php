@@ -62,6 +62,7 @@ function valid_phonenumber($phone) {
 
 
 function get_user_data($ids, $conn) {
+    $ACTIVE_GROUP_ID = "2";
     $conn->setFetchMode(DB_FETCHMODE_ASSOC);
 
     /* Get data */
@@ -87,6 +88,7 @@ function get_user_data($ids, $conn) {
 
     /* Encode and output */
     foreach($res as $result) {
+        $is_active = "0";
         foreach($result as $key => $value) {
             if($key == "groups") {
                 if($value === "") {
@@ -98,6 +100,9 @@ function get_user_data($ids, $conn) {
                     list($id,$name) = explode(";", $g);
                     if( !is_valid_utf8($name) ) {
                         $name = utf8_encode($name);
+                    }
+                    if($id == $ACTIVE_GROUP_ID) {
+                        $is_active = "1";
                     }
 
                     $u_gs[] = array(
@@ -112,6 +117,7 @@ function get_user_data($ids, $conn) {
                 $result[$key] = utf8_encode($value);
             }
         }
+        $result['is_active'] = $is_active;
         $results[] = $result;
     }
     return $results;
