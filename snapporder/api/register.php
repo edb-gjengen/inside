@@ -236,5 +236,3 @@ if($reg_type === "new") {
 
 /* Return encrypted user object */
 echo $crypt->json_encode_and_encrypt($user);
- 
-?>

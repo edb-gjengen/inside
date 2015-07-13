@@ -67,8 +67,9 @@ function add_user($data, $source) {
     $user_id = get_user_id_by_username($data['username']);
 
     /* Phonenumber table */
+    $phone_number_validated = $source === 'snapporder' ? 1 : 0;
     $cols = array('user_id', 'number', 'validated');
-    $values = array($user_id, $phone, 1);
+    $values = array($user_id, $phone, $phone_number_validated);
 
     $sth = $conn->autoPrepare("din_userphonenumber", $cols, DB_AUTOQUERY_INSERT);
     $res = $conn->execute($sth, $values);
@@ -195,11 +196,12 @@ function renew_user($data) {
 
     /* Phonenumber table, set validated */
     $fields_values = array('validated' => 1);
+    if($source === "snapporder") {
+        $res = $conn->autoExecute("din_userphonenumber", $fields_values, DB_AUTOQUERY_UPDATE, "user_id=$user_id AND number='$phone'");
 
-    $res = $conn->autoExecute("din_userphonenumber", $fields_values, DB_AUTOQUERY_UPDATE, "user_id=$user_id AND number='$phone'");
-
-    if( DB::isError($res) ) {
-        throw new InsideDatabaseException($res->getMessage().". DEBUG: ".$res->getDebugInfo());
+        if( DB::isError($res) ) {
+            throw new InsideDatabaseException($res->getMessage().". DEBUG: ".$res->getDebugInfo());
+        }
     }
 
     if( isset($data['membership_trial']) && $in_autumn) {
@@ -689,5 +691,3 @@ function send_confirmation_email($data, $user) {
 
 	@mail($sendto, $subject, $message, $headers);
 }
-?>
-

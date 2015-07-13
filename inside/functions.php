@@ -1710,6 +1710,11 @@ function clean_phonenumber($pn) {
     if( strlen($pn) === 8 && ($pn[0] === "4" || $pn[0] === "9") ) {
         $pn = "+47".$pn;
     }
+    // ...without +
+    if( strlen($pn) === 10 && $pn[0] === "4" && $pn[1] === "7" && ($pn[2] === "4" || $pn[2] === "9") ) {
+        $pn = "+".$pn;
+    }
+
     return $pn;
 }
 // ISO-8601 Y-m-d
@@ -1788,5 +1793,3 @@ function hash_ldap_password($raw_password) {
 
 	return '{SSHA}' . base64_encode(sha1( $raw_password.$salt, TRUE ). $salt);
 }
-
-?>

@@ -10,79 +10,80 @@ $conn = get_db_connection(DB_FETCHMODE_ORDERED);
 
 
 if( !isset($_GET['apikey']) ) {
-    set_response_code(400);
-    echo json_encode(array('error' => "Missing param apikey."));
-    die();
+    return_json_response(array('error' => "Missing param apikey."), 400);
 }
 /* Valid API KEY (defined in credentials.php) ? */
 if( $_GET['apikey'] !== USER_API_KEY && $_GET['apikey'] !== USER_API_KEY_KASSA ) {
-    set_response_code(400);
-    echo json_encode(array('error' => "Invalid apikey: '".$_GET['apikey']."'."));
-    die();
+    return_json_response(array('error' => "Invalid apikey: '".$_GET['apikey']."'."), 400);
 }
+if($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $body = file_get_contents('php://input');
+    $data = json_decode($body, true);
 
-/* Validate params */
-if(!isset($_GET['q'])) {
-    set_response_code(400);
-    echo json_encode(array('error' => "Missing param q"));
-    die();
+    /* Validate params */
+    if( !isset($data['card_number']) ) {
+        return_json_response(array('error' => "Missing param card_number"), 400);
+    }
+    $card_number = $data['card_number'];
+
+    if( !is_numeric($card_number) ) {
+        return_json_response(array('error' => "Value card_number must be numeric: '".$card_number."'"), 400);
+    }
+
+    /* Validate user_id */
+    if( !isset($data['user_id']) ) {
+        return_json_response(array('error' => "Missing param user_id"), 400);
+    }
+    if( !is_numeric($data['user_id']) ) {
+        return_json_response(array('error' => "Value user_id must be numeric: '".$data['user_id']."'"), 400);
+    }
+    /* TODO: If user does not exist, bail */
+    /* TODO: If user relationship to card exists, bail */
+    /* TODO: Either Add card relationship OR remove old relationsip and add new */
+    return_json_response(array('error' => 'TODO: Not implemented'));
 }
+else {
+    /* Validate params */
+    if( !isset($_GET['card_number']) && !isset($_POST['card_number']) ) {
+        return_json_response(array('error' => "Missing param card_number: ".var_export($_POST, true)), 400);
+    }
+    $card_number = $_GET['card_number'];
 
-$card_number = $_GET['q'];
+    if( !is_numeric($card_number) ) {
+        return_json_response(array('error' => "Value card_number must be numeric: '".$card_number."'"), 400);
+    }
 
-if( !is_numeric($card_number) ) {
-    set_response_code(400);
-    echo json_encode(array('error' => "Value q must be numeric: '".$card_number."'"));
-    die();
+    // Search query
+    $card_number = $conn->quoteSmart($card_number);
+    $sql = "SELECT mc.userId FROM din_membercard AS mc
+      LEFT JOIN din_user AS u ON mc.userId=u.id
+      WHERE mc.id=$card_number";
+
+    $res = $conn->getAll($sql);
+
+    if( DB::isError($res) ) {
+        return_json_response(array('error' => $res->message), 500);
+    }
+    $card_number_exists = count($res) === 0;
+
+    /* Invalid card number? */
+    if($card_number_exists) {
+        return_json_response(array('user' => NULL, 'valid' => false));
+    }
+
+    $user_id = $res[0][0];
+    /* Free card_number? */
+    if($user_id === "") {
+        return_json_response(array('user' => NULL, 'valid' => true));
+    }
+
+    /* Existing user with card_number. */
+    try{
+        $user_data = get_user_data($user_id, $conn);
+    } catch(Exception $e) {
+        return_json_response(array('error' => $e->getMessage()), 500);
+        return;  // Note: Help IntelliJ code inspection.
+    }
+
+    return_json_response(array('user' => $user_data, 'valid' => $res !== NULL));
 }
-
-$card_number = $conn->quoteSmart($card_number);
-
-// Search query
-$sql = "
-  SELECT mc.userId FROM din_membercard AS mc
-  LEFT JOIN din_user AS u ON mc.userId=u.id
-  WHERE mc.id=$card_number";
-error_reporting(0);
-
-$res = $conn->getAll($sql);
-
-if( DB::isError($res) ) {
-    set_response_code(500);
-    echo json_encode(array('error' => $res->message));
-    die();
-}
-
-/* Invalid card number*/
-if(count($res) === 0) {
-    echo json_encode(array(
-        'user' => NULL,
-        'valid' => false
-    ));
-    die();
-}
-
-$user_id = $res[0][0];
-/* Free card_number? */
-if($user_id === "") {
-    echo json_encode(array(
-        'user' => NULL,
-        'valid' => true
-    ));
-    die();
-}
-
-/* Existing user with card_number. */
-try{
-    $user_data = get_user_data($user_id, $conn);
-} catch(Exception $e) {
-    set_response_code(500);
-    echo json_encode(array('error' => $e->getMessage()));
-    die();
-}
-echo json_encode(array(
-    'user' => $user_data,
-    'valid' => $res !== NULL
-));
-
-?>

@@ -88,5 +88,3 @@ if($user['registration_status'] === "partial") {
 /* Return encrypted user object */
 echo $crypt->json_encode_and_encrypt($user);
 //echo json_encode($user);
-
-?>
