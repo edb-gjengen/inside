@@ -78,6 +78,9 @@ if( !function_exists('valid_phonenumber') ) {
 
 
 function get_user_data($ids, $conn) {
+    if( !is_string($ids) ) {
+        new Exception('Param ids should be a comma separated string of user ids');
+    }
     $ACTIVE_GROUP_ID = "2";
     $conn->setFetchMode(DB_FETCHMODE_ASSOC);
 
@@ -137,4 +140,27 @@ function get_user_data($ids, $conn) {
         $results[] = $result;
     }
     return $results;
+}
+
+function update_card($user_id, $card_number) {
+    /* Update card number on user */
+
+}
+function get_user_id_by_card_number($card_number) {
+    $conn = get_db_connection(DB_FETCHMODE_ORDERED);
+
+    $card_number = $conn->quoteSmart($card_number);
+    $sql = "SELECT mc.userId FROM din_membercard AS mc
+      LEFT JOIN din_user AS u ON mc.userId=u.id
+      WHERE mc.id=$card_number";
+
+    $res = $conn->getAll($sql);
+
+    if( DB::isError($res) ) {
+        new Exception($res->getMessage());
+    }
+    if( count($res) === 0 ) {
+        return NULL;
+    }
+    return $res[0][0];
 }

@@ -37,9 +37,27 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
     if( !is_numeric($data['user_id']) ) {
         return_json_response(array('error' => "Value user_id must be numeric: '".$data['user_id']."'"), 400);
     }
-    /* TODO: If user does not exist, bail */
-    /* TODO: If user relationship to card exists, bail */
-    /* TODO: Either Add card relationship OR remove old relationsip and add new */
+    /* If user does not exist, bail */
+    $user_data = get_user_data($data['user_id'], $conn);
+    if( count($user_data) !== 1 ) {
+        return_json_response(array('error' => "User with user_id '".$data['user_id']."' does not exist."), 400);
+    }
+    $user = $user_data[0];
+
+    /* If card number is attached to specified user, bail */
+    if($user['cardno'] === $data['card_number']) {
+        return_json_response(array('error' => "Card number ".$data['card_number']." is already attached to user (".$data['user_id'].")."), 400);
+    }
+    /* If card number does not exist, bail */
+    $id_from_card_number = get_user_id_by_card_number($data['card_number']);
+    if($id_from_card_number === NULL) {
+        return_json_response(array('error' => "Card number ".$data['card_number']." does not exist."), 400);
+    }
+    /* If card belongs to another user, bail */
+    if($id_from_card_number !== "") {
+        return_json_response(array('error' => "Card number ".$data['card_number']." belongs to another user ($id_from_card_number)."), 400);
+    }
+    /* TODO: Add card relationship OR remove old relationsip and add new */
     return_json_response(array('error' => 'TODO: Not implemented'));
 }
 else {
