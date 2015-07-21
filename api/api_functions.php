@@ -77,21 +77,35 @@ if( !function_exists('valid_phonenumber') ) {
 }
 
 
-function get_user_data($ids, $conn) {
+
+function _get_cards($value) {
+    $u_cs = array();
+    $u_cards = explode(",", $value);
+    foreach ($u_cards as $c) {
+        list($card_number, $card_is_active) = explode(";", $c);
+        $u_cs[] = array(
+            'card_number' => $card_number,
+            'is_active' => $card_is_active
+        );
+    }
+    return $u_cs;
+}
+
+function get_user_data($ids) {
     if( !is_string($ids) ) {
         new Exception('Param ids should be a comma separated string of user ids');
     }
     $ACTIVE_GROUP_ID = "2";
-    $conn->setFetchMode(DB_FETCHMODE_ASSOC);
+    $conn = get_db_connection(DB_FETCHMODE_ASSOC);
 
     /* Get data */
     $sql_is_member = "u.expires > NOW() OR u.expires IS NULL AS is_member";
-    $CARDNO_LEGACY_MAX = 100000000;
-    $sql_card_is_legacy = "u.cardno<$CARDNO_LEGACY_MAX AS card_is_legacy";
     $sql_groups = "GROUP_CONCAT(DISTINCT g.id,';',g.name SEPARATOR ',') AS groups";
-    $data_sql = "SELECT u.id,u.username,u.firstname,u.lastname,u.email,up.number,u.expires,u.cardno,$sql_card_is_legacy,$sql_groups,$sql_is_member
-    FROM din_user as u
-    LEFT JOIN din_userphonenumber as up ON up.user_id=u.id
+    $sql_cards = "GROUP_CONCAT(DISTINCT c.card_number,';',c.is_active SEPARATOR ',') AS cards";
+    $data_sql = "SELECT u.id,u.username,u.firstname,u.lastname,u.email,up.number,u.expires,$sql_cards,$sql_groups,$sql_is_member
+    FROM din_user AS u
+    LEFT JOIN din_userphonenumber AS up ON up.user_id=u.id
+    LEFT JOIN din_card AS c ON c.user_id=u.id
     LEFT JOIN din_usergrouprelationship AS ug ON u.id=ug.user_id
     LEFT JOIN din_group AS g ON g.id=ug.group_id
     WHERE u.id IN ($ids)
@@ -131,6 +145,12 @@ function get_user_data($ids, $conn) {
                 }
                 $result[$key] = $u_gs;
             }
+            elseif($key == "cards") {
+                if($value === "") {
+                    continue; // no groups
+                }
+                $result[$key] = _get_cards($value);
+            }
             /* Encoding issues? oh yes, utf-8 please */
             elseif( !is_valid_utf8($value) ) {
                 $result[$key] = utf8_encode($value);
@@ -143,16 +163,29 @@ function get_user_data($ids, $conn) {
 }
 
 function update_card($user_id, $card_number) {
-    /* Update card number on user */
+    /* Adds card relationship OR if relationship already exist, set inactive and then add new */
+    $conn = get_db_connection(DB_FETCHMODE_ORDERED);
 
+    $card_number = $conn->quoteSmart($card_number);
+    $user_id = $conn->quoteSmart($user_id);
+
+    /* Set users existing cards inactive, if any */
+    $sql = "UPDATE din_card SET is_active=0 WHERE user_id=$user_id AND is_active=1";
+    $res = $conn->query($sql);
+    if( DB::isError($res) ) { new Exception($res->getMessage()); }
+
+    /* Update our card */
+    $sql = "UPDATE din_card SET user_id=$user_id,registered=NOW(),is_active=1 WHERE card_number=$card_number";
+    $res = $conn->query($sql);
+    if( DB::isError($res) ) { new Exception($res->getMessage()); }
 }
 function get_user_id_by_card_number($card_number) {
     $conn = get_db_connection(DB_FETCHMODE_ORDERED);
 
     $card_number = $conn->quoteSmart($card_number);
-    $sql = "SELECT mc.userId FROM din_membercard AS mc
-      LEFT JOIN din_user AS u ON mc.userId=u.id
-      WHERE mc.id=$card_number";
+    $sql = "SELECT c.user_id FROM din_card AS c
+      LEFT JOIN din_user AS u ON c.user_id=u.id
+      WHERE c.card_number=$card_number";
 
     $res = $conn->getAll($sql);
 
@@ -163,4 +196,12 @@ function get_user_id_by_card_number($card_number) {
         return NULL;
     }
     return $res[0][0];
+}
+function get_active_card_number($user) {
+    foreach($user['cards'] as $card) {
+        if($card['is_active'] == "1") {
+            return $card['card_number'];
+        }
+    }
+    return NULL;
 }

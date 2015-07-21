@@ -38,14 +38,15 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
         return_json_response(array('error' => "Value user_id must be numeric: '".$data['user_id']."'"), 400);
     }
     /* If user does not exist, bail */
-    $user_data = get_user_data($data['user_id'], $conn);
+    $user_data = get_user_data($data['user_id']);
     if( count($user_data) !== 1 ) {
         return_json_response(array('error' => "User with user_id '".$data['user_id']."' does not exist."), 400);
     }
     $user = $user_data[0];
+    $active_card_number = get_active_card_number($user);
 
     /* If card number is attached to specified user, bail */
-    if($user['cardno'] === $data['card_number']) {
+    if($active_card_number && $active_card_number === $data['card_number']) {
         return_json_response(array('error' => "Card number ".$data['card_number']." is already attached to user (".$data['user_id'].")."), 400);
     }
     /* If card number does not exist, bail */
@@ -57,8 +58,11 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
     if($id_from_card_number !== "") {
         return_json_response(array('error' => "Card number ".$data['card_number']." belongs to another user ($id_from_card_number)."), 400);
     }
-    /* TODO: Add card relationship OR remove old relationsip and add new */
-    return_json_response(array('error' => 'TODO: Not implemented'));
+
+    /* Add card relationship OR set old relationship inactive and add new */
+    update_card($data['user_id'], $data['card_number']);
+
+    return_json_response(array('user' => get_user_data($data['user_id'])));
 }
 else {
     /* Validate params */
@@ -73,9 +77,9 @@ else {
 
     // Search query
     $card_number = $conn->quoteSmart($card_number);
-    $sql = "SELECT mc.userId FROM din_membercard AS mc
-      LEFT JOIN din_user AS u ON mc.userId=u.id
-      WHERE mc.id=$card_number";
+    $sql = "SELECT c.user_id FROM din_card AS c
+      LEFT JOIN din_user AS u ON c.user_id=u.id
+      WHERE c.card_number=$card_number";
 
     $res = $conn->getAll($sql);
 
@@ -97,7 +101,7 @@ else {
 
     /* Existing user with card_number. */
     try{
-        $user_data = get_user_data($user_id, $conn);
+        $user_data = get_user_data($user_id);
     } catch(Exception $e) {
         return_json_response(array('error' => $e->getMessage()), 500);
         return;  // Note: Help IntelliJ code inspection.

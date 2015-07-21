@@ -132,7 +132,7 @@ foreach($res as $value) {
 $ids = implode(",", $id_array);
 
 try{
-    $results = get_user_data($ids, $conn);
+    $results = get_user_data($ids);
 } catch(Exception $e) {
     set_response_code(500);
     echo json_encode(array('error' => $e->getMessage()));

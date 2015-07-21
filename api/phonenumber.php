@@ -61,7 +61,7 @@ foreach($res as $value) {
 $user_ids = implode(",", $id_array);
 
 try{
-    $results = get_user_data($user_ids, $conn);
+    $results = get_user_data($user_ids);
 } catch(Exception $e) {
     set_response_code(500);
     echo json_encode(array('error' => $e->getMessage()));
