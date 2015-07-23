@@ -46,6 +46,8 @@ function get_db_connection($fetch_mode=NULL, $options=NULL) {
             $conn->setFetchMode($fetch_mode);
         }
     }
+    /* Set character set */
+    $conn->query('SET NAMES utf8');
 
     return $conn;
 }
@@ -147,7 +149,7 @@ function get_user_data($ids) {
             }
             elseif($key == "cards") {
                 if($value === "") {
-                    continue; // no groups
+                    continue; // no cards
                 }
                 $result[$key] = _get_cards($value);
             }

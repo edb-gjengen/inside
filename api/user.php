@@ -120,7 +120,7 @@ if( DB::isError($res) ) {
 
 if( count($res) === 0 ) {
     echo json_encode(array(
-        'meta' => array('num_results' => 0),
+        'meta' => array('num_results' => 0, 'query' => $sql),
         'results' => array()
     ));
     die();
