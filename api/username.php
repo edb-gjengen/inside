@@ -30,5 +30,3 @@ if( DB::isError($res) ) {
 $userExists = $res->numRows() > 0;
 
 echo json_encode(array('result' => $userExists));
-
-?>

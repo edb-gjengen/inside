@@ -17,23 +17,11 @@ $sql = "SELECT g.name as group_name, g.id as group_id, g.posix_group, g.mailingl
     ORDER BY g.name";
 $res = $conn->getAll($sql);
 
-/* Encode */
-$results = array();
-foreach($res as $result) {
-    foreach($result as $key => $value) {
-        /* Encoding issues? oh yes, utf-8 please */
-        if(is_string($value)) {
-            $result[$key] = utf8_encode($value);
-        }
-    }
-    $results[] = $result;
-}
-
 if( DB::isError($res) ) {
     set_response_code(500);
     echo json_encode(array('error' => $res->getMessage().". DEBUG: ".$res->getDebugInfo()));
     die();
 }
-echo json_encode(array('results' => $results));
+echo json_encode(array('results' => $res));
 
 ?>

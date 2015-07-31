@@ -23,12 +23,6 @@ function return_json_response($data, $response_code=200) {
     die(json_encode($data));
 }
 
-
-function is_valid_utf8($text) {
-    return mb_check_encoding($text, 'utf-8');
-}
-
-
 function get_db_connection($fetch_mode=NULL, $options=NULL) {
     if($options == NULL) {
         $options = array(
@@ -133,9 +127,6 @@ function get_user_data($ids) {
                 $u_groups = explode(",",$value);
                 foreach($u_groups as $g) {
                     list($id,$name) = explode(";", $g);
-                    if( !is_valid_utf8($name) ) {
-                        $name = utf8_encode($name);
-                    }
                     if($id == $ACTIVE_GROUP_ID) {
                         $is_active = "1";
                     }
@@ -152,10 +143,6 @@ function get_user_data($ids) {
                     continue; // no cards
                 }
                 $result[$key] = _get_cards($value);
-            }
-            /* Encoding issues? oh yes, utf-8 please */
-            elseif( !is_valid_utf8($value) ) {
-                $result[$key] = utf8_encode($value);
             }
         }
         $result['is_active'] = $is_active;
