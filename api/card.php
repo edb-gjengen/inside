@@ -35,20 +35,32 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
         return_json_response(array('error' => "Missing either param user_id or phone_number"), 400);
     }
 
-    $is_new_membership = isset($data['phone_number']);  // FIXME: Use param type=new_card instead of checking phone_number
-    if($is_new_membership) {
+    /* Validate action */
+    $valid_actions = array('new_card_no_user', 'update_card', 'renewal');
+    if( !isset($data['action']) || !in_array($data['action'], $valid_actions) ) {
+        return_json_response(array('error' => "Missing param 'action' or action not in ".implode(", ", $valid_actions).'.'), 400);
+
+    }
+
+    /* New membership, with only card number and phone number tuple */
+    if($data['action'] === 'new_card_no_user') {
         $phone_number = clean_phonenumber($data['phone_number']);
         if(!valid_phonenumber($phone_number)) {
             return_json_response(array('error' => "Invalid phone number: '".$phone_number."'"), 400);
         }
+        $card = get_card($card_number);
+        if($card['registered'] !== '') {
+            return_json_response(array('error' => 'Card number is in use and belongs to phone number: '.$card['owner_phone_number'].'.'));
+        }
+        /* TODO Check if user with phone number exists, if so, then bail */
 
-        /* New membership, with only card number and phone number tuple */
         update_card_with_phone_number($card_number, $phone_number);
 
-        /* Return card object */
+        /* Return fresh card object */
         return_json_response(array('user'=> NULL, 'card' => get_card($card_number)));
 
-    } else {
+    }
+    else if($data['action'] === 'update_card') {
         /* Existing user */
         if( !is_numeric($data['user_id']) ) {
             return_json_response(array('error' => "Value user_id must be numeric: '".$data['user_id']."'"), 400);
@@ -80,6 +92,11 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         return_json_response(array('user' => get_user_data($data['user_id'])));
     }
+    else if($data['action'] === 'renewal') {
+        return_json_response(array('error' => 'TODO not implemented'));
+    }
+
+    return_json_response(array('error' => 'Unknown action, gave up.'));
 }
 else {
     /* Validate params */
