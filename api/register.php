@@ -70,7 +70,7 @@ if( isset($data['type']) && $data['type'] === "renewal" ) {
 
 $required_keys = array('apikey', 'phone');
 $valid_keys = $required_keys;
-$valid_keys = array_merge($valid_keys, array('purchased', 'source', 'type', 'membership_trial', 'cardno'));
+$valid_keys = array_merge($valid_keys, array('purchased', 'source', 'type', 'membership_trial', 'card_number'));
 
 $valid_sources = array('physical', 'web', 'manual');
 

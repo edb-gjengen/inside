@@ -15,7 +15,6 @@ if( !function_exists('set_response_code') ) {
     }
 }
 
-
 function return_json_response($data, $response_code=200) {
     if($response_code != 200) {
         set_response_code($response_code);
@@ -46,7 +45,6 @@ function get_db_connection($fetch_mode=NULL, $options=NULL) {
     return $conn;
 }
 
-
 if( !function_exists('clean_phonenumber') ) {
     function clean_phonenumber($pn) {
         $pn = preg_replace('/[^0-9\+]/', '', $pn); // remove everything except valid chars
@@ -64,15 +62,12 @@ if( !function_exists('clean_phonenumber') ) {
     }
 }
 
-
 if( !function_exists('valid_phonenumber') ) {
     // E.164
     function valid_phonenumber($phone) {
         return preg_match('/^\+?\d{8,15}$/i', $phone);
     }
 }
-
-
 
 function _get_cards($value) {
     $u_cs = array();
@@ -151,6 +146,37 @@ function get_user_data($ids) {
     return $results;
 }
 
+function get_card($card_number) {
+    $conn = get_db_connection(DB_FETCHMODE_ASSOC);
+
+    $card_number = $conn->quoteSmart($card_number);
+    $sql = "SELECT * FROM din_card WHERE card_number=$card_number";
+
+    $res = $conn->getAll($sql);
+
+    if( DB::isError($res) ) {
+        new Exception($res->getMessage());
+    }
+    if( count($res) === 1) {
+        return $res[0];
+    }
+
+    return NULL;
+}
+
+function update_card_with_phone_number($card_number, $phone_number) {
+    /* Set card active and add phone number, phone number should not exist */
+    $conn = get_db_connection(DB_FETCHMODE_ORDERED);
+
+    $card_number = $conn->quoteSmart($card_number);
+    $phone_number = $conn->quoteSmart($phone_number);
+
+    /* Update our card */
+    $sql = "UPDATE din_card SET owner_phone_number=$phone_number,registered=NOW(),is_active=1 WHERE card_number=$card_number";
+    $res = $conn->query($sql);
+    if( DB::isError($res) ) { new Exception($res->getMessage()); }
+}
+
 function update_card($user_id, $card_number) {
     /* Adds card relationship OR if relationship already exist, set inactive and then add new */
     $conn = get_db_connection(DB_FETCHMODE_ORDERED);
@@ -168,6 +194,7 @@ function update_card($user_id, $card_number) {
     $res = $conn->query($sql);
     if( DB::isError($res) ) { new Exception($res->getMessage()); }
 }
+
 function get_user_id_by_card_number($card_number) {
     $conn = get_db_connection(DB_FETCHMODE_ORDERED);
 
@@ -186,6 +213,26 @@ function get_user_id_by_card_number($card_number) {
     }
     return $res[0][0];
 }
+
+function get_card_owner_phone_number($card_number) {
+    $conn = get_db_connection(DB_FETCHMODE_ORDERED);
+
+    $card_number = $conn->quoteSmart($card_number);
+    $sql = "SELECT c.owner_phone_number FROM din_card AS c
+      LEFT JOIN din_user AS u ON c.user_id=u.id
+      WHERE c.card_number=$card_number";
+
+    $res = $conn->getAll($sql);
+
+    if( DB::isError($res) ) {
+        new Exception($res->getMessage());
+    }
+    if( count($res) === 0 ) {
+        return NULL;
+    }
+    return $res[0][0];
+}
+
 function get_active_card_number($user) {
     foreach($user['cards'] as $card) {
         if($card['is_active'] == "1") {
