@@ -150,12 +150,14 @@ function get_card($card_number) {
     $conn = get_db_connection(DB_FETCHMODE_ASSOC);
 
     $card_number = $conn->quoteSmart($card_number);
-    $sql = "SELECT * FROM din_card WHERE card_number=$card_number";
+    $expires_sql = "DATE_ADD(DATE(registered), INTERVAL 1 YEAR)";
+    $has_valid_membership_sql = "NOW() <= $expires_sql AND owner_phone_number IS NOT NULL";
+    $sql = "SELECT *,$has_valid_membership_sql AS has_valid_membership,$expires_sql AS expires FROM din_card WHERE card_number=$card_number";
 
     $res = $conn->getAll($sql);
 
     if( DB::isError($res) ) {
-        new Exception($res->getMessage());
+        return array('error' => $res->getMessage(), 'sql' => $sql);
     }
     if( count($res) === 1) {
         return $res[0];
@@ -212,6 +214,23 @@ function get_user_id_by_card_number($card_number) {
         return NULL;
     }
     return $res[0][0];
+}
+
+function get_card_by_phone_number($phone_number) {
+    $conn = get_db_connection(DB_FETCHMODE_ORDERED);
+
+    $phone_number = $conn->quoteSmart($phone_number);
+    $sql = "SELECT card_number FROM din_card WHERE owner_phone_number=$phone_number";
+
+    $res = $conn->getAll($sql);
+
+    if( DB::isError($res) ) {
+        new Exception($res->getMessage());
+    }
+    if( count($res) === 0 ) {
+        return NULL;
+    }
+    return get_card($res[0][0]);
 }
 
 function get_card_owner_phone_number($card_number) {

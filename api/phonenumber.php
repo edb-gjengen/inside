@@ -10,31 +10,24 @@ $conn = get_db_connection(DB_FETCHMODE_ORDERED);
 
 
 if( !isset($_GET['apikey']) ) {
-    set_response_code(400);
-    echo json_encode(array('error' => "Missing param apikey."));
-    die();
+    return_json_response(array('error' => "Missing param apikey."), 400);
 }
 /* Valid API KEY (defined in credentials.php) ? */
 if( $_GET['apikey'] !== USER_API_KEY && $_GET['apikey'] !== USER_API_KEY_KASSA ) {
-    set_response_code(400);
-    echo json_encode(array('error' => "Invalid apikey: '".$_GET['apikey']."'."));
-    die();
+    return_json_response(array('error' => "Invalid apikey: '".$_GET['apikey']."'."), 400);
 }
 
 /* Validate params */
 if(!isset($_GET['q'])) {
-    set_response_code(400);
-    echo json_encode(array('error' => "Missing param q"));
-    die();
+    return_json_response(array('error' => "Missing param q"), 400);
 }
 
 $phonenumber = $_GET['q'];
 $phonenumber = clean_phonenumber($phonenumber);
 if(!valid_phonenumber($phonenumber)) {
-    set_response_code(400);
-    echo json_encode(array('error' => "Invalid phone number: '".$phonenumber."'"));
-    die();
+    return_json_response(array('error' => "Invalid phone number: '".$phonenumber."'"), 400);
 }
+$card = get_card_by_phone_number($phonenumber);
 $phonenumber = $conn->quoteSmart($phonenumber);
 
 // Search query
@@ -46,13 +39,10 @@ $sql = "
 $res = $conn->getAll($sql);
 
 if( DB::isError($res) ) {
-    set_response_code(500);
-    echo json_encode(array('error' => $res->message));
-    die();
+    return_json_response(array('error' => $res->message), 500);
 }
 if(count($res) == 0) {
-    echo json_encode(array('meta' => array('num_results' => 0),'results' => []));
-    die();
+    return_json_response(array('card' => $card, 'users' => []));
 }
 $id_array = array();
 foreach($res as $value) {
@@ -63,15 +53,10 @@ $user_ids = implode(",", $id_array);
 try{
     $results = get_user_data($user_ids);
 } catch(Exception $e) {
-    set_response_code(500);
-    echo json_encode(array('error' => $e->getMessage()));
-    die();
+    return_json_response(array('error' => $e->getMessage()), 500);
+    return;  // Note: Makes IDE happy
 }
-echo json_encode(array(
-    'meta' => array(
-        'num_results' => count($results)
-    ),
-    'results' => $results,
+return_json_response(array(
+    'users' => $results,
+    'card' => $card
 ));
-
-?>
