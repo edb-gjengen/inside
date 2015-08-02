@@ -596,7 +596,7 @@ function validate_sms_form($data) {
 function save_sms_form($data) {
     $user_id = add_user($data, $data['source']);
 
-    log_userupdate($user_id, "Membership activated.");
+    log_userupdate($user_id, "Membership added to user.");
     return $user_id;
 }
 function save_activation_form($data) {

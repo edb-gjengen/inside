@@ -260,3 +260,15 @@ function get_active_card_number($user) {
     }
     return NULL;
 }
+function add_or_renew_membership($user, $data) {
+    // TODO stub
+    throw new Exception("TODO: Not implemented!");
+
+    /* Membership expiry */
+    /* One year from today (default) */
+    if( !isset($data['purchased']) ) {
+        $data['purchased'] = date_create();
+    }
+    /* ...or one year from specified date */
+    $expires = date_format(date_modify($data['purchased'], "+1 year"), "Y-m-d");
+}

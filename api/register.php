@@ -1,44 +1,4 @@
-<?php 
-/* 
- * Registers a user in the user table
- *
- * Request (new):
- *
- * $ curl /api/register.php
- * {
- *   "phone": "+4742345678",
- *   "purchased": "2004-02-12"    // optional, format: ISO-8601 date
- *   "source": "physical"             // optional, possible values: "physical", "web" or "manual"
- *   "membership_trial": "buddy"  // optional, gives free membership in autumn, possible value: "buddy"
- * }
- *
- * Response:
- *
- * {
- *   "phone": "+4742345678",
- *   "membership_status": 1,  // 0: registrert, 1: medlem, 2: aktivt medlem
- *   "expires": "2015-04-23",
- *   "memberid": "4331",
- *   "firstname": "Jon",
- *   "lastname": "Hansen",
- *   "email": "jon@uio.no",
- *   "birthdate": "1985-03-01",
- *   "registration_status": "partial"  // "partial" means show link
- *   "membership_trial": "buddy"       // possible value: "buddy", user has a trial membership, unset if not
- *   "registration_url": "/snapporder/register_partial.php?userid=4331&token=lol"
- * }
- *
- * Request (renewal):
- *
- * $ curl /api/register.php
- * {
- *   "phone": "+4742345678",
- *   "purchased": "2004-02-12"   // optional, format: ISO-8601 date
- *   "type": "renewal"           // optional, possible values: "renewal"
- *   "source": "physical"  // optional, possible values: "physical", "web" or "manual"
- * }
- *
- */
+<?php
 
 /* Pull in Inside */
 set_include_path("../includes/".PATH_SEPARATOR."../inside/".PATH_SEPARATOR."../snapporder");
@@ -68,11 +28,11 @@ if( isset($data['type']) && $data['type'] === "renewal" ) {
     $reg_type = $data['type'];
 }
 
-$required_keys = array('apikey', 'phone');
+$required_keys = array('apikey', 'user_id');
 $valid_keys = $required_keys;
-$valid_keys = array_merge($valid_keys, array('purchased', 'source', 'type', 'membership_trial', 'card_number'));
+$valid_keys = array_merge($valid_keys, array('purchased', 'source'));
 
-$valid_sources = array('physical', 'web', 'manual');
+$valid_sources = array('card');
 
 /* Validate supplied data */
 foreach($required_keys as $key) {
@@ -91,34 +51,17 @@ if( $data['apikey'] !== USER_API_KEY_KASSA ) {
     return_json_response(array('error' => "Invalid apikey: '".$data['apikey']."'."), 400);
 }
 
-$data['phone'] = clean_phonenumber($data['phone']);
-if( !valid_phonenumber($data['phone']) ) {
-    return_json_response(array('error' => "Not a phone number: '".$data['phone']."'"), 400);
-}
-
 $conn = get_db_connection(DB_FETCHMODE_ASSOC);
 
 /* Existing user? */
-$user_id = getUseridFromPhone($data['phone']);
-if( $reg_type === "new" && $user_id !== false ) {
-    return_json_response(array('error' => 'Existing user with phone: '.$data['phone']), 409);
-}
-/* Renewal of membership? */
-if( $reg_type === "renewal" && $user_id === false ) {
-    return_json_response(array('error' => 'Could not find user with phone: '.$data['phone']), 409);
-}
-
-$data['user_id'] = $user_id;
-if( $reg_type === "renewal") {
-    $user = get_user($user_id);
-    /* Don't allow renewal of an existing valid membership. */
-    if( $user['membership_status'] !== 0 ) {
-        if($user['expires'] === '') {
-            // Life long
-            return_json_response(array('error' => 'Cannot renew, user with phone '.$data['phone'].' has a life long membership.'), 409);
-        }
-        return_json_response(array('error' => 'Cannot renew, user with phone '.$data['phone'].' has a valid membership until: '.$user['expires']), 409);
+$user = get_user($user_id);
+/* Don't allow renewal of an existing valid membership. */
+if( $user['membership_status'] !== 0 ) {
+    if($user['expires'] === '') {
+        // Life long
+        return_json_response(array('error' => 'Cannot renew, user with id '.$user['id'].' has a life long membership.'), 409);
     }
+    return_json_response(array('error' => 'Cannot renew, user with phone '.$user['id'].' has a valid membership until: '.$user['expires']), 409);
 }
 
 /* Validate optional purchase_date */
@@ -135,18 +78,10 @@ if( isset($data['source']) && !in_array($data['source'], $valid_sources) ) {
     return_json_response(array('error' => 'Invalid value in field source: '.$data['source']), 400);
 }
 
-/* Validate optional membership_trial */
-if( isset($data['membership_trial']) && $data['membership_trial'] !== "buddy") {
-    return_json_response(array('error' => 'Invalid value in field membership_trial: '.$data['membership_trial']), 400);
-}
-
-/* Create user */
+/* Add or renew membership */
 try {
-    if( $reg_type === "new" ) {
-        $user_id = add_user($data, $data['source']);
-    } else {
-        renew_user($data);
-    }
+    // TODO ADD or renew membership
+    add_or_renew_membership($user, $data);
 } catch(InsideDatabaseException $e) {
     error_log($e->getMessage());
     return_json_response(array('error' => 'db_error', 'error_message' => $e->getMessage()), 500);
@@ -161,24 +96,7 @@ try {
     return_json_response(array('error' => 'db_error', 'error_message' => $e->getMessage()), 500);
 }
 
-/* Add register url */
-if($user['registration_status'] === "partial") {
-    $user['registration_url'] = generate_registration_url($user, SECRET_KEY);
-}
-
-/* Add back phone number from query */
-$user['phone'] = $data['phone'];
-
-if( isset($data['membership_trial']) ) {
-    /* Add back membership_trial from query */
-    $user['membership_trial'] = $data['membership_trial'];
-}
-
-/* Send welcome email */
-if($reg_type === "new") {
-    send_activation_email($data, $user);
-    // TODO: send_activation_sms($data, $user);
-}
+// TODO: send new membership or renewal email
 
 /* Return encrypted user object */
 return_json_response($user);

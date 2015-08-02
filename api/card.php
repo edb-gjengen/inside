@@ -92,9 +92,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         return_json_response(array('user' => get_user_data($data['user_id'])));
     }
-    else if($data['action'] === 'renewal') {
-        return_json_response(array('error' => 'TODO not implemented'));
-    }
 
     return_json_response(array('error' => 'Unknown action, gave up.'));
 }
