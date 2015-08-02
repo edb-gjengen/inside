@@ -21,6 +21,15 @@ if( !function_exists('hash_ldap_password') ) {
         return '{SSHA}' . base64_encode(sha1( $raw_password.$salt, TRUE ). $salt);
     }
 }
+function update_card_with_user($phone, $activation_code, $user_id) {
+    global $conn;
+
+    $sql = "UPDATE din_card SET user_id=$user_id,owner_phone_number=NULL WHERE owner_phone_number=$phone AND card_number=$activation_code";
+    $res = $conn->query($sql);
+    if( DB::isError($res) ) {
+        throw new InsideDatabaseException($res->getMessage().". DEBUG: ".$res->getDebugInfo());
+    }
+}
 
 function add_user($data, $source) {
     global $conn;
@@ -28,13 +37,14 @@ function add_user($data, $source) {
     /* User table  */
     $phone = $data['phone']; // used later
     unset($data['phone']);
+    $activation_code = isset($data['activation_code']) ? $data['activation_code'] : null;
+    unset($data['activation_code']);
     unset($data['user_id']);
 
     /* Add our own initial values */
     $data['username'] = generate_username($data);
     $data['source'] = $source;
     $data['registration_status'] = "partial";
-
 
     /* Membership expiry */
     /* One year from today (default) */
@@ -67,12 +77,19 @@ function add_user($data, $source) {
     $user_id = get_user_id_by_username($data['username']);
 
     /* Phonenumber table */
-    $phone_number_validated = $source === 'snapporder' ? 1 : 0;
+    $validated_sources = array('snapporder', 'sms');
+    $phone_number_validated = in_array($source, $validated_sources) ? 1 : 0;
     $cols = array('user_id', 'number', 'validated');
     $values = array($user_id, $phone, $phone_number_validated);
 
     $sth = $conn->autoPrepare("din_userphonenumber", $cols, DB_AUTOQUERY_INSERT);
     $res = $conn->execute($sth, $values);
+
+    /* Card table */
+    if($source == 'card') {
+        update_card_with_user($phone, $activation_code, $user_id);
+        log_userupdate($user_id, "Kortnummer $activation_code knyttet til bruker.");
+    }
 
     if( DB::isError($res) ) {
         throw new InsideDatabaseException($res->getMessage().". DEBUG: ".$res->getDebugInfo());
@@ -545,16 +562,18 @@ function validate_sms_form($data) {
 	if( getUseridFromPhone($phone) !== false ) {
         throw new ValidationException("Telefonnummeret ".$data['phone']." er allerede registrert i bruk.");
 	}
+
     $data['phone'] = $phone;
 
 	// lookup code and phonenumber tuple to validate code and get purchase date
-    $purchased = get_purchase_date($data['phone'], $data['activation_code']);
+    list($purchased, $source) = get_purchase_date_and_source($data['phone'], $data['activation_code']);
     if( $purchased === false ) {
-        throw new ValidationException("Ugyldig aktiveringskode ".$data['activation_code']);
+        throw new ValidationException("Ugyldig kortnummer/kode ".$data['activation_code']);
     }
     $data['purchased'] = clean_timestamp($purchased);
+    $data['source'] = $source;
 
-    /* validate firstname and lastname */
+    /* firstname and lastname */
     if( strlen($data['firstname']) < 2 ) {
         throw new ValidationException("Fornavn må være 2 tegn eller lengre: ".$data['firstname']);
     }
@@ -569,14 +588,13 @@ function validate_sms_form($data) {
         throw new ValidationException("Epostadressen ".$data['email']." er allerede registrert i bruk");
     }
 
-    // remove fields for later db insertion
-    unset($data['activation_code']);
+    // remove field for later db insertion
     unset($data['submit']);
 
     return $data;
 }
 function save_sms_form($data) {
-    $user_id = add_user($data, "sms");
+    $user_id = add_user($data, $data['source']);
 
     log_userupdate($user_id, "Membership activated.");
     return $user_id;
@@ -598,7 +616,38 @@ function save_activation_form($data) {
     return true;
 }
 
-function get_purchase_date($phone, $activation_code) {
+function get_purchase_date_legacy($phone, $activation_code) {
+    global $conn;
+
+    $gsm = substr($phone, 3); // strip off country code
+
+    $sql = "SELECT date FROM din_sms_sent WHERE activation_code=".$conn->quoteSmart($activation_code)." AND receiver=".$conn->quoteSmart($gsm);
+    $res = $conn->getOne($sql);
+
+    if( DB::isError($res) ) {
+        throw new InsideDatabaseException($res->getMessage().". DEBUG: ".$res->getDebugInfo());
+    }
+
+    return $res !== null ? $res : false;
+}
+
+function get_purchase_date_card($phone, $activation_code) {
+    global $conn;
+
+    $phone = $conn->quoteSmart($phone);
+    $activation_code = $conn->quoteSmart($activation_code);
+
+    $sql = "SELECT registered FROM din_card WHERE card_number=$activation_code AND owner_phone_number=$phone AND is_active=1";
+    $res = $conn->getOne($sql);
+
+    if( DB::isError($res) ) {
+        throw new InsideDatabaseException($res->getMessage().". DEBUG: ".$res->getDebugInfo());
+    }
+
+    return $res !== null ? $res : false;
+}
+
+function get_purchase_date_tekstmelding($phone, $activation_code) {
     $url = "https://tekstmelding.neuf.no/inside-code-purchase-date";
 
     $params = array(
@@ -612,34 +661,44 @@ function get_purchase_date($phone, $activation_code) {
     curl_setopt($ch, CURLOPT_URL, $url);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     $result = curl_exec($ch);
+    $status_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
     curl_close($ch);
 
-    $timestamp = clean_timestamp($result);
-
-    if ($timestamp === false) {
-        return get_purchase_date_legacy($phone, $activation_code);
+    if($status_code !== 200) {
+        return false;
     }
 
-    return $timestamp;
+    return $result;
 }
 
-function get_purchase_date_legacy($phone, $activation_code) {
-    global $conn;
-    $gsm = substr($phone, 3); // strip off country code
+function get_purchase_date_and_source($phone, $activation_code) {
+    /* Try card number lookup */
+    $source = 'card';
+    $timestamp = get_purchase_date_card($phone, $activation_code);
 
-    $sql = "SELECT date FROM din_sms_sent AS s WHERE s.activation_code=".$conn->quoteSmart($activation_code)." AND s.receiver=".$conn->quoteSmart($gsm);
-    $res = $conn->getOne($sql);
-
-    if( DB::isError($res) ) {
-        throw new InsideDatabaseException($res->getMessage().". DEBUG: ".$res->getDebugInfo());
+    /* Try SMS */
+    if ($timestamp === false) {
+        $timestamp = get_purchase_date_tekstmelding($phone, $activation_code);
+        $source = 'sms';
     }
 
-    return $res !== null ? $res : false;
+    /* Try legacy SMS-table */
+    // FIXME: Remove if date later than 2016-02-01
+    if ($timestamp === false) {
+        $timestamp = get_purchase_date_legacy($phone, $activation_code);
+        $source = 'sms';
+    }
+
+    if($timestamp === false) {
+        $source = NULL;
+    }
+
+    return array($timestamp, $source);
 }
 
 /* The purpose of this email is:
  * - to store the registration_url in the users inbox
- * - give some sort of positive confirmation outside of the SnappOrder-app
+ * - give some sort of positive confirmation :-)
  */
 function send_activation_email($data, $user) {
     $from_email = "medlemskap@studentersamfundet.no";
@@ -681,11 +740,12 @@ function send_confirmation_email($data, $user) {
 
     $message = '<html><body>';
     $message .= '<h3>Gratulerer med ditt nye medlemskap i Det Norske Studentersamfund!</h3>';
-    $message .= '<p>Medlemskapsbeviset ditt finner du i appen <a href="http://snappo.com/app">SnappOrder</a> (i <a href="https://itunes.apple.com/no/app/snapporder/id657308079">App Store</a> eller <a href="https://play.google.com/store/apps/details?id=com.snapporder">Google Play</a>) under valget "Chateau Neuf".</p>';
     $message .= '<p>Brukernavnet ditt er: '.$data['username'].'</p>';
     $message .= '<p>Om du i fremtiden skulle glemme passordet ditt, s&aring; kan du <a href="'.$password_reset_url.'">f&aring; nytt her</a>.</p>';
     $message .= '<p style="margin-bottom: 20px;">Trykk p&aring; lenken under for &aring; logge inn og se medlemskapet ditt.</p>';
     $message .= '<p style="margin-bottom: 20px;"><a href="'.$inside_url.'" style="font-family: Arial,sans-serif; color: white; font-weight: bold; font-size: 20px; padding: 0.8em 1.2em; border: none; text-decoration: none; background-color: #58AA58; display: inline-block; text-align: center; margin: 0;">Logg inn</a></p>';
+    $message .= '<p>Medlemskortet ditt, om du ikke har fått det enda, får du i baren på Chateau Neuf.</p>';
+    $message .= '<p>Medlemskapsbevis finner du også i appen <a href="http://snappo.com/app">SnappOrder</a> (i <a href="https://itunes.apple.com/no/app/snapporder/id657308079">App Store</a> eller <a href="https://play.google.com/store/apps/details?id=com.snapporder">Google Play</a>) under valget "Chateau Neuf".</p>';
     $message .= "<p>Med vennlig hilsen<br>Det Norske Studentersamfund</p>";
     $message .= "</body></html>";
 

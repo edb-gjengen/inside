@@ -100,7 +100,7 @@ if( isset($_POST['submit']) ) {
                 <label for="id_phone">Telefonnummer:</label><input id="id_phone" type="tel" name="phone" placeholder="Telefonnummer" value="<?php echo $phone; ?>"/>
             </div>
             <div class="form-row">
-                <label for="id_activation_code">Aktiveringskode:</label><input id="id_activation_code" type="text" name="activation_code" placeholder="Aktiveringskode" value="<?php echo $activation_code; ?>"/>
+                <label for="id_activation_code">Kortnummer/kode:</label><input id="id_activation_code" type="text" name="activation_code" placeholder="Aktiveringskode" value="<?php echo $activation_code; ?>"/>
             </div>
             <div class="form-row">
                 <label for="id_firstname">Fornavn:</label><input id="id_firstname" type="text" name="firstname" placeholder="Fornavn" value="<?php echo $firstname; ?>"/>
