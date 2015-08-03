@@ -674,32 +674,6 @@ if (isActive()) {
     	$form = new Form($title, $enctype, $method, $action, $fields, $id);
     	$form->display("horizontal");
 }
-        // Migration LDAP (nikolark)
-        $uid = getCurrentUser();
-        if( !is_migrated($uid) ) {
-?>
-                <div id="infomodal">
-                <div class="ui-widget"> 
-                <div class="ui-state-highlight ui-corner-all" style="margin-top: 20px; padding: 0 .7em;"> 
-                  <p><span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span> 
-                  <strong>DNS oppdaterer EDB-systemet!</strong><br />Vi (EDB) har ryddet opp på kottet i Slemdalsveien 15 og har funnet internsystemet <span style="font-style:italic;">Inside</span> modent for søppeldynga.</p>
-                </div> 
-                </div>
-                Vi ber derfor alle medlemmer <span style="font-weight:bold;">bekrefte sitt brukernavn og passord</span> slik at vi kan pensjonere dette systemet og tilby nye og bedre tjenester. Dette medfører at noen av dere må bytte brukernavn (de med spesialtegn, mellomrom og lignende).
-                <h3>Hvorfor?</h3>
-                <ul>
-                <li><span style="font-weight:bold;">Medlem:</span> For å få tilgang til trådløst nettverk.</li>
-                <li><span style="font-weight:bold;">Aktiv:</span> For å få tilgang til maskiner.</li>
-                </ul>
-                </div>
-                <script type="text/javascript">
-                /* open the migrate dialog */
-                $( document ).ready( function() {
-                    $("#infomodal").dialog('open');
-                });
-                </script>
-<?php
-        }
 ?>
   </div>
 
