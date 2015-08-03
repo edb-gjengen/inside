@@ -853,7 +853,7 @@ public function _logIn() {
     if ($user->id != -1) {
       if ($user->store()) {
 
-        /* Push the user to LDAP (nikolark) */
+        /* Continue pushing all users to internal systems (kerberos and radius). */
         $migrated = ldap_add_user($user->username, $user->firstname, $user->lastname, $user->email, $user->password, Array('dns-alle'));
         _log($migrated);
         set_migrated($user->id);

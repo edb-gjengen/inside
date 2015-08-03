@@ -75,6 +75,11 @@ if( isset($_POST['submit']) ) {
             // persist
             save_activation_form($data);
 
+            // Push the user to internal systems (kerberos, radius)
+            $migrated = ldap_add_user($data['username'], $data['firstname'], $data['lastname'], $data['email'], $data['password'], array('dns-alle'));
+            _log($migrated);
+            set_migrated($data['userid']);
+
             // send warm and fuzzy welcome email
             send_confirmation_email($data, $user);
 
