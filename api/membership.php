@@ -21,12 +21,6 @@ $data = json_decode($body, true);
 if($data === NULL) {
     return_json_response(array('error' => 'Can\'t decode body'), 400);
 }
-/* Check type of registration and set valid fields */
-$reg_type = "new";
-if( isset($data['type']) && $data['type'] === "renewal" ) {
-    /* Renewal */
-    $reg_type = $data['type'];
-}
 
 $required_keys = array('apikey', 'user_id');
 $valid_keys = $required_keys;
@@ -55,7 +49,7 @@ $conn = get_db_connection(DB_FETCHMODE_ASSOC);
 
 /* Existing user? */
 $user = get_user($user_id);
-/* Don't allow renewal of an existing valid membership. */
+/* Don't allow renewal if valid membership exists. */
 if( $user['membership_status'] !== 0 ) {
     if($user['expires'] === '') {
         // Life long
@@ -63,14 +57,15 @@ if( $user['membership_status'] !== 0 ) {
     }
     return_json_response(array('error' => 'Cannot renew, user with phone '.$user['id'].' has a valid membership until: '.$user['expires']), 409);
 }
+// TODO: existing membership or new membership?
 
 /* Validate optional purchase_date */
+$purchased = NULL;
 if( isset($data['purchased']) ) {
-    $purchased = clean_date($data['purchased']) ;
+    $purchased = clean_date($data['purchased']);
     if($purchased === false) {
         return_json_response(array('error' => 'Could not parse date from field purchased: '.$data['purchased']), 400);
     }
-    $data['purchased'] = $purchased;
 }
 
 /* Validate optional source */
@@ -80,8 +75,7 @@ if( isset($data['source']) && !in_array($data['source'], $valid_sources) ) {
 
 /* Add or renew membership */
 try {
-    // TODO ADD or renew membership
-    add_or_renew_membership($user, $data);
+    add_or_renew_membership($user_id, $purchased);
 } catch(InsideDatabaseException $e) {
     error_log($e->getMessage());
     return_json_response(array('error' => 'db_error', 'error_message' => $e->getMessage()), 500);

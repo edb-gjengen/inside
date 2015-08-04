@@ -260,15 +260,23 @@ function get_active_card_number($user) {
     }
     return NULL;
 }
-function add_or_renew_membership($user, $data) {
-    // TODO stub
-    throw new Exception("TODO: Not implemented!");
+function add_or_renew_membership($user_id, $purchased=NULL) {
+    assert($user_id !== NULL);
+
+    $conn = get_db_connection(DB_FETCHMODE_ORDERED);
 
     /* Membership expiry */
     /* One year from today (default) */
-    if( !isset($data['purchased']) ) {
-        $data['purchased'] = date_create();
+    if( $purchased == NULL ) {
+        $purchased = date_create();
     }
     /* ...or one year from specified date */
-    $expires = date_format(date_modify($data['purchased'], "+1 year"), "Y-m-d");
+    $expires = date_format(date_modify($purchased, "+1 year"), "Y-m-d");
+
+    $res = $conn->autoExecute("din_user", array('expires' => $expires), DB_AUTOQUERY_UPDATE, "id=$user_id");
+
+    if( DB::isError($res) ) {
+        new InsideDatabaseException($res->getMessage().". DEBUG: ".$res->getDebugInfo());
+    }
+
 }

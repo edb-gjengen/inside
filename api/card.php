@@ -36,14 +36,14 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     /* Validate action */
-    $valid_actions = array('new_card_no_user', 'update_card', 'renewal');
+    $valid_actions = array('new_card_membership', 'update_card', 'add_or_renew');
     if( !isset($data['action']) || !in_array($data['action'], $valid_actions) ) {
         return_json_response(array('error' => "Missing param 'action' or action not in ".implode(", ", $valid_actions).'.'), 400);
 
     }
 
     /* New membership, with only card number and phone number tuple */
-    if($data['action'] === 'new_card_no_user') {
+    if($data['action'] === 'new_card_membership') {
         $phone_number = clean_phonenumber($data['phone_number']);
         if(!valid_phonenumber($phone_number)) {
             return_json_response(array('error' => "Invalid phone number: '".$phone_number."'"), 400);
@@ -52,7 +52,10 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
         if($card['registered'] !== '') {
             return_json_response(array('error' => 'Card number is in use and belongs to phone number: '.$card['owner_phone_number'].'.'));
         }
-        /* TODO Check if user with phone number exists, if so, then bail */
+        /* If user with phone number exists, then bail */
+        if( !getUseridFromPhone($phone_number) ) {
+            return_json_response(array('error' => 'User with phone number: '.$phone_number.' already exists.'));
+        }
 
         update_card_with_phone_number($card_number, $phone_number);
 
@@ -98,7 +101,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
 else {
     /* Validate params */
     if( !isset($_GET['card_number']) ) {
-        return_json_response(array('error' => "Missing param card_number: ".var_export($_POST, true)), 400);
+        return_json_response(array('error' => "Missing param card_number."), 400);
     }
     $card_number = $_GET['card_number'];
 
