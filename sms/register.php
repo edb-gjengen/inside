@@ -85,7 +85,7 @@ if( isset($_POST['submit']) ) {
     <em class="subtitle">på Det Norske Studentersamfund</em>
     <header class="about">
         <p>Hei, for at medlemskapet du har kjøpt på SMS eller på Chateau Neuf skal være gyldig, så <strong>må</strong> du registerere deg.</p>
-        <p class="imperative">Gå videre med registreringen ved å angi <em>telefonnummer, aktiveringskode, fornavn</em> og <em>epost</em>.</p>
+        <p class="imperative">Gå videre med registreringen ved å angi <em>telefonnummer, kortnummber/kode, fornavn</em> og <em>epost</em>.</p>
     </header>
     <section class="register-sms">
         <?php if(strlen($validation_errors) > 0 ) {
@@ -100,7 +100,7 @@ if( isset($_POST['submit']) ) {
                 <label for="id_phone">Telefonnummer:</label><input id="id_phone" type="tel" name="phone" placeholder="Telefonnummer" value="<?php echo $phone; ?>"/>
             </div>
             <div class="form-row">
-                <label for="id_activation_code">Kortnummer/kode:</label><input id="id_activation_code" type="text" name="activation_code" placeholder="Aktiveringskode" value="<?php echo $activation_code; ?>"/>
+                <label for="id_activation_code">Kortnummer/kode:</label><input id="id_activation_code" type="text" name="activation_code" placeholder="Kortnummer/Kode" value="<?php echo $activation_code; ?>"/>
             </div>
             <div class="form-row">
                 <label for="id_firstname">Fornavn:</label><input id="id_firstname" type="text" name="firstname" placeholder="Fornavn" value="<?php echo $firstname; ?>"/>

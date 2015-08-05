@@ -546,7 +546,8 @@ function validate_activation_form($data) {
     if( strlen($data['street']) == 0) {
         $data['street'] = '-';
     }
-    if( !is_numeric($data['zipcode']) ) {
+    // zip code (optional)
+    if( strlen($data['zipcode']) > 0 && !is_numeric($data['zipcode']) ) {
         throw new ValidationException("Ugyldig postnummer, må være et tall");
     }
 
