@@ -38,7 +38,7 @@ class App_Mapper_UserMapper extends App_Mapper_Mapper {
     //$this->deleteStmt = self::$PDO->prepare(
     //  "DELETE FROM din_user WHERE id=?");
     $this->findByLoginStmt = self::$PDO->prepare(
-      "SELECT * FROM din_user WHERE username=? AND ( password=PASSWORD(?) or password=OLD_PASSWORD(?) )");
+      "SELECT * FROM din_user WHERE username=? AND password=PASSWORD(?)");
   }
   
   protected function doCreateObject(array $array) {

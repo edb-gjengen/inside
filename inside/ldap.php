@@ -115,9 +115,8 @@ function legacy_get_user_from_mail($mail) {
 function legacy_authenticate($username, $password) {
     $conn = db_connect();
     /* query db with form data (password, username) */
-    $sql = sprintf("SELECT id FROM din_user WHERE username = %s AND (password = PASSWORD(%s) or password = OLD_PASSWORD(%s))",
+    $sql = sprintf("SELECT id FROM din_user WHERE username = %s AND password = PASSWORD(%s)",
         $conn->quoteSmart($username),
-        $conn->quoteSmart($password),
         $conn->quoteSmart($password));
 
     $result = $conn->query($sql);
