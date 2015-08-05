@@ -82,7 +82,7 @@ if( isset($_POST['submit']) ) {
 <?php include("../snapporder/header.php"); ?>
 <div class="container">
     <h1 class="title">Registrering av medlemskap kjøpt på SMS eller på Chateau Neuf</h1>
-    <em class="subtitle">på Det Norske Studentersamfund</em>
+    <em class="subtitle">i Det Norske Studentersamfund</em>
     <header class="about">
         <p>Hei, for at medlemskapet du har kjøpt på SMS eller på Chateau Neuf skal være gyldig, så <strong>må</strong> du registerere deg.</p>
         <p class="imperative">Gå videre med registreringen ved å angi <em>telefonnummer, kortnummber/kode, fornavn</em> og <em>epost</em>.</p>

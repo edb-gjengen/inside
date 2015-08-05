@@ -99,7 +99,7 @@ if( isset($_POST['submit']) ) {
 <?php include("header.php"); ?>
 <div class="container">
     <h1 class="title">Aktiver medlemskapet</h1>
-    <em class="subtitle">på Det Norske Studentersamfund</em>
+    <em class="subtitle">i Det Norske Studentersamfund</em>
     <header class="about">
         <p>Hei <strong><?php echo $user['firstname']." ".$user['lastname']; ?></strong>, du er veldig nære å kunne:</p>
         <ul class="incentives">
