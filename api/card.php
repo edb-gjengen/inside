@@ -63,7 +63,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
         return_json_response(array('user'=> NULL, 'card' => get_card($card_number)));
 
     }
-    else if($data['action'] === 'update_card') {
+    else if( in_array($data['action'], array('update_card', 'add_or_renew')) ) {
         /* Existing user */
         if( !is_numeric($data['user_id']) ) {
             return_json_response(array('error' => "Value user_id must be numeric: '".$data['user_id']."'"), 400);

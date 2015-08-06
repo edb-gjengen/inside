@@ -44,11 +44,18 @@ foreach($data as $key => $value) {
 if( $data['apikey'] !== USER_API_KEY_KASSA ) {
     return_json_response(array('error' => "Invalid apikey: '".$data['apikey']."'."), 400);
 }
+/* Validate User id */
+if(strlen($data['user_id']) == 0) {
+    return_json_response(array('error' => "Param user_id can not be empty: '".var_export($data['user_id'], true)."'."), 400);
+}
+if( !is_numeric($data['user_id']) ) {
+    return_json_response(array('error' => "Param user_id must be a number: '".$data['user_id']."'."), 400);
+}
 
 $conn = get_db_connection(DB_FETCHMODE_ASSOC);
 
 /* Existing user? */
-$user = get_user($user_id);
+$user = get_user($data['user_id']);
 /* Don't allow renewal if valid membership exists. */
 if( $user['membership_status'] !== 0 ) {
     if($user['expires'] === '') {
@@ -75,7 +82,7 @@ if( isset($data['source']) && !in_array($data['source'], $valid_sources) ) {
 
 /* Add or renew membership */
 try {
-    add_or_renew_membership($user_id, $purchased);
+    add_or_renew_membership($data['user_id'], $purchased);
 } catch(InsideDatabaseException $e) {
     error_log($e->getMessage());
     return_json_response(array('error' => 'db_error', 'error_message' => $e->getMessage()), 500);
@@ -84,7 +91,7 @@ try {
 /* Get and format user */
 $user = NULL;
 try {
-    $user = get_user($user_id);
+    $user = get_user($data['user_id']);
 } catch(InsideDatabaseException $e) {
     error_log($e->getMessage());
     return_json_response(array('error' => 'db_error', 'error_message' => $e->getMessage()), 500);
