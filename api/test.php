@@ -5,13 +5,13 @@ require_once("../includes/DB.php");
 define("API_URL", 'http://inside.dev');
 
 /* cardnumber.php */
-function test_post_cardnumber() {
+function test_post_card() {
     $data = json_encode(array(
         'user_id' => '1',
         'card_number' => '123456789'
     ));
 
-    $ch = curl_init(API_URL.'/api/cardnumber.php?apikey='.USER_API_KEY_KASSA);
+    $ch = curl_init(API_URL.'/api/card.php?apikey='.USER_API_KEY_KASSA);
     curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
     curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -27,4 +27,4 @@ function test_post_cardnumber() {
     curl_close ($ch);
 }
 
-test_post_cardnumber();
+test_post_card();
