@@ -1,6 +1,7 @@
 <?php
+set_include_path("../includes/");
+require_once("../inside/functions.php");
 require_once("api_functions.php");
-require_once("../includes/DB.php");
 
 
 header('Access-Control-Allow-Origin: *', true); // Come fetch!
@@ -50,11 +51,12 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
         $card = get_card($card_number);
         if($card['registered'] !== '') {
-            return_json_response(array('error' => 'Card number is in use and belongs to phone number: '.$card['owner_phone_number'].'.'));
+            return_json_response(array('error' => 'Card number is in use and belongs to phone number: '.$card['owner_phone_number'].'.'), 400);
         }
         /* If user with phone number exists, then bail */
-        if( !getUseridFromPhone($phone_number) ) {
-            return_json_response(array('error' => 'User with phone number: '.$phone_number.' already exists.'));
+        $user_id = getUseridFromPhone($phone_number);
+        if( $user_id !== false ) {
+            return_json_response(array('error' => 'User with phone number: '.$phone_number.' already exists: '.$user_id.'.'), 400);
         }
 
         update_card_with_phone_number($card_number, $phone_number);
@@ -96,7 +98,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
         return_json_response(array('user' => get_user_data($data['user_id'])));
     }
 
-    return_json_response(array('error' => 'Unknown action, gave up.'));
+    return_json_response(array('error' => 'Unknown action, gave up.'), 400);
 }
 else {
     /* Validate params */
