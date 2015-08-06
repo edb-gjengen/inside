@@ -64,7 +64,7 @@ if( $user['membership_status'] !== 0 ) {
     }
     return_json_response(array('error' => 'Cannot renew, user with phone '.$user['id'].' has a valid membership until: '.$user['expires']), 409);
 }
-// TODO: existing membership or new membership?
+$first_user_membership = $user['expires'] === '0000-00-00';
 
 /* Validate optional purchase_date */
 $purchased = NULL;
@@ -97,7 +97,7 @@ try {
     return_json_response(array('error' => 'db_error', 'error_message' => $e->getMessage()), 500);
 }
 
-// TODO: send new membership or renewal email
+send_membership_confirmation_mail($user, $first_user_membership);
 
 /* Return encrypted user object */
 return_json_response($user);
