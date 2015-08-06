@@ -101,7 +101,7 @@ require_once "WeekPrograms.php";
 
 //Errors
 if (isAdmin()){
-  error_reporting(E_ALL & ~E_STRICT);
+  error_reporting(E_ALL & ~E_STRICT & ~E_DEPRECATED);
 }else {
   error_reporting(0);
 }
