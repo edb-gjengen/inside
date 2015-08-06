@@ -569,7 +569,7 @@ function validate_sms_form($data) {
 	// lookup code and phonenumber tuple to validate code and get purchase date
     list($purchased, $source) = get_purchase_date_and_source($data['phone'], $data['activation_code']);
     if( $purchased === false ) {
-        throw new ValidationException("Ugyldig kortnummer/kode ".$data['activation_code']);
+        throw new ValidationException("Ugyldig kortnummer/kode ".$data['activation_code']." eller kombinasjon med telefonnummer ".$data['phone'].".");
     }
     $data['purchased'] = clean_timestamp($purchased);
     $data['source'] = $source;
