@@ -70,6 +70,9 @@ if( !function_exists('valid_phonenumber') ) {
 }
 
 function _get_cards($value) {
+    if($value === "") {
+        return array();
+    }
     $u_cs = array();
     $u_cards = explode(",", $value);
     foreach ($u_cards as $c) {
@@ -134,9 +137,6 @@ function get_user_data($ids) {
                 $result[$key] = $u_gs;
             }
             elseif($key == "cards") {
-                if($value === "") {
-                    continue; // no cards
-                }
                 $result[$key] = _get_cards($value);
             }
         }
@@ -252,8 +252,8 @@ function get_card_owner_phone_number($card_number) {
     return $res[0][0];
 }
 
-function get_active_card_number($user) {
-    foreach($user['cards'] as $card) {
+function get_active_card_number($cards) {
+    foreach($cards as $card) {
         if($card['is_active'] == "1") {
             return $card['card_number'];
         }

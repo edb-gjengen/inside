@@ -76,7 +76,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
             return_json_response(array('error' => "User with user_id '".$data['user_id']."' does not exist."), 400);
         }
         $user = $user_data[0];
-        $active_card_number = get_active_card_number($user);
+        $active_card_number = get_active_card_number($user['cards']);
 
         /* If card number is attached to specified user, bail */
         if($active_card_number && $active_card_number === $data['card_number']) {
