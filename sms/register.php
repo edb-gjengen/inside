@@ -25,8 +25,11 @@ if(DB :: isError($conn)) {
 $conn->setFetchMode(DB_FETCHMODE_ASSOC);
 
 /* Logged into inside? */
-$logged_in_user_id = $_SESSION['valid-user'];
+$logged_in_user_id = NULL;
 $user = NULL;
+if(array_key_exists('valid-user', $_SESSION) {
+    $logged_in_user_id = $_SESSION['valid-user'];
+}
 if($logged_in_user_id !== NULL) {
     try {
         $user = get_user($logged_in_user_id);
