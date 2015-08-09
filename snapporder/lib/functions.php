@@ -24,7 +24,7 @@ if( !function_exists('hash_ldap_password') ) {
 function update_card_with_user($phone, $activation_code, $user_id) {
     global $conn;
 
-    $sql = "UPDATE din_card SET user_id=$user_id,owner_phone_number=NULL WHERE owner_phone_number=$phone AND card_number=$activation_code";
+    $sql = "UPDATE din_card SET user_id=$user_id,owner_phone_number=NULL WHERE owner_phone_number='$phone' AND card_number=$activation_code";
     $res = $conn->query($sql);
     if( DB::isError($res) ) {
         throw new InsideDatabaseException($res->getMessage().". DEBUG: ".$res->getDebugInfo());
@@ -105,6 +105,22 @@ function add_user($data, $source) {
     return $user_id;
 }
 
+function __get_cards($value) {
+    if($value === "") {
+        return array();
+    }
+    $u_cs = array();
+    $u_cards = explode(",", $value);
+    foreach ($u_cards as $c) {
+        list($card_number, $card_is_active) = explode(";", $c);
+        $u_cs[] = array(
+            'card_number' => $card_number,
+            'is_active' => $card_is_active
+        );
+    }
+    return $u_cs;
+}
+
 /* Get user object with group ids and membership status */
 function get_user($user_id) {
     global $conn;
@@ -115,10 +131,15 @@ function get_user($user_id) {
      *  - a date >= NOW(): Valid membership
      *  - NULL: Lifelong membership
      */
-    $cols = array('id', 'firstname', 'lastname', 'email', 'expires', 'cardno', 'registration_status', 'birthdate', 'membership_trial');
+    $cols = array('users.id', 'firstname', 'lastname', 'email', 'expires', 'registration_status', 'birthdate', 'membership_trial', 'up.number');
+    $sql_cards = "GROUP_CONCAT(DISTINCT c.card_number,';',c.is_active SEPARATOR ',') AS cards";
     $sql_group_ids = "GROUP_CONCAT(group_id) AS group_ids";
     $sql_is_member = "expires > NOW() OR expires IS NULL AS is_member";
-    $sql = "SELECT ".implode($cols, ",").",$sql_group_ids,$sql_is_member FROM din_user AS users LEFT JOIN din_usergrouprelationship AS ug ON users.id=ug.user_id WHERE users.id=$user_id GROUP BY users.id";
+    $sql = "SELECT ".implode($cols, ",").",$sql_group_ids,$sql_is_member,$sql_cards FROM din_user AS users
+    LEFT JOIN din_usergrouprelationship AS ug ON users.id=ug.user_id
+    LEFT JOIN din_card AS c ON c.user_id=users.id
+    LEFT JOIN din_userphonenumber AS up ON up.user_id=users.id
+    WHERE users.id=$user_id GROUP BY users.id";
     $res = $conn->query($sql);
     if( DB::isError($res) ) {
         throw new InsideDatabaseException($res->getMessage().". DEBUG: ".$res->getDebugInfo());
@@ -145,6 +166,10 @@ function get_user($user_id) {
             $user['membership_status'] = 1;
         }
     }
+    /* Cards */
+    $user['cards'] = __get_cards($user['cards']);
+
+
     /* Clean up user object */
     unset($user['is_member']);
     unset($user['group_ids']);
@@ -555,14 +580,25 @@ function validate_activation_form($data) {
 }
 
 function validate_sms_form($data) {
-	// phonenumber
+	// phonenumber and user
 	$phone = clean_phonenumber($data['phone']);
 	if( !valid_phonenumber($phone) ) {
         throw new ValidationException("Ugyldig telefonnummer: ".$data['phone']);
 	}
-	if( getUseridFromPhone($phone) !== false ) {
-        throw new ValidationException("Telefonnummeret ".$data['phone']." er allerede registrert i bruk.");
+    $logged_in_user_id = isset($data['user_id']) && $data['user_id'] !== "" && is_numeric($data['user_id']);
+    if( $logged_in_user_id && get_user($data['user_id']) === false ) {
+        throw new ValidationException("Ugyldig bruker angitt: ".$data['user_id']);
+    }
+    $user_id_by_phone = getUseridFromPhone($phone);
+	if( $user_id_by_phone !== false && $logged_in_user_id && $data['user_id'] !== $user_id_by_phone ) {
+        $login_msg = "Hvis nummeret tilhører deg, <a href=\"https://inside.studentersamfundet.no\">logg inn her</a> først, før du returnerer til og fullfører skjemaet.";
+        throw new ValidationException("Telefonnummeret ".$data['phone']." er allerede registrert i bruk. $login_msg");
 	}
+    if( $user_id_by_phone !== false && !$logged_in_user_id ) {
+        $login_msg = "Hvis nummeret tilhører deg, <a href=\"https://inside.studentersamfundet.no\">logg inn her</a> først, før du returnerer til og fullfører skjemaet.";
+        throw new ValidationException("Telefonnummeret ".$data['phone']." er allerede registrert i bruk. $login_msg");
+    }
+    /* TODO: dont allow card activation twice and user id with existing membership and card */
 
     $data['phone'] = $phone;
 
@@ -573,6 +609,11 @@ function validate_sms_form($data) {
     }
     $data['purchased'] = clean_timestamp($purchased);
     $data['source'] = $source;
+
+    if($logged_in_user_id) {
+        /* Existing user */
+        return $data;
+    }
 
     /* firstname and lastname */
     if( strlen($data['firstname']) < 2 ) {
@@ -695,6 +736,25 @@ function get_purchase_date_and_source($phone, $activation_code) {
     }
 
     return array($timestamp, $source);
+}
+function update_membership_expiry($user_id, $purchased=NULL) {
+    global $conn;
+    assert($user_id !== NULL);
+
+
+    /* Membership expiry */
+    /* One year from today (default) */
+    if( $purchased == NULL ) {
+        $purchased = date_create();
+    }
+    /* ...or one year from specified date */
+    $expires = date_format(date_modify($purchased, "+1 year"), "Y-m-d");
+
+    $res = $conn->autoExecute("din_user", array('expires' => $expires), DB_AUTOQUERY_UPDATE, "id=$user_id");
+
+    if( DB::isError($res) ) {
+        new InsideDatabaseException($res->getMessage().". DEBUG: ".$res->getDebugInfo());
+    }
 }
 
 /* The purpose of this email is:

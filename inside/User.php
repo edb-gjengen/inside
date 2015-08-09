@@ -123,7 +123,7 @@ class User {
                 //Retrieve data from backend for display or other actions
                 if ($data = $this->_retrieveData()) {
                     $this->username = stripcslashes($data['ldap_username']);
-                    $this->cardno = $data['cardno'];
+                    $this->cardno = $data['card_number'];  // Note: NOT cardno (legacy)
                     $this->expires = $data['expires'];
                     $this->division_id_request = $data['division_id_request'];
                     $this->lastSticker = $data['lastSticker'];
@@ -363,7 +363,10 @@ class User {
   }
 
   public function _retrieveData() {
-    $sql = "SELECT u.*, up.number AS phonenumber " . "FROM din_user u LEFT JOIN din_userphonenumber up " . "ON u.id = up.user_id " . "WHERE u.id = $this->id";
+    $sql = "SELECT u.*, up.number AS phonenumber,c.card_number FROM din_user AS u ".
+           "LEFT JOIN din_userphonenumber AS up ON u.id = up.user_id ".
+           "LEFT JOIN din_card AS c ON u.id = c.user_id AND c.is_active=1 ".
+           "WHERE u.id = $this->id";
     $result = & $this->conn->query($sql);
     if (DB :: isError($result) != true) {
       if ($row = & $result->fetchRow(DB_FETCHMODE_ASSOC)) {

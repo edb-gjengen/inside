@@ -98,13 +98,16 @@ function getCurrentUser() {
 
 function getUseridFromCardno($cardno) {
 	$conn = db_connect();
-	$sql = sprintf("SELECT id FROM din_user u " . "WHERE cardno = %s ", $cardno);
+	$sql = sprintf("SELECT user_id FROM din_card WHERE card_number=%s", $cardno);
 	$result = & $conn->query($sql);
 	if ($result->numRows() == 0) {
 		return false;
 	}
 	else {
 		$row = & $result->fetchRow(DB_FETCHMODE_ORDERED);
+        if( $row[0] == NULL) {
+            return false;
+        }
 		return $row[0];
 	}
 }
@@ -1073,11 +1076,11 @@ function displayLogin() {
 <a href="https://brukerinfo.neuf.no/accounts/password/reset">Glemt passord eller brukernavn?</a>
 </p>
 <h3>Ny bruker?</h3>
-<p>Hvis du aldri har vært medlem før, kan du <a href="index.php?page=register-user">registrere deg</a>.</p>
+<p>Hvis du aldri har vært medlem før kan du lese om hvordan du <a href="https://studentersamfundet.no/bli-medlem/">kjøper medlemskap her</a>.<br><em>Du kan også <a href="index.php?page=register-user">registrere en bruker</a></em>.</p>
   
 <h3>Har du spørsmål om medlemskapet ditt?</h3>
 <p>
-    Send epost til <a href="mailto:medlemskap@studentersamfundet.no">medlemskap@studentersamfundet.no</a>. Oppgi medlemskortnummer og en kort beskrivelse av hva som ikke virker, så skal vi hjelpe deg så fort vi kan.
+    Send epost til <a href="mailto:medlemskap@studentersamfundet.no">medlemskap@studentersamfundet.no</a>. Oppgi telefonnummer og en kort beskrivelse av hva som ikke virker, så skal vi hjelpe deg så fort vi kan.
 </p>
 <p>
     Andre spørsmål? Kontakt oss på <a href="mailto:support@studentersamfundet.no">support@studentersamfundet.no</a>.

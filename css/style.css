@@ -431,15 +431,17 @@ h1 {
 }
 
 h2,h3,h4,h5,h6 {
-    font-family: Georgia, serif;
-    font-style: italic;
+    font-family: Helvetica,Arial,sans-serif;
+    font-weight: bold;
+    /*font-style: italic;*/
 }
 
 h1,h2,h3,h4,h5,h6,
 .entry-title a {
     clear:none;
     /*color:#b8e2ed;*/
-    color:#9dcbdb;
+    /*color:#9dcbdb;*/
+    color: #ee812e;
     margin-bottom:0.5em;
     text-decoration:none;
     line-height:1;

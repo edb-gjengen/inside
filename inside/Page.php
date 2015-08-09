@@ -627,24 +627,16 @@ class Page {
     ?>
       <?php if (membershipExpired(getCurrentUser())){?>
       <h3>Medlemskapet ditt er utgått!</h3>
-      <p>Om du har kjøpt medlemskap i en av barene på huset må du <a href="index.php?page=renew-membership">aktivere medlemskapet ditt med aktiveringsnummer og aktiveringskode</a>!</p>
-      <?php if (checkAuth("view-register-membership-payex")) ?><p>Du kan også <a href="index.php?page=register-membership">kjøpe medlemskap med VISA-kort</a>.</p> <?php ; ?>
+      <p>Om du har kjøpt medlemskap i en av barene på Chateau Neuf må du <a href="/sms/register.php">aktivere medlemskapet ditt med kortnummer og telefonnummer</a>.</p>
 <?php } ?>
     <div class="often-used-links">
-        <h3>Hva vil du gjøre?</h3>
+      <h3>Hva vil du gjøre?</h3>
       <div class="list-group">
-        <a class="list-item" href="index.php?page=display-webshop">Besøke nettbutikken</a>
-      <?php
-      if (checkAuth('view-display-division-requests')){ ?>
-        <a class="list-item" href="index.php?page=display-division-requests">Godkjenn aktivforespørseler</a>
-      <?php } ?>
-        <a class="list-item" href="index.php?page=display-jobs">Se på ledige stillinger</a>
-          (<?php print getUnreadCount('job', 'expires'); ?> nye ikke utgåtte)
-        <!--<li><a href="index.php?page=display-events-calendar">Se på aktivitetskalenderen</a>
-          (<?php print getUnreadCount('event', 'time'); ?> nye kommende)</li>-->
-        <a class="list-item" href="index.php?page=display-documents">Lese dokumenter</a>
-        <a class="list-item" href="index.php?page=display-divisions">Finne kontaktinfo til en forening</a>
-        <a class="list-item" href="index.php?page=display-current-user">Oppdatere min brukerinformasjon</a>
+        <ul>
+          <li><a class="list-item" href="index.php?page=display-documents">Lese dokumenter</a></li>
+          <li><a class="list-item" href="index.php?page=display-divisions">Finne kontaktinfo til en forening</a></li>
+          <li><a class="list-item" href="index.php?page=display-current-user">Oppdatere min brukerinformasjon</a></li>
+        </ul>
       </div>
     </div>
 <?php }
@@ -2800,103 +2792,70 @@ Om dere lager en facebook side til arrangementet, ikke glem &aring; putte inn le
   public
   function _registerMembership(){
     ?>
-    <h3>Har du allerede kjøpt midlertidig medlemskap i en av barene på Studentersamfundet?</h3>
-		<p>Du skal isåfall ha mottatt et aktiveringsnummer og aktiveringspassord.</p>
-
+    <h3>Har du allerede kjøpt medlemskap og fått medlemskort i en av barene på Chateau Neuf?</h3>
+    <p>Bruk ditt kortnummeret og telefonnummer til å <a href="https://inside.studentersamfundet.no/sms/register.php">registere medlemskapet på din bruker her</a>.</p>
+    <h3>Ønsker du å kjøpe nytt medlemskap eller fornye ditt medlemskap?</h3>
+    <p>Les mer om hvordan du kan <a href="https://studentersamfundet.no/bli-medlem/">kjøpe nytt medlemskap her</a>.</p>
     <?php
-    $title   = "registrér medlemskap";
+    //$title   = "Registrer medlemskap";
 
-    $enctype = NULL;
-    $method  = "post";
-    $action  = "index.php?action=register-membership";
-    $fields  = Array();
+    //$enctype = NULL;
+    //$method  = "post";
+    //$action  = "index.php?action=register-membership";
+    //$fields  = Array();
 
-    $fields[] = Array("label" => "id", "type" => "hidden",
-                      "attributes" => Array("name" => "userid", "size" => 12, "maxlength" => 10,
-                                            "value" => getCurrentUser()));
-    $fields[] = Array("label" => "aktiveringsnummer", "type" => "text",
-                      "attributes" => Array("name" => "cardno", "size" => 12, "maxlength" => 10));
-    $fields[] = Array("label" => "aktiveringspassord", "type" => "text",
-                      "attributes" => Array("name" => "verificationCode", "size" => 12, "maxlength" => 20));
-    $form = new Form($title, $enctype, $method, $action, $fields);
-    $form->display();
+    //$fields[] = Array("label" => "id", "type" => "hidden",
+    //                  "attributes" => Array("name" => "userid", "size" => 12, "maxlength" => 10,
+    //                                        "value" => getCurrentUser()));
+    //$fields[] = Array("label" => "Kortnummer/Kode", "type" => "text",
+    //                  "attributes" => Array("name" => "card_number", "size" => 12, "maxlength" => 10));
+    //$form = new Form($title, $enctype, $method, $action, $fields);
+    //$form->display();
     
     
-    if(time() < 1315612799):
-    ?>
-    <style type="text/css">
-    #lol
-    {
-    	margin:10px 0px;
-    }
-    
-    	#lol:after
-    	{
-    		content:".";
-    		clear:both;
-    		height:0px;
-    		display:block;
-    		visibility:hidden;
-    	}
-    	
-    	#lol .half
-    	{
-    		width:45%;
-    		float:left;
-    		
-    	}
-    </style>
-   <div id="lol">
-   <div class="half">
-    <h3>Ny i DNS?</h3>
-   
-    <p>Har du lyst til å være med å vår egen lille fadderhelg 9.-11. september? Bli kjent med Det Norske Studentersamfund og vi som holder til der! Se <a href="http://studentersamfundet.no/nyidns.php">ny i dns!</a></p>
- </div>
- <div class="half">
- 	<h3>Bli aktiv!</h3>
- 	<p>Syns du noe av det vi holder på med er spennende? Lyst til å booke band eller lære å mikse drinker? Bli med oss som aktiv i en av de mange foreningene på huset, du får garantert minner for livet og nye venner! Se <a href="http://studentersamfundet.no/bliaktiv.php">bli aktiv!</a></p>
- 
- </div>
- </div>
- 
- <?php endif;
-    if (checkAuth("view-register-membership-payex")) {
+   /* if (checkAuth("view-register-membership-payex")) {
     	?>
     	<br />
     	<h3>Vil du betale med VISA-kort?</h3>
 			<?php
 			$product = new Product(1);
 			$product->display();
-    }
+    }*/
   }
 
   public
   function _renewMembership(){
-    $title   = "aktiver medlemskap";
+    ?>
+    <h3>Har du allerede kjøpt medlemskap og fått medlemskort i en av barene på Chateau Neuf?</h3>
+    <p>Bruk ditt kortnummeret og telefonnummer til å <a href="https://inside.studentersamfundet.no/sms/register.php">registere medlemskapet på din bruker her</a>.</p>
+    <h3>Ønsker du å kjøpe nytt medlemskap eller fornye ditt medlemskap?</h3>
+    <p>Les mer om hvordan du kan <a href="https://studentersamfundet.no/bli-medlem/">kjøpe nytt medlemskap her</a>.</p>
+    <?php
+    //$title   = "aktiver medlemskap";
 
-    $enctype = NULL;
-    $method  = "post";
-    $action  = "index.php?action=renew-membership";
-    $fields  = Array();
+    //$enctype = NULL;
+    //$method  = "post";
+    //$action  = "index.php?action=renew-membership";
+    //$fields  = Array();
 
-    $fields[] = Array("label" => "id", "type" => "hidden",
-                      "attributes" => Array("name" => "userid", "size" => 12, "maxlength" => 10,
-                                            "value" => getCurrentUser()));
-    $fields[] = Array("label" => "aktiveringsnummer", "type" => "text",
-                      "attributes" => Array("name" => "cardno", "size" => 12, "maxlength" => 10,
-                                            "comment" => "Bruk aktiveringsnummeret på arket du fikk da du kjøpte medlemskapet ditt."));
-    $fields[] = Array("label" => "aktiveringskode", "type" => "text",
-                      "attributes" => Array("name" => "verificationCode", "size" => 12, "maxlength" => 20));
-    $form = new Form($title, $enctype, $method, $action, $fields);
-    $form->display();
-    if (checkAuth("view-register-membership-payex")) {
+    //$fields[] = Array("label" => "id", "type" => "hidden",
+    //                  "attributes" => Array("name" => "userid", "size" => 12, "maxlength" => 10,
+    //                                        "value" => getCurrentUser()));
+    //$fields[] = Array("label" => "aktiveringsnummer", "type" => "text",
+    //                  "attributes" => Array("name" => "cardno", "size" => 12, "maxlength" => 10,
+    //                                        "comment" => "Bruk aktiveringsnummeret på arket du fikk da du kjøpte medlemskapet ditt."));
+    //$fields[] = Array("label" => "aktiveringskode", "type" => "text",
+    //                  "attributes" => Array("name" => "verificationCode", "size" => 12, "maxlength" => 20));
+    //$form = new Form($title, $enctype, $method, $action, $fields);
+    //$form->display();
+    /*if (checkAuth("view-register-membership-payex")) {
     	?>
     	<br />
     	<h3>Vil du betale med VISA-kort?</h3>
 			<?php
 			$product = new Product(1);
 			$product->display();
-    }
+    }*/
 
   }
 

@@ -1,5 +1,6 @@
 <?php
-/* SMS purchase activation form
+session_start();
+/* SMS/card purchase activation form
  *
  */
 set_include_path("../includes/");
@@ -23,13 +24,26 @@ if(DB :: isError($conn)) {
 }
 $conn->setFetchMode(DB_FETCHMODE_ASSOC);
 
-// empty default form values
+/* Logged into inside? */
+$logged_in_user_id = $_SESSION['valid-user'];
+$user = NULL;
+if($logged_in_user_id !== NULL) {
+    try {
+        $user = get_user($logged_in_user_id);
+    } catch(InsideDatabaseException $e) {
+        echo $e->getMessage();
+        error_log($e->getMessage());
+        die();
+    }
+}
 
-$firstname = "";
-$lastname = "";
-$email = "";
+// default form values: empty or existing user
+
+$firstname = $user !== NULL ? $user['firstname'] : "";
+$lastname = $user !== NULL ? $user['lastname'] : "";
+$email = $user !== NULL ? $user['email'] : "";
 $activation_code = "";
-$phone = "";
+$phone = $user !== NULL ? $user['number'] : "";
 $validation_errors = "";
 
 if( isset($_GET['n']) ) {
@@ -49,7 +63,7 @@ if( isset($_POST['submit']) ) {
     } catch(ValidationException $e) {
         $validation_errors = $e->getMessage();
 
-        /* Refill form values*/
+        /* Refill form values */
         $phone = $_POST['phone'];
         $activation_code = $_POST['activation_code'];
         $firstname = $_POST['firstname'];
@@ -59,6 +73,15 @@ if( isset($_POST['submit']) ) {
     if($data !== NULL) {
         try {
             // persist
+            if($logged_in_user_id !== NULL) {
+                /* update expiry, log event, add cardnumber */
+                update_membership_expiry($data['user_id'], $data['purchased']);
+                update_card_with_user($data['phone'], $data['activation_code'], $data['user_id']);
+                log_userupdate($data['user_id'], "Kortnummer ".$data['activation_code']." knyttet til bruker.");
+                redirect("/snapporder/activate_confirmed.php");
+                die();
+            }
+
             $user_id = save_sms_form($data);
 			$user = get_user($user_id);
 
@@ -94,6 +117,7 @@ if( isset($_POST['submit']) ) {
             echo "<span class=\"error hidden\"></span>";
         } ?>
 		<form method="post">
+            <input id="id_user_id" type="hidden" name="user_id" value="<?php echo $logged_in_user_id; ?>" />
 		<div class="activation-form">
             <!-- Profile -->
             <div class="form-row">

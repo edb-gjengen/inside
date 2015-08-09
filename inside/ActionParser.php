@@ -248,7 +248,8 @@ class ActionParser {
           break;
 
         case 'register-membership' :
-          $this->_registerMembership();
+          //$this->_registerMembership();
+          $GLOBALS['extraScriptParams']['page'] = "register-membership";
           break;
 
         case 'register-membership-payex' :
