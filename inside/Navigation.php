@@ -81,7 +81,7 @@ class Navigation {
             ?><!--<li><a href="index.php?page=register-user-ea-update">Registrer EA oppdatering</a></li>-->
 <?php }
 ?>            <?php if(checkAuth("view-display-division-requests")){
-            ?><li><a href="index.php?page=display-division-requests">Vis aktivforespørseler</a></li>
+            ?><!--<li><a href="index.php?page=display-division-requests">Vis aktivforespørseler</a></li>-->
 <?php }
 ?>            <?php if(checkAuth("view-register-usergrouprelationship")){
             ?><li><a href="index.php?page=register-usergrouprelationship">Registrér gruppemedlemskap</a></li>
@@ -135,14 +135,14 @@ class Navigation {
               <!--<li><a href="index.php?action=switch-formtype&amp;section=settings">Bytt skjemastil</a></li>
               <li><a href="index.php?action=switch-tinymce-theme&amp;section=settings">Bytt RT-editor</a></li>-->
               <li><a href="index.php?page=register-documentcategory">Dokumenttyper</a></li>
-              <li><a href="index.php?page=register-eventcategory">Aktitivitetstyper</a></li>
+              <!--<li><a href="index.php?page=register-eventcategory">Aktitivitetstyper</a></li>-->
               <!--<li><a href="index.php?page=register-jobcategory">Stillingstyper</a></li>-->
               <li><a href="index.php?page=register-product">Produkter for salg</a></li>
             </ul>
           </li>
 <?php }
 
-  if (isAdmin()) {
+  /*if (isAdmin()) {
           ?>
           <li class="menulist dropdown">
             <a href="#" id="smsSwitch" class="switch dropdown-toggle">SMS (legacy) <b class="caret"></b></a>
@@ -151,7 +151,7 @@ class Navigation {
             </ul>
           </li>
 <?php
-  }
+  }*/
 
   if(checkAuth("view-menu-webshop")){
           ?>
