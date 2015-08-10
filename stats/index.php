@@ -106,9 +106,10 @@
 </head>
 <body>
 <div class="container">
-    <h3>Salg per dag</h3>
+    <h2>Salg per dag</h2>
+    <em>Fra 1. august 2015</em>
     <div id="sales"></div>
-    <h3>Salg totalt</h3>
+    <h2>Salg totalt</h2>
     <div id="sums">
         <div>SMS: <span class="sms"></span></div>
         <div>App: <span class="app"></span></div>
