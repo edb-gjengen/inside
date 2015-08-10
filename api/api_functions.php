@@ -286,6 +286,11 @@ function add_or_renew_membership($user_id, $purchased=NULL) {
     - Link to our webpage
 */
 function send_membership_confirmation_mail($user, $first_user_membership) {
+    $expires_msg = isset($user['expires']) ? "Det varer helt til ".$user['expires'].". " : "";
+    if( !isset($user['email']) ) {
+        // No email set, bail.
+        return;
+    }
     $from_email = "Det Norske Studentersamfund <medlemskap@studentersamfundet.no>";
     $sendto = $user['email'];
     $subject = "Velkommen tilbake til Det Norske Studentersamfund";
@@ -307,7 +312,7 @@ function send_membership_confirmation_mail($user, $first_user_membership) {
     } else {
         $message .= '<h3>Medlemskapet ditt er fornyet!</h3>';
     }
-    $message .= '<p style="margin-bottom: 20px;">Det varer helt til '.$user['expires'].'. Trykk p&aring; lenken under for &aring; logge inn og se medlemskapet ditt.</p>';
+    $message .= '<p style="margin-bottom: 20px;">'.$expires_msg.'Trykk p&aring; lenken under for &aring; logge inn og se medlemskapet ditt.</p>';
     $message .= '<p style="margin-bottom: 20px;"><a href="'.$inside_url.'" style="font-family: Arial,sans-serif; color: white; font-weight: bold; font-size: 20px; padding: 0.8em 1.2em; border: none; text-decoration: none; background-color: #58AA58; display: inline-block; text-align: center; margin: 0;">Logg inn</a></p>';
     $message .= "<p>Med vennlig hilsen<br>Det Norske Studentersamfund</p>";
     $message .= "</body></html>";
