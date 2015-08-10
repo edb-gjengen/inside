@@ -15,33 +15,20 @@
     <script>
         $(document).ready(function() {
             var urls = {
-                tekstmelding: 'https://tekstmelding.neuf.no/stats/memberships/'
+                tekstmelding: 'https://tekstmelding.neuf.no/stats/memberships/',
+                snapporder: '/stats/snapporder.php'
             };
             Highcharts.setOptions({
                 credits:{
                     enabled: false
-                },
-                global: {
-                    useUTC: false
                 }
             });
 
             $.getJSON(urls.tekstmelding, function(data) {
-                var example_data = [
-                    {"data": [[1398279855000, 1]], "name": "Pale Ale"},
-                    {"data": [[1397067745000, 1]], "name": "Fat\u00f8l"},
-                    {"data": [[1427314222000, 1]], "name": "Guiness"}
-                ];
-                console.log(data);
-
                 var sms_sales = _.map(data.memberships, function(el) {
-                    var ts = moment(el.date);
-                    console.log(ts);
-                    return [ts.valueOf(), el.sales]
+                    return [moment(el.date).valueOf(), el.sales]
                 });
 
-                console.log(sms_sales);
-                console.log(sms_sales[0][0]);
                 var sales = new Highcharts.Chart({
                     chart: {
                         renderTo: 'sales',
@@ -55,7 +42,7 @@
                     },
                     yAxis: {
                         title: {
-                            text: "Kjøp"
+                            text: "Salg"
                         },
                         min: 0
                     },
@@ -69,12 +56,16 @@
                     },
                     series: [{
                         name: 'SMS-salg',
-                        data: sms_sales,
-                        //pointStart: sms_sales[0][0],
-                        //pointInterval: 24 * 3600 * 1000
+                        data: sms_sales
                     }]
                 });
-                //sales.addSeries({name:'Testings', data: sms_sales });
+
+                $.getJSON(urls.snapporder, function(data) {
+                    var snapporder_sales = _.map(data.memberships, function (el) {
+                        return [moment(el.date).valueOf(), parseInt(el.sales, 10)]
+                    });
+                    sales.addSeries({name: 'App-salg', data: snapporder_sales});
+                });
             });
         });
     </script>
