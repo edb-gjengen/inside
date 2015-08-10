@@ -119,7 +119,7 @@
     <!--<div class="credits-wrap">
         <div class="credits">Laget med <span class="love" title="kærlighed">♥</span> av <a href="http://kak.studentersamfundet.no/" title="Kommunikasjonsavdelingen">KAK</a></div>
     </div>-->
-    <div class="disclaimer"><br><br><br><em>Disse tallene kan innehold avvik fra faktiske salgtall, men de er antagelig ikke så langt unna.</em></div>
+    <div class="disclaimer"><br><br><br><em>Disse tallene kan avvike fra faktiske salgtall.</em></div>
 </div>
 
 </body>
