@@ -1,4 +1,5 @@
 <?php
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -16,67 +17,73 @@
         $(document).ready(function() {
             var urls = {
                 tekstmelding: 'https://tekstmelding.neuf.no/stats/memberships/',
-                snapporder: '/stats/snapporder.php'
+                snapporder: '/stats/snapporder.php',
+                cards: 'https://kassa.neuf.no/stats/card-sales/'
             };
             Highcharts.setOptions({
                 credits:{
                     enabled: false
                 }
             });
+            var sales = new Highcharts.Chart({
+                chart: {
+                    renderTo: 'sales'
+                },
+                title: {
+                    text: false
+                },
+                xAxis: {
+                    type: "datetime"
+                },
+                yAxis: {
+                    title: {
+                        text: "Salg"
+                    },
+                    min: 0
+                },
+
+                plotOptions: {
+                    series: {
+                        marker: {
+                            radius: 4
+                        }
+                    }
+                },
+                series: []
+            });
 
             $.getJSON(urls.tekstmelding, function(data) {
                 var sms_sales = _.map(data.memberships, function(el) {
                     return [moment(el.date).valueOf(), el.sales]
                 });
-
-                var sales = new Highcharts.Chart({
-                    chart: {
-                        renderTo: 'sales',
-                        type: 'spline'
-                    },
-                    title: {
-                        text: false
-                    },
-                    xAxis: {
-                        type: "datetime"
-                    },
-                    yAxis: {
-                        title: {
-                            text: "Salg"
-                        },
-                        min: 0
-                    },
-
-                    plotOptions: {
-                        series: {
-                            marker: {
-                                radius: 4
-                            }
-                        }
-                    },
-                    series: [{
-                        name: 'SMS-salg',
-                        data: sms_sales
-                    }]
-                });
+                sales.addSeries({name: 'SMS-salg', data: sms_sales});
 
                 $.getJSON(urls.snapporder, function(data) {
                     var snapporder_sales = _.map(data.memberships, function (el) {
                         return [moment(el.date).valueOf(), parseInt(el.sales, 10)]
                     });
                     sales.addSeries({name: 'App-salg', data: snapporder_sales});
+
+                    $.getJSON(urls.cards, function(data) {
+                        var card_sales = _.map(data.memberships, function (el) {
+                            return [moment(el.date).valueOf(), parseInt(el.sales, 10)]
+                        });
+                        sales.addSeries({name: 'Bar-salg', data: card_sales});
+                    });
+
                 });
             });
         });
     </script>
 </head>
 <body>
-<div>
+<div class="container">
     <h3>Salg totalt</h3>
     <div id="sales"></div>
     <!--<div class="credits-wrap">
         <div class="credits">Laget med <span class="love" title="kærlighed">♥</span> av <a href="http://kak.studentersamfundet.no/" title="Kommunikasjonsavdelingen">KAK</a></div>
     </div>-->
+    <div class="disclaimer">Disse tallene kan innehold avvik fra faktiske salgtall, men de er antagelig ikke så langt unna.</div>
 </div>
 
 </body>
