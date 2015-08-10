@@ -26,7 +26,7 @@ $required_keys = array('apikey', 'user_id');
 $valid_keys = $required_keys;
 $valid_keys = array_merge($valid_keys, array('purchased', 'source'));
 
-$valid_sources = array('card');
+$valid_sources = array('kassa');
 
 /* Validate supplied data */
 foreach($required_keys as $key) {
@@ -83,6 +83,12 @@ if( isset($data['source']) && !in_array($data['source'], $valid_sources) ) {
 /* Add or renew membership */
 try {
     add_or_renew_membership($data['user_id'], $purchased);
+
+    $success_message = "Medlemskap registrert via ".$data['source'].".";
+    if(!$first_user_membership) {
+        $success_message = "Medlemskap fornyet via ".$data['source'].".";
+    }
+    log_userupdate($data['user_id'], $success_message);
 } catch(InsideDatabaseException $e) {
     error_log($e->getMessage());
     return_json_response(array('error' => 'db_error', 'error_message' => $e->getMessage()), 500);

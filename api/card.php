@@ -95,6 +95,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
         /* Add card relationship OR set old relationship inactive and add new */
         update_card($data['user_id'], $data['card_number']);
 
+        log_userupdate($data['user_id'], "Kortnummer ".$data['card_number']." knyttet til bruker.");
+
         return_json_response(array('user' => get_user_data($data['user_id'])));
     }
 
