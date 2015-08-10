@@ -103,7 +103,7 @@ try {
     return_json_response(array('error' => 'db_error', 'error_message' => $e->getMessage()), 500);
 }
 
-send_membership_confirmation_mail($user, $first_user_membership);
+send_membership_confirmation_mail($user[0], $first_user_membership);
 
 /* Return encrypted user object */
 return_json_response(array('user' => $user) );
