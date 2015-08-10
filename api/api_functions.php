@@ -286,9 +286,9 @@ function add_or_renew_membership($user_id, $purchased=NULL) {
     - Link to our webpage
 */
 function send_membership_confirmation_mail($user, $first_user_membership) {
-    $from_email = "medlemskap@studentersamfundet.no";
+    $from_email = "Det Norske Studentersamfund <medlemskap@studentersamfundet.no>";
     $sendto = $user['email'];
-    $subject = "Velkommen tilbake Det Norske Studentersamfund";
+    $subject = "Velkommen tilbake til Det Norske Studentersamfund";
     if($first_user_membership) {
         $subject = "Velkommen til Det Norske Studentersamfund";
     }
@@ -302,12 +302,12 @@ function send_membership_confirmation_mail($user, $first_user_membership) {
 
     $message = '<html><body>';
     if($first_user_membership) {
-        $message .= '<h3>Gratulerer med ditt nye medlemskap i Det Norske Studentersamfund!</h3>';
+        $message .= '<h3>Gratulerer med ditt nye medlemskap!</h3>';
         $message .= '<p>Du kan lese mer om hvilke fordeler medlemskapet ditt gir p&aring; <a href="https://studentersamfundet.no/bli-medlem/">studentersamfundet.no</a>.</p>';
     } else {
-        $message .= '<h3>Medlemskapet ditt i Det Norske Studentersamfund er fornyet!</h3>';
+        $message .= '<h3>Medlemskapet ditt er fornyet!</h3>';
     }
-    $message .= '<p style="margin-bottom: 20px;">Medlemskapet varer helt til '.$user['expires'].' Trykk p&aring; lenken under for &aring; logge inn og se medlemskapet ditt.</p>';
+    $message .= '<p style="margin-bottom: 20px;">Det varer helt til '.$user['expires'].' Trykk p&aring; lenken under for &aring; logge inn og se medlemskapet ditt.</p>';
     $message .= '<p style="margin-bottom: 20px;"><a href="'.$inside_url.'" style="font-family: Arial,sans-serif; color: white; font-weight: bold; font-size: 20px; padding: 0.8em 1.2em; border: none; text-decoration: none; background-color: #58AA58; display: inline-block; text-align: center; margin: 0;">Logg inn</a></p>';
     $message .= "<p>Med vennlig hilsen<br>Det Norske Studentersamfund</p>";
     $message .= "</body></html>";
