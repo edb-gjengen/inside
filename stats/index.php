@@ -18,6 +18,7 @@
         var appSales;
         var smsSales;
         var salesChart;
+        var salesChartToday;
 
         var urls = {
             cards: 'https://kassa.neuf.no/stats/card-sales/',
@@ -107,6 +108,26 @@
                 $('.app-today').html(todayAppSales.sales);
 
                 $('.sum-today').html(todayBarSales.sales + todaySmsSales.sales + todayAppSales.sales);
+
+                salesChartToday = new Highcharts.Chart({
+                    chart: {
+                        renderTo: 'sales-chart-today',
+                        plotBackgroundColor: null,
+                        plotBorderWidth: null,
+                        plotShadow: false,
+                        type: 'pie'
+                    },
+                    title: {
+                        text: false
+                    },
+                    series: [{
+                        name: 'Salg', data: [
+                            {name: 'Bar-salg', y: todayBarSales.sales},
+                            {name: 'SMS-salg', y: todaySmsSales.sales},
+                            {name: 'App-salg', y: todayAppSales.sales}
+                        ]}
+                    ]
+                });
             });
         });
     </script>
@@ -130,6 +151,8 @@
         <div>Totalt: <span class="sum big-number"></span></div>
     </div>
     <h2>Salg idag</h2>
+    <em>Dato: <span class="today-date-wrap"></span></em>
+    <div id="sales-chart-today" style="min-width: 310px; height: 400px; max-width: 600px;"></div>
     <div id="sums">
         <div>SMS: <span class="sms-today big-number"></span></div>
         <div>App: <span class="app-today big-number"></span></div>
