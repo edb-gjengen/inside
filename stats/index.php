@@ -59,38 +59,40 @@
                 },
                 series: []
             });
-            $.getJSON(urls.tekstmelding, function(data) {
-                sms_sales = _.map(data.memberships, function(el) {
-                    return [moment(el.date).valueOf(), el.sales]
+            function getTextmeldingSales() {
+                return $.getJSON(urls.tekstmelding, function(data) {
+                    sms_sales = _.map(data.memberships, function (el) {
+                        return [moment.utc(el.date).valueOf(), parseInt(el.sales, 10)]
+                    });
+                    sales.addSeries({name: 'SMS-salg', data: sms_sales});
                 });
-                sales.addSeries({name: 'SMS-salg', data: sms_sales});
-
-                $.getJSON(urls.snapporder, function(data) {
+            }
+            function getAppSales() {
+                return $.getJSON(urls.snapporder, function (data) {
                     snapporder_sales = _.map(data.memberships, function (el) {
-                        return [moment(el.date).valueOf(), parseInt(el.sales, 10)]
+                        return [moment.utc(el.date).valueOf(), parseInt(el.sales, 10)]
                     });
                     sales.addSeries({name: 'App-salg', data: snapporder_sales});
-
-                    $.getJSON(urls.cards, function(data) {
-                        card_sales = _.map(data.memberships, function (el) {
-                            return [moment(el.date).valueOf(), parseInt(el.sales, 10)]
-                        });
-                        sales.addSeries({name: 'Bar-salg', data: card_sales});
-
-                        // THEN!
-
-                        /* Totals */
-                        var card_totals = _.reduce(card_sales, sumSales, 0);
-                        $('.bar').html(card_totals);
-                        var sms_totals = _.reduce(sms_sales, function(memo, num) { return memo + num[1]}, 0);
-                        $('.sms').html(sms_totals);
-                        var snapporder_totals = _.reduce(snapporder_sales, function(memo, num) { return memo + num[1]}, 0);
-                        $('.app').html(snapporder_totals);
-
-                        $('.sum').html(snapporder_totals + sms_totals + card_totals)
-                    });
-
                 });
+            }
+            function getBarSales() {
+                return $.getJSON(urls.cards, function(data) {
+                    card_sales = _.map(data.memberships, function (el) {
+                        return [moment.utc(el.date).valueOf(), parseInt(el.sales, 10)]
+                    });
+                    sales.addSeries({name: 'Bar-salg', data: card_sales});
+                });
+            }
+            $.when(getTextmeldingSales(), getAppSales(), getBarSales()).done(function(a, b, c) {
+                /* Totals */
+                var card_totals = _.reduce(card_sales, sumSales, 0);
+                $('.bar').html(card_totals);
+                var sms_totals = _.reduce(sms_sales, function(memo, num) { return memo + num[1]}, 0);
+                $('.sms').html(sms_totals);
+                var snapporder_totals = _.reduce(snapporder_sales, function(memo, num) { return memo + num[1]}, 0);
+                $('.app').html(snapporder_totals);
+
+                $('.sum').html(snapporder_totals + sms_totals + card_totals)
             });
         });
     </script>
