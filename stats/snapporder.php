@@ -21,4 +21,9 @@ $rows = $conn->getAll($sql);
 if( DB::isError($rows) ) {
     return_json_response( array('result' => 'db_error') );
 }
+
+function sales_to_int($el) {
+    return $el['sales'] = intval($el['sales']);
+}
+$rows = array_map('sales_to_int', $rows);
 return_json_response(array('memberships'=> $rows, 'meta' => array('sql' => $sql)));

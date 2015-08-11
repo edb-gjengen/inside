@@ -31,7 +31,7 @@
 
         function toHighchartsSeries(memberships) {
             return _.map(memberships, function (el) {
-                return [moment.utc(el.date).valueOf(), parseInt(el.sales, 10)]
+                return [moment.utc(el.date).valueOf(), el.sales]
             });
         }
 
