@@ -23,7 +23,8 @@ if( DB::isError($rows) ) {
 }
 
 function sales_to_int($el) {
-    return $el['sales'] = intval($el['sales']);
+    $el['sales'] = intval($el['sales']);
+    return $el;
 }
 $rows = array_map('sales_to_int', $rows);
 return_json_response(array('memberships'=> $rows, 'meta' => array('sql' => $sql)));
