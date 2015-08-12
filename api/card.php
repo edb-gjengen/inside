@@ -37,14 +37,14 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     /* Validate action */
-    $valid_actions = array('new_card_membership', 'update_card', 'add_or_renew');
+    $valid_actions = array('new_card_membership', 'update_card', 'add_or_renew', 'sms_card_notify');
     if( !isset($data['action']) || !in_array($data['action'], $valid_actions) ) {
         return_json_response(array('error' => "Missing param 'action' or action not in ".implode(", ", $valid_actions).'.'), 400);
 
     }
 
-    /* New membership, with only card number and phone number tuple */
-    if($data['action'] === 'new_card_membership') {
+    /* New membership or SMS membership, with only card number and phone number tuple */
+    if( in_array($data['action'], array('new_card_membership', 'sms_card_notify')) ) {
         $phone_number = clean_phonenumber($data['phone_number']);
         if(!valid_phonenumber($phone_number)) {
             return_json_response(array('error' => "Invalid phone number: '".$phone_number."'"), 400);
