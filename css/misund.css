@@ -4148,9 +4148,9 @@ body {
   padding-bottom: 25px;
   background: #e99835; }
   #branding .logo .site-title {
-    background: url("http://studentersamfundet.no/wp/wp-content/themes/neuf-old-style/img/dns-logo-web.png");
-    width: 570px;
-    height: 72px;
+    background: url('https://inside.studentersamfundet.no/graphics/logo.png');
+    width: 452px;
+    height: 100px;
     padding-top: 0;
     padding-bottom: 0; }
     #branding .logo .site-title a {
