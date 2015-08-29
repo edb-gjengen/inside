@@ -607,7 +607,7 @@ function validate_sms_form($data) {
     if( $purchased === false ) {
         throw new ValidationException("Ugyldig kortnummer/kode ".$data['activation_code']." eller kombinasjon med telefonnummer ".$data['phone'].".");
     }
-    $data['purchased'] = clean_timestamp($purchased);
+    $data['purchased'] = clean_date($purchased);
     $data['source'] = $source;
 
     if($logged_in_user_id) {
@@ -679,14 +679,23 @@ function get_purchase_date_card($phone, $activation_code) {
     $phone = $conn->quoteSmart($phone);
     $activation_code = $conn->quoteSmart($activation_code);
 
-    $sql = "SELECT registered FROM din_card WHERE card_number=$activation_code AND owner_phone_number=$phone AND is_active=1";
-    $res = $conn->getOne($sql);
+    $sql = "SELECT registered,owner_membership_trial FROM din_card WHERE card_number=$activation_code AND owner_phone_number=$phone AND is_active=1";
+    $res = $conn->getAll($sql, DB_FETCHMODE_ASSOC);
 
     if( DB::isError($res) ) {
         throw new InsideDatabaseException($res->getMessage().". DEBUG: ".$res->getDebugInfo());
     }
+    if(count($res) !== 1) {
+        return false;
+    }
 
-    return $res !== null ? $res : false;
+    /* Membership trial (special case) */
+    if( $res[0]['owner_membership_trial'] ) {
+        // Dummy purchased date (1 year before expiry)
+        return date_format(date_modify(date_create("first day of january next year"), '-1 year'), "Y-m-d");
+    }
+
+    return $res[0]['registered'];
 }
 
 function get_purchase_date_tekstmelding($phone, $activation_code) {

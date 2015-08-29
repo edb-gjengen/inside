@@ -166,15 +166,23 @@ function get_card($card_number) {
     return NULL;
 }
 
-function update_card_with_phone_number($card_number, $phone_number) {
+function update_card_with_phone_number($card_number, $phone_number, $membership_trial=NULL) {
     /* Set card active and add phone number, phone number should not exist */
     $conn = get_db_connection(DB_FETCHMODE_ORDERED);
 
     $card_number = $conn->quoteSmart($card_number);
     $phone_number = $conn->quoteSmart($phone_number);
 
+    /* Membership trial (special case) */
+    $in_autumn = intval(date("n")) >= 8 && intval(date("n")) <= 12;
+    if( $membership_trial && $in_autumn ) {
+        $membership_trial = $conn->quoteSmart($membership_trial);
+        $sql = "UPDATE din_card SET owner_phone_number=$phone_number,registered=NOW(),is_active=1,owner_membership_trial=$membership_trial WHERE card_number=$card_number";
+    } else {
+        $sql = "UPDATE din_card SET owner_phone_number=$phone_number,registered=NOW(),is_active=1 WHERE card_number=$card_number";
+    }
+
     /* Update our card */
-    $sql = "UPDATE din_card SET owner_phone_number=$phone_number,registered=NOW(),is_active=1 WHERE card_number=$card_number";
     $res = $conn->query($sql);
     if( DB::isError($res) ) { new Exception($res->getMessage()); }
 }
@@ -260,7 +268,7 @@ function get_active_card_number($cards) {
     }
     return NULL;
 }
-function add_or_renew_membership($user_id, $purchased=NULL) {
+function add_or_renew_membership($user_id, $purchased=NULL, $membership_trial=false) {
     assert($user_id !== NULL);
 
     $conn = get_db_connection(DB_FETCHMODE_ORDERED);
@@ -272,6 +280,12 @@ function add_or_renew_membership($user_id, $purchased=NULL) {
     }
     /* ...or one year from specified date */
     $expires = date_format(date_modify($purchased, "+1 year"), "Y-m-d");
+
+    /* Membership trial (special case, ignored if not in autumn) */
+    $in_autumn = intval(date("n")) >= 8 && intval(date("n")) <= 12;
+    if( $membership_trial && $in_autumn ) {
+        $expires = date_format(date_create("first day of january next year"), "Y-m-d");
+    }
 
     $res = $conn->autoExecute("din_user", array('expires' => $expires), DB_AUTOQUERY_UPDATE, "id=$user_id");
 

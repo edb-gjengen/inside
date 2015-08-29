@@ -24,7 +24,7 @@ if($data === NULL) {
 
 $required_keys = array('apikey', 'user_id');
 $valid_keys = $required_keys;
-$valid_keys = array_merge($valid_keys, array('purchased', 'source'));
+$valid_keys = array_merge($valid_keys, array('purchased', 'source', 'membership_trial'));
 
 $valid_sources = array('kassa');
 
@@ -80,10 +80,15 @@ if( isset($data['purchased']) ) {
 if( isset($data['source']) && !in_array($data['source'], $valid_sources) ) {
     return_json_response(array('error' => 'Invalid value in field source: '.$data['source']), 400);
 }
+/* Optional membership trial */
+$membership_trial = false;
+if( isset($data['membership_trial'])) {
+    $membership_trial = true;
+}
 
 /* Add or renew membership */
 try {
-    add_or_renew_membership($data['user_id'], $purchased);
+    add_or_renew_membership($data['user_id'], $purchased, $membership_trial);
 
     $success_message = "Medlemskap registrert via ".$data['source'].".";
     if(!$first_user_membership) {

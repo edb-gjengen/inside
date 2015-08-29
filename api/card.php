@@ -59,7 +59,13 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
             return_json_response(array('error' => 'User with phone number: '.$phone_number.' already exists: '.$user_id.'.'), 400);
         }
 
-        update_card_with_phone_number($card_number, $phone_number);
+        /* Membership trial */
+        $membership_trial = '';
+        if( isset($data['membership_trial'])) {
+            $membership_trial = $data['membership_trial'];
+        }
+
+        update_card_with_phone_number($card_number, $phone_number, $membership_trial);
 
         /* Return fresh card object */
         return_json_response(array('user'=> NULL, 'card' => get_card($card_number)));
@@ -99,8 +105,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         return_json_response(array('user' => get_user_data($data['user_id'])));
     }
-
-    return_json_response(array('error' => 'Unknown action, gave up.'), 400);
 }
 else {
     /* Validate params */

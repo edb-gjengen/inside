@@ -1722,6 +1722,10 @@ function clean_phonenumber($pn) {
 }
 // ISO-8601 Y-m-d
 function clean_date($date) {
+    if($date instanceof DateTime) {
+        return $date;  // already cleaned, bail
+    }
+
     // returns a DateTime object
     return date_create_from_format('Y-m-d', $date);
 }
