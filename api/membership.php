@@ -57,16 +57,17 @@ $conn = get_db_connection(DB_FETCHMODE_ASSOC);
 /* Existing user? */
 $user = get_user($data['user_id']);
 /* Don't allow renewal if valid membership exists. */
-if( $user['membership_status'] !== 0 ) {
-    if($user['expires'] === '') {
-        // Life long
-        return_json_response(array('error' => 'Cannot renew, user with id '.$data['user_id'].' has a life long membership.'), 409);
-    }
-    return_json_response(array('error' => 'Cannot renew, user with phone '.$data['user_id'].' has a valid membership until: '.$user['expires']), 409);
+if( $user['expires'] === '' ) {
+    // Life long
+    return_json_response(array('error' => 'Cannot renew, user with id '.$data['user_id'].' has a life long membership.'), 409);
+}
+$today_plus_1_month = date_create("+1 month");
+if( $user['membership_status'] !== 0 && clean_date($user['expires']) >= $today_plus_1_month ) {
+    return_json_response(array('error' => 'Cannot renew, user id '.$data['user_id'].' has a valid membership until: '.$user['expires']), 409);
 }
 $first_user_membership = $user['expires'] === '0000-00-00';
 
-/* Validate optional purchase_date */
+/* Validate optional purchased (date) */
 $purchased = NULL;
 if( isset($data['purchased']) ) {
     $purchased = clean_date($data['purchased']);
@@ -105,5 +106,5 @@ try {
 
 send_membership_confirmation_mail($user[0], $first_user_membership);
 
-/* Return encrypted user object */
+/* Return user object */
 return_json_response(array('user' => $user) );

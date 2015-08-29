@@ -267,7 +267,7 @@ function add_or_renew_membership($user_id, $purchased=NULL) {
 
     /* Membership expiry */
     /* One year from today (default) */
-    if( $purchased == NULL ) {
+    if( $purchased == NULL || $purchased === false) {
         $purchased = date_create();
     }
     /* ...or one year from specified date */
