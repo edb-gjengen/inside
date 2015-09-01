@@ -610,7 +610,7 @@ function validate_sms_form($data) {
     if( $purchased === false ) {
         throw new ValidationException("Ugyldig kortnummer/kode ".$data['activation_code']." eller kombinasjon med telefonnummer ".$data['phone'].".");
     }
-    $data['purchased'] = clean_date($purchased);
+    $data['purchased'] = clean_timestamp($purchased);
     $data['source'] = $source;
 
     if($logged_in_user_id) {
@@ -695,7 +695,7 @@ function get_purchase_date_card($phone, $activation_code) {
     /* Membership trial (special case) */
     if( $res[0]['owner_membership_trial'] ) {
         // Dummy purchased date (1 year before expiry)
-        return date_format(date_modify(date_create("first day of january next year"), '-1 year'), "Y-m-d");
+        return date_format(date_modify(date_create("first day of january next year"), '-1 year'), "Y-m-d H:i:s");
     }
 
     return $res[0]['registered'];
@@ -747,6 +747,7 @@ function get_purchase_date_and_source($phone, $activation_code) {
         $source = NULL;
     }
 
+    // Example: array('2015-02-14 13:01:55', 'card');
     return array($timestamp, $source);
 }
 function update_membership_expiry($user_id, $purchased=NULL) {
