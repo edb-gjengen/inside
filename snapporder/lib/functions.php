@@ -591,14 +591,17 @@ function validate_sms_form($data) {
     }
     $user_id_by_phone = getUseridFromPhone($phone);
 	if( $user_id_by_phone !== false && $logged_in_user_id && $data['user_id'] !== $user_id_by_phone ) {
-        $login_msg = "Hvis nummeret tilhører deg, <a href=\"https://inside.studentersamfundet.no\">logg inn her</a> først, før du returnerer til og fullfører skjemaet.";
+        $login_msg = "Hvis nummeret tilhører deg, <a href=\"https://inside.studentersamfundet.no\">logg inn her</a> først, før du returnerer hit og fullfører skjemaet.";
         throw new ValidationException("Telefonnummeret ".$data['phone']." er allerede registrert i bruk. $login_msg");
 	}
     if( $user_id_by_phone !== false && !$logged_in_user_id ) {
-        $login_msg = "Hvis nummeret tilhører deg, <a href=\"https://inside.studentersamfundet.no\">logg inn her</a> først, før du returnerer til og fullfører skjemaet.";
+        $login_msg = "Hvis nummeret tilhører deg, <a href=\"https://inside.studentersamfundet.no\">logg inn her</a> først, før du returnerer hit og fullfører skjemaet.";
         throw new ValidationException("Telefonnummeret ".$data['phone']." er allerede registrert i bruk. $login_msg");
     }
-    /* TODO: dont allow card activation twice and user id with existing membership and card */
+    if( $logged_in_user_id && !membership_expired($logged_in_user_id) ) {
+        $see_more_msg = "Du kan <a href=\"https://inside.studentersamfundet.no\">se medlemskapet her</a>.";
+        throw new ValidationException("Du har allerede aktivert medlemskapet ditt :-) $see_more_msg");
+    }
 
     $data['phone'] = $phone;
 
