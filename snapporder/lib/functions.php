@@ -24,7 +24,7 @@ if( !function_exists('hash_ldap_password') ) {
 function update_card_with_user($phone, $activation_code, $user_id) {
     global $conn;
 
-    $sql = "UPDATE din_card SET user_id=$user_id,owner_phone_number=NULL WHERE owner_phone_number='$phone' AND card_number=$activation_code";
+    $sql = "UPDATE din_card SET user_id=$user_id,owner_phone_number=NULL WHERE owner_phone_number='$phone' AND card_number='$activation_code'";
     $res = $conn->query($sql);
     if( DB::isError($res) ) {
         throw new InsideDatabaseException($res->getMessage().". DEBUG: ".$res->getDebugInfo());
