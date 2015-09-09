@@ -718,7 +718,7 @@ function get_purchase_date_tekstmelding($phone, $activation_code) {
     $status_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
     curl_close($ch);
 
-    if($status_code !== 200) {
+    if($status_code !== 200 || $result === '') {
         return false;
     }
 
