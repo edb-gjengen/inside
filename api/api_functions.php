@@ -150,6 +150,18 @@ function get_card($card_number) {
     $conn = get_db_connection(DB_FETCHMODE_ASSOC);
 
     $card_number = $conn->quoteSmart($card_number);
+
+    // TODO Check if card has trial membership
+    // TODO What happends when user wants a proper membership??
+    // TODO Test and enable trial memberships for cards
+    $membership_trial = false;
+    if($membership_trial) {
+//        $expires = date_format(date_create("first day of january next year"), "Y-m-d");
+//        $expires_sql = "DATE_ADD(DATE(registered), INTERVAL 1 YEAR)";
+//        $has_valid_membership_sql = " <= $expires_sql AND owner_phone_number IS NOT NULL";
+//        $sql = "SELECT *,$has_valid_membership_sql AS has_valid_membership,$expires_sql AS expires FROM din_card WHERE card_number=$card_number";
+    }
+
     $expires_sql = "DATE_ADD(DATE(registered), INTERVAL 1 YEAR)";
     $has_valid_membership_sql = "NOW() <= $expires_sql AND owner_phone_number IS NOT NULL";
     $sql = "SELECT *,$has_valid_membership_sql AS has_valid_membership,$expires_sql AS expires FROM din_card WHERE card_number=$card_number";
