@@ -150,32 +150,28 @@ function get_card($card_number) {
     $conn = get_db_connection(DB_FETCHMODE_ASSOC);
 
     $card_number = $conn->quoteSmart($card_number);
-
-    // TODO Check if card has trial membership
-    // TODO What happends when user wants a proper membership??
-    // TODO Test and enable trial memberships for cards
-    $membership_trial = false;
-    if($membership_trial) {
-//        $expires = date_format(date_create("first day of january next year"), "Y-m-d");
-//        $expires_sql = "DATE_ADD(DATE(registered), INTERVAL 1 YEAR)";
-//        $has_valid_membership_sql = " <= $expires_sql AND owner_phone_number IS NOT NULL";
-//        $sql = "SELECT *,$has_valid_membership_sql AS has_valid_membership,$expires_sql AS expires FROM din_card WHERE card_number=$card_number";
-    }
-
-    $expires_sql = "DATE_ADD(DATE(registered), INTERVAL 1 YEAR)";
-    $has_valid_membership_sql = "NOW() <= $expires_sql AND owner_phone_number IS NOT NULL";
-    $sql = "SELECT *,$has_valid_membership_sql AS has_valid_membership,$expires_sql AS expires FROM din_card WHERE card_number=$card_number";
-
+    $sql = "SELECT * FROM din_card WHERE card_number=$card_number";
     $res = $conn->getAll($sql);
 
     if( DB::isError($res) ) {
         return array('error' => $res->getMessage(), 'sql' => $sql);
     }
-    if( count($res) === 1) {
-        return $res[0];
+    if( count($res) !== 1) {
+        return NULL;
     }
 
-    return NULL;
+    $card = $res[0];
+    /* Set expiry date */
+    $card['expires'] = date_format(date_modify(date_create($card['registered']), "+1 year"), "Y-m-d");
+    if($card['owner_membership_trial']) {
+        /* First of january next year, relative to registered date */
+        $card['expires'] = date_format(date_modify(date_create($card['registered']), "first day of january next year"), "Y-m-d");
+    }
+    /* Set is valid flag */
+    $card['has_valid_membership'] = $card['owner_phone_number'] && $card['expires'] <= date_create() ? "1": "0";
+
+    return $card;
+
 }
 
 function update_card_with_phone_number($card_number, $phone_number, $membership_trial=NULL) {
