@@ -153,7 +153,7 @@ class Navigation {
 <?php
   }*/
 
-  if(checkAuth("view-menu-webshop")){
+  if( checkAuth("view-menu-webshop") && checkAuth('view-display-sales') ){
           ?>
           <li class="menulist dropdown">
             <a href="#" id="webshopSwitch" class="switch dropdown-toggle">Nettbutikk <b class="caret"></b></a>
