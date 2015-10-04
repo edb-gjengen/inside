@@ -592,7 +592,7 @@ function validate_sms_form($data) {
         if($_user === false ) {
             throw new ValidationException("Ugyldig bruker angitt: " . $data['user_id']);
         }
-        if( $user_id_by_phone !== false && $_user['member_id'] !== $user_id_by_phone ) {
+        if( $user_id_by_phone !== false && $_user['memberid'] !== $user_id_by_phone ) {
             $login_msg = "Hvis nummeret tilhører deg, <a href=\"https://inside.studentersamfundet.no\">logg inn her</a> først, før du returnerer hit og fullfører skjemaet.";
             throw new ValidationException("Telefonnummeret ".$data['phone']." er allerede registrert i bruk. $login_msg");
         }
