@@ -585,24 +585,25 @@ function validate_sms_form($data) {
 	if( !valid_phonenumber($phone) ) {
         throw new ValidationException("Ugyldig telefonnummer: ".$data['phone']);
 	}
-    $logged_in_user_id = isset($data['user_id']) && $data['user_id'] !== "" && is_numeric($data['user_id']);
-    if( $logged_in_user_id && get_user($data['user_id']) === false ) {
-        throw new ValidationException("Ugyldig bruker angitt: ".$data['user_id']);
-    }
+    $is_valid_logged_in_user = isset($data['user_id']) && $data['user_id'] !== "" && is_numeric($data['user_id']);
     $user_id_by_phone = getUseridFromPhone($phone);
-	if( $user_id_by_phone !== false && $logged_in_user_id && $data['user_id'] !== $user_id_by_phone ) {
-        $login_msg = "Hvis nummeret tilhører deg, <a href=\"https://inside.studentersamfundet.no\">logg inn her</a> først, før du returnerer hit og fullfører skjemaet.";
-        throw new ValidationException("Telefonnummeret ".$data['phone']." er allerede registrert i bruk. $login_msg");
-	}
-    if( $user_id_by_phone !== false && !$logged_in_user_id ) {
-        $login_msg = "Hvis nummeret tilhører deg, <a href=\"https://inside.studentersamfundet.no\">logg inn her</a> først, før du returnerer hit og fullfører skjemaet.";
-        throw new ValidationException("Telefonnummeret ".$data['phone']." er allerede registrert i bruk. $login_msg");
-    }
-    if( $logged_in_user_id ) {
-        $_user = get_user($logged_in_user_id);
-        if($_user['is_member'] !== "0") {
+    if( $is_valid_logged_in_user ) {
+        $_user = get_user($data['user_id']);
+        if($_user === false ) {
+            throw new ValidationException("Ugyldig bruker angitt: " . $data['user_id']);
+        }
+        if( $user_id_by_phone !== false && $_user['member_id'] !== $user_id_by_phone ) {
+            $login_msg = "Hvis nummeret tilhører deg, <a href=\"https://inside.studentersamfundet.no\">logg inn her</a> først, før du returnerer hit og fullfører skjemaet.";
+            throw new ValidationException("Telefonnummeret ".$data['phone']." er allerede registrert i bruk. $login_msg");
+        }
+        if($_user['membership_status'] !== 0) {
             $see_more_msg = "Du kan <a href=\"https://inside.studentersamfundet.no\">se medlemskapet her</a>.";
             throw new ValidationException("Du har allerede aktivert medlemskapet ditt :-) $see_more_msg");
+        }
+    } else {
+        if( $user_id_by_phone !== false ) {
+            $login_msg = "Hvis nummeret tilhører deg, <a href=\"https://inside.studentersamfundet.no\">logg inn her</a> først, før du returnerer hit og fullfører skjemaet.";
+            throw new ValidationException("Telefonnummeret ".$data['phone']." er allerede registrert i bruk. $login_msg");
         }
     }
 
@@ -616,7 +617,7 @@ function validate_sms_form($data) {
     $data['purchased'] = clean_timestamp($purchased);
     $data['source'] = $source;
 
-    if($logged_in_user_id) {
+    if($is_valid_logged_in_user) {
         /* Existing user */
         return $data;
     }
