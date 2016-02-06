@@ -58,7 +58,7 @@ if($user['registration_status'] !== "partial") {
 }
 $server_name = CLI_SERVER_NAME;
 $scheme = CLI_SCHEME;
-$user['registration_url'] = generate_registration_url($user, SECRET_KEY);
+$user['registration_url'] = generate_registration_url($user, SECRET_KEY, $server_name, $scheme);
 
 /* Send email */
 send_activation_email(array(), $user);
