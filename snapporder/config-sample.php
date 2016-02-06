@@ -6,4 +6,8 @@
     define("MAILCHIMP_API_KEY", "");
     define("MAILCHIMP_LIST_ID", "004f53d7c6");
     define("TEKSTMELDING_API_KEY", 'qwertyuiop');
+
+    /* Used in scripts (resend activation email) */
+    define("CLI_SERVER_NAME", 'inside.dev');
+    define('CLI_SCHEME', 'http');
 ?>

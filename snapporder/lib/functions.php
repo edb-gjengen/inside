@@ -326,10 +326,14 @@ function check_token($user, $token, $secret_key) {
 
     return true;
 }
-function generate_registration_url($user, $secret_key) {
+function generate_registration_url($user, $secret_key, $server_name=NULL, $scheme=NULL) {
     $token = create_token($user, $secret_key);
-    $server_name = isset($_SERVER['HTTP_X_FORWARDED_SERVER']) ? $_SERVER['HTTP_X_FORWARDED_SERVER'] : $_SERVER['SERVER_NAME'];
-    $scheme ="http".((empty($_SERVER['HTTPS']) or $_SERVER['HTTPS'] == 'off')?'':'s');
+    if($server_name == NULL) {
+        $server_name = isset($_SERVER['HTTP_X_FORWARDED_SERVER']) ? $_SERVER['HTTP_X_FORWARDED_SERVER'] : $_SERVER['SERVER_NAME'];
+    }
+    if($scheme == NULL) {
+        $scheme = "http" . ((empty($_SERVER['HTTPS']) or $_SERVER['HTTPS'] == 'off') ? '' : 's');
+    }
     $url = "$scheme://".$server_name."/snapporder/activate.php?userid=".$user['memberid']."&token=$token";
 
     return $url;
