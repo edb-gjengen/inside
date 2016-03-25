@@ -111,7 +111,7 @@ if( isset($_POST['submit']) ) {
     <em class="subtitle">i Det Norske Studentersamfund</em>
     <header class="about">
         <p>Hei, for at medlemskapet du har kjøpt på SMS eller på Chateau Neuf skal være gyldig, så <strong>må</strong> du registerere deg.</p>
-        <p class="imperative">Gå videre med registreringen ved å angi <em>telefonnummer, kortnummber/kode, fornavn</em> og <em>epost</em>.</p>
+        <p class="imperative">Gå videre med registreringen ved å angi <em>telefonnummer, kortnummer/kode, navn</em> og <em>epost</em>.</p>
     </header>
     <section class="register-sms">
         <?php if(strlen($validation_errors) > 0 ) {
