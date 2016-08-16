@@ -41,13 +41,7 @@ class User {
     }
 
     public function __construct($id, $data = NULL) {
-        $conn = & DB :: connect(getDSN());
-        if (DB :: isError($conn)) {
-            print ("error: " . $conn->toString());
-            exit ();
-        } else {
-            $this->conn = $conn;
-        }
+        $this->conn = db_connect();
 
         $action = scriptParam("action");
         $this->id = $id;

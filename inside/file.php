@@ -3,7 +3,7 @@
 require_once "includes.php";
 
 
-$conn =& DB_connect();
+$conn = db_connect();
 
 $id = $_GET['id'];
 
