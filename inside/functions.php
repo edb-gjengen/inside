@@ -22,7 +22,7 @@ function db_connect($host = "default") {
 		return false;
 	}
 
-	//$conn->query('SET NAMES utf8');  // set charset
+	$conn->query('SET NAMES utf8');  // set charset
 	$GLOBALS['db_conn'][$host] = $conn;
 	
 	return $GLOBALS['db_conn'][$host];
