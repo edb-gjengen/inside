@@ -15,7 +15,7 @@ function db_connect($host = "default") {
 	$conn = DB::connect(getDSN($host), array('debug' => 2));
 	if (DB::isError($conn)) {
 		if ($conn->getCode() == -24) {
-			error("Databasen er for øyeblikket utilgjengelig, vennligst forsøk igjen siden.");
+			error("Databasen er for Ã¸yeblikket utilgjengelig, vennligst forsÃ¸k igjen siden.");
 		} else {
 			error("Database error: " . $conn->toString());
 		}
@@ -631,7 +631,7 @@ function checkAuth($actionName = NULL) {
 }
 
 function checkPassword($userid, $verificationCode) {
-	  $sperret = array('37403'=>"Betaling via kort ble ikke belastet, vennligst kontakt Glassbaren på Chateau Neuf eller medlemskap@studentersamfundet.no\n\n",
+	  $sperret = array('37403'=>"Betaling via kort ble ikke belastet, vennligst kontakt Glassbaren pÃ¥ Chateau Neuf eller medlemskap@studentersamfundet.no\n\n",
     				 '100505'=>"SMS ble feilbelastet, hadde medlemskap\n\n");
     if(@$sperret[$userid])
     {
@@ -653,9 +653,9 @@ function displayCode($code) {
 	print "Kortnummer: $code<br />";
 	print "Kode: " . getCode($code) . "<br />";
 	if (isValidCode($code)) {
-	  print "Koden har ikke vært brukt";
+	  print "Koden har ikke vÃ¦rt brukt";
 	} else {
-	  print "<font color=\"red\">Koden har allerede vært brukt</font>";
+	  print "<font color=\"red\">Koden har allerede vÃ¦rt brukt</font>";
 	}
 	print "</p>";
 }
@@ -1075,14 +1075,14 @@ function displayLogin() {
 <a href="https://brukerinfo.neuf.no/accounts/password/reset">Glemt passord eller brukernavn?</a>
 </p>
 <h3>Ny bruker?</h3>
-<p>Hvis du aldri har vært medlem før kan du lese om hvordan du <a href="https://studentersamfundet.no/bli-medlem/">kjøper medlemskap her</a>.<br><em>Du kan også <a href="index.php?page=register-user">registrere en bruker</a></em>.</p>
+<p>Hvis du aldri har vÃ¦rt medlem fÃ¸r kan du lese om hvordan du <a href="https://studentersamfundet.no/bli-medlem/">kjÃ¸per medlemskap her</a>.<br><em>Du kan ogsÃ¥ <a href="index.php?page=register-user">registrere en bruker</a></em>.</p>
   
-<h3>Har du spørsmål om medlemskapet ditt?</h3>
+<h3>Har du spÃ¸rsmÃ¥l om medlemskapet ditt?</h3>
 <p>
-    Send epost til <a href="mailto:medlemskap@studentersamfundet.no">medlemskap@studentersamfundet.no</a>. Oppgi telefonnummer og en kort beskrivelse av hva som ikke virker, så skal vi hjelpe deg så fort vi kan.
+    Send epost til <a href="mailto:medlemskap@studentersamfundet.no">medlemskap@studentersamfundet.no</a>. Oppgi telefonnummer og en kort beskrivelse av hva som ikke virker, sÃ¥ skal vi hjelpe deg sÃ¥ fort vi kan.
 </p>
 <p>
-    Andre spørsmål? Kontakt oss på <a href="mailto:support@studentersamfundet.no">support@studentersamfundet.no</a>.
+    Andre spÃ¸rsmÃ¥l? Kontakt oss pÃ¥ <a href="mailto:support@studentersamfundet.no">support@studentersamfundet.no</a>.
 </p>
 	</div>
 <?php
@@ -1213,12 +1213,12 @@ function reportBug($type) {
 
 function displayBugReportForm($type) {
 ?>
-  <span class="btn btn-default" onclick="toggleDisplay('bug-report-form'); toggleText(this, 'rapportér problem', 'skjul skjema');">rapportér problem</span>
+  <span class="btn btn-default" onclick="toggleDisplay('bug-report-form'); toggleText(this, 'rapportÃ©r problem', 'skjul skjema');">rapportÃ©r problem</span>
   <div id="bug-report-form" style="display: none;">
   <?php
 
 
-	$title = "rapportér problem";
+	$title = "rapportÃ©r problem";
 	$enctype = NULL;
 	$method = "post";
 	$action = "index.php?action=register-bugreport";
@@ -1395,7 +1395,7 @@ function import_medlemmer() {
 			$id = $row[0];
 			$sql = "INSERT INTO din_user 
 						                          SELECT $user_id, id, id, PASSWORD('hemmelig'), fornavn, etternavn, 
-						                          'no', epost, fødselsdato, studiested, 1, '0000-00-00', NULL 
+						                          'no', epost, fÃ¸dselsdato, studiested, 1, '0000-00-00', NULL 
 						                          FROM medlemmer
 						                          WHERE id = $id";
 			$conn->query($sql);
@@ -1517,16 +1517,16 @@ function registerCardNos() {
 
 function send_welcome_mail($user) {
 	$sendto = $user->email;
-	$subject = "Velkommen som registrert bruker på Studentersamfundet Inside!";
+	$subject = "Velkommen som registrert bruker pÃ¥ Studentersamfundet Inside!";
 	$message = "" .
 
 	"Hei, $user->firstname $user->lastname!\n " .
 	"\n" .
-	"\nDu har nettopp registrert deg som bruker på Studentersamfundet Inside." .
+	"\nDu har nettopp registrert deg som bruker pÃ¥ Studentersamfundet Inside." .
 	"\n" .
-	"\nDitt brukernavn er $user->username. Om du glemmer passordet ditt kan du få tilsendt nytt ved å besøke lenken under og taste inn din epostadresse. Her kan du også oppdatere din kontaktinformasjon og kjøpe/fornye medlemskap i Det Norske Studentersamfund" .
+	"\nDitt brukernavn er $user->username. Om du glemmer passordet ditt kan du fÃ¥ tilsendt nytt ved Ã¥ besÃ¸ke lenken under og taste inn din epostadresse. Her kan du ogsÃ¥ oppdatere din kontaktinformasjon og kjÃ¸pe/fornye medlemskap i Det Norske Studentersamfund" .
 	"\n" .
-	"OBS: Hvis du har kjøpt medlemskap må du gå inn å aktivere det." .
+	"OBS: Hvis du har kjÃ¸pt medlemskap mÃ¥ du gÃ¥ inn Ã¥ aktivere det." .
 	"\n" .
 	"\nhttps://inside.studentersamfundet.no/" .
 	"\n" .

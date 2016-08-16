@@ -7,10 +7,6 @@ if (!isset($_SESSION['tinyMCE']['theme'])){
 }
 ini_set('display_errors', 1);
 
-// Override utf-8, which is default in php 5.6+
-// FIXME: remove?
-ini_set('default_charset','');
-
 $locale = Array('no_NO', 'nor_nor');
 setlocale(LC_TIME, $locale);
 
