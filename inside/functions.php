@@ -8,23 +8,23 @@ $extraScriptParams = Array ();
 require_once('credentials.php');
 
 function db_connect($host = "default") {
-
-	if (!isset ($GLOBALS['db_conn'][$host])) {
-		$conn = & DB :: connect(getDSN($host), array('debug' => 2));
-		if (DB :: isError($conn)) {
-			if ($conn->getCode() == -24) {
-				error("Databasen er for øyeblikket utilgjengelig, vennligst forsøk igjen siden.");
-				return false;
-			}
-			else {
-				error("Database error: " . $conn->toString());
-				return false;
-			}
-		}
-		else {
-			$GLOBALS['db_conn'][$host] = & $conn;
-		}
+	if( isset($GLOBALS['db_conn'][$host]) ) {
+		return $GLOBALS['db_conn'][$host];
 	}
+
+	$conn = DB::connect(getDSN($host), array('debug' => 2));
+	if (DB::isError($conn)) {
+		if ($conn->getCode() == -24) {
+			error("Databasen er for øyeblikket utilgjengelig, vennligst forsøk igjen siden.");
+		} else {
+			error("Database error: " . $conn->toString());
+		}
+		return false;
+	}
+
+	//$conn->query('SET NAMES utf8');  // set charset
+	$GLOBALS['db_conn'][$host] = $conn;
+	
 	return $GLOBALS['db_conn'][$host];
 }
 
@@ -62,29 +62,28 @@ function remove_backslashes($val) {
 }
 
 function scriptParam($name) {
-	if (isset ($val))
-		unset ($val);
+	if (isset($val) ) {
+		unset($val);
+	}
+	
 	if (isset ($GLOBALS['extraScriptParams'][$name])) {
 		$val = $GLOBALS['extraScriptParams'][$name];
+	} else if (isset ($_POST[$name])) {
+		$conn = db_connect();
+		$val = $conn->escapeSimple($_POST[$name]);
+	} else if (isset ($_GET[$name])) {
+		$val = $_GET[$name];
+	} else if (isset ($_COOKIE[getCurrentUser()][$name])) {
+		$val = $_COOKIE[getCurrentUser()][$name];
 	}
-	else
-		if (isset ($_POST[$name])) {
-			$val = mysql_real_escape_string($_POST[$name]);
-		}
-		else
-			if (isset ($_GET[$name])) {
-				$val = $_GET[$name];
-			}
-			else
-				if (isset ($_COOKIE[getCurrentUser()][$name])) {
-					$val = $_COOKIE[getCurrentUser()][$name];
-				}
+
 	if (isset ($val) && get_magic_quotes_gpc()) {
 		$val = remove_backslashes($val);
 	}
+
 	// return @$val rather than $val to prevent "undefined value"
 	// messages in case $val is unset and warnings are enabled
-	return (@ $val);
+	return @$val;
 }
 
 function getCurrentUser() {
