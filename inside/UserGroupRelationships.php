@@ -9,13 +9,7 @@ class UserGroupRelationships {
   }
 
   function __construct(){
-    $conn =& DB::connect(getDSN());
-    if (DB::isError($conn)){
-      error("UserGroupRelationships: " . $conn->toString());
-      exit();
-    }else {
-      $this->conn = $conn;
-    }
+      $this->conn = db_connect();
   }    
      
   public function getJoinedList($group_id, $type = "array"){

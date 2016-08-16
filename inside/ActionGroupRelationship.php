@@ -17,7 +17,7 @@ class ActionGroupRelationship {
     $this->__construct($action_id, $group_id);
   }
   public function __construct($action_id = NULL, $group_id = NULL){
-    $this->conn =& DB_connect();
+    $this->conn = db_connect();
 
     $this->action_id = $action_id;
     $this->group_id = $group_id;

@@ -9,13 +9,7 @@ class Groups {
   }
 
   function __construct($restriction = NULL){
-    $conn =& DB::connect(getDSN());
-    if (DB::isError($conn)){
-      error("Groups: " . $conn->toString());
-      exit();
-    }else {
-      $this->conn = $conn;
-    }
+    $this->conn = db_connect();
 
     if (!checkAuth("view-protected-users")){
       $condition = "AND id != 1";

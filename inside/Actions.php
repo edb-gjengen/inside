@@ -9,13 +9,7 @@ class Actions {
   }
 
   function __construct(){
-    $conn =& DB::connect(getDSN());
-    if (DB::isError($conn)){
-      error("Actions: " . $conn->toString());
-      exit();
-    }else {
-      $this->conn = $conn;
-    }
+    $this->conn = db_connect();
 
     $sql = "SELECT id, name  
             FROM din_action

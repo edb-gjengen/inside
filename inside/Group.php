@@ -20,13 +20,7 @@ class Group {
   }
 
   public function __construct($id = NULL, $data = NULL){
-    $conn =& DB::connect(getDSN());
-    if (DB::isError($conn)){
-      print("error: ".$conn->toString());
-      exit();
-    }else {
-      $this->conn = $conn;
-    }
+    $this->conn = db_connect();
 
     $this->id = $id;
 

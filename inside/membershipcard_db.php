@@ -3,10 +3,10 @@ header("Content-type: Text/plain");
 
 require_once "includes.php";
 
-$conn = & DB :: connect(getDSN());
+$conn = db_connect();
 if (DB :: isError($conn)) {
     print ("error: " . $conn->toString());
-    exit ();
+    exit();
 }
 
 $i = 0;
