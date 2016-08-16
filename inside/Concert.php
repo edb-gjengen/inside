@@ -481,7 +481,7 @@ class Concert {
       <strong>Medlemspris:</strong> <?php print $this->priceConcession; ?>,-
     </p>
     <p>
-      <strong>Arrangør:</strong>
+      <strong>ArrangÃ¸r:</strong>
       <a href="index.php?page=display-division&amp;divisionid=<?php print $this->host_id; ?>">
         <?php print $this->host_name; ?>
       </a>
@@ -496,8 +496,8 @@ class Concert {
       $freqOptions = Array(Array("id" => "daily", "title" => "daglig"), 
                            Array("id" => "weekly", "title" => "ukentlig"),
                            Array("id" => "biweekly", "title" => "annenhver uke"),
-                           Array("id" => "monthlyDate", "title" => "månedlig"),
-                           Array("id" => "annual", "title" => "årlig")
+                           Array("id" => "monthlyDate", "title" => "mÃ¥nedlig"),
+                           Array("id" => "annual", "title" => "Ã¥rlig")
                            );
                            
       $title   = "repeat concert";
@@ -563,7 +563,7 @@ class Concert {
     }else {
       if ($result->numRows() != 1) {
           
-    	$title   = "registrér arrangementsrapport";
+    	$title   = "registrÃ©r arrangementsrapport";
       $enctype = NULL;
       $method  = "post";
       $action  = "index.php?action=register-concertreport&amp;page=display-concert";
@@ -572,7 +572,7 @@ class Concert {
       $fields[] = Array("label" => "concertid", "type" => "hidden",
                              "attributes" => Array("name" => "concertid", "value" => "$this->id"));
 
-    	$fields[] = Array("label" => "besøkende", "type" => "text", 
+    	$fields[] = Array("label" => "besÃ¸kende", "type" => "text", 
                       "attributes" => Array("name" => "visitors","size" => 4,
                                             "maxlength" => 4, 
                                             "value" => (isset($data['visitors'])) ? $data['visitors'] : ""));
@@ -580,7 +580,7 @@ class Concert {
                       "attributes" => Array("name" => "result","size" => 7,
                                             "maxlength" => 8, 
                                             "value" => (isset($data['result'])) ? $data['result'] : ""));
-		 	$fields[] = Array("label" => "markedsføring", "type" => "textarea", 
+		 	$fields[] = Array("label" => "markedsfÃ¸ring", "type" => "textarea", 
                       "attributes" => Array("name" => "marketing_comment", "cols" => 70,
                       											"rows" => 15, "class" => "mceEditor"));
 

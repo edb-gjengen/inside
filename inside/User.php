@@ -41,13 +41,7 @@ class User {
     }
 
     public function __construct($id, $data = NULL) {
-        $conn = & DB :: connect(getDSN());
-        if (DB :: isError($conn)) {
-            print ("error: " . $conn->toString());
-            exit ();
-        } else {
-            $this->conn = $conn;
-        }
+        $this->conn = db_connect();
 
         $action = scriptParam("action");
         $this->id = $id;
@@ -61,18 +55,18 @@ class User {
 
             /* Validate user supplied data. */
             if( !validate_username_length($data['username']) ) {
-                notify("Brukernavnet må være mellom 3 og 12 tegn.");
+                notify("Brukernavnet mÃ¥ vÃ¦re mellom 3 og 12 tegn.");
                 $this->id = -1;
                 return false;
             }
             if( !validate_username_chars($data['username']) ) {
-                notify("Brukernavnet kan kun inneholde små bokstaver.");
+                notify("Brukernavnet kan kun inneholde smÃ¥ bokstaver.");
                 $this->id = -1;
                 return false;
             }
             $this->username = strtolower(stripcslashes($data['username']));
             if( !validate_password_length($data['password1']) ) {
-                notify("Passordet må være minst 8 tegn.");
+                notify("Passordet mÃ¥ vÃ¦re minst 8 tegn.");
                 $this->id = -1;
                 return false;
             }
@@ -93,14 +87,14 @@ class User {
             if (isDate($data['birthdate'])) {
                 $this->birthdate = $data['birthdate'];
             } else {
-                notify("Ugyldig fødselsdato: " . $data['birthdate']);
+                notify("Ugyldig fÃ¸dselsdato: " . $data['birthdate']);
                 $this->id = -1;
                 return false;
             }
 
             /* No duplicate phone numbers */
             if( getUseridFromPhone($data['phonenumber']) !== false ) {
-                notify("Telefonnummeret er allerede registrert på en bruker.");
+                notify("Telefonnummeret er allerede registrert pÃ¥ en bruker.");
                 $this->id = -1;
                 return false;
             }
@@ -289,8 +283,8 @@ class User {
         return false;
       }
 
-      // Slett adressen hvis den kun består av en x.
-      // Brukeren får da en mail med informasjon om å oppdatere adressen sin.
+      // Slett adressen hvis den kun bestÃ¥r av en x.
+      // Brukeren fÃ¥r da en mail med informasjon om Ã¥ oppdatere adressen sin.
       if (substr($this->street, 0, 1) == 'x') {
         $link = substr($this->street, 2);
         if ($this->_deleteAddress($link)) {
@@ -352,11 +346,11 @@ class User {
   public function _validate() {
     $valid = true;
     if( !valid_email($this->email) ) {
-      notify("Ugyldig format på epostadresse.");
+      notify("Ugyldig format pÃ¥ epostadresse.");
       $valid = false;
     }
     if ( $this->firstname == "" || $this->lastname == "" ) {
-      notify("Du må oppgi både fornavn og etternavn.");
+      notify("Du mÃ¥ oppgi bÃ¥de fornavn og etternavn.");
       $valid = false;
     }
     return $valid;
@@ -561,7 +555,7 @@ class User {
     $result = $this->conn->query($sql);
     if (DB :: isError($result) != true) {
       if ($result->numRows() > 0) {
-        notify("Kortnummeret er allerede i bruk. Vennligst kontrollér nummeret.");
+        notify("Kortnummeret er allerede i bruk. Vennligst kontrollÃ©r nummeret.");
         return false;
       }
     } else {
@@ -597,7 +591,7 @@ class User {
 
   public function renewMembership($cardno) {
     if (!$this->hasExpired()) {
-      notify("Du har allerede gyldig medlemskap for dette året.");
+      notify("Du har allerede gyldig medlemskap for dette Ã¥ret.");
       return false;
     }
     $expires = getNextMembershipExpiryDate();
@@ -624,7 +618,7 @@ class User {
 
   public function renewMembershipPayex() {
     if (!$this->hasExpired()) {
-      notify("Du har allerede gyldig medlemskap for dette året.");
+      notify("Du har allerede gyldig medlemskap for dette Ã¥ret.");
       return false;
     }
     $expires = getNextMembershipExpiryDate();
@@ -677,7 +671,7 @@ class User {
       $expires = getNextMembershipExpiryDate();
       if ($expires <= $this->expires) {
         $newexpires = date("Y-m-d", strtotime("+1 year", strtotime($expires)));
-        notify($this->id . ", " . $this->getName() . " har allerede gyldig medlemskap for dette året. Har utløpsdato " . $this->expires . ", men ny ble prøvd satt til " . $expires . ". Personen vil få satt ny utløpsdato på medlemskapet til " . $newexpires);
+        notify($this->id . ", " . $this->getName() . " har allerede gyldig medlemskap for dette Ã¥ret. Har utlÃ¸psdato " . $this->expires . ", men ny ble prÃ¸vd satt til " . $expires . ". Personen vil fÃ¥ satt ny utlÃ¸psdato pÃ¥ medlemskapet til " . $newexpires);
         $expires = $newexpires;
       }
       $this->conn->autoCommit(false);
@@ -707,7 +701,7 @@ class User {
   /* Order new membercard if old one is lost */
   public function renewMembercardPayex() {
         if ($this->hasExpired()) {
-            notify("Du har ikke gyldig medlemskap for dette året. <a href='https://inside.studentersamfundet.no/index.php?page=register-membership'>Kjøp eller registrer medlemskap.</a>");
+            notify("Du har ikke gyldig medlemskap for dette Ã¥ret. <a href='https://inside.studentersamfundet.no/index.php?page=register-membership'>KjÃ¸p eller registrer medlemskap.</a>");
             return false;
         }
         $this->conn->autoCommit(false);
@@ -719,7 +713,7 @@ class User {
         }
         $this->_registerUpdate("Nytt medlemskort bestilt med Payex.");
         if ($result = $this->conn->commit()) {
-            notify("Medlemskortet er lagt i produksjonskøen.");
+            notify("Medlemskortet er lagt i produksjonskÃ¸en.");
             return true;
         } else {
             notify("Problemer med registrering av bestillingen.");
@@ -744,15 +738,15 @@ class User {
   /*
    * $newDate = YYYY-MM-DD or null (lifetime membership)
    * Requires a full date for expiry, has to end on 1. of august or we get an exception.
-   * (orly? tror jeg har kodet noe feil her, men er ikke så viktig med datosjekk selv om
-   *  jeg skulle ønske det var der)
+   * (orly? tror jeg har kodet noe feil her, men er ikke sÃ¥ viktig med datosjekk selv om
+   *  jeg skulle Ã¸nske det var der)
    */
   public function updateExpiry($newDate) {
     if($newDate !== null && !preg_match("#^\d{4}-\d{2}-\d{2}$#", $newDate))
     	throw new Exception("Invalid date: $newDate");
   	
   	if($this->expires === $newDate)
-  		throw new Exception("Utløpsdatoen har allerede denne verdien");
+  		throw new Exception("UtlÃ¸psdatoen har allerede denne verdien");
   	
   	// Logger medlemskapssalget.
   	//$log_entry_id = logExpiryUpdate($this->id, $this->expires, $newDate);
@@ -766,10 +760,10 @@ class User {
     $conn = db_connect();
     $result = $this->conn->query($sql);
     if (DB :: isError($result) != true) {
-      $this->_registerUpdate("Utløpsdato oppdatert til " . $newDate);
-      notify("Utløpsdato oppdatert.");
+      $this->_registerUpdate("UtlÃ¸psdato oppdatert til " . $newDate);
+      notify("UtlÃ¸psdato oppdatert.");
     } else {
-      // logger at det gikk feil (håper denne funker ;))
+      // logger at det gikk feil (hÃ¥per denne funker ;))
       //logExpiryUpdateFail($log_entry_id);
       
       error($result->toString());
@@ -905,8 +899,8 @@ class User {
         print "<div>";
         print "<input type=\"hidden\" name=\"action\" value=\"update-user-division-request\" />";
         print "<select name=\"divrequest\">";
-        print "<option value=\"accept\">godkjenn forespørsel</option>";
-        print "<option value=\"reject\">avvis forespørsel</option>";
+        print "<option value=\"accept\">godkjenn forespÃ¸rsel</option>";
+        print "<option value=\"reject\">avvis forespÃ¸rsel</option>";
         print "</select>";
         print "<input type=\"submit\" value=\"lagre\" />";
         print "</div>";
@@ -1034,7 +1028,7 @@ class User {
       if (DB :: isError($result) != true) {
         return true;
       } else {
-        error("Registrér kortnummer: " . $result->toString());
+        error("RegistrÃ©r kortnummer: " . $result->toString());
         notify("Kortnummeret er allerede registrert.");
       }
     }
@@ -1064,7 +1058,7 @@ class User {
         $result = $this->conn->query($sql);
         return true;
       } else {
-        error("Registrér kortnummer: " . $result->toString());
+        error("RegistrÃ©r kortnummer: " . $result->toString());
         notify("Problemer med registrering av kortnummer.");
         return false;
       }
@@ -1159,8 +1153,8 @@ class User {
         $result = $this->conn->query($sql);
 
         if (DB :: isError($result) != true) {
-            $this->_registerUpdate("Utløpsdato endret til $value");
-            notify("Utløpsdato for <strong>$this->firstname $this->lastname</strong> er endret til <strong>$value</strong>");
+            $this->_registerUpdate("UtlÃ¸psdato endret til $value");
+            notify("UtlÃ¸psdato for <strong>$this->firstname $this->lastname</strong> er endret til <strong>$value</strong>");
         }*/
     }
 
@@ -1176,8 +1170,8 @@ class User {
         $result = $this->conn->query($sql);
         if (DB :: isError($result) != true) {
             if ($value == "reject") {
-                $this->_registerUpdate("Aktivforespørsel avvist");
-                notify("Forespørsel fra <strong>$this->firstname $this->lastname</strong> om å bli registrert som aktiv i <strong>$div->name</strong> er <strong>avslått</strong>.");
+                $this->_registerUpdate("AktivforespÃ¸rsel avvist");
+                notify("ForespÃ¸rsel fra <strong>$this->firstname $this->lastname</strong> om Ã¥ bli registrert som aktiv i <strong>$div->name</strong> er <strong>avslÃ¥tt</strong>.");
             } else {
                 if ($value == "accept") {
                     $ugr = new UserGroupRelationship($this->id, 2);
@@ -1187,13 +1181,13 @@ class User {
                         $ugr2 = new UserGroupRelationship($this->id, $group_id);
                         $ugr2->store();
                     }
-                    $this->_registerUpdate("Aktivforespørsel godkjent");
-                    notify("Forespørsel fra <strong>$this->firstname $this->lastname</strong> om å bli registrert som aktiv i <strong>$div->name</strong> er <strong>godkjent</strong>.");
+                    $this->_registerUpdate("AktivforespÃ¸rsel godkjent");
+                    notify("ForespÃ¸rsel fra <strong>$this->firstname $this->lastname</strong> om Ã¥ bli registrert som aktiv i <strong>$div->name</strong> er <strong>godkjent</strong>.");
                 }
             }
         } else {
             error("user-div-req: " . $result->toString());
-            notify("Behandling av forespørsel ble ikke utført.");
+            notify("Behandling av forespÃ¸rsel ble ikke utfÃ¸rt.");
         }
     }
 
@@ -1240,7 +1234,7 @@ class User {
         print "    <th>kortnr</th>\n";
         print "    <th>fornavn</th>\n";
         print "    <th>etternavn</th>\n";
-        print "    <th>utløpsår</th>\n";
+        print "    <th>utlÃ¸psÃ¥r</th>\n";
         print "    <th>endre til</th>\n";
         print "    <th>oblat</th>\n";
         print "    <th>endre til</th>\n";
@@ -1328,8 +1322,8 @@ class User {
             print "<form action=\"javascript: updateUserExpiry('" . $this->id . "')\" method=\"get\">";
             print "<input type=\"hidden\" name=\"action\" value=\"update-user-expiry\" />\n";
             print "<select name=\"newExpiryDate_" . $this->id . "\" id=\"newExpiryDate_" . $this->id . "\">\n";
-            print "<option value=\"0000-00-00\">" . "ugyldig utløpsår" . "</option>\n";
-            $loop = array('now'=>'inneværende år','+1 year'=>'neste år','+3 year'=>'tre år','+5 year'=>'fem år');
+            print "<option value=\"0000-00-00\">" . "ugyldig utlÃ¸psÃ¥r" . "</option>\n";
+            $loop = array('now'=>'innevÃ¦rende Ã¥r','+1 year'=>'neste Ã¥r','+3 year'=>'tre Ã¥r','+5 year'=>'fem Ã¥r');
             
             foreach($loop as $time=>$label)
             	echo '<option ' . (getExpiryDate($time) == $this->expires?' selected="selected" ':'') . ' value="' . getExpiryDate($time) . '">' . $label . ' (' . getExpiryDate($time) . ')</option>';
@@ -1353,12 +1347,12 @@ class User {
             print "<div>";
             print "<input type=\"hidden\" name=\"action\" value=\"update-user-last-sticker\" />";
             print "<select name=\"newStickerDate_" . $this->id . "\" id=\"newStickerDate_" . $this->id . "\">";
-            print "<option value=\"2011\">" . "I år, gammelt medlemskap" . "</option>\n";
+            print "<option value=\"2011\">" . "I Ã¥r, gammelt medlemskap" . "</option>\n";
             
-            print "<option selected=\"selected\" value=\"" . getStickerPeriod("now") . "\">" . "inneværende år (" . getStickerPeriod("now") . ")" . "</option>\n";
-            print "<option value=\"" . getStickerPeriod("+1 year") . "\">" . "neste år (" . getStickerPeriod("+1 year") . ")" . "</option>\n";
-            print "<option value=\"" . getStickerPeriod("+3 year") . "\">" . "tre år (" . getStickerPeriod("+3 year") . ")" . "</option>\n";
-            print "<option value=\"" . getStickerPeriod("+5 year") . "\">" . "fem år (" . getStickerPeriod("+5 year") . ")" . "</option>\n";
+            print "<option selected=\"selected\" value=\"" . getStickerPeriod("now") . "\">" . "innevÃ¦rende Ã¥r (" . getStickerPeriod("now") . ")" . "</option>\n";
+            print "<option value=\"" . getStickerPeriod("+1 year") . "\">" . "neste Ã¥r (" . getStickerPeriod("+1 year") . ")" . "</option>\n";
+            print "<option value=\"" . getStickerPeriod("+3 year") . "\">" . "tre Ã¥r (" . getStickerPeriod("+3 year") . ")" . "</option>\n";
+            print "<option value=\"" . getStickerPeriod("+5 year") . "\">" . "fem Ã¥r (" . getStickerPeriod("+5 year") . ")" . "</option>\n";
             print "<option value=\"0000-00-00\">ingen verdi</option>";
             print "</select>";
             print "<input type=\"submit\" value=\"endre\" />";
@@ -1413,7 +1407,7 @@ class User {
         $result = $conn->query($sql);
         if (DB :: isError($result) == true) {
             error("ResetPassword: " . $result->toString());
-            notify("Tjenesten er midlertidig utilgjengelig, vennligst forsøk igjen senere.");
+            notify("Tjenesten er midlertidig utilgjengelig, vennligst forsÃ¸k igjen senere.");
             return false;
         } else {
             $this->_registerUpdate('Brukernavn og nytt passord sendt til bruker.');
@@ -1424,10 +1418,10 @@ class User {
     public function _sendPassword() {
         $sendto = $this->email;
         $subject = "Brukernavn og passord for Studentersamfundet Inside";
-        $message = "Hei, $this->firstname $this->lastname!\n " . "\n" . "\nHer er din innloggingsinformasjon til Studentersamfundets medlemsider. " . "\n" . "\nDitt brukernavn er: $row->username" . "\nDitt passord er: $newPassword" . "\n" . "\nNår du logger på vil du bli bedt om å endre passord til noe som er lettere å huske." . "\n" . "\nhttps://inside.studentersamfundet.no/" . "\n" . "\nmvh" . "\n\nDet Norske Studentersamfund.";
+        $message = "Hei, $this->firstname $this->lastname!\n " . "\n" . "\nHer er din innloggingsinformasjon til Studentersamfundets medlemsider. " . "\n" . "\nDitt brukernavn er: $row->username" . "\nDitt passord er: $newPassword" . "\n" . "\nNÃ¥r du logger pÃ¥ vil du bli bedt om Ã¥ endre passord til noe som er lettere Ã¥ huske." . "\n" . "\nhttps://inside.studentersamfundet.no/" . "\n" . "\nmvh" . "\n\nDet Norske Studentersamfund.";
         $headers = 'From: Det Norske Studentersamfund <medlemskap@studentersamfundet.no>' . "\r\n";
         if (mail($sendto, $subject, $message, $headers)) {
-            notify("Nytt brukernavn og passord er sendt til din registrerte epostadresse. Bruk skjemaet under for å logge deg inn.");
+            notify("Nytt brukernavn og passord er sendt til din registrerte epostadresse. Bruk skjemaet under for Ã¥ logge deg inn.");
         } else {
             notify("Det oppstod en feil under sending av epost. Vennligst kontakt" .
 		        "<a href=\"mailto:support@studentersamfundet.no\">webansvarlig</a>.");
@@ -1443,16 +1437,16 @@ class User {
         $message = "Hei, " . $this->firstname . " " . $this->lastname . "!" .
         "\n\n" .
         "Vi har registrert at du har aktivert medlemskapet ditt i Det Norske Studentersamfund. " .
-        "For å kunne fremvise gyldig medlemskap så behøver du å laste ned appen SnappOrder på din telefon og velge Chateau Neuf.\n" .
+        "For Ã¥ kunne fremvise gyldig medlemskap sÃ¥ behÃ¸ver du Ã¥ laste ned appen SnappOrder pÃ¥ din telefon og velge Chateau Neuf.\n" .
         "\n" .
-        "Som medlem vil du få informasjon om arrangementer i vårt nyhetsbrev og rabatter på alt fra arrangementer" . 
-        " til mat og drikke. I tillegg kan du være med og bestemme siden alle medlemmer har stemmerett ved medlemsmøter\n" . 
+        "Som medlem vil du fÃ¥ informasjon om arrangementer i vÃ¥rt nyhetsbrev og rabatter pÃ¥ alt fra arrangementer" . 
+        " til mat og drikke. I tillegg kan du vÃ¦re med og bestemme siden alle medlemmer har stemmerett ved medlemsmÃ¸ter\n" . 
         " og generalforsamlinger.\n" . 
         "\n";
 
-        $message .= "Er det noe du lurer på kan du bare svare på denne eposten, så svarer vi så fort vi klarer.\n".
+        $message .= "Er det noe du lurer pÃ¥ kan du bare svare pÃ¥ denne eposten, sÃ¥ svarer vi sÃ¥ fort vi klarer.\n".
 				"\n\n".
-				"Virker noe av det vi holder på med på huset spennende? Du kan bli med som aktiv i en eller mange av våre foreninger.\n Sjekk http://studentersamfundet/bliaktiv" .
+				"Virker noe av det vi holder pÃ¥ med pÃ¥ huset spennende? Du kan bli med som aktiv i en eller mange av vÃ¥re foreninger.\n Sjekk http://studentersamfundet/bliaktiv" .
 				"\n\n" .
 				"Med vennlig hilsen\n\n" .
 				"Det Norske Studentersamfund\n\n";
@@ -1469,12 +1463,12 @@ class User {
         $subject = "Medlemskortet ditt er produsert";
         $message = "Hei, " . $this->firstname . " " . $this->lastname . "!" .
         "\n\n" .
-        "Vi har nå produsert medlemskortet ditt i Det Norske Studentersamfund. " .
-        "Det ligger nå klart til avhenting i Glassbaren på Studentersamfundet og kan hentes der i Glassbarens åpningstid. \n" .
+        "Vi har nÃ¥ produsert medlemskortet ditt i Det Norske Studentersamfund. " .
+        "Det ligger nÃ¥ klart til avhenting i Glassbaren pÃ¥ Studentersamfundet og kan hentes der i Glassbarens Ã¥pningstid. \n" .
         "\n" .
-        "For mer informasjon om hva som skjer på Det Norske Studentersamfund, gå inn på vår nettside: http://www.studentersamfundet.no/ .\n" .
+        "For mer informasjon om hva som skjer pÃ¥ Det Norske Studentersamfund, gÃ¥ inn pÃ¥ vÃ¥r nettside: http://www.studentersamfundet.no/ .\n" .
         "\n" .
-        "Er det noe du lurer på kan du bare svare på denne eposten, så svarer vi så fort vi klarer.\n".
+        "Er det noe du lurer pÃ¥ kan du bare svare pÃ¥ denne eposten, sÃ¥ svarer vi sÃ¥ fort vi klarer.\n".
         "\n\n" .
         "Bli aktiv i dag!\n" .
         "www.studentersamfundet.no/bliaktiv\n" .
@@ -1499,12 +1493,12 @@ class User {
         $message = "Hei, " . $this->firstname . " " . $this->lastname . "!" .
         "\n\n" .
         "Vi har registrert at du har fornyet medlemsskapet ditt i Det Norske Studentersamfund. " .
-        "Medlemsoblat som viser at du har medlemskap kan hentes i Glassbaren på Studentersamfundet i Glassbarens åpningstid. Ta med medlemskortet ditt. \n" .
-        "Hvis du har mistet medlemskortet ditt kan du få ordnet nytt kort i Glassbaren også, eller bestille det fra nettbutikken.\n".
+        "Medlemsoblat som viser at du har medlemskap kan hentes i Glassbaren pÃ¥ Studentersamfundet i Glassbarens Ã¥pningstid. Ta med medlemskortet ditt. \n" .
+        "Hvis du har mistet medlemskortet ditt kan du fÃ¥ ordnet nytt kort i Glassbaren ogsÃ¥, eller bestille det fra nettbutikken.\n".
         "\n" .
-        "For mer informasjon om hva som skjer på Det Norske Studentersamfund, gå inn på vår nettside: http://www.studentersamfundet.no/ .\n" .
+        "For mer informasjon om hva som skjer pÃ¥ Det Norske Studentersamfund, gÃ¥ inn pÃ¥ vÃ¥r nettside: http://www.studentersamfundet.no/ .\n" .
         "\n" .
-        "Er det noe du lurer på kan du bare svare på denne eposten, så svarer vi så fort vi klarer.\n".
+        "Er det noe du lurer pÃ¥ kan du bare svare pÃ¥ denne eposten, sÃ¥ svarer vi sÃ¥ fort vi klarer.\n".
         "\n\n" .
         "Bli aktiv i dag!\n" .
         "www.studentersamfundet.no/bliaktiv\n" .
@@ -1527,7 +1521,7 @@ class User {
         $subject = "Du er registrert med feil postadresse";
         $message = "Hei, " . $this->firstname . " " . $this->lastname . "!" .
         "\n\n" .
-        "Vi har sendt ut en postsending til deg, og fått beskjed fra posten " .
+        "Vi har sendt ut en postsending til deg, og fÃ¥tt beskjed fra posten " .
         "om at du har flyttet fra \"" .
         $this->street . ", " . $this->zipcode . " " . $this->postarea .
         "\" til \"" .
@@ -1535,13 +1529,13 @@ class User {
         "\".\n" .
         "Brevet er videresendt til denne nye adressen. " .
         "Hvis du ikke har mottatt dette brevet, eller ikke har flyttet kan " .
-        "du logge inn på våre medlemssider og oppdatere din adresse. " .
-        "Logg inn på denne siden: " .
+        "du logge inn pÃ¥ vÃ¥re medlemssider og oppdatere din adresse. " .
+        "Logg inn pÃ¥ denne siden: " .
         "https://www.studentersamfundet.no/inside - ditt brukernavn er " .
         "\"" . $this->username . "\".\n" .
         "\n" .
-        "Hvis du ikke har mottatt medlemskortet vil vi at du svarer på denne " .
-        "e-posten etter du har oppdatert din adresse og ber om å få tilsendt " .
+        "Hvis du ikke har mottatt medlemskortet vil vi at du svarer pÃ¥ denne " .
+        "e-posten etter du har oppdatert din adresse og ber om Ã¥ fÃ¥ tilsendt " .
         "nytt medlemskort.\n" .
         "\n\n\n" .
         "Mvh\n\n" .
@@ -1562,34 +1556,34 @@ class User {
         $sendto = $this->email;
         $linkMessage = "";
         if ($link) {
-            $linkMessage = "Brevet vi har forsøkt å sende kan du også " .
-                "lese på nett fra denne adressen:\n$link\n\n";
+            $linkMessage = "Brevet vi har forsÃ¸kt Ã¥ sende kan du ogsÃ¥ " .
+                "lese pÃ¥ nett fra denne adressen:\n$link\n\n";
         }
         $subject = "Postforsendelse er ikke kommet frem til addressen din";
         $message = "Hei, " . $this->firstname . " " . $this->lastname . "!" .
         "\n\n" .
-        "Vi har sendt ut en postsending til deg, og fått beskjed fra Posten ".
-        "om at du var ukjent på din oppgitte adresse. \n" .
-        "Vi sendte brevet til følgende adresse: \"" . $this->street . ", " .
+        "Vi har sendt ut en postsending til deg, og fÃ¥tt beskjed fra Posten ".
+        "om at du var ukjent pÃ¥ din oppgitte adresse. \n" .
+        "Vi sendte brevet til fÃ¸lgende adresse: \"" . $this->street . ", " .
         $this->zipcode . " " . $this->postarea . "\". " .
-        "På grunn av tilbakemeldingen om at du er ukjent på adressen ".
-        "er brevet så blitt makulert av Posten, på oppdrag av oss." .
+        "PÃ¥ grunn av tilbakemeldingen om at du er ukjent pÃ¥ adressen ".
+        "er brevet sÃ¥ blitt makulert av Posten, pÃ¥ oppdrag av oss." .
         "\n" .
         $linkMessage .
         "\n" .
         "Hvis du ikke har mottat medlemskortet eller oblatet ditt er det " .
         "mest sannsynlig det som var i denne postforsendelsen. Hvis du fortsatt " .
-        "bor på adressen over, eller har meldt flytting fra denne adressen må " .
-        "du klage til Posten, enten på telefon 810 00 710, eller gjennom skjemaet " .
-        "du finner på denne siden: http://www.posten.no/Kundeservice .\n" .
-        "Be om svar på epost og videresend denne til medlemskap@studentersamfundet.no " .
-        "så sender vi deg et nytt medlemskort kostnadsfritt. \n" .
+        "bor pÃ¥ adressen over, eller har meldt flytting fra denne adressen mÃ¥ " .
+        "du klage til Posten, enten pÃ¥ telefon 810 00 710, eller gjennom skjemaet " .
+        "du finner pÃ¥ denne siden: http://www.posten.no/Kundeservice .\n" .
+        "Be om svar pÃ¥ epost og videresend denne til medlemskap@studentersamfundet.no " .
+        "sÃ¥ sender vi deg et nytt medlemskort kostnadsfritt. \n" .
         "\n".
-        "Hvis du derimot har oppgitt feil adresse, eller har flyttet uten å " .
-        "melde flytting må du logge inn på våre medlemsider, oppdatere adressen " .
-        "din og bestille nytt kort i nettbutikken. Da vil du automatisk få tilsendt " .
-        "nytt kort. Vi må ta 35 kroner for å dekke våre kostnader. " .
-        "Våre medlemsider finner du på https://inside.studentersamfundet.no/ ." .
+        "Hvis du derimot har oppgitt feil adresse, eller har flyttet uten Ã¥ " .
+        "melde flytting mÃ¥ du logge inn pÃ¥ vÃ¥re medlemsider, oppdatere adressen " .
+        "din og bestille nytt kort i nettbutikken. Da vil du automatisk fÃ¥ tilsendt " .
+        "nytt kort. Vi mÃ¥ ta 35 kroner for Ã¥ dekke vÃ¥re kostnader. " .
+        "VÃ¥re medlemsider finner du pÃ¥ https://inside.studentersamfundet.no/ ." .
         "Ditt brukernavn er \"" . $this->username . "\". \n".
         "\n\n\n" .
         "Mvh\n\n" .
@@ -1613,13 +1607,13 @@ class User {
     public function membershipStatus() {
         if ($this->expires == "0000-00-00") {
 	    $panel_class = 'danger';
-	    $panel_text  = "Du har ikke registrert medlemskap. <a href='https://inside.studentersamfundet.no/index.php?page=register-membership'>Kjøp eller registrer medlemskap</a>.";
+	    $panel_text  = "Du har ikke registrert medlemskap. <a href='https://inside.studentersamfundet.no/index.php?page=register-membership'>KjÃ¸p eller registrer medlemskap</a>.";
 	} elseif ($this->expires == "") {
 	    $panel_class = 'success';
             $panel_text = "Du har livsvarig medlemskap.";
 	} elseif (strtotime($this->expires) < strtotime("now")) {
 	    $panel_class = 'danger';
-            $panel_text = "Du har ikke registrert gyldig medlemskap i år (medlemskapet ditt gikk ut " . date("d.m.Y", strtotime($this->expires)) . "). <a href='https://inside.studentersamfundet.no/index.php?page=register-membership'>Kjøp eller registrer medlemskap</a>.";
+            $panel_text = "Du har ikke registrert gyldig medlemskap i Ã¥r (medlemskapet ditt gikk ut " . date("d.m.Y", strtotime($this->expires)) . "). <a href='https://inside.studentersamfundet.no/index.php?page=register-membership'>KjÃ¸p eller registrer medlemskap</a>.";
 	} elseif (strtotime($this->expires) > strtotime("now")) {
             if ($this->getCardDelivered()) {
                 if ($this->lastSticker < date("Y", strtotime($this->expires))) {

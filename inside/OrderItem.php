@@ -127,7 +127,7 @@ class OrderItem {
       if ($conn->affectedRows() > 0){
         //notify("Varen er slettet fra handlekurven.");
       }else {
-        //notify("Ugyldig order_itemid, ingen handling utført.");
+        //notify("Ugyldig order_itemid, ingen handling utfÃ¸rt.");
       }
     }else {
       error($result->toString());
@@ -139,7 +139,7 @@ class OrderItem {
 ?>
 		<div class="text-column">
 			<h3>Ordrebekreftelse</h3>
-      <p>Ditt kjøp er gjennomført. På kontoutskriften din vil det stå Payex AS.</p>
+      <p>Ditt kjÃ¸p er gjennomfÃ¸rt. PÃ¥ kontoutskriften din vil det stÃ¥ Payex AS.</p>
       <p>Ordren har referansen #<?php print $this->id;?>.</p>
 
 		  <table>
@@ -151,9 +151,9 @@ class OrderItem {
 		    </tr>
   		</table>
 
-  		<p>Du vil få tilsendt medlemskort i posten i løpet av 6-12 dager.</p>
-  		<p>Om du allerede har medlemskort vil du kun få tilsendt nytt oblat for inneværende år.</p>
-  		<p>For spørsmål vedrørende medlemskapet eller transaksjonen kan du kontakte <a href="mailto:support@studentersamfundet.no">support@studentersamfundet.no</a>.</p>
+  		<p>Du vil fÃ¥ tilsendt medlemskort i posten i lÃ¸pet av 6-12 dager.</p>
+  		<p>Om du allerede har medlemskort vil du kun fÃ¥ tilsendt nytt oblat for innevÃ¦rende Ã¥r.</p>
+  		<p>For spÃ¸rsmÃ¥l vedrÃ¸rende medlemskapet eller transaksjonen kan du kontakte <a href="mailto:support@studentersamfundet.no">support@studentersamfundet.no</a>.</p>
 
     </div>
 
@@ -193,7 +193,7 @@ class OrderItem {
 	public
 	function getConfirmationText() {
 		$product = new Product($this->product_id);
-		$text = $this->quantity . " " . $product->title . " á " . formatPrice($product->price) . "\n";
+		$text = $this->quantity . " " . $product->title . " Ã¡ " . formatPrice($product->price) . "\n";
 		return $text;
 	}
 }

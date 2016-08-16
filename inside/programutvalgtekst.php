@@ -8,7 +8,7 @@ $prog = new ProgramSelection($id);
 
 <?php
 if ($prog->type == "Billett") {
-	print("Arrangementer med billettsalg på Det Norske Studentersamfund");
+	print("Arrangementer med billettsalg pÃ¥ Det Norske Studentersamfund");
 } else {
 	print($prog->type."program for Det Norske Studentersamfund");
 }?>
@@ -45,7 +45,7 @@ Pris: <?php print $gig->priceNormal; ?>/<?php print $gig->priceConcession; ?>
 
 ---
 
-Våre samarbeidspartnere:
+VÃ¥re samarbeidspartnere:
 
 Sony Ericsson - Chess - NextGenTel - Toro - Radio 1 - Dagbladet - The Voice TV
 

@@ -70,7 +70,7 @@ class Positions {
           }
         print("      </table>");
       }else {?>
-      <p>Ingen stillingsbeskrivelser er registrert ennå.</p>
+      <p>Ingen stillingsbeskrivelser er registrert ennÃ¥.</p>
 <?php        
       }
     }else {

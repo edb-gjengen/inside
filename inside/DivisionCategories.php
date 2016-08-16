@@ -13,7 +13,7 @@ class DivisionCategories {
 
     $sql = "SELECT id, title FROM din_divisioncategory";
     $result = $this->conn->query($sql);
-    if (DB::isError($result) != true){
+    if ( !DB::isError($result) ){
       $this->categories = $result;
     }
   }

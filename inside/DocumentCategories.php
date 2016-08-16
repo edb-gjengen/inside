@@ -9,13 +9,7 @@ class DocumentCategories {
   }
 
   function __construct(){
-    $conn =& DB::connect(getDSN());
-    if (DB::isError($conn)){
-      error("DocumentCategories: " . $conn->toString());
-      exit();
-    }else {
-      $this->conn = $conn;
-    }
+    $this->conn = db_connect();
 
     $sql = "SELECT id, title FROM din_documentcategory ORDER BY title ASC";
     $result = $this->conn->query($sql);

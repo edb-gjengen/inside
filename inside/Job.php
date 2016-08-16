@@ -46,7 +46,7 @@ class Job {
       }else {//Retrieve data from backend for display or other actions
         $data = $this->_retrieveData();
         if ($data == NULL){
-          notify("Stillingen du søkte er ikke tilgjengelig. Bruk skjemaet under om du vil rapportere problemet.");
+          notify("Stillingen du sÃ¸kte er ikke tilgjengelig. Bruk skjemaet under om du vil rapportere problemet.");
           displayBugReportForm("job");
           $this->id = NULL;
         }
@@ -195,7 +195,7 @@ class Job {
     <div class="text-column">
     <div class="timeData">
       <strong>Publisert:</strong> <?php print formatDate($this->published); ?> 
-      <strong>Utgår:</strong> <?php print formatDate($this->expires); ?>
+      <strong>UtgÃ¥r:</strong> <?php print formatDate($this->expires); ?>
     </div>
 
 <?php

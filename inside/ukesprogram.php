@@ -15,13 +15,13 @@
 
     if ($mode == EDIT_MODE && !checkAuth("perform-register-weekprogram")) {
       if (!checkAuth("view-week-program")) {
-          // ikke tilgang til å vise denne siden
+          // ikke tilgang til Ã¥ vise denne siden
           //$ap->performAction();
           $page = new Page();
           $page->display();
           exit();
       }
-        // Ikke tilgang til å redigere
+        // Ikke tilgang til Ã¥ redigere
         $mode = "view";
     }
 ?>
@@ -279,7 +279,7 @@
     function day2dag ($day) {
         switch ($day) {
             case 0:
-                return "søndag";
+                return "sÃ¸ndag";
             case 1:
                 return "mandag";
             case 2:
@@ -291,7 +291,7 @@
             case 5:
                 return "fredag";
             case 6:
-                return "lørdag";
+                return "lÃ¸rdag";
             default:
                 return "";
         }
@@ -409,7 +409,7 @@
 		</div>
 
 		<div id="sponsors" style="text-align: center; border-top: 1px solid black;">
-			<p>Våre samarbeidspartnere:</p>
+			<p>VÃ¥re samarbeidspartnere:</p>
 			<a href="http://www.toro.no"><img style="margin: 12px; border: none;" src="http://www.studentersamfundet.no/bilder/sponsorer/toro.jpg" alt="Toro" /></a>
 			<a href="http://www.akademika.no"><img style="margin: 12px; border: none;" src="http://www.studentersamfundet.no/bilder/sponsorer/akademika.png" alt="Akademika" /></a>
 		</div>

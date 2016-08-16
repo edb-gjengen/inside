@@ -26,7 +26,7 @@ class Articles {
           <th>intro</th>
           <th>forfatter</th>
           <th>publisert</th>
-          <th>utgår</th>
+          <th>utgÃ¥r</th>
           <?php if(checkAuth("view-edit-options-article")){
         ?><th colspan="2">&nbsp;</th><?php } ?>
         </tr>

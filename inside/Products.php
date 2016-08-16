@@ -75,7 +75,7 @@ class Products {
 	
     if (DB::isError($result) != true){?>
 			<div class="text-column">
-			<h2>Produkter tilgjengelig for kjøp:</h2>
+			<h2>Produkter tilgjengelig for kjÃ¸p:</h2>
 <?php
     
     // Vis varen medlemskap hvis brukeren ikke har gyldig medlemskap

@@ -4,7 +4,7 @@
         'DATA_FORMAT'       => 'M d, Y',
         'LANGUAGE'          => 'norsk',
 
-        'SEARCH'        => 'Søk',
+        'SEARCH'        => 'SÃ¸k',
         'CLICK_HERE'    => 'Klikk her',
     ));
 

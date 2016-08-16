@@ -248,8 +248,8 @@ class Event {
       $freqOptions = Array(Array("id" => "daily", "title" => "daglig"), 
                            Array("id" => "weekly", "title" => "ukentlig"),
                            Array("id" => "biweekly", "title" => "annenhver uke"),
-                           Array("id" => "monthlyDate", "title" => "månedlig"),
-                           Array("id" => "annual", "title" => "årlig")
+                           Array("id" => "monthlyDate", "title" => "mÃ¥nedlig"),
+                           Array("id" => "annual", "title" => "Ã¥rlig")
                                );
                            
       $title   = "repeat event";
@@ -288,7 +288,7 @@ class Event {
     if ($list->numRows() > 0){
       ?>
     <div class="comments">
-      <h3>kommentarer og spørsmål:</h3>
+      <h3>kommentarer og spÃ¸rsmÃ¥l:</h3>
 <?php
       while ($row =& $list->fetchRow(DB_FETCHMODE_OBJECT)){
         $comment = new EventComment($row->id);
@@ -299,7 +299,7 @@ class Event {
     ?>
 <?php
     //register new comment
-    $title   = "legg inn kommentar eller spørsmål";
+    $title   = "legg inn kommentar eller spÃ¸rsmÃ¥l";
     $enctype = NULL;
     $method  = "post";
     $action  = "index.php?action=register-eventcomment&amp;page=display-event";

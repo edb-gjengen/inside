@@ -57,7 +57,7 @@ class Documents {
           <th>kategori</th>
           <th>tags</th>
           <th>endret</th>
-          <th>størrelse</th>
+          <th>stÃ¸rrelse</th>
           <?php if(checkAuth("view-edit-options-document")){
         ?><th colspan="2">&nbsp;</th><?php } ?>
         </tr>
@@ -107,7 +107,7 @@ class Documents {
           <th>kategori</th>
           <th>tags</th>
           <th>endret</th>
-          <th>størrelse</th>
+          <th>stÃ¸rrelse</th>
           <?php if(checkAuth("view-edit-options-document")){
         ?><th colspan="2">&nbsp;</th><?php } ?>
         </tr>

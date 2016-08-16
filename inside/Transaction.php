@@ -112,7 +112,7 @@ class Transaction {
       if ($conn->affectedRows() > 0){
         notify("Transaksjonen er slettet.");
       }else {
-        notify("Ugyldig transaksjonsid, ingen handling utført.");        
+        notify("Ugyldig transaksjonsid, ingen handling utfÃ¸rt.");        
       }
     }else {
       error($result->toString());
@@ -140,15 +140,15 @@ class Transaction {
   function displayConfirmation() {
   	$order = new Order($this->order_id);
   	?>
-  	<h3>Følgende bestilling er registrert og belastet ditt VISA-kort:</h3>
+  	<h3>FÃ¸lgende bestilling er registrert og belastet ditt VISA-kort:</h3>
   	<p>Transaksjonen har referansen <strong><?php print $this->id; ?></strong>.</p>
   	<?php
   	$order->displayConfirmation();
   	?>
   	
-  	<p>På kontoutskriften vil det stå Payex AS.</p>
-  	<p>For spørsmål angående dette kan du kontakte <a href="mailto:support@studentersamfundet.no">support@studentersamfundet.no</a>.</p>
-  	<p>Se forøvrig <a href="http://www.studentersamfundet.no/kontakt/">våre kontaktsider</a> for ytterligere kontaktinformasjon.</p>
+  	<p>PÃ¥ kontoutskriften vil det stÃ¥ Payex AS.</p>
+  	<p>For spÃ¸rsmÃ¥l angÃ¥ende dette kan du kontakte <a href="mailto:support@studentersamfundet.no">support@studentersamfundet.no</a>.</p>
+  	<p>Se forÃ¸vrig <a href="http://www.studentersamfundet.no/kontakt/">vÃ¥re kontaktsider</a> for ytterligere kontaktinformasjon.</p>
   	<?php
   }
 }

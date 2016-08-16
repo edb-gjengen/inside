@@ -87,7 +87,7 @@ class WeekPrograms {
           }
         print("      </table>");
       }else {?>
-      <p>Ingen ukesprogram er registrert ennå.</p>
+      <p>Ingen ukesprogram er registrert ennÃ¥.</p>
 <?php        
       }
     }else {

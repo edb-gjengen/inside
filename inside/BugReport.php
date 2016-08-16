@@ -185,11 +185,11 @@ class BugReport {
 		
 		<?php
   	 $statuses = Array(Array("id" => 0, "title" => "avsluttet"),
-                			 Array("id" => 1, "title" => "åpen")
+                			 Array("id" => 1, "title" => "Ã¥pen")
                 			);
   	 
   	 
-  	  $title   = "status på feilmeldingen";
+  	  $title   = "status pÃ¥ feilmeldingen";
     	$id      = "bugreport-comment";
     	$enctype = NULL;
     	$method  = "post";

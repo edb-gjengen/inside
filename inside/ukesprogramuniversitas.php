@@ -178,11 +178,11 @@ while ($current = $week_list->fetchRow(DB_FETCHMODE_OBJECT)) {
 
 
 <div id="sponsors" style="text-align: center; border-top: 1px solid black;">
-<p>Våre samarbeidspartnere:</p>
+<p>VÃ¥re samarbeidspartnere:</p>
 	<a href="http://www.chess.no"><img style="margin: 12px; border: none;" src="http://www.studentersamfundet.no/bilder/sponsorer/chess.png" alt="Chess" /></a>
 	<a href="http://www.samsung.no"><img style="margin: 12px; border: none;" src="http://www.studentersamfundet.no/bilder/sponsorer/samsung.png" alt="Samsung" /></a>
   <a href="http://www.toro.no"><img style="margin: 12px; border: none;" src="http://www.studentersamfundet.no/bilder/sponsorer/toro.jpg" alt="Toro" /></a>
-	<a href="http://www.nescafe.no"><img style="margin: 12px; border: none;" src="http://www.studentersamfundet.no/bilder/sponsorer/nescafe.png" alt="Nescafé" /></a>
+	<a href="http://www.nescafe.no"><img style="margin: 12px; border: none;" src="http://www.studentersamfundet.no/bilder/sponsorer/nescafe.png" alt="NescafÃ©" /></a>
   <a href="http://www.dagbladet.no"><img style="margin: 12px; border: none;" src="http://www.studentersamfundet.no/bilder/sponsorer/dagbladet.gif" alt="Dagbladet" /></a>
 	<a href="http://www.kanal24.no"><img style="margin: 12px; border: none;" src="http://www.studentersamfundet.no/bilder/sponsorer/kanal24.png" alt="Kanal 24" /></a>
 </div>

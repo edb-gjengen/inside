@@ -37,7 +37,7 @@ class Payment {
 			$transaction->store();
 			$transaction_id = $transaction->id;
 		}else {
-			notify("Transaksjonen er allerede forsøkt gjennomført. Dette skyldes sannsynligvis at du har trykket to ganger på 'submit'-knappen.");
+			notify("Transaksjonen er allerede forsÃ¸kt gjennomfÃ¸rt. Dette skyldes sannsynligvis at du har trykket to ganger pÃ¥ 'submit'-knappen.");
 			return;	
 		}
 
@@ -49,7 +49,7 @@ class Payment {
 		$price = $this->amount * 100;
 		$priceArgList = 'VISA=%s,MC=%s'; // No CPA, VISA, MasterCard, SMS
 		$priceArgList = sprintf($priceArgList, $price, $price);
-		$description = "Kjøp fra Studentersamfundet.no";
+		$description = "KjÃ¸p fra Studentersamfundet.no";
 		$returnURL = 'https://inside.studentersamfundet.no/index.php?action=transaction-return&transactionid='.$transaction_id; // ReturnURL
 
 		// Run Initialize. Check return-value
@@ -78,12 +78,12 @@ class Payment {
 			if (!($this->payex->getTransactionStatus() == PAYEX_TRANSACTIONSTATUS_SALE || 
 				$this->payex->getTransactionStatus() == PAYEX_TRANSACTIONSTATUS_CAPTURE) )
 			{
-				notify("Betalingen er ikke riktig gjennomført. Vennligst ta kontakt med support om du tror dette skyldes en feil.");
+				notify("Betalingen er ikke riktig gjennomfÃ¸rt. Vennligst ta kontakt med support om du tror dette skyldes en feil.");
 				return false;
 			}
 			$transaction = new Transaction($transaction_id);
 			$transaction->setStatus("OK");
-			notify("Betalingen er gjennomført. En kvittering er blitt sendt til din registrerte epostadresse.");
+			notify("Betalingen er gjennomfÃ¸rt. En kvittering er blitt sendt til din registrerte epostadresse.");
 			if (!$this->user_email) { // get user mail from current user
   			$user = new User(getCurrentUser());
 	   		$this->user_email = $user->email;
@@ -92,7 +92,7 @@ class Payment {
 			mysql_query("UPDATE `din_transaction_check` SET `order_ref2` = '$orderRef' WHERE `order_id`='{$transaction->id}' LIMIT 1");
 			return true;
 		}else {
-			notify("Betalingen er ikke riktig gjennomført. Vennligst ta kontakt med support om du tror dette skyldes en feil.");
+			notify("Betalingen er ikke riktig gjennomfÃ¸rt. Vennligst ta kontakt med support om du tror dette skyldes en feil.");
 			return false;
 		}
 	}
@@ -107,12 +107,12 @@ class Payment {
         $order = new Order($transaction->order_id);
         $subject = "=?iso8859-1?Q?[$transaction->id] Kvittering for kj=F8p p=E5 studentersamfundet.no?=";
         $message = "Hei!\n\n" .
-            "Du har nettopp gjennomført et kjøp på studentersamfundet.no. Transaksjonen har referansen $transaction->id.\n\n" .
-            "Du har kjøpt:\n" .
+            "Du har nettopp gjennomfÃ¸rt et kjÃ¸p pÃ¥ studentersamfundet.no. Transaksjonen har referansen $transaction->id.\n\n" .
+            "Du har kjÃ¸pt:\n" .
             $order->getConfirmationText()."\n" .
             "Prisen for dette er NOK $transaction->amount,-\n" .
-            "Beløpet er blitt belastet ditt VISA-kort. På kontoutskriften vil det stå Payex AS.\n\n" .
-            "For spørsmål angående dette kan du svare på denne eposten. Se forøvrig http://www.studentersamfundet.no/kontakt/ for ytterligere kontaktinformasjon.\n\n" . 
+            "BelÃ¸pet er blitt belastet ditt VISA-kort. PÃ¥ kontoutskriften vil det stÃ¥ Payex AS.\n\n" .
+            "For spÃ¸rsmÃ¥l angÃ¥ende dette kan du svare pÃ¥ denne eposten. Se forÃ¸vrig http://www.studentersamfundet.no/kontakt/ for ytterligere kontaktinformasjon.\n\n" . 
             "Med vennlig hilsen\n" .
             "Det Norske Studentersamfund\n\n";
         $headers = "From: Det Norske Studentersamfund <support@studentersamfundet.no>\r\n";

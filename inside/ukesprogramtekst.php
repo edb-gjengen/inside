@@ -42,7 +42,7 @@ Pris: <?php print $gig->priceNormal; ?>/<?php print $gig->priceConcession; ?>
 <?php print html_entity_decode($prog->posttext); ?>
 
 
-Våre samarbeidspartnere:
+VÃ¥re samarbeidspartnere:
 Toro
 Akademika
 

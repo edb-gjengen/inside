@@ -8,7 +8,7 @@ class Navigation {
     <nav id="nav" class="navbar navbar-default" role="navigation">
 	<div class="navbar-header">
 	    <!-- button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navList">
-		<span class="sr-only">Skru av/på navigasjon</a>
+		<span class="sr-only">Skru av/pÃ¥ navigasjon</a>
 		<span class="icon-bar">Icon bar</span>
 		<span class="icon-bar">Icon bar</span>
 	    </button -->
@@ -26,7 +26,7 @@ class Navigation {
             <ul id="jobsMenu" class="menu dropdown-menu">
               <li><a href="index.php?page=display-jobs">Vis ledige</a></li>
               <?php if(isAdmin()){
-            ?><li><a href="index.php?page=register-job">Registrér stilling</a></li>
+            ?><li><a href="index.php?page=register-job">RegistrÃ©r stilling</a></li>
 <?php }
 ?>              <li><a href="index.php?page=display-jobs-archive">Arkiv</a></li>
             </ul>
@@ -40,11 +40,11 @@ class Navigation {
             <ul id="divisionsMenu" class="menu dropdown-menu">
               <li><a href="index.php?page=display-divisions">Vis foreninger</a></li>
               <?php if(checkAuth("view-register-division")){
-            ?><li><a href="index.php?page=register-division">Registrér forening</a></li>
+            ?><li><a href="index.php?page=register-division">RegistrÃ©r forening</a></li>
 <?php }
 ?>              <!-- <li><a href="index.php?page=display-positions">Vis stillingsbeskrivelser</a></li>-->
               <?php if(checkAuth("view-register-position")){
-            ?><!--<li><a href="index.php?page=register-position">Registrér stillingsbeskrivelse</a></li>-->
+            ?><!--<li><a href="index.php?page=register-position">RegistrÃ©r stillingsbeskrivelse</a></li>-->
 <?php }
 ?>          </ul>
           </li>
@@ -69,10 +69,10 @@ class Navigation {
             <ul id="usersMenu" class="menu dropdown-menu">
               <li><a href="index.php?page=display-users">Vis medlemmer</a></li>
               <?php if(checkAuth("view-register-user")){
-            ?><li><a href="index.php?page=register-user">Registrér medlem</a></li>
+            ?><li><a href="index.php?page=register-user">RegistrÃ©r medlem</a></li>
 <?php }
 ?>            <?php if(checkAuth("view-display-user-expiries")){
-            ?><!--<li><a href="index.php?page=display-user-expiries">Medlemskort: utløpsdatoer</a></li>-->
+            ?><!--<li><a href="index.php?page=display-user-expiries">Medlemskort: utlÃ¸psdatoer</a></li>-->
 <?php }
 ?>            <?php if(checkAuth("view-register-membership-bankpayment")){
             ?><!--<li><a href="index.php?page=register-membership-bankpayment">Registrer bankbetalinger</a></li>-->
@@ -81,10 +81,10 @@ class Navigation {
             ?><!--<li><a href="index.php?page=register-user-ea-update">Registrer EA oppdatering</a></li>-->
 <?php }
 ?>            <?php if(checkAuth("view-display-division-requests")){
-            ?><!--<li><a href="index.php?page=display-division-requests">Vis aktivforespørseler</a></li>-->
+            ?><!--<li><a href="index.php?page=display-division-requests">Vis aktivforespÃ¸rseler</a></li>-->
 <?php }
 ?>            <?php if(checkAuth("view-register-usergrouprelationship")){
-            ?><li><a href="index.php?page=register-usergrouprelationship">Registrér gruppemedlemskap</a></li>
+            ?><li><a href="index.php?page=register-usergrouprelationship">RegistrÃ©r gruppemedlemskap</a></li>
 <?php }
 ?>            <?php if(checkAuth("view-display-usergrouprelationships")){
             ?><li><a href="index.php?page=display-usergrouprelationships">Slett gruppemedlemskap</a></li>
@@ -118,11 +118,11 @@ class Navigation {
             <a href="#" id="accessSwitch" class="switch dropdown-toggle">Tilgang <b class="caret"></b></a>
             <ul id="accessMenu" class="menu dropdown-menu">
               <li><a href="index.php?page=display-groups">Vis grupper</a></li>
-              <li><a href="index.php?page=register-group">Registrér gruppe</a></li>
+              <li><a href="index.php?page=register-group">RegistrÃ©r gruppe</a></li>
               <li><a href="index.php?page=display-actions">Vis handlinger</a></li>
-              <li><a href="index.php?page=register-action">Registrér handling</a></li>
+              <li><a href="index.php?page=register-action">RegistrÃ©r handling</a></li>
               <li><a href="index.php?page=display-actiongrouprelationships">Vis forhold</a></li>
-              <li><a href="index.php?page=register-actiongrouprelationship">Registrér forhold</a></li>
+              <li><a href="index.php?page=register-actiongrouprelationship">RegistrÃ©r forhold</a></li>
             </ul>
           </li>
           <?php }

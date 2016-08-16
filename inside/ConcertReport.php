@@ -137,12 +137,12 @@ class ConcertReport {
     displayOptionsMenu($this->id, CONCERTREPORT, "concertreport", "view-edit-options-concertreport", true, "display-concert");
 ?>
 	    <p>
-  	    <strong>Besøkende:</strong> <?php print $this->visitors; ?>
+  	    <strong>BesÃ¸kende:</strong> <?php print $this->visitors; ?>
     	</p>
     	<p>
       	<strong>Resultat:</strong> <?php print $this->result; ?>
     	</p>
-		  <h4>Om markedsføringen</h4>
+		  <h4>Om markedsfÃ¸ringen</h4>
   		<p><?php print prepareForHTML($this->marketing_comment); ?></p>
 			<h4>Om produksjonen</h4>
   		<p><?php print prepareForHTML($this->production_comment); ?></p>

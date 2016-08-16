@@ -107,7 +107,7 @@ class Order {
 			$user = new User($this->user_id);
 			if($user->expires != '2011-12-31')
 			{
-				notify('Du ser ikke ut til å ha hatt medlemskap for 2011 - vennligst kontakt Glassbaren om du mener dette er en feil');
+				notify('Du ser ikke ut til Ã¥ ha hatt medlemskap for 2011 - vennligst kontakt Glassbaren om du mener dette er en feil');
 				return false;
 			}
 		}
@@ -202,7 +202,7 @@ class Order {
       	<td colspan="2"><?php print formatPrice($this->calculateTotalAmount()); ?></td>
       </tr>
       </table>
-      <p>Har du gjort endringer? <span class="btn btn-default" onclick="document.getElementById('update-order-<?php print $this->id; ?>').submit();">oppdatér</span></p>
+      <p>Har du gjort endringer? <span class="btn btn-default" onclick="document.getElementById('update-order-<?php print $this->id; ?>').submit();">oppdatÃ©r</span></p>
       </form>
       <p>Handle mer? <a class="btn btn-default" href="index.php?page=display-webshop">tilbake til produkter</a></p>
 
@@ -210,7 +210,7 @@ class Order {
 	  		<div>
 	  			<input type="hidden" name="order_id" value="<?php print $this->id; ?>" />
 	  			<input type="hidden" name="transaction_id_string" value="<?php print createTransactionId(); ?>" /></div>
-	  		<p>Er du ferdig? <a class="btn btn-primary" href="index.php?action=cart-checkout&amp;order_id=<?php print $this->id; ?>&amp;transaction_id_string=<?php print createTransactionId(); ?>">gå til betaling</a></p>
+	  		<p>Er du ferdig? <a class="btn btn-primary" href="index.php?action=cart-checkout&amp;order_id=<?php print $this->id; ?>&amp;transaction_id_string=<?php print createTransactionId(); ?>">gÃ¥ til betaling</a></p>
       </form>
       <?php
     }else {
@@ -253,7 +253,7 @@ class Order {
 			<p>
 				<a class="btn btn-default" href="index.php?page=display-cart&amp;order_id=<?php print $this->id; ?>">rediger ordre</a>
 				<a class="btn btn-default" href="index.php?page=display-carts&amp;action=delete-order&amp;order_id=<?php print $this->id; ?>">slett ordre</a>
-				<a class="btn btn-default" href="index.php?action=cart-checkout&amp;order_id=<?php print $this->id; ?>&amp;transaction_id_string=<?php print createTransactionId(); ?>">gå til betaling</a>
+				<a class="btn btn-default" href="index.php?action=cart-checkout&amp;order_id=<?php print $this->id; ?>&amp;transaction_id_string=<?php print createTransactionId(); ?>">gÃ¥ til betaling</a>
 			</p>
       <?php }
     }else {

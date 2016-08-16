@@ -49,7 +49,7 @@ class BarShiftWorker {
         notify("Barvakt er registrert.");
       }else {
         $user = new User($this->user_id);
-        notify("$user->firstname $user->lastname er allerede satt opp på denne vakten.");
+        notify("$user->firstname $user->lastname er allerede satt opp pÃ¥ denne vakten.");
         error("New barshiftworker: " . $result->toString());
       }      
     }

@@ -59,7 +59,7 @@ while ($current = $list->fetchRow(DB_FETCHMODE_OBJECT)) {
 
 
 <div id="sponsors" style="margin-top: 10px; border-top: 1px solid black; text-align: center;">
-<p>Våre samarbeidspartnere:</p>
+<p>VÃ¥re samarbeidspartnere:</p>
   <a href="http://www.toro.no"><img src="http://www.studentersamfundet.no/bilder/sponsorer/toro.jpg" alt="Toro" /></a>
 </div>
 <div id="about" style="margin-top: 10px; border-top: 1px solid black; text-align: center;">

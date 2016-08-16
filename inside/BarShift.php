@@ -267,7 +267,7 @@ class BarShift {
 	<?php
 		if (checkAuth("perform-register-barshiftworker")){
 			$users = new Users();
-			$userList = $users->getList(13);//13 == Tappetårnet 
+			$userList = $users->getList(13);//13 == TappetÃ¥rnet 
 		
 			$userid = scriptParam("userid");
 			if ($userid != ""){
@@ -293,12 +293,12 @@ class BarShift {
 		$this->_displayWorkerList();
 
     if (checkAuth("view-register-barshift")){
-    	?><p>Repetisjon og kopiering kopierer bare informasjon om vakten, ikke de som er satt opp på vakt.</p><?php
+    	?><p>Repetisjon og kopiering kopierer bare informasjon om vakten, ikke de som er satt opp pÃ¥ vakt.</p><?php
       $freqOptions = Array(Array("id" => "daily", "title" => "daglig"), 
                            Array("id" => "weekly", "title" => "ukentlig"),
                            Array("id" => "biweekly", "title" => "annenhver uke"),
-                           Array("id" => "monthlyDate", "title" => "månedlig"),
-                           Array("id" => "annual", "title" => "årlig")
+                           Array("id" => "monthlyDate", "title" => "mÃ¥nedlig"),
+                           Array("id" => "annual", "title" => "Ã¥rlig")
                                );
                            
       $title   = "repeat bar shift";

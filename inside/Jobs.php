@@ -49,7 +49,7 @@ class Jobs {
           <th>type</th>
           <th>forening</th>
           <th>publisert</th>
-          <th>utgår</th>
+          <th>utgÃ¥r</th>
           <?php if(checkAuth("view-edit-options-job")){
         ?><th colspan="2"></th><?php } ?>
         </tr>

@@ -458,7 +458,7 @@ class ActionParser {
       }
       $result = $conn->query($sql);
       if (DB :: isError($result) == true) {
-        notify('Tjenesten er midlertidig utilgjengelig, vennligst forsøk igjen senere.');
+        notify('Tjenesten er midlertidig utilgjengelig, vennligst forsÃ¸k igjen senere.');
         return false;
       }
       $sendto = $row->email;
@@ -470,7 +470,7 @@ class ActionParser {
       "\nDitt brukernavn er: $row->username" .
       "\nDitt passord er: $newPassword" .
       "\n" .
-      "\nNår du logger på vil du bli bedt om å endre passord til noe som er lettere å huske. Du kan også endre brukernavnet ditt." .
+      "\nNÃ¥r du logger pÃ¥ vil du bli bedt om Ã¥ endre passord til noe som er lettere Ã¥ huske. Du kan ogsÃ¥ endre brukernavnet ditt." .
       "\n" .
       "\nhttp://inside.studentersamfundet.no/" .
       "\n" .
@@ -486,10 +486,10 @@ class ActionParser {
       }
     } else {
       if (is_numeric($userid)) {
-        notify('Kortnummeret er er ikke registrert i databasen. Vennligst registrér deg først.');
+        notify('Kortnummeret er er ikke registrert i databasen. Vennligst registrÃ©r deg fÃ¸rst.');
 	return false;
       } else {
-        notify('Ingen bruker er registrert på epostadressen du oppgav.');
+        notify('Ingen bruker er registrert pÃ¥ epostadressen du oppgav.');
 	return false;
       }
     }
@@ -551,19 +551,19 @@ class ActionParser {
       "  email = '$email'";
       $result = $conn->query($sql);
       if (DB :: isError($result) == true) {
-        notify("Tjenesten er midlertidig utilgjengelig, vennligst forsøk igjen senere.");
+        notify("Tjenesten er midlertidig utilgjengelig, vennligst forsÃ¸k igjen senere.");
         return false;
       }
       $sendto = $row->email;
       $subject = "Brukernavn og passord for Studentersamfundets medlemsider";
       $message = "Hei, $row->firstname $row->lastname!\n " .
       "\n" .
-      "\nDu er registrert i Studentersamfundets medlemsdatabase. Følg linken under og logg på med følgende informasjon: " .
+      "\nDu er registrert i Studentersamfundets medlemsdatabase. FÃ¸lg linken under og logg pÃ¥ med fÃ¸lgende informasjon: " .
       "\n" .
       "\nDitt brukernavn er: $row->username" .
       "\nDitt passord er: $newPassword" .
       "\n" .
-      "\nNår du logger på vil du bli bedt om å endre passord til noe som er lettere å huske." .
+      "\nNÃ¥r du logger pÃ¥ vil du bli bedt om Ã¥ endre passord til noe som er lettere Ã¥ huske." .
       "\n" .
       "\nEtter at dette er gjort vil du finne en link for registrering av fornyet medlemskap." .
       "\n" .
@@ -573,13 +573,13 @@ class ActionParser {
       "\nStudentersamfundet";
       $headers = 'From: medlemskap@studentersamfundet.no' . "\r\n";
       if (mail($sendto, $subject, $message, $headers)) {
-        notify("Din epostadresse er registrert i systemet vårt.");
-        notify("En epost er sendt til deg med brukernavn og passord. Logg på for å registrere fornyelse av medlemskap.");
+        notify("Din epostadresse er registrert i systemet vÃ¥rt.");
+        notify("En epost er sendt til deg med brukernavn og passord. Logg pÃ¥ for Ã¥ registrere fornyelse av medlemskap.");
       } else {
         notify("Det oppstod en feil under sending av epost. Vennligst kontakt " . "<a href=\"mailto:support@studentersamfundet.no\">webansvarlig</a>.");
       }
     } else {
-      notify("Ingen bruker er registrert på epostadressen du oppga. Bruk skjemaet under for å registrere deg.");
+      notify("Ingen bruker er registrert pÃ¥ epostadressen du oppga. Bruk skjemaet under for Ã¥ registrere deg.");
       $GLOBALS['extraScriptParams']['page'] = 'register-user';
     }
   }
@@ -926,7 +926,7 @@ public function _logIn() {
         //$msa_code->store();
         
         $user->sendCardOrderedNotifyMail();
-        notify("Betalt medlemskap er registrert. For å kunne fremvise gyldig medlemskap så behøver du å laste ned appen SnappOrder og velge Chateau Neuf.");
+        notify("Betalt medlemskap er registrert. For Ã¥ kunne fremvise gyldig medlemskap sÃ¥ behÃ¸ver du Ã¥ laste ned appen SnappOrder og velge Chateau Neuf.");
       } else {
         $GLOBALS['extraScriptParams']['page'] = "register-membership";
       }
@@ -985,7 +985,7 @@ public function _logIn() {
         //$msa_code->store();
         
         $user->sendRenewedMembershipRegisteredNotifyMail();
-        notify("Fornyelse av medlemskapet ditt er registrert. Nytt oblat kan hentes i Glassbaren på Studentersamfundet.");
+        notify("Fornyelse av medlemskapet ditt er registrert. Nytt oblat kan hentes i Glassbaren pÃ¥ Studentersamfundet.");
       } else {
         $GLOBALS['extraScriptParams']['page'] = "renew-membership";
       }

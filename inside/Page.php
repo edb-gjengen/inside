@@ -70,7 +70,7 @@ class Page {
           <div class="messages fancybox">
             <p>Disse sidene er optimalisert for bruk med JavaScript.</p>
             <p>Det anbefales derfor at du aktiviserer JavaScript.</p>
-            <p>En del funksjoner vil ikke fungere som forventet uten JavaScript, men alt innhold skal likevel være tilgjengelig.</p>
+            <p>En del funksjoner vil ikke fungere som forventet uten JavaScript, men alt innhold skal likevel vÃ¦re tilgjengelig.</p>
            </div>
         </noscript>
 <?php
@@ -493,7 +493,7 @@ class Page {
 <html lang="no">
 
   <head>
-    <meta http-equiv="content-type" content="text/html;charset=iso-8859-1" />
+    <meta http-equiv="content-type" content="text/html;charset=utf-8" />
 <?php if (scriptParam("debug")) { ?>
     <link rel="stylesheet" type="text/css" href="../css/misund.css" media="screen" />
 <?php } else { ?>
@@ -595,27 +595,27 @@ class Page {
 <?php
 	if (!membershipNextYear(getCurrentUser())) {
 		?>
-		<h3>Kjøp medlemskap for neste år allerede nå!</h3>
-		<p><a href="index.php?page=register-membership">Kjøp direkte med kredittkort eller registrér medlemskap kjøpt i bar nå!</a></p>
+		<h3>KjÃ¸p medlemskap for neste Ã¥r allerede nÃ¥!</h3>
+		<p><a href="index.php?page=register-membership">KjÃ¸p direkte med kredittkort eller registrÃ©r medlemskap kjÃ¸pt i bar nÃ¥!</a></p>
 		<?php
 	}
 
   if (!isActive()){?>
     	<?php
     if (!isMember()){?>
-			<a class="btn btn-primary" href="index.php?page=register-membership">Registrer eller kjøp medlemskap</a>
+			<a class="btn btn-primary" href="index.php?page=register-membership">Registrer eller kjÃ¸p medlemskap</a>
 			<?php
     }else if (membershipExpired(getCurrentUser())){?>
-			<a class="btn btn-primary" href="index.php?page=register-membership">Registrér eller kjøp medlemskap</a>
+			<a class="btn btn-primary" href="index.php?page=register-membership">RegistrÃ©r eller kjÃ¸p medlemskap</a>
 			<?php
     }
 		?>
-			<a class="btn btn-default" href="index.php?page=display-current-user">Oppdatér brukerinfo</a>
+			<a class="btn btn-default" href="index.php?page=display-current-user">OppdatÃ©r brukerinfo</a>
 
 			<div class="bliaktiv">
 			    <h3>Engasjer deg!</h3>
-			    <p>Visste du at Studentersamfundet drives av frivillige studenter? Å være aktiv i en studentforening er en sosial affære. Det skaffer deg fort både venner og erfaring.</p>
-			    <p>La det neste året være året du husker. Finn en ny interesse i dag!</p>
+			    <p>Visste du at Studentersamfundet drives av frivillige studenter? Ã… vÃ¦re aktiv i en studentforening er en sosial affÃ¦re. Det skaffer deg fort bÃ¥de venner og erfaring.</p>
+			    <p>La det neste Ã¥ret vÃ¦re Ã¥ret du husker. Finn en ny interesse i dag!</p>
 			    <a class="btn <?php echo isMember() ? 'btn-primary' : 'btn-default'; ?>" href="http://studentersamfundet.no/bli-aktiv/">Engasjer deg</a>
 			</div>
 		<?php
@@ -626,11 +626,11 @@ class Page {
     }
     ?>
       <?php if (membershipExpired(getCurrentUser())){?>
-      <h3>Medlemskapet ditt er utgått!</h3>
-      <p>Om du har kjøpt medlemskap i en av barene på Chateau Neuf må du <a href="/sms/register.php">aktivere medlemskapet ditt med kortnummer og telefonnummer</a>.</p>
+      <h3>Medlemskapet ditt er utgÃ¥tt!</h3>
+      <p>Om du har kjÃ¸pt medlemskap i en av barene pÃ¥ Chateau Neuf mÃ¥ du <a href="/sms/register.php">aktivere medlemskapet ditt med kortnummer og telefonnummer</a>.</p>
 <?php } ?>
     <div class="often-used-links">
-      <h3>Hva vil du gjøre?</h3>
+      <h3>Hva vil du gjÃ¸re?</h3>
       <div class="list-group">
         <ul>
           <li><a class="list-item" href="index.php?page=display-documents">Lese dokumenter</a></li>
@@ -653,15 +653,15 @@ if (isAdmin()) {
 <?php }
 
 if (isActive()) {
-  	// Brukersøk
-    	$title   = "Søk etter bruker";
+  	// BrukersÃ¸k
+    	$title   = "SÃ¸k etter bruker";
     	$id      = "usersearch";
     	$enctype = NULL;
     	$method  = "post";
     	$action  = "index.php?page=display-users";
     	$fields  = Array();
 
-    	$fields[] = Array("label" => "Søk etter medlem", "type" => "text",
+    	$fields[] = Array("label" => "SÃ¸k etter medlem", "type" => "text",
       	                "attributes" => Array("name" => "search"));
     	$form = new Form($title, $enctype, $method, $action, $fields, $id);
     	$form->display("horizontal");
@@ -674,16 +674,16 @@ if (isActive()) {
 
    public function _displayAccessDenied(){?>
   <div class="text-column">
-    <p>Du har ikke tilgang til å se denne siden. Om du tror du skulle hatt tilgang, vennligst kontakt <a href="mailto:support@studentersamfundet.no">support</a>.</p>
+    <p>Du har ikke tilgang til Ã¥ se denne siden. Om du tror du skulle hatt tilgang, vennligst kontakt <a href="mailto:support@studentersamfundet.no">support</a>.</p>
 
-    <p>Det kan også hende at siden du forsøkte å besøke ikke er publisert ennå.</p>
+    <p>Det kan ogsÃ¥ hende at siden du forsÃ¸kte Ã¥ besÃ¸ke ikke er publisert ennÃ¥.</p>
   </div>
 
 <?php
   }
 
   public function _resetPassword(){
-    print("<p>Passordet ditt er nettopp blitt resatt. Bruk skjemaet under til å endre passordet til noe som er lettere å huske.</p>");
+    print("<p>Passordet ditt er nettopp blitt resatt. Bruk skjemaet under til Ã¥ endre passordet til noe som er lettere Ã¥ huske.</p>");
     $title   = "endre passord";
     $enctype = NULL;
     $method  = "post";
@@ -725,9 +725,9 @@ if (isActive()) {
     $user        = new User(getCurrentUser());
     $contactInfo = $user->getContactInfo();
 
-    print("<p><strong>Merk:</strong> stillinger som ikke er basert på stillingsbeskrivelser vil ikke vises på /jobb-sidene.</p>");
+    print("<p><strong>Merk:</strong> stillinger som ikke er basert pÃ¥ stillingsbeskrivelser vil ikke vises pÃ¥ /jobb-sidene.</p>");
 
-    $title   = "registrér stillingsutlysning";
+    $title   = "registrÃ©r stillingsutlysning";
     $enctype = NULL;
     $method  = "post";
     $action  = "index.php?action=register-job&amp;page=display-job";
@@ -749,7 +749,7 @@ if (isActive()) {
                         "attributes" => Array("name" => "positionid", "value" => "$posId"));
 
       $comment ="<h3>$pos->name i $pos->division_name</h3>\n
-Teksten under er hentet fra kunnskapsdatabasen. Du står fritt til å endre den etter eget ønske. Endringer som gjøres i kunnskapsdatabasen etter denne utlysningen er registrert vil ikke gjenspeiles her. Stillingen er imidlertid knyttet opp mot stillingsbeskrivelsen, og vil bli annosert sammen med denne også.";
+Teksten under er hentet fra kunnskapsdatabasen. Du stÃ¥r fritt til Ã¥ endre den etter eget Ã¸nske. Endringer som gjÃ¸res i kunnskapsdatabasen etter denne utlysningen er registrert vil ikke gjenspeiles her. Stillingen er imidlertid knyttet opp mot stillingsbeskrivelsen, og vil bli annosert sammen med denne ogsÃ¥.";
     }
     $fields[] = Array("label" => "tittel", "type" => "text",
                       "attributes" => Array("name" => "name" ,"size" => 50, "maxlength" => 50,
@@ -758,7 +758,7 @@ Teksten under er hentet fra kunnskapsdatabasen. Du står fritt til å endre den et
                       "attributes" => Array("name" => "text", "cols" => 70, "rows" => 12, "comment" => $comment,
                                             "class" => "mceEditor",
                                             "value" => (isset($pos->text)) ? $pos->text : ""));
-    $fields[] = Array("label" => "utgår", "type" => "datetime",
+    $fields[] = Array("label" => "utgÃ¥r", "type" => "datetime",
                       "attributes" => Array("name" => "expires"));
     $fields[] = Array("label" => "kategori", "type" => "select",
                            "attributes" => Array("name" => "jobcategory_id", "values" => $categories));
@@ -778,7 +778,7 @@ Teksten under er hentet fra kunnskapsdatabasen. Du står fritt til å endre den et
 
     $jobId = scriptParam("jobid");
     $job   = new Job($jobId);
-    $title   = "redigér stillingsutlysning";
+    $title   = "redigÃ©r stillingsutlysning";
     $enctype = NULL;
     $method  = "post";
     $action  = "index.php?action=update-job&amp;page=display-job";
@@ -791,7 +791,7 @@ Teksten under er hentet fra kunnskapsdatabasen. Du står fritt til å endre den et
                            "attributes" => Array("name" => "text", "cols" => 70, "rows" => 15,
                                                  "class" => "mceEditor",
                                                  "value" => $job->text)),
-                     Array("label" => "utgår", "type" => "datetime",
+                     Array("label" => "utgÃ¥r", "type" => "datetime",
                            "attributes" => Array("name" => "expires",
                                                  "value" => substr($job->expires, 0, 16))),
                      Array("label" => "kategori", "type" => "select",
@@ -835,7 +835,7 @@ Teksten under er hentet fra kunnskapsdatabasen. Du står fritt til å endre den et
 		$locations = $locs->getList();
 
 
-    $title   = "registrregistrérr barvakt";
+    $title   = "registrregistrÃ©rr barvakt";
     $enctype = NULL;
     $method  = "post";
     $action  = "index.php?action=register-barshift&amp;page=display-barshift";
@@ -864,7 +864,7 @@ Teksten under er hentet fra kunnskapsdatabasen. Du står fritt til å endre den et
 
     $barshiftid = scriptParam("barshiftid");
     $barshift   = new BarShift($barshiftid);
-    $title   = "redigér barvakt";
+    $title   = "redigÃ©r barvakt";
     $enctype = NULL;
     $method  = "post";
     $action  = "index.php?action=update-barshift&amp;page=display-barshift";
@@ -915,7 +915,7 @@ Teksten under er hentet fra kunnskapsdatabasen. Du står fritt til å endre den et
     $userList = new Users();
     $users    = $userList->getList();
 
-    $title   = "registrér ny forening eller nytt utvalg";
+    $title   = "registrÃ©r ny forening eller nytt utvalg";
     $enctype = NULL;
     $method  = "post";
     $action  = "index.php?action=register-division&amp;page=display-divisions";
@@ -1068,7 +1068,7 @@ endif;
     $divList   = new Divisions();
     $divisions = $divList->getList();
 
-    $title   = "registrér stillingsbeskrivelse";
+    $title   = "registrÃ©r stillingsbeskrivelse";
     $enctype = NULL;
     $method  = "post";
     $action  = "index.php?action=register-position&amp;page=display-positions";
@@ -1090,7 +1090,7 @@ endif;
 
     $positionId = scriptParam("positionid");
     $position   = new Position($positionId);
-    $title   = "oppdatér stillingsbeskrivlse";
+    $title   = "oppdatÃ©r stillingsbeskrivlse";
     $enctype = NULL;
     $method  = "post";
     $action  = "index.php?action=update-position&amp;page=display-position";
@@ -1141,7 +1141,7 @@ endif;
     $userList = new Users();
     $users    = $userList->getList();
 
-    $title   = "registrér aktivitet";
+    $title   = "registrÃ©r aktivitet";
     $enctype = NULL;
     $method  = "post";
     $action  = "index.php?action=register-event&amp;page=display-event";
@@ -1157,7 +1157,7 @@ endif;
                            "attributes" => Array("name" => "location" ,"size" => 50, "maxlength" => 50)),
                      Array("label" => "deltakere", "type" => "textarea",
                            "attributes" => Array("name" => "targetGroup", "cols" => 70, "rows" => 2,
-                                                 "comment" => "Hvem kan/bør delta?", "maxlength" => 255)),
+                                                 "comment" => "Hvem kan/bÃ¸r delta?", "maxlength" => 255)),
                      Array("label" => "kategori", "type" => "select",
                            "attributes" => Array("name" => "eventcategory_id", "values" => $categories)),
                      Array("label" => "ansvarlig", "type" => "select",
@@ -1176,7 +1176,7 @@ endif;
 
     $eventId = scriptParam("eventid");
     $event   = new Event($eventId);
-    $title   = "oppdatér aktivitet";
+    $title   = "oppdatÃ©r aktivitet";
     $enctype = NULL;
     $method  = "post";
     $action  = "index.php?action=update-event&amp;page=display-event";
@@ -1198,7 +1198,7 @@ endif;
                      Array("label" => "deltakere", "type" => "textarea",
                            "attributes" => Array("name" => "targetGroup", "cols" => 70, "rows" => 2,
                                                  "value" => $event->targetGroup,
-                                                 "comment" => "Hvem kan/bør delta?", "maxlength" => 255)),
+                                                 "comment" => "Hvem kan/bÃ¸r delta?", "maxlength" => 255)),
                      Array("label" => "kategori", "type" => "select",
                            "attributes" => Array("name" => "eventcategory_id", "values" => $categories,
                                                  "currentValue" => $event->eventcategory_id)),
@@ -1245,7 +1245,7 @@ endif;
     $userList   = new Users();
     $users      = $userList->getList(2, -1);
 
-    $title   = "Registrér arrangement";
+    $title   = "RegistrÃ©r arrangement";
     $enctype = "multipart/form-data";
     $method  = "post";
     $action  = "index.php?action=register-concert&amp;page=display-concert";
@@ -1259,7 +1259,7 @@ endif;
 		      "maxlength" => 50, "class" => "title", "value" => scriptParam("name_en")));
     $fields[] = Array("label" => "beskrivelse", "type" => "textarea",
                       "attributes" => Array("comment" =>
-                                            "Bruk link-knappen for å legge inn linker eller epostadresser.",
+                                            "Bruk link-knappen for Ã¥ legge inn linker eller epostadresser.",
                                             "name" => "text", "cols" => 70, "rows" => 15,
                                             "class" => "mceEditor", "value" => scriptParam("text")));
     $fields[] = Array("label" => "engelsk beskrivelse", "type" => "textarea",
@@ -1273,7 +1273,7 @@ endif;
                                             "maxlength" => 250, "value" => scriptParam("intro_en")));
     $fields[] = Array("label" => "dato og tid", "type" => "datetime",
                       "attributes" => Array("name" => "time", "value" => scriptParam("time")));
-    $fields[] = Array("label" => "arrangør", "type" => "select",
+    $fields[] = Array("label" => "arrangÃ¸r", "type" => "select",
                       "attributes" => Array("name" => "host_id", "values" => $divs, "currentValue" => scriptParam("host_id")));
     $fields[] = Array("label" => "sted", "type" => "select",
                       "attributes" => Array("name" => "venue_id", "values" => $venues, "currentValue" => scriptParam("venue_id")));
@@ -1285,10 +1285,10 @@ endif;
                       "attributes" => Array("name" => "priceConcession" ,"size" => 4, "maxlength" => 5, "value" => scriptParam("priceConcession")));
     $fields[] = Array("label" => "linker", "type" => "textarea",
                       "attributes" => Array("comment" =>
-                                            "én link per linje. Linker kan også inkluderes direkte i teksten over.",
+                                            "Ã©n link per linje. Linker kan ogsÃ¥ inkluderes direkte i teksten over.",
                                             "name" => "links", "cols" => 70, "rows" => 3, "value" => scriptParam("links")));
     $fields[]  =Array("label" => "bilde", "type" => "file",
-                      "attributes" => Array("comment" => "Vi blir glade hvis du bruker litt store bilder. 1024 piksler på den lengste kanten er kjempefint.",
+                      "attributes" => Array("comment" => "Vi blir glade hvis du bruker litt store bilder. 1024 piksler pÃ¥ den lengste kanten er kjempefint.",
 		                            "name" => "userfile", "size" => 55, "value" => scriptParam("userfile")));
     $fields[] = Array("label" => "billettservice-link", "type" => "text",
                       "attributes" => Array("name" => "ticketLink" ,"size" => 50, "maxlength" => 255, "value" => scriptParam("ticketLink")));
@@ -1296,7 +1296,7 @@ endif;
                       "attributes" => Array("name" => "facebookLink" ,"size" => 50, "maxlength" => 60, "value" => scriptParam("facebookLink")));
     $fields[] = Array("label" => "ekstern kontakt", "type" => "text",
                       "attributes" => Array("name" => "user_name_ext_contact" ,"size" => 50, "maxlength" => 50, "value" => scriptParam("user_name_ext_contact"),
-                      											"help" => "Ekstern kontakt er en person det kan være nyttig å kontakte i forbindelse med for eksempel markedsføring. Dette kan være manager, forlag, plateselskap osv. Disse feltene kan godt stå tomme."));
+                      											"help" => "Ekstern kontakt er en person det kan vÃ¦re nyttig Ã¥ kontakte i forbindelse med for eksempel markedsfÃ¸ring. Dette kan vÃ¦re manager, forlag, plateselskap osv. Disse feltene kan godt stÃ¥ tomme."));
     $fields[] = Array("label" => "&rarr; telefon", "type" => "text",
                       "attributes" => Array("name" => "user_phone_ext_contact" ,"size" => 10, "maxlength" => 12, "value" => scriptParam("user_phone_ext_contact")));
     $fields[] = Array("label" => "&rarr; epost", "type" => "text",
@@ -1305,11 +1305,11 @@ endif;
                       "attributes" => Array("name" => "user_role_ext_contact" ,"size" => 50, "maxlength" => 120, "value" => scriptParam("user_role_ext_contact")));
     $fields[] = Array("label" => "kommentar", "type" => "textarea",
                       "attributes" => Array("comment" =>
-                                            "Kommentarer er til internt bruk, og vil ikke vises på hovedsidene.",
+                                            "Kommentarer er til internt bruk, og vil ikke vises pÃ¥ hovedsidene.",
                                             "name" => "comment", "cols" => 70, "rows" => 3, "value" => scriptParam("comment")));
 
-    print("<h3>HUSK: Fyll ut både tittel, sammendrag og tekst!</h3>");
-#    print("<p>Studentersamfundet.no vil snarlig legge om alle sine visningsmaler. I de nye malene vil det være viktig å ha fylt ut alle disse 3 feltene.</p>");
+    print("<h3>HUSK: Fyll ut bÃ¥de tittel, sammendrag og tekst!</h3>");
+#    print("<p>Studentersamfundet.no vil snarlig legge om alle sine visningsmaler. I de nye malene vil det vÃ¦re viktig Ã¥ ha fylt ut alle disse 3 feltene.</p>");
 ?>
 <div style="background-color:rgb(241,255,115); border:1px solid black; padding:5px; margin:5px;">
 Om dere lager en facebook side til arrangementet, ikke glem &aring; putte inn lenka <a href="#facebookLink" onclick="document.getElementById(\"facebookLink\").focus();">her</a>! Hvis du ikke gj&oslash;r det, kan det hende KAK ogs&aring; lager en event for deg og da blir det dobbelt opp som ikke er bra... Keep up the good work :D
@@ -1333,7 +1333,7 @@ Om dere lager en facebook side til arrangementet, ikke glem &aring; putte inn le
     $concertId = scriptParam("concertid");
     $concert   = new Concert($concertId);
 
-    $title   = "oppdatér arrangement";
+    $title   = "oppdatÃ©r arrangement";
     $enctype = "multipart/form-data";
     $method  = "post";
     $action  = "index.php?action=update-concert&amp;page=display-concert";
@@ -1349,7 +1349,7 @@ Om dere lager en facebook side til arrangementet, ikke glem &aring; putte inn le
                                             "class" => "title", "value" => $concert->name_en));
     $fields[] = Array("label" => "beskrivelse", "type" => "textarea",
                       "attributes" => Array("comment" =>
-                                            "Bruk link-knappen for å legge inn linker eller epostadresser.<br />",
+                                            "Bruk link-knappen for Ã¥ legge inn linker eller epostadresser.<br />",
                                             "name" => "text", "cols" => 70, "rows" => 15,
                                             "class" => "mceEditor",
                                             "value" => stripSlashes($concert->text)));
@@ -1368,7 +1368,7 @@ Om dere lager en facebook side til arrangementet, ikke glem &aring; putte inn le
     $fields[] = Array("label" => "dato og tid", "type" => "datetime",
                       "attributes" => Array("name" => "time",
                                             "value" => $concert->time));
-    $fields[] = Array("label" => "arrangør", "type" => "select",
+    $fields[] = Array("label" => "arrangÃ¸r", "type" => "select",
                       "attributes" => Array("name" => "host_id", "values" => $divs,
                                             "currentValue" => $concert->host_id));
     $fields[] = Array("label" => "sted", "type" => "select",
@@ -1384,11 +1384,11 @@ Om dere lager en facebook side til arrangementet, ikke glem &aring; putte inn le
                       "attributes" => Array("name" => "priceConcession" ,"size" => 4, "maxlength" => 5,
                                             "value" => $concert->priceConcession));
     $fields[]  =Array("label" => "bilde", "type" => "file",
-                      "attributes" => Array("comment" => '<img src="http://www.studentersamfundet.no/imageResize.php?pic=bilder/program/'.$concert->picture.'&amp;maxwidth=200\" alt="pressebilde" />Vi blir glade hvis du bruker litt store bilder. 1024 piksler på den lengste kanten er kjempefint.',
+                      "attributes" => Array("comment" => '<img src="http://www.studentersamfundet.no/imageResize.php?pic=bilder/program/'.$concert->picture.'&amp;maxwidth=200\" alt="pressebilde" />Vi blir glade hvis du bruker litt store bilder. 1024 piksler pÃ¥ den lengste kanten er kjempefint.',
                       "name" => "userfile", "size" => 55));
     $fields[] = Array("label" => "linker", "type" => "textarea",
                       "attributes" => Array("comment" =>
-                                            "én link per linje. Linker kan også inkluderes direkte i teksten over.",
+                                            "Ã©n link per linje. Linker kan ogsÃ¥ inkluderes direkte i teksten over.",
                                             "name" => "links", "cols" => 70, "rows" => 3,
                                             "value" => $concert->getLinks("text")));
     $fields[] = Array("label" => "billettservice-link", "type" => "text",
@@ -1400,7 +1400,7 @@ Om dere lager en facebook side til arrangementet, ikke glem &aring; putte inn le
     $fields[] = Array("label" => "ekstern kontakt", "type" => "text",
                       "attributes" => Array("name" => "user_name_ext_contact" ,"size" => 50, "maxlength" => 50,
                                             "value" => $concert->user_name_ext_contact,
-                      											"help" => "Ekstern kontakt er en person det kan være nyttig å kontakte i forbindelse med for eksempel markedsføring. Dette kan være manager, forlag, plateselskap osv. Disse feltene kan godt stå tomme."));
+                      											"help" => "Ekstern kontakt er en person det kan vÃ¦re nyttig Ã¥ kontakte i forbindelse med for eksempel markedsfÃ¸ring. Dette kan vÃ¦re manager, forlag, plateselskap osv. Disse feltene kan godt stÃ¥ tomme."));
     $fields[] = Array("label" => "&rarr; telefon", "type" => "text",
                       "attributes" => Array("name" => "user_phone_ext_contact" ,"size" => 10, "maxlength" => 12,
                                             "value" => $concert->user_phone_ext_contact));
@@ -1412,7 +1412,7 @@ Om dere lager en facebook side til arrangementet, ikke glem &aring; putte inn le
                                             "value" => $concert->user_role_ext_contact));
     $fields[] = Array("label" => "kommentar", "type" => "textarea",
                       "attributes" => Array("comment" =>
-                                            "Kommentarer er til internt bruk, og vil ikke vises på hovedsidene.",
+                                            "Kommentarer er til internt bruk, og vil ikke vises pÃ¥ hovedsidene.",
                                             "name" => "comment", "cols" => 70, "rows" => 3,
                                             "value" => $concert->comment));
     $fields[] = Array("label" => "viewWeekprogram", "type" => "hidden",
@@ -1421,7 +1421,7 @@ Om dere lager en facebook side til arrangementet, ikke glem &aring; putte inn le
 
     /*
     print("<h2>Ingress blir sammendrag</h2>");
-    print("<p>Ingresser utgår fra visningsmalene. I stedet kan dere nå lagre sammendrag av artiklene, som vil vises på sider med flere artikler eller arrangementer.</p>");
+    print("<p>Ingresser utgÃ¥r fra visningsmalene. I stedet kan dere nÃ¥ lagre sammendrag av artiklene, som vil vises pÃ¥ sider med flere artikler eller arrangementer.</p>");
      */
 
     $form = new Form($title, $enctype, $method, $action, $fields);
@@ -1432,7 +1432,7 @@ Om dere lager en facebook side til arrangementet, ikke glem &aring; putte inn le
 	function _editConcertReport() {
 		$report = new ConcertReport(scriptParam("concertreportid"));
 
-		$title   = "registrér arrangementsrapport";
+		$title   = "registrÃ©r arrangementsrapport";
     $enctype = NULL;
     $method  = "post";
     $action  = "index.php?action=update-concertreport&amp;page=display-concert&amp;concertid=$report->concert_id";
@@ -1441,7 +1441,7 @@ Om dere lager en facebook side til arrangementet, ikke glem &aring; putte inn le
     $fields[] = Array("label" => "concertreportid", "type" => "hidden",
                            "attributes" => Array("name" => "concertreportid", "value" => $report->id));
 
-  	$fields[] = Array("label" => "besøkende", "type" => "text",
+  	$fields[] = Array("label" => "besÃ¸kende", "type" => "text",
                       "attributes" => Array("name" => "visitors","size" => 4,
                                             "maxlength" => 4,
                                             "value" => $report->visitors));
@@ -1449,7 +1449,7 @@ Om dere lager en facebook side til arrangementet, ikke glem &aring; putte inn le
                       "attributes" => Array("name" => "result","size" => 7,
                                             "maxlength" => 8,
                                             "value" => $report->result));
-	 	$fields[] = Array("label" => "markedsføring", "type" => "textarea",
+	 	$fields[] = Array("label" => "markedsfÃ¸ring", "type" => "textarea",
                       "attributes" => Array("name" => "marketing_comment", "cols" => 70,
                       											"rows" => 15, "class" => "mceEditor",
                       											"value" => $report->marketing_comment));
@@ -1483,7 +1483,7 @@ Om dere lager en facebook side til arrangementet, ikke glem &aring; putte inn le
     $action  = "index.php?section=concerts&page=week-program&action=register-weekprogram";
     $fields  = Array();
 
-    $fields[] = Array("label" => "år", "type" => "text",
+    $fields[] = Array("label" => "Ã¥r", "type" => "text",
                       "attributes" => Array("name" => "year", "size" => 4, "maxlength" => 4, "value" => date("Y") ));
 
     $fields[] = Array("label" => "uke", "type" => "text",
@@ -1513,7 +1513,7 @@ Om dere lager en facebook side til arrangementet, ikke glem &aring; putte inn le
                       "attributes" => Array("name" => "end", "value" => date("Y-m-d") ));
     $fields[] = Array("label" => "type", "type" => "text",
                       "attributes" => Array("name" => "type" ,"size" => 12, "maxlength" => 24,
-                                            "value" => "Konsert", "tag" => "Skriv 'Billett' for å vise alle med billett"));
+                                            "value" => "Konsert", "tag" => "Skriv 'Billett' for Ã¥ vise alle med billett"));
 
     $form = new Form($title, $enctype, $method, $action, $fields);
     $form->display();
@@ -1572,7 +1572,7 @@ Om dere lager en facebook side til arrangementet, ikke glem &aring; putte inn le
     $form = new Form($title, $enctype, $method, $action, $fields);
     $form->display("horizontal");
 
-    $title   = "søk på tagger";
+    $title   = "sÃ¸k pÃ¥ tagger";
     $enctype = NULL;
     $method  = "post";
     $action  = "index.php?section=documents&page=display-documents";
@@ -1629,7 +1629,7 @@ Om dere lager en facebook side til arrangementet, ikke glem &aring; putte inn le
 
     $documentId = scriptParam("documentid");
     $document   = new Document($documentId);
-    $title   = "oppdatér dokumentinfo";
+    $title   = "oppdatÃ©r dokumentinfo";
     $enctype = NULL;
     $method  = "post";
     $action  = "index.php?action=update-document&amp;page=display-documents";
@@ -1669,7 +1669,7 @@ Om dere lager en facebook side til arrangementet, ikke glem &aring; putte inn le
     $divs = new Divisions();
     $divList = $divs->getList();
 
-    $title   = "registrér gruppe";
+    $title   = "registrÃ©r gruppe";
     $enctype = NULL;
     $method  = "post";
     $action  = "index.php?action=register-group&amp;page=display-groups";
@@ -1708,7 +1708,7 @@ Om dere lager en facebook side til arrangementet, ikke glem &aring; putte inn le
     $rels = new ActionGroupRelationships();
     $list = $rels->getJoinedList($groupid, "array", $exclude);
 
-    $title   = "oppdatér gruppe";
+    $title   = "oppdatÃ©r gruppe";
     $enctype = NULL;
     $method  = "post";
     $action  = "index.php?action=update-group&amp;page=display-group";
@@ -1736,7 +1736,7 @@ Om dere lager en facebook side til arrangementet, ikke glem &aring; putte inn le
     $fields[] = Array("label" => "tilgang", "type" => "checkbox-list",
                            "attributes" => Array("name" => "actions",
 																								 "options" => $list,
-																								 "comment" => "Viser kun handlinger som ikke gruppen får gjennom andre grupper den automatisk er medlem av."));
+																								 "comment" => "Viser kun handlinger som ikke gruppen fÃ¥r gjennom andre grupper den automatisk er medlem av."));
 
 
     $form = new Form($title, $enctype, $method, $action, $fields);
@@ -1756,7 +1756,7 @@ Om dere lager en facebook side til arrangementet, ikke glem &aring; putte inn le
 
   public function _registerAction(){
 
-    $title   = "registrér handling";
+    $title   = "registrÃ©r handling";
     $enctype = NULL;
     $method  = "post";
     $action  = "index.php?action=register-action&amp;page=display-actions";
@@ -1773,7 +1773,7 @@ Om dere lager en facebook side til arrangementet, ikke glem &aring; putte inn le
     $actionid = scriptParam("actionid");
     $action1 = new Action($actionid);
 
-    $title   = "oppdatér handling";
+    $title   = "oppdatÃ©r handling";
     $enctype = NULL;
     $method  = "post";
     $action  = "index.php?action=update-action&amp;page=display-action";
@@ -1827,7 +1827,7 @@ Om dere lager en facebook side til arrangementet, ikke glem &aring; putte inn le
   }
 
   public function _registerArticle(){
-    $title   = "registrér nyhet";
+    $title   = "registrÃ©r nyhet";
     $enctype = "multipart/form-data";
     $method  = "post";
     $action  = "index.php?action=register-article&amp;page=display-article";
@@ -1845,10 +1845,10 @@ Om dere lager en facebook side til arrangementet, ikke glem &aring; putte inn le
      * Hvor? Aner ikke!
      * --Thomas Misund Hansen, 2009-06-09
      */
-    $fields[] = Array("label" => "utgår", "type" => "date",
+    $fields[] = Array("label" => "utgÃ¥r", "type" => "date",
                            "attributes" => Array("name" => "expires", "value" => "2029-01-01"));
     $fields[]  =Array("label" => "hovedbilde", "type" => "file",
-                      "attributes" => Array("comment" => "Vi blir glade hvis du bruker litt store bilder. 1024 piksler på den lengste kanten er kjempefint.",
+                      "attributes" => Array("comment" => "Vi blir glade hvis du bruker litt store bilder. 1024 piksler pÃ¥ den lengste kanten er kjempefint.",
                                             "name" => "attachment1", "size" => 55));
     $fields[] = Array("label" => "billedtekst", "type" => "textarea",
                            "attributes" => Array("name" => "caption1", "cols" => 70, "rows" => 2, "maxlength" => 120));
@@ -1883,10 +1883,10 @@ Om dere lager en facebook side til arrangementet, ikke glem &aring; putte inn le
     $fields[] = Array("label" => "sammendrag", "type" => "textarea",
                            "attributes" => Array("name" => "intro", "cols" => 70, "rows" => 3, "maxlength" => 250,
                            "value" => $article->intro));
-    $fields[] = Array("label" => "utgår", "type" => "date",
+    $fields[] = Array("label" => "utgÃ¥r", "type" => "date",
                            "attributes" => Array("name" => "expires", "value" => $article->expires));
     $fields[]  =Array("label" => "hovedbilde", "type" => "file",
-                      "attributes" => Array("comment" => "Vi blir glade hvis du bruker litt store bilder. 1024 piksler på den lengste kanten er kjempefint.",
+                      "attributes" => Array("comment" => "Vi blir glade hvis du bruker litt store bilder. 1024 piksler pÃ¥ den lengste kanten er kjempefint.",
                                             "name" => "attachment1", "size" => 55));
     $fields[] = Array("label" => "billedtekst", "type" => "textarea",
                            "attributes" => Array("name" => "caption1", "cols" => 70, "rows" => 2, "maxlength" => 120,
@@ -1948,7 +1948,7 @@ Om dere lager en facebook side til arrangementet, ikke glem &aring; putte inn le
 
     $groups = Array(Array("id" => 2, "title" => "Aktiv"));
 
-    $title   = "registrÃ©r medlem som aktiv";
+    $title   = "registrÃƒÂ©r medlem som aktiv";
     $enctype = NULL;
     $method  = "post";
     $action  = "index.php?action=register-usergrouprelationship&amp;page=register-usergrouprelationship";
@@ -1966,7 +1966,7 @@ Om dere lager en facebook side til arrangementet, ikke glem &aring; putte inn le
     $groups      = $groupList->getList();
     $currentUser = scriptParam("userid");
 
-    $title   = "registrér aktivt medlem i ny gruppe";
+    $title   = "registrÃ©r aktivt medlem i ny gruppe";
     $enctype = NULL;
     $method  = "post";
     $action  = "index.php?action=register-usergrouprelationship&amp;page=register-usergrouprelationship";
@@ -1984,7 +1984,7 @@ Om dere lager en facebook side til arrangementet, ikke glem &aring; putte inn le
     $groupList   = new Groups("admin-only");
     $groups      = $groupList->getList();
 
-    $title   = "masseregistrér medlemmer i ny gruppe";
+    $title   = "masseregistrÃ©r medlemmer i ny gruppe";
     $enctype = NULL;
     $method  = "post";
     $action  = "index.php?action=register-usergrouprelationship&amp;page=register-usergrouprelationship";
@@ -1992,7 +1992,7 @@ Om dere lager en facebook side til arrangementet, ikke glem &aring; putte inn le
 
     $fields[] = Array("label" => "kortnummer/epost", "type" => "textarea",
                       "attributes" => Array("name" => "users", "cols" => 70, "rows" => 15,
-                                            "comment" => "Tast inn kortnummer eller epost for å legge til flere brukere i samme gruppe på én gang. Én per linje."));
+                                            "comment" => "Tast inn kortnummer eller epost for Ã¥ legge til flere brukere i samme gruppe pÃ¥ Ã©n gang. Ã‰n per linje."));
     $fields[] = Array("label" => "gruppe", "type" => "select",
                       "attributes" => Array("name" => "groupid", "values" => $groups));
 
@@ -2051,14 +2051,14 @@ Om dere lager en facebook side til arrangementet, ikke glem &aring; putte inn le
       $search = "";
     }
 
-    $title   = "søk etter bruker";
+    $title   = "sÃ¸k etter bruker";
     $id      = "usersearch";
     $enctype = NULL;
     $method  = "post";
     $action  = "index.php?page=display-users";
     $fields  = Array();
 
-    $fields[] = Array("label" => "søk på navn, kortnr eller e-post", "type" => "text",
+    $fields[] = Array("label" => "sÃ¸k pÃ¥ navn, kortnr eller e-post", "type" => "text",
                       "attributes" => Array("name" => "search", "value" => $search));
     $form = new Form($title, $enctype, $method, $action, $fields, $id);
     $form->display("horizontal");
@@ -2068,7 +2068,7 @@ Om dere lager en facebook side til arrangementet, ikke glem &aring; putte inn le
       $limit = -1;
       $users = new Users();
       $users->displayList($search, $limit, true, $addressStatusCurrent);
-      print("<a href=\"#usersearch\">nytt søk</a>");
+      print("<a href=\"#usersearch\">nytt sÃ¸k</a>");
     }else if (!empty($group)){
       $users = new Users();
       $users->displayList($group, $limit, false, $addressStatusCurrent);
@@ -2092,10 +2092,10 @@ Om dere lager en facebook side til arrangementet, ikke glem &aring; putte inn le
                     );
     $expiries = Array(Array("id" => 'all', "title" => "uansett"),
                       Array("id" => 'lifetime', "title" => "livsvarig medlemskap"),
-                      Array("id" => '0000-00-00', "title" => "ugyldig utløpsår"),
-                      Array("id" => 'expired', "title" => "utløpt medlemskap"),
+                      Array("id" => '0000-00-00', "title" => "ugyldig utlÃ¸psÃ¥r"),
+                      Array("id" => 'expired', "title" => "utlÃ¸pt medlemskap"),
                       Array("id" => 'valid', "title" => "gyldig medlemskap"),
-                      Array("id" => 'no-cardno', "title" => "ikke kjøpt medlemskap (etter H05)"),
+                      Array("id" => 'no-cardno', "title" => "ikke kjÃ¸pt medlemskap (etter H05)"),
                       Array("id" => 'card-not-produced', "title" => "medlemskort ikke produsert"),
                       Array("id" => 'card-not-delivered', "title" => "kort produsert, ikke levert"),
                       Array("id" => 'no-sticker', "title" => "har kort, mangler oblat"),
@@ -2145,14 +2145,14 @@ Om dere lager en facebook side til arrangementet, ikke glem &aring; putte inn le
       $search = "";
     }
 
-    $title   = "søk etter bruker";
+    $title   = "sÃ¸k etter bruker";
     $id      = "usersearch";
     $enctype = NULL;
     $method  = "post";
     $action  = "index.php?page=display-user-expiries";
     $fields  = Array();
 
-    $fields[] = Array("label" => "søk etter medlem", "type" => "text",
+    $fields[] = Array("label" => "sÃ¸k etter medlem", "type" => "text",
                       "attributes" => Array("name" => "search", "value" => $search));
     $form = new Form($title, $enctype, $method, $action, $fields, $id);
     $form->display("horizontal");
@@ -2162,14 +2162,14 @@ Om dere lager en facebook side til arrangementet, ikke glem &aring; putte inn le
       if (empty($code_search)){
         $code_search = "";
       }
-      $title   = "slå opp kortkode";
+      $title   = "slÃ¥ opp kortkode";
       $id      = "cardcode";
       $enctype = NULL;
       $method  = "post";
       $action  = "index.php?page=display-user-expiries";
       $fields  = Array();
 
-      $fields[] = Array("label" => "slå opp kode", "type" => "text",
+      $fields[] = Array("label" => "slÃ¥ opp kode", "type" => "text",
                        "attributes" => Array("name" => "code_search", "value" => $code_search));
       $form = new Form($title, $enctype, $method, $action, $fields, $id);
       $form->display("horizontal");
@@ -2215,7 +2215,7 @@ Om dere lager en facebook side til arrangementet, ikke glem &aring; putte inn le
       $fields[] = @Array("label" => "",
                         "type" => "checkbox",
                         "attributes" => Array("name" => "parseonly",
-                                              "label" => " analyser filen uten å oppdatere medlemskapsdatabasen",
+                                              "label" => " analyser filen uten Ã¥ oppdatere medlemskapsdatabasen",
                                               "checked" => true));
       $form = new Form($title, $enctype, $method, $action, $fields, $id);
       $form->display();
@@ -2274,9 +2274,9 @@ Om dere lager en facebook side til arrangementet, ikke glem &aring; putte inn le
 
 		if (!isset($_SESSION['valid-user'])){?>
 		<h2>Skjema for medlemsregistrering</h2>
-		<p>Her kan du bli nytt medlem, eller registrere ditt midlertidige medlemskap. Skal du gjøre sistnevnte må du registrere aktiveringsnummeret og -passordet du har fått i neste steg.</p>
-		<p>Har du allerede fylt inn din personinfo, men ikke fullført betalingen eller lagt inn aktiveringskoden for ditt midlertidige medlemsskap? <a href="/">Logg inn her.</a></p>
-		<p>Alle feltene må fylles ut.</p>
+		<p>Her kan du bli nytt medlem, eller registrere ditt midlertidige medlemskap. Skal du gjÃ¸re sistnevnte mÃ¥ du registrere aktiveringsnummeret og -passordet du har fÃ¥tt i neste steg.</p>
+		<p>Har du allerede fylt inn din personinfo, men ikke fullfÃ¸rt betalingen eller lagt inn aktiveringskoden for ditt midlertidige medlemsskap? <a href="/">Logg inn her.</a></p>
+		<p>Alle feltene mÃ¥ fylles ut.</p>
 
 		<?php
     }
@@ -2308,7 +2308,7 @@ Om dere lager en facebook side til arrangementet, ikke glem &aring; putte inn le
     $fields[] = Array("label" => "Passord (gjenta)", "type" => "password",
                       "attributes" => Array("name" => "password2"));
     $fields[] = Array("label" => "Utenlandsk adresse?", "type" => "checkbox",
-                      "attributes" => Array("name" => "addresstype", "label" => " Hak av for å registrere utenlandsk adresse",
+                      "attributes" => Array("name" => "addresstype", "label" => " Hak av for Ã¥ registrere utenlandsk adresse",
                                             "checked" => (isset($data['addresstype'])) ? "checked" : ""));
     $fields[] = Array("label" => "Gateadresse", "type" => "textarea",
                       "attributes" => Array("name" => "street", "cols" => 70, "rows" => 3,
@@ -2339,7 +2339,7 @@ Om dere lager en facebook side til arrangementet, ikke glem &aring; putte inn le
     $fields[] = Array("label" => "Epost", "type" => "text",
                       "attributes" => Array("name" => "email" ,"size" => 50, "maxlength" => 120,
                                             "value" => (isset($data['email'])) ? $data['email'] : ""));
-    $fields[] = Array("label" => "Fødselsdato", "type" => "date",
+    $fields[] = Array("label" => "FÃ¸dselsdato", "type" => "date",
                       "attributes" => Array("name" => "birthdate",
                                             "value" => (isset($data['birthdate'])) ? $data['birthdate'] : "yyyy-mm-dd"));
     $fields[] = Array("label" => "Studiested", "type" => "select",
@@ -2348,7 +2348,7 @@ Om dere lager en facebook side til arrangementet, ikke glem &aring; putte inn le
     if (!isset($_SESSION['valid-user'])) {
 	    /*$fields[] = Array("label" => "aktiv i en forening?", "type" => "checkbox",
       	                "attributes" => Array("name" => "active",
-      	                											"label" => " hak av om du er eller vil bli aktiv i en forening på Studentersamfundet",
+      	                											"label" => " hak av om du er eller vil bli aktiv i en forening pÃ¥ Studentersamfundet",
           	                                  "checked" => (isset($data['active'])) ? "checked" : ""));
     	$fields[] = Array("label" => "forening", "type" => "select",
       	                "attributes" => Array("name" => "division", "values" => $divs,
@@ -2357,7 +2357,7 @@ Om dere lager en facebook side til arrangementet, ikke glem &aring; putte inn le
     } else {
 	    $fields[] = Array("label" => "Legg til i gruppe?", "type" => "checkbox",
       	                "attributes" => Array("name" => "group",
-        	                                    "label" => " Hak av for å registrere bruker i en gruppe",
+        	                                    "label" => " Hak av for Ã¥ registrere bruker i en gruppe",
           	                                  "checked" => (isset($data['group'])) ? "checked" : ""));
     	$fields[] = Array("label" => "Gruppe", "type" => "select",
       	                "attributes" => Array("name" => "group_id", "values" => $groups,
@@ -2420,7 +2420,7 @@ Om dere lager en facebook side til arrangementet, ikke glem &aring; putte inn le
                            "attributes" => Array("name" => "lastname" ,"size" => 50, "maxlength" => 50,
                                                  "readonly" => $readonly, "value" => $user->lastname));
     $fields[] = Array("label" => "utenlandsk adresse?", "type" => "checkbox",
-                      "attributes" => Array("name" => "addresstype", "label" => " Hak av for å registrere utenlandsk adresse",
+                      "attributes" => Array("name" => "addresstype", "label" => " Hak av for Ã¥ registrere utenlandsk adresse",
                                             "readonly" => $readonly, "checked" => $user->addresstype == "int" ? "checked" : ""));
     $fields[] = Array("label" => "gateadresse", "type" => "textarea",
                            "attributes" => Array("name" => "street", "cols" => 70, "rows" => 3,
@@ -2455,7 +2455,7 @@ Om dere lager en facebook side til arrangementet, ikke glem &aring; putte inn le
     }
 
     if ($user->validAddress ==  0) {
-      $validAddressMessage = "Postadressen er merket som ugyldig, vennligst undersøk om det er riktig adresse";
+      $validAddressMessage = "Postadressen er merket som ugyldig, vennligst undersÃ¸k om det er riktig adresse";
       $fields[] = Array("label" => "adressestatus",
                         "type" => "text",
                         "attributes" => Array("name" => "addressestatus", "readonly" => true,
@@ -2469,7 +2469,7 @@ Om dere lager en facebook side til arrangementet, ikke glem &aring; putte inn le
     $fields[] = Array("label" => "epost", "type" => "text",
                            "attributes" => Array("name" => "email" ,"size" => 50, "maxlength" => 120,
                                                  "readonly" => $readonly, "value" => $user->email));
-    $fields[] = Array("label" => "fødselsdato", "type" => "date",
+    $fields[] = Array("label" => "fÃ¸dselsdato", "type" => "date",
                            "attributes" => Array("name" => "birthdate",
                                                  "readonly" => $readonly, "value" => $user->birthdate));
     $fields[] = Array("label" => "studiested", "type" => "select",
@@ -2484,7 +2484,7 @@ Om dere lager en facebook side til arrangementet, ikke glem &aring; putte inn le
                           "attributes" => Array("name" => "cardProduced",
                           "disabled" => $readonly, "value" => $user->getCardProduced()));
     }
-    $fields[] = Array("label" => "har fått utlevert medlemskort", "type" => "hidden",
+    $fields[] = Array("label" => "har fÃ¥tt utlevert medlemskort", "type" => "hidden",
                       "attributes" => Array("name" => "cardDelivered",
                       "disabled" => $readonly, "value" => $user->getCardDelivered()));
 
@@ -2518,7 +2518,7 @@ Om dere lager en facebook side til arrangementet, ikke glem &aring; putte inn le
     	$fields[] = Array("label" => "medlem", "type" => "hidden",
                       	"attributes" => Array("name" => "userid",
                        											  "value" => $user->id));
-    	$fields[] = Array("label" => "registrér bruker i ny gruppe", "type" => "select",
+    	$fields[] = Array("label" => "registrÃ©r bruker i ny gruppe", "type" => "select",
                     		"attributes" => Array("name" => "groupid", "values" => $groups));
 
 	    $form = new Form($title, $enctype, $method, $action, $fields);
@@ -2558,7 +2558,7 @@ Om dere lager en facebook side til arrangementet, ikke glem &aring; putte inn le
     $fields[] = Array("label" => "brukernavn", "type" => "text",
                       "attributes" => Array("name" => "username", "size" => 12, "maxlength" => 12,
                                             "value" => $user->username,
-                                            "help" => "Om brukernavnet er i bruk på forumet kreves det at du oppgir samme passord som på forumet for å verifisere at det er ditt brukernavn."));
+                                            "help" => "Om brukernavnet er i bruk pÃ¥ forumet kreves det at du oppgir samme passord som pÃ¥ forumet for Ã¥ verifisere at det er ditt brukernavn."));
     $fields[] = Array("label" => "passord", "type" => "password",
                       "attributes" => Array("name" => "password"));
     $form = new Form($title, $enctype, $method, $action, $fields);
@@ -2572,7 +2572,7 @@ Om dere lager en facebook side til arrangementet, ikke glem &aring; putte inn le
 
     print("<div id=\"statusField\">&nbsp;</div>");
 
-    $title   = "registrér dokumenttype";
+    $title   = "registrÃ©r dokumenttype";
     $enctype = NULL;
     $method  = "post";
     $action  = "javascript: addCategory('document');";
@@ -2587,7 +2587,7 @@ Om dere lager en facebook side til arrangementet, ikke glem &aring; putte inn le
   }
 
   public function _editDocumentCategory(){
-    $title   = "oppdatér dokumenttype";
+    $title   = "oppdatÃ©r dokumenttype";
     $documentcat = new DocumentCategory(scriptParam("documentcategoryid"));
 
     $enctype = NULL;
@@ -2614,7 +2614,7 @@ Om dere lager en facebook side til arrangementet, ikke glem &aring; putte inn le
 
     print("<div id=\"statusField\">&nbsp;</div>");
 
-    $title   = "registrér aktivitetstype";
+    $title   = "registrÃ©r aktivitetstype";
     $enctype = NULL;
     $method  = "post";
     $action  = "javascript: addCategory('event');";
@@ -2629,7 +2629,7 @@ Om dere lager en facebook side til arrangementet, ikke glem &aring; putte inn le
   }
 
   public function _editEventCategory(){
-    $title   = "oppdatér aktivitetstype";
+    $title   = "oppdatÃ©r aktivitetstype";
     $eventcat = new EventCategory(scriptParam("eventcategoryid"));
 
     $enctype = NULL;
@@ -2656,7 +2656,7 @@ Om dere lager en facebook side til arrangementet, ikke glem &aring; putte inn le
 
     print("<div id=\"statusField\">&nbsp;</div>");
 
-    $title   = "registrér stillingstype";
+    $title   = "registrÃ©r stillingstype";
     $enctype = NULL;
     $method  = "post";
     $action  = "javascript: addCategory('job');";
@@ -2671,7 +2671,7 @@ Om dere lager en facebook side til arrangementet, ikke glem &aring; putte inn le
   }
 
   public function _editJobCategory(){
-    $title   = "oppdatér stillingstype";
+    $title   = "oppdatÃ©r stillingstype";
     $jobcat = new JobCategory(scriptParam("jobcategoryid"));
 
     $enctype = NULL;
@@ -2717,7 +2717,7 @@ Om dere lager en facebook side til arrangementet, ikke glem &aring; putte inn le
 
     print("<div id=\"statusField\">&nbsp;</div>");
 
-    $title   = "registrér produkt";
+    $title   = "registrÃ©r produkt";
     $enctype = "multipart/form-data";
     $method  = "post";
     $action  = "index.php?action=register-product&amp;page=register-product";
@@ -2732,11 +2732,11 @@ Om dere lager en facebook side til arrangementet, ikke glem &aring; putte inn le
     $fields[] = Array("label" => "kommentarfelt", "type" => "select",
                       "attributes" => Array("name" => "allow_comment",
                                             "values" => $comment_options,
-                                            "help" => "Dette feltet angir om kunder kan legge til kommentarer ved kjøp. Bruk dette dersom man skal oppgi for eksempel størrelser."));
+                                            "help" => "Dette feltet angir om kunder kan legge til kommentarer ved kjÃ¸p. Bruk dette dersom man skal oppgi for eksempel stÃ¸rrelser."));
     $fields[] = Array("label" => "vis i butikk", "type" => "select",
                       "attributes" => Array("name" => "display_in_shop",
                                             "values" => $display_options,
-                                            "help" => "Dette feltet angir om produktet skal vises i nettbutikken. Dette gjelder de fleste produkter. Noen produkter (for eksempel medlemskap) skal normalt ikke vises i butikken, men kun være tilgjengelig gjennom andre sider. Dette feltet kan også brukes for å midlertidig fjerne produkter fra butikken."));
+                                            "help" => "Dette feltet angir om produktet skal vises i nettbutikken. Dette gjelder de fleste produkter. Noen produkter (for eksempel medlemskap) skal normalt ikke vises i butikken, men kun vÃ¦re tilgjengelig gjennom andre sider. Dette feltet kan ogsÃ¥ brukes for Ã¥ midlertidig fjerne produkter fra butikken."));
     $fields[]  =Array("label" => "bilde", "type" => "file",
                       "attributes" => Array("name" => "userfile", "size" => 55));
     $form = new Form($title, $enctype, $method, $action, $fields);
@@ -2744,7 +2744,7 @@ Om dere lager en facebook side til arrangementet, ikke glem &aring; putte inn le
   }
 
   public function _editProduct(){
-    $title   = "oppdatér produkt";
+    $title   = "oppdatÃ©r produkt";
     $product = new Product(scriptParam("productid"));
 		$comment_options = array(
 													array('id' => '0', 'title' => 'Ikke tillat kommentar'),
@@ -2776,11 +2776,11 @@ Om dere lager en facebook side til arrangementet, ikke glem &aring; putte inn le
     $fields[] = Array("label" => "kommentarfelt", "type" => "select",
                       "attributes" => Array("name" => "allow_comment",
                                             "currentValue" => $product->allow_comment, "values" => $comment_options,
-                                            "help" => "Dette feltet angir om kunder kan legge til kommentarer ved kjøp. Bruk dette dersom man skal oppgi for eksempel størrelser."));
+                                            "help" => "Dette feltet angir om kunder kan legge til kommentarer ved kjÃ¸p. Bruk dette dersom man skal oppgi for eksempel stÃ¸rrelser."));
     $fields[] = Array("label" => "vis i butikk", "type" => "select",
                       "attributes" => Array("name" => "display_in_shop",
                                             "currentValue" => $product->display_in_shop, "values" => $display_options,
-                                            "help" => "Dette feltet angir om produktet skal vises i nettbutikken. Dette gjelder de fleste produkter. Noen produkter (for eksempel medlemskap) skal normalt ikke vises i butikken, men kun være tilgjengelig gjennom andre sider. Dette feltet kan også brukes for å midlertidig fjerne produkter fra butikken."));
+                                            "help" => "Dette feltet angir om produktet skal vises i nettbutikken. Dette gjelder de fleste produkter. Noen produkter (for eksempel medlemskap) skal normalt ikke vises i butikken, men kun vÃ¦re tilgjengelig gjennom andre sider. Dette feltet kan ogsÃ¥ brukes for Ã¥ midlertidig fjerne produkter fra butikken."));
     $fields[]  =Array("label" => "bilde", "type" => "file",
                       "attributes" => Array("name" => "userfile", "size" => 55));
     $form = new Form($title, $enctype, $method, $action, $fields);
@@ -2792,10 +2792,10 @@ Om dere lager en facebook side til arrangementet, ikke glem &aring; putte inn le
   public
   function _registerMembership(){
     ?>
-    <h3>Har du allerede kjøpt medlemskap og fått medlemskort i en av barene på Chateau Neuf?</h3>
-    <p>Bruk ditt kortnummeret og telefonnummer til å <a href="https://inside.studentersamfundet.no/sms/register.php">registere medlemskapet på din bruker her</a>.</p>
-    <h3>Ønsker du å kjøpe nytt medlemskap eller fornye ditt medlemskap?</h3>
-    <p>Les mer om hvordan du kan <a href="https://studentersamfundet.no/bli-medlem/">kjøpe nytt medlemskap her</a>.</p>
+    <h3>Har du allerede kjÃ¸pt medlemskap og fÃ¥tt medlemskort i en av barene pÃ¥ Chateau Neuf?</h3>
+    <p>Bruk ditt kortnummeret og telefonnummer til Ã¥ <a href="https://inside.studentersamfundet.no/sms/register.php">registere medlemskapet pÃ¥ din bruker her</a>.</p>
+    <h3>Ã˜nsker du Ã¥ kjÃ¸pe nytt medlemskap eller fornye ditt medlemskap?</h3>
+    <p>Les mer om hvordan du kan <a href="https://studentersamfundet.no/bli-medlem/">kjÃ¸pe nytt medlemskap her</a>.</p>
     <?php
     //$title   = "Registrer medlemskap";
 
@@ -2826,10 +2826,10 @@ Om dere lager en facebook side til arrangementet, ikke glem &aring; putte inn le
   public
   function _renewMembership(){
     ?>
-    <h3>Har du allerede kjøpt medlemskap og fått medlemskort i en av barene på Chateau Neuf?</h3>
-    <p>Bruk ditt kortnummeret og telefonnummer til å <a href="https://inside.studentersamfundet.no/sms/register.php">registere medlemskapet på din bruker her</a>.</p>
-    <h3>Ønsker du å kjøpe nytt medlemskap eller fornye ditt medlemskap?</h3>
-    <p>Les mer om hvordan du kan <a href="https://studentersamfundet.no/bli-medlem/">kjøpe nytt medlemskap her</a>.</p>
+    <h3>Har du allerede kjÃ¸pt medlemskap og fÃ¥tt medlemskort i en av barene pÃ¥ Chateau Neuf?</h3>
+    <p>Bruk ditt kortnummeret og telefonnummer til Ã¥ <a href="https://inside.studentersamfundet.no/sms/register.php">registere medlemskapet pÃ¥ din bruker her</a>.</p>
+    <h3>Ã˜nsker du Ã¥ kjÃ¸pe nytt medlemskap eller fornye ditt medlemskap?</h3>
+    <p>Les mer om hvordan du kan <a href="https://studentersamfundet.no/bli-medlem/">kjÃ¸pe nytt medlemskap her</a>.</p>
     <?php
     //$title   = "aktiver medlemskap";
 
@@ -2843,7 +2843,7 @@ Om dere lager en facebook side til arrangementet, ikke glem &aring; putte inn le
     //                                        "value" => getCurrentUser()));
     //$fields[] = Array("label" => "aktiveringsnummer", "type" => "text",
     //                  "attributes" => Array("name" => "cardno", "size" => 12, "maxlength" => 10,
-    //                                        "comment" => "Bruk aktiveringsnummeret på arket du fikk da du kjøpte medlemskapet ditt."));
+    //                                        "comment" => "Bruk aktiveringsnummeret pÃ¥ arket du fikk da du kjÃ¸pte medlemskapet ditt."));
     //$fields[] = Array("label" => "aktiveringskode", "type" => "text",
     //                  "attributes" => Array("name" => "verificationCode", "size" => 12, "maxlength" => 20));
     //$form = new Form($title, $enctype, $method, $action, $fields);
@@ -2891,31 +2891,31 @@ Om dere lager en facebook side til arrangementet, ikke glem &aring; putte inn le
                                             "value" => $trans_id));
     if ($value == NULL) {
      	if (@$product != NULL){
-    		$fields[] = Array("label" => "beløp", "type" => "text",
+    		$fields[] = Array("label" => "belÃ¸p", "type" => "text",
       		                "attributes" => Array("name" => "amount", "size" => 5, "maxlength" => 5,
 																							"value" => $product->price, "readonly" => "readonly"));
      	}else {
-	    	$fields[] = Array("label" => "beløp", "type" => "text",
+	    	$fields[] = Array("label" => "belÃ¸p", "type" => "text",
       	                "attributes" => Array("name" => "amount", "size" => 5, "maxlength" => 5));
      	}
  	  }else {
-    	$fields[] = Array("label" => "beløp", "type" => "text",
+    	$fields[] = Array("label" => "belÃ¸p", "type" => "text",
       	                "attributes" => Array("name" => "amount", "size" => 5, "maxlength" => 5,
 																							"value" => $value, "readonly" => "readonly"));
     }
 
     $fields[] = Array("label" => "VISA-kortnummer", "type" => "text",
                       "attributes" => Array("name" => "cardNumber", "size" => 16, "maxlength" => 16));
-    $fields[] = Array("label" => "utløpsmåned", "type" => "text",
+    $fields[] = Array("label" => "utlÃ¸psmÃ¥ned", "type" => "text",
                       "attributes" => Array("name" => "cardNumberExpireMonth", "size" => 2, "maxlength" => 2));
-    $fields[] = Array("label" => "utløpsår", "type" => "text",
+    $fields[] = Array("label" => "utlÃ¸psÃ¥r", "type" => "text",
                       "attributes" => Array("name" => "cardNumberExpireYear", "size" => 2, "maxlength" => 2));
     $fields[] = Array("label" => "cvc", "type" => "text",
                       "attributes" => Array("name" => "cardNumberCVC", "size" => 3, "maxlength" => 3));
     $form = new Form($title, $enctype, $method, $action, $fields);
     $form->display();
     ?>
-    <p><img src="graphics/payex.png" alt="" style="display: inline;"/> Betalingen håndteres av <a href="http://www.payex.no/">Payex</a>.</p>
+    <p><img src="graphics/payex.png" alt="" style="display: inline;"/> Betalingen hÃ¥ndteres av <a href="http://www.payex.no/">Payex</a>.</p>
     <?php
   }
 
@@ -2973,7 +2973,7 @@ Om dere lager en facebook side til arrangementet, ikke glem &aring; putte inn le
     if (!empty($order_id)){
 	    $order = new Order($order_id);
 			if ($order->user_id != getCurrentUser()) {
-				notify("Ugyldig ordrenummer. Gå tilbake og prøv igjen.");
+				notify("Ugyldig ordrenummer. GÃ¥ tilbake og prÃ¸v igjen.");
 				return;
 			}
     	$order->display();
@@ -3016,13 +3016,13 @@ Om dere lager en facebook side til arrangementet, ikke glem &aring; putte inn le
     $order_id = scriptParam("order_id");
 		$order = new Order($order_id);
 		if ($order->user_id != getCurrentUser()) {
-			notify("Ugyldig ordrenummer. Gå tilbake og prøv igjen.");
+			notify("Ugyldig ordrenummer. GÃ¥ tilbake og prÃ¸v igjen.");
 			return;
 		}
 
  		$order->displayShortList();
 
- 		$title   = "Utfør betaling";
+ 		$title   = "UtfÃ¸r betaling";
     $enctype = NULL;
     $method  = "post";
    	$action  = "index.php?action=cart-checkout";
@@ -3042,22 +3042,22 @@ Om dere lager en facebook side til arrangementet, ikke glem &aring; putte inn le
     $fields[] = Array("label" => "trans id", "type" => "hidden",
                       "attributes" => Array("name" => "transactionid", "size" => 12, "maxlength" => 20,
                                             "value" => $trans_id));
-   	$fields[] = Array("label" => "beløp", "type" => "text",
+   	$fields[] = Array("label" => "belÃ¸p", "type" => "text",
       	                "attributes" => Array("name" => "amount", "size" => 5, "maxlength" => 5,
 																							"value" => $value, "readonly" => "readonly"));
     $fields[] = Array("label" => "VISA-kortnummer", "type" => "text",
                       "attributes" => Array("name" => "cardNumber", "size" => 16, "maxlength" => 16));
-    $fields[] = Array("label" => "utløpsmåned", "type" => "text",
+    $fields[] = Array("label" => "utlÃ¸psmÃ¥ned", "type" => "text",
                       "attributes" => Array("name" => "cardNumberExpireMonth", "size" => 2, "maxlength" => 2));
-    $fields[] = Array("label" => "utløpsår", "type" => "text",
+    $fields[] = Array("label" => "utlÃ¸psÃ¥r", "type" => "text",
                       "attributes" => Array("name" => "cardNumberExpireYear", "size" => 2, "maxlength" => 2));
     $fields[] = Array("label" => "cvc", "type" => "text",
                       "attributes" => Array("name" => "cardNumberCVC", "size" => 3, "maxlength" => 3,
-                      											"help" => "CVC-koden finner du på baksiden av VISA-kortet ditt, som oftest i signaturfeltet. Det er de tre siste sifrene som skal brukes."));
+                      											"help" => "CVC-koden finner du pÃ¥ baksiden av VISA-kortet ditt, som oftest i signaturfeltet. Det er de tre siste sifrene som skal brukes."));
     $form = new Form($title, $enctype, $method, $action, $fields);
     $form->display();
     ?>
-    <p><img src="graphics/payex.png" alt="" style="display: inline;"/> Betalingen håndteres av <a href="http://www.payex.no/">Payex</a>.</p>
+    <p><img src="graphics/payex.png" alt="" style="display: inline;"/> Betalingen hÃ¥ndteres av <a href="http://www.payex.no/">Payex</a>.</p>
     <?php
 
   }
@@ -3065,12 +3065,8 @@ Om dere lager en facebook side til arrangementet, ikke glem &aring; putte inn le
   public
   function _displaySmsLog() {
 	  if (!isset($conn)) {
-      $conn = & DB :: connect(getDSN());
-	  }
-
-    if (DB :: isError($conn)) {
-        error("error: " . $conn->toString());
-    }
+          $conn = db_connect();
+      }
 
     $since = scriptParam("since") ? scriptParam("since") : date('Y-m-d', strtotime( getNextMembershipExpiryDate() . " -1 year" ) );
 
@@ -3177,7 +3173,7 @@ Om dere lager en facebook side til arrangementet, ikke glem &aring; putte inn le
       $search = trim($fornavn . " " . $etternavn);
     }
 
-      $title   = "Søk på kortnummer, fornavn og/eller etternavn";
+      $title   = "SÃ¸k pÃ¥ kortnummer, fornavn og/eller etternavn";
       $id      = "usersearch";
       $enctype = NULL;
       $method  = "post";
@@ -3244,10 +3240,10 @@ Om dere lager en facebook side til arrangementet, ikke glem &aring; putte inn le
             } else {
               print "<input type=\"hidden\" name=\"subaction\" value=\"sticker-sale\" />";
               print "<select name=\"new-sticker-date\">\n";
-              print "<option value=\"" . getExpiryDate("now") . "\">" . "i år (" . getStickerPeriod(getExpiryDate('now')) . ")" . "</option>\n";
-              print "<option value=\"" . getExpiryDate("+1 year") . "\">" . "neste år (" . getStickerPeriod(getExpiryDate("+1 year")) . ")" . "</option>\n";
-              print "<option value=\"" . getExpiryDate("+3 year") . "\">" . "tre år (" . getStickerPeriod(getExpiryDate("+3 year")) . ")" . "</option>\n";
-              print "<option value=\"" . getExpiryDate("+5 year") . "\">" . "fem år (" . getStickerPeriod(getExpiryDate("+5 year")) . ")" . "</option>\n";
+              print "<option value=\"" . getExpiryDate("now") . "\">" . "i Ã¥r (" . getStickerPeriod(getExpiryDate('now')) . ")" . "</option>\n";
+              print "<option value=\"" . getExpiryDate("+1 year") . "\">" . "neste Ã¥r (" . getStickerPeriod(getExpiryDate("+1 year")) . ")" . "</option>\n";
+              print "<option value=\"" . getExpiryDate("+3 year") . "\">" . "tre Ã¥r (" . getStickerPeriod(getExpiryDate("+3 year")) . ")" . "</option>\n";
+              print "<option value=\"" . getExpiryDate("+5 year") . "\">" . "fem Ã¥r (" . getStickerPeriod(getExpiryDate("+5 year")) . ")" . "</option>\n";
               print "</select>\n";
               print "<input type=\"submit\" value=\"Selg oblat\" />";
             }
@@ -3285,7 +3281,7 @@ Om dere lager en facebook side til arrangementet, ikke glem &aring; putte inn le
         }
         print "</table>";
       } else {
-        print "<p>Ingen tidligere medlemmer funnet innenfor valgte søk.</p>";
+        print "<p>Ingen tidligere medlemmer funnet innenfor valgte sÃ¸k.</p>";
       }
 
       /*

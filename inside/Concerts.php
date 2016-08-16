@@ -110,7 +110,7 @@ class Concerts {
           <th>tittel</th>
           <th>type</th>
           <th>sted</th>
-          <th>arrangør</th>
+          <th>arrangÃ¸r</th>
           <th>dato</th>
           <?php if(checkAuth("view-edit-options-concert")){
         ?><th colspan="2">&nbsp;</th><?php } ?>

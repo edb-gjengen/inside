@@ -128,13 +128,13 @@ class Position {
     <p><?php print prepareForHTML($this->text); ?></p>
 <?php
      if ($ads->numRows() > 0){?>
-     <h4>Denne stillingen er for øyeblikket utlyst:</h4>
+     <h4>Denne stillingen er for Ã¸yeblikket utlyst:</h4>
      <ul>
 <?php
        while ($row =& $ads->fetchRow(DB_FETCHMODE_OBJECT)){?>
         <li>
           <a href="index.php?page=display-job&amp;jobid=<?php print $row->id; ?>">
-           Søknadsfrist <?php print(formatDatetime($row->expires)); ?></a>
+           SÃ¸knadsfrist <?php print(formatDatetime($row->expires)); ?></a>
         </li>
 <?php
        }?>

@@ -50,7 +50,7 @@ class ProgramsSelection {
           }
         print("      </table>");
       }else {?>
-      <p>Ingen programutvalg er registrert ennå.</p>
+      <p>Ingen programutvalg er registrert ennÃ¥.</p>
 <?php        
       }
     }else {

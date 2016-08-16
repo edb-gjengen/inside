@@ -86,8 +86,8 @@ Class Calendar {
         <th>Onsdag</th>
         <th>Torsdag</th>
         <th>Fredag</th>
-        <th>Lørdag</th>
-        <th>Søndag</th>
+        <th>LÃ¸rdag</th>
+        <th>SÃ¸ndag</th>
       </tr>
 
       <tr>
@@ -183,7 +183,7 @@ Class Calendar {
 				<label class="calendar-concert btn"><input type="checkbox" id="calendar-toggle-concerts" 
 							onclick="toggleElements('div', 'calendar-concert', this);"
 							checked="checked" />
-											 Åpne arrangementer</label>
+											 Ã…pne arrangementer</label>
 			</div>
 			<?php
       break;

@@ -107,7 +107,7 @@ class Product {
 			  $this->_storeFilenames();
         notify("Produkt oppdatert.");
       }else {
-        notify("Problemer med lagring av produkt. Ingen endringer utført.");
+        notify("Problemer med lagring av produkt. Ingen endringer utfÃ¸rt.");
         error("Update product: " . $result->toString());
       }
     }
@@ -150,7 +150,7 @@ class Product {
             if ($conn->affectedRows() > 0) {
                 notify("Produktet er slettet.");
             } else {
-                notify("Ugyldig produktid, ingen handling utført.");        
+                notify("Ugyldig produktid, ingen handling utfÃ¸rt.");        
             }
         } else {
             error($result->toString());
@@ -286,14 +286,14 @@ AND t.status = 'OK' " .
     $result =& $this->conn->query($sql);
 
     if (DB::isError($result) == true){
-			notify('Liste over kjøpere er ikke tilgjengelig.');
+			notify('Liste over kjÃ¸pere er ikke tilgjengelig.');
 			error('List buyers: ' . $result->toString());
     }
 		?>
 		<table>
 			<tr>
 				<th>#</th>
-				<th>kjøper</th>
+				<th>kjÃ¸per</th>
 				<th>antall</th>
 				<th>status</th>
 				<th>endre status</th>

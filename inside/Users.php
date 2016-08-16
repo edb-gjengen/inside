@@ -138,7 +138,7 @@ class Users {
           <th>fornavn</th>
           <th>etternavn</th>
           <th>medlemskort</th>
-          <th>utløpsår</th>
+          <th>utlÃ¸psÃ¥r</th>
           <th><?php print(($expiry == "no-card")? "mangler medlemskort" : "endre til"); ?></th>
           <th>oblat</th>
           <th>endre til</th>
@@ -200,7 +200,7 @@ class Users {
           <th>fornavn</th>
           <th>etternavn</th>
           <th>medlemskort</th>
-          <th>utløpsår</th>
+          <th>utlÃ¸psÃ¥r</th>
           <th>endre til</th>
           <th>oblat</th>
           <th>endre til</th>
@@ -241,7 +241,7 @@ class Users {
         }
       print("      </table>");
     }else {
-      print("<p>Ingen medlemmer funnet innenfor valgte søk.</p>");
+      print("<p>Ingen medlemmer funnet innenfor valgte sÃ¸k.</p>");
     }
   }
 
@@ -276,7 +276,7 @@ AND udr.division_id_request = d.id";
     $this->getDivisionRequestList();
     if ($this->users->numRows() > 0){
 ?>
-      <p>Disse medlemmene har haket av for at de var aktive i din forening da de registrerte seg. Sjekk om dette stemmer. Dersom du ikke tror de er aktive kan du gjerne kontakte dem og høre om de vil bli aktive!</p>
+      <p>Disse medlemmene har haket av for at de var aktive i din forening da de registrerte seg. Sjekk om dette stemmer. Dersom du ikke tror de er aktive kan du gjerne kontakte dem og hÃ¸re om de vil bli aktive!</p>
       <p>Antall treff: <?php print($this->users->numRows()); ?></p>
       <table class="sortable" id="divreqlist">
         <tr>
@@ -294,7 +294,7 @@ AND udr.division_id_request = d.id";
         }
       print("      </table>");
     }else {
-      print("<p>Ingen forespørseler registrert.</p>");
+      print("<p>Ingen forespÃ¸rseler registrert.</p>");
     }
   }
 
@@ -360,11 +360,11 @@ AND udr.division_id_request = d.id";
 
     print "<p>";
     print "<a href=\"" . $_SERVER["PHP_SELF"] . "?page=" . $_GET["page"] . "\">Vis alle</a> | ";
-    print "<a href=\"" . $_SERVER["PHP_SELF"] . "?page=" . $_GET["page"] . "&year=current\">inneværende år</a>";
+    print "<a href=\"" . $_SERVER["PHP_SELF"] . "?page=" . $_GET["page"] . "&year=current\">innevÃ¦rende Ã¥r</a>";
     print "</p>";
 
     if ($year) {
-      print "<p>Viser oversikt over studiestuder for alle som har betalt medlemskap i nåværende år.</p>";
+      print "<p>Viser oversikt over studiestuder for alle som har betalt medlemskap i nÃ¥vÃ¦rende Ã¥r.</p>";
     } else {
       print "<p>Viser alle medlemmer som noensinne har registrert seg.</p>";
     }
@@ -404,7 +404,7 @@ AND udr.division_id_request = d.id";
 
     if (isset($_POST["parseonly"])) {
         print "<h3>Resultater av fil-analysen</h3>\n";
-        print "<p>For å registrere medlemskapene i databasen, gå nederst på denne siden.</p>\n";
+        print "<p>For Ã¥ registrere medlemskapene i databasen, gÃ¥ nederst pÃ¥ denne siden.</p>\n";
     }
 
     // read each line
@@ -428,12 +428,12 @@ AND udr.division_id_request = d.id";
         $payment_user = new User($payment["kundenr"]);
 
         if (isset($_POST["parseonly"])) {
-            print "Fant KID-betaling på linje " . $i . ". Beløp " . $payment["amount"] . " ble betalt inn " . date("d.m.Y", $payment["date"]) . "<br />\n";
+            print "Fant KID-betaling pÃ¥ linje " . $i . ". BelÃ¸p " . $payment["amount"] . " ble betalt inn " . date("d.m.Y", $payment["date"]) . "<br />\n";
             print "Medlemsnr: " . $payment["kundenr"] . ", ". $payment_user->getName() . ", fakturanr: " . $payment["fakturanr"] . ", kontrollsiffer: " . $payment["CRC"] . ".<br />\n";
             if ($payment_user->isHonorMember()) {
                 print "<font color=\"red\">" . $payment_user->getName() . " er livsvarig medlem.</font><br />\n";
             } elseif ($payment_user->isMember()) {
-                print "<font color=\"red\">" . $payment_user->getName() . " er allerede medlem. Medlemsskapet vil bli satt til å være gyldig i ett år ekstra.</font><br />\n";
+                print "<font color=\"red\">" . $payment_user->getName() . " er allerede medlem. Medlemsskapet vil bli satt til Ã¥ vÃ¦re gyldig i ett Ã¥r ekstra.</font><br />\n";
             }
             print "<br />\n";
         } else {
@@ -446,9 +446,9 @@ AND udr.division_id_request = d.id";
     print "<br />Fant totalt $n betalinger i filen.<br />";
     if ($n > 0) {
         if (isset($_POST["parseonly"])) {
-            print "<b>Oppdateringen av medlemskapene er ikke lagret.</b> For å lagre oppdateringen må du velge å ikke analysere filen uten å oppdatere medlemskapsdatabasen nederst på denne siden.<br />\n";
+            print "<b>Oppdateringen av medlemskapene er ikke lagret.</b> For Ã¥ lagre oppdateringen mÃ¥ du velge Ã¥ ikke analysere filen uten Ã¥ oppdatere medlemskapsdatabasen nederst pÃ¥ denne siden.<br />\n";
         } else {
-            print "<b>Databasen er oppdatert med nytt medlemskap på personene.</b><br />\n";
+            print "<b>Databasen er oppdatert med nytt medlemskap pÃ¥ personene.</b><br />\n";
         }
     }
   }

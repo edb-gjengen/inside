@@ -20,13 +20,7 @@ class UserGroupRelationship {
   public
   function __construct($user_id = NULL, $group_id = NULL) {
 
-    $conn = & DB :: connect(getDSN());
-    if (DB :: isError($conn)) {
-      print ("error: ".$conn->toString());
-      exit ();
-    } else {
-      $this->conn = $conn;
-    }
+    $this->conn = db_connect();
 
     $this->user_id = $user_id;
     $this->group_id = $group_id;

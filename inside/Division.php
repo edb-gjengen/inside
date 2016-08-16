@@ -47,7 +47,7 @@ class Division {
         //$username = wp_strip_all_tags($username);
 
         $username = strtolower($username);
-        $username = strtr($username, "äåöæøå", "aaoaoa");
+        $username = strtr($username, "Ã¤Ã¥Ã¶Ã¦Ã¸Ã¥", "aaoaoa");
 
         // Kill octets
         $username = preg_replace('|%([a-fA-F0-9][a-fA-F0-9])|', '', $username);
@@ -199,11 +199,11 @@ class Division {
       if ($conn->affectedRows() > 0){
         notify("Foreningen er slettet.");
       }else {
-        notify("Ugyldig foreningsid, ingen handling utført.");        
+        notify("Ugyldig foreningsid, ingen handling utfÃ¸rt.");        
       }
     }else {
       if ($result->getCode() == -3){
-        notify("Det er brukergrupper knyttet til denne foreningen. Disse må slettes først.");
+        notify("Det er brukergrupper knyttet til denne foreningen. Disse mÃ¥ slettes fÃ¸rst.");
       }else {
         error($result->toString());
       }

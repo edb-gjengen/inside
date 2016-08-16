@@ -76,7 +76,7 @@ class BarShiftWorkers {
 	
 	  if ($list->numRows() > 0){
 ?>
-      <p>På jobb:</p>
+      <p>PÃ¥ jobb:</p>
       <table class="sortable" id="barshiftworkerlist">
         <tr>
           <th>navn</th>
