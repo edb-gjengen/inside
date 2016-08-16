@@ -669,21 +669,6 @@ function save_activation_form($data) {
     return true;
 }
 
-function get_purchase_date_legacy($phone, $activation_code) {
-    global $conn;
-
-    $gsm = substr($phone, 3); // strip off country code
-
-    $sql = "SELECT date FROM din_sms_sent WHERE activation_code=".$conn->quoteSmart($activation_code)." AND receiver=".$conn->quoteSmart($gsm);
-    $res = $conn->getOne($sql);
-
-    if( DB::isError($res) ) {
-        throw new InsideDatabaseException($res->getMessage().". DEBUG: ".$res->getDebugInfo());
-    }
-
-    return $res !== null ? $res : false;
-}
-
 function get_purchase_date_card($phone, $activation_code) {
     global $conn;
 
@@ -741,13 +726,6 @@ function get_purchase_date_and_source($phone, $activation_code) {
     /* Try SMS */
     if ($timestamp === false) {
         $timestamp = get_purchase_date_tekstmelding($phone, $activation_code);
-        $source = 'sms';
-    }
-
-    /* Try legacy SMS-table */
-    // FIXME: Remove if date later than 2016-02-01
-    if ($timestamp === false) {
-        $timestamp = get_purchase_date_legacy($phone, $activation_code);
         $source = 'sms';
     }
 
