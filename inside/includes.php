@@ -7,6 +7,10 @@ if (!isset($_SESSION['tinyMCE']['theme'])){
 }
 ini_set('display_errors', 1);
 
+// Override utf-8, which is default in php 5.6+
+// FIXME: remove?
+ini_set('default_charset','');
+
 $locale = Array('no_NO', 'nor_nor');
 setlocale(LC_TIME, $locale);
 
@@ -16,7 +20,7 @@ require_once "language.php";
 //Migration (nikolark)
 require_once "migration/ldap_api_functions.php";
 
-$path = "./includes".PATH_SEPARATOR."./includes/payex2".PATH_SEPARATOR."../includes";
+$path = "./includes".PATH_SEPARATOR."../includes";
 set_include_path(get_include_path() . PATH_SEPARATOR . $path);
 
 $include_path = "./includes/";
