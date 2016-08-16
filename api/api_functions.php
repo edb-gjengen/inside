@@ -162,13 +162,15 @@ function get_card($card_number) {
 
     $card = $res[0];
     /* Set expiry date */
-    $card['expires'] = date_format(date_modify(date_create($card['registered']), "+1 year"), "Y-m-d");
+    $expires = date_modify(date_create($card['registered']), "+1 year");
     if($card['owner_membership_trial']) {
         /* First of january next year, relative to registered date */
-        $card['expires'] = date_format(date_modify(date_create($card['registered']), "first day of january next year"), "Y-m-d");
+        $expires = date_modify(date_create($card['registered']), "first day of january next year");
     }
+    $card['expires'] = date_format($expires, "Y-m-d");
+
     /* Set is valid flag */
-    $card['has_valid_membership'] = $card['owner_phone_number'] && $card['expires'] <= date_create() ? "1": "0";
+    $card['has_valid_membership'] = $card['owner_phone_number'] && $expires >= date_create('today') ? "1": "0";
 
     return $card;
 
