@@ -50,8 +50,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
             return_json_response(array('error' => "Invalid phone number: '".$phone_number."'"), 400);
         }
         $card = get_card($card_number);
-        if($card['registered'] !== '') {
-            return_json_response(array('error' => 'Card number is in use and belongs to phone number: '.$card['owner_phone_number'].'.'), 400);
+        if($card['registered'] !== '' && $card['owner_phone_number'] !== $phone_number) {
+            return_json_response(array('error' => 'Card number is in use and belongs to another phone number: '.$card['owner_phone_number'].' (not '.$phone_number.').'), 400);
         }
         /* If user with phone number exists, then bail */
         $user_id = getUseridFromPhone($phone_number);
