@@ -124,6 +124,7 @@ $(document).ready(function() {
 
     $startInput.on('input', function(e) {
         start = $(e.target).val();
+        history.replaceState(null, null, '?start=' + start);
         recalc(start);
     })
 });
