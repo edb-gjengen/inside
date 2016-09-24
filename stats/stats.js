@@ -1,10 +1,9 @@
-var barSales;
-var appSales;
-var smsSales;
-var salesData;
+/* FIXME: Make this more generic */
+var saleTypes = ['bar', 'sms', 'app'];
+var salesData = {};
+
 var salesChart;
 var salesChartToday;
-var saleTypes = ['bar', 'sms', 'app'];
 
 var urls = {
     cards: 'https://kassa.neuf.no/stats/card-sales/',
@@ -25,44 +24,44 @@ function toHighchartsSeries(memberships) {
 
 function getBarSales(start) {
     return $.getJSON(urls.cards + '?start=' + start, function(data) {
-        barSales = data.memberships;
-        salesChart.addSeries({name: 'Bar-salg', data: toHighchartsSeries(barSales)});
+        salesData['bar'] = data.memberships;
+        salesChart.addSeries({name: 'Bar-salg', data: toHighchartsSeries(salesData['bar'])});
     });
 }
 
 function getSmsSales(start) {
     return $.getJSON(urls.tekstmelding + '?start=' + start, function(data) {
-        smsSales = data.memberships;
-        salesChart.addSeries({name: 'SMS-salg', data: toHighchartsSeries(smsSales)});
+        salesData['sms'] = data.memberships;
+        salesChart.addSeries({name: 'SMS-salg', data: toHighchartsSeries(salesData['sms'])});
     });
 }
 
 function getAppSales(start) {
     return $.getJSON(urls.snapporder + '?start=' + start, function (data) {
-        appSales = data.memberships;
-        salesChart.addSeries({name: 'App-salg', data: toHighchartsSeries(appSales)});
+        salesData['app'] = data.memberships;
+        salesChart.addSeries({name: 'App-salg', data: toHighchartsSeries(salesData['app'])});
     });
 }
 
 function totals() {
-    var barTotal = _.reduce(barSales, sumSales, 0);
-    $('.bar').html(barTotal);
-    var smsTotal = _.reduce(smsSales, sumSales, 0);
-    $('.sms').html(smsTotal);
-    var appTotal = _.reduce(appSales, sumSales, 0);
-    $('.app').html(appTotal);
+    var sum = 0;
+    _.each(saleTypes, function(type) {
+        var total = _.reduce(salesData[type], sumSales, 0);
+        $('.'+ type).html(total);
+        sum += total;
+    }) ;
 
-    $('.sum').html(barTotal + smsTotal + appTotal);
+    $('.sum').html(sum);
 }
 
 function today() {
     var today = moment.utc().format('YYYY-MM-DD');
     $('.today-date-wrap').text(today);
-    var todayBarSales = _.findWhere(barSales, {date: today}) || {sales: 0};
+    var todayBarSales = _.findWhere(salesData['bar'], {date: today}) || {sales: 0};
     $('.bar-today').html(todayBarSales.sales);
-    var todaySmsSales = _.findWhere(smsSales, {date: today}) || {sales: 0};
+    var todaySmsSales = _.findWhere(salesData['sms'], {date: today}) || {sales: 0};
     $('.sms-today').html(todaySmsSales.sales);
-    var todayAppSales = _.findWhere(appSales, {date: today}) || {sales: 0};
+    var todayAppSales = _.findWhere(salesData['app'], {date: today}) || {sales: 0};
     $('.app-today').html(todayAppSales.sales);
 
     $('.sum-today').html(todayBarSales.sales + todaySmsSales.sales + todayAppSales.sales);
@@ -90,23 +89,22 @@ function today() {
 }
 
 function groupSalesByDate() {
-    var types = {
-        'bar': barSales,
-        'sms': smsSales,
-        'app': appSales
-    };
     var salesByDate = {};
-    _.each(types, function (source, type) {
-        _.each(source, function (el) {
+    _.each(saleTypes, function (type) {
+        _.each(salesData[type], function (el) {
             var d = {};
-            d[el.date] = {
-                'bar': 0,
-                'sms': 0,
-                'app': 0
-            };
+            d[el.date] = {};
             d[el.date][type]= el.sales;
 
             $.extend(true, salesByDate, d);
+        });
+    });
+    /* add zeros */
+    _.each(salesByDate, function (sales, date) {
+        _.each(saleTypes, function (type) {
+            if(typeof sales[type] == 'undefined') {
+                salesByDate[date][type] = 0;
+            }
         });
     });
 
