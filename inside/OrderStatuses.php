@@ -10,7 +10,7 @@ class OrderStatuses {
   }
 
   function __construct(){
-    $this->conn =& db_connect();
+    $this->conn = db_connect();
   }
 
   public 

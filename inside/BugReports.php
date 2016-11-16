@@ -9,7 +9,7 @@ class BugReports {
   }
 
   function __construct($selection = "all"){
-	  $this->conn =& db_connect();
+	  $this->conn = db_connect();
 
 		switch ($selection) {
 			case "all":
